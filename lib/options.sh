@@ -3,7 +3,7 @@ __usage () {
     echo "Usage:"
     echo "    $(_color_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
-    echo "    $(_color_yellow "--all")                 - launch all tests"
+    echo "    $(_color_yellow "-a, --all")             - launch all tests"
     echo "    $(_color_yellow "--no-restart")          - do not restart container(s)"
     echo "    $(_color_yellow "--unit")                - enable phpunit"
     echo "    $(_color_yellow "--coverage")            - enable code coverage"
@@ -11,13 +11,14 @@ __usage () {
 
 __set_default_options () {
     PTS_EXECUTE=${PTS_TRUE}
+    PTS_REQUIRE_DEBUG_IMAGE=${PTS_FALSE}
     PTS_RESTART=${PTS_FALSE}
     PTS_ANALYSIS=${PTS_FALSE}
     PTS_METRICS=${PTS_FALSE}
     PTS_MULTI=${PTS_FALSE}
     PTS_CS=${PTS_FALSE}
     PTS_BEAUTY=${PTS_FALSE}
-    PTS_PHPUNIT=${PTS_FALSE}
+    PTS_PHPUNIT=${PTS_TRUE}
     PTS_PHPUNIT_COVERAGE=${PTS_FALSE}
     __ALL_OPTION=${PTS_FALSE}
 }
@@ -28,7 +29,8 @@ __process_options () {
         PTS_BEAUTY=${PTS_TRUE}
     fi
     if [ "${__ALL_OPTION}" -eq "${PTS_TRUE}" ]; then
-        PTS_ANALYSIS=${PTS_TRUE}
+        PTS_CS=${PTS_TRUE}
+        PTS_BEAUTY=${PTS_TRUE}
         PTS_PHPUNIT=${PTS_TRUE}
         PTS_PHPUNIT_COVERAGE=${PTS_TRUE}
     fi
@@ -36,6 +38,7 @@ __process_options () {
 
 __export_options () {
     export PTS_EXECUTE
+    export PTS_REQUIRE_DEBUG_IMAGE
     export PTS_RESTART
     export PTS_ANALYSIS
     export PTS_METRICS
@@ -49,16 +52,17 @@ __export_options () {
 _show_options () {
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
-        __show_option "${PTS_EXECUTE}" "Execute"
+        _show_option "${PTS_EXECUTE}" "Execute"
+        _show_option "${PTS_REQUIRE_DEBUG_IMAGE}" "Debug image required"
+        _show_option "${PTS_ANALYSIS}" "Analysis"
     fi
-    __show_option "${PTS_RESTART}" "Container restart"
-    __show_option "${PTS_ANALYSIS}" "Analysis"
-    __show_option "${PTS_METRICS}" "PHPMetrics"
-    __show_option "${PTS_MULTI}" "Multi-tester"
-    __show_option "${PTS_CS}" "Code sniffer"
-    __show_option "${PTS_BEAUTY}" "Beautifier"
-    __show_option "${PTS_PHPUNIT}" "PHPUnit"
-    __show_option "${PTS_PHPUNIT_COVERAGE}" "Code coverage"
+    # _show_option "${PTS_RESTART}" "Container restart"
+    _show_option "${PTS_METRICS}" "PHPMetrics"
+    _show_option "${PTS_MULTI}" "Multi-tester"
+    _show_option "${PTS_CS}" "Code sniffer"
+    _show_option "${PTS_BEAUTY}" "Beautifier"
+    _show_option "${PTS_PHPUNIT}" "PHPUnit"
+    _show_option "${PTS_PHPUNIT_COVERAGE}" "Code coverage"
 }
 
 _read_options () {
@@ -78,27 +82,28 @@ _read_options () {
                 exit "${PTS_TRUE}"
                 ;;
             # Undocumented
-            --save-build-hash)                      
+            --save-build-hash)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 _BUILD="$(_get_git_hash)"
                 if [ "${_BUILD}" != "" ]
                 then
-                    echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"   
+                    echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"
                     _log_debug "Saved build hash '${_BUILD}' to '${LIB_DIR:-.}/BUILD'"
                 fi
                 exit "${PTS_TRUE}"
                 ;;
             # Undocumented
-            --no-exec)                      
+            --no-exec)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_EXECUTE=${PTS_FALSE}
                 ;;
-            --all)
+            -a | --all)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 __ALL_OPTION=${PTS_TRUE}
                 ;;
             --analyze)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_ANALYSIS=${PTS_TRUE}
                 ;;
             --unit)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
@@ -123,7 +128,7 @@ _read_options () {
                 ;;
             *)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                _log_error "Unknown option '${PARAM}'"                
+                _log_error "Unknown option '${PARAM}'"
                 __usage
                 exit 1
                 ;;
@@ -132,4 +137,5 @@ _read_options () {
     done
     __process_options
     __export_options
+    unset PARAM VALUE
 }

@@ -4,7 +4,21 @@ if [ -z "${LIB_DIR:-}" ]; then
     exit 1
 fi
 
-_log_debug "PHPUnit launch script"
+_phpunit_exec () {
+    if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ] 
+    then
+        if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]
+        then
+            _log_debug "PHPUnit launch script"
+            _log_print "$(_color_dark "PHP Version:")\n$(__php_version)"
+        fi
+    fi
+    unset __version
+}
+
+__php_version () {
+    docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app php -v
+}
 # info "PhpUnit..."
 # if [[ ${EXEC} == 1 ]]
 # then

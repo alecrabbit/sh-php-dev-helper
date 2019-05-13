@@ -4,6 +4,7 @@ set -u  # Treat unset variables as an error.
 SCRIPT_NAME="$(basename "$0")"
 SCRIPT_DIR="$(dirname "$0")"
 LIB_DIR="${SCRIPT_DIR}/lib"
+COMMANDS_DIR="${LIB_DIR}/commands"
 WORK_DIR="${PWD}"
 
 # shellcheck disable=SC1090
@@ -16,6 +17,10 @@ WORK_DIR="${PWD}"
 . "${LIB_DIR}/options.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/helpers.sh"
+# shellcheck disable=SC1090
+. "${LIB_DIR}/settings.sh"
+# shellcheck disable=SC1090
+. "${COMMANDS_DIR}/phpunit.sh"
 
 _read_options "$@"
 
@@ -29,13 +34,14 @@ __title="${__TITLE} - Testing..."
 _log_debug "Setting title '${__title}'"
 _pts_set_terminal_title "${__title}"
 
-_show_options 
+_show_options
+_is_debug_image_used
 
 if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ] 
 then
     _log_debug "Executing..."
-    sleep 1
 fi
+_phpunit_exec
 
 ### Finish
 __title="${__TITLE}"

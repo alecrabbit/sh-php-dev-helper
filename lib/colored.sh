@@ -76,7 +76,6 @@ _color_bold_cyan () {
     echo "${__col_ansi_bold_cyan}$*${__col_ansi_none}"
 }
 
-
 _core_configureColor() {
   __col_color=${COL_FALSE}  # By default, no color.
   __col_reset_colors
