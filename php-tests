@@ -35,8 +35,10 @@ _log_debug "Setting title '${__title}'"
 _pts_set_terminal_title "${__title}"
 
 _show_options
-PTS_CONTAINER_STARTED="$(_is_container_started)"
-_is_debug_image_used
+if _is_container_started
+then
+    _is_debug_image_used
+fi
 # if _is_container_started 
 # then
 #     _is_debug_image_used
