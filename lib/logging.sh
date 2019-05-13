@@ -1,12 +1,4 @@
 #!/usr/bin/env sh
-### Define constants
-true; LOG_TRUE=$?
-false; LOG_FALSE=$?
-LOG_ERROR=2
-
-### Debug settings
-LOG_DEBUG=${DEBUG:-0}  # 0: Disabled 1: Enabled
-
 LOG_NAME=${SCRIPT_NAME:-}
 if [ "${LOG_NAME}" != "" ]
 then
@@ -20,14 +12,14 @@ fi
 ### Logging functions.
 
 _log_warn () {
-  _log_print "⚠️  ${LOG_NAME}$(_color_bold_yellow "WARNING") $*\n" ${LOG_TRUE} ${LOG_TRUE}
+  _log_print "⚠️  ${LOG_NAME}$(_color_bold_yellow "WARNING") $*\n" ${PTS_TRUE} ${PTS_TRUE}
 }
 _log_error () {
-  _log_print "🛑 ${LOG_NAME}$(_color_bold_red "ERROR") $*\n" ${LOG_TRUE} ${LOG_TRUE}
+  _log_print "🛑 ${LOG_NAME}$(_color_bold_red "ERROR") $*\n" ${PTS_TRUE} ${PTS_TRUE}
 }
 _log_fatal () {
-  _log_print "🔥 ${LOG_NAME}$(_color_bold_red "FATAL") $*\n" ${LOG_TRUE} ${LOG_TRUE}
-  exit ${LOG_ERROR}
+  _log_print "🔥 ${LOG_NAME}$(_color_bold_red "FATAL") $*\n" ${PTS_TRUE} ${PTS_TRUE}
+  exit ${PTS_ERROR}
 }
 
 ### Messages functions
@@ -39,13 +31,13 @@ _log_fatal () {
 #   $2 int (Optional)Print new line in the end.
 #   $3 int (Optional)Print new line in the begining.
 _log_print () {
-    if [ "${3:-${LOG_FALSE}}" -eq ${LOG_TRUE} ]
+    if [ "${3:-${PTS_FALSE}}" -eq ${PTS_TRUE} ]
     then
         __leading_nl="\n"
     else
         __leading_nl=""
     fi
-    if [ "${LOG_DEBUG}" -eq 1 ]
+    if [ "${PTS_DEBUG}" -eq 1 ]
     then
         # Debug enabled
         __message="${__leading_nl}$(_color_dark "$(date '+%Y-%m-%d %H:%M:%S') │") ${1}"
@@ -54,7 +46,7 @@ _log_print () {
         __message="${__leading_nl}${1}"
     fi
     # Echo new line by default
-    if [ "${2:-${LOG_TRUE}}" -eq ${LOG_TRUE} ]; then
+    if [ "${2:-${PTS_TRUE}}" -eq ${PTS_TRUE} ]; then
         __message="${__message}\n"
     fi
     # shellcheck disable=SC2059
@@ -68,7 +60,7 @@ _log_print () {
 #   $1 string Message to print.
 
 _log_debug() {
-    if [ "${LOG_DEBUG}" -eq 1 ]
+    if [ "${PTS_DEBUG}" -eq 1 ]
     then
         _log_dark "<DEBUG> ${1}"
     fi

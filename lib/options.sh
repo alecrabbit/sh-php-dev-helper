@@ -1,17 +1,10 @@
 #!/usr/bin/env sh
 __usage () {
     echo "Usage:"
-    echo "    ${SCRIPT_NAME} [options]"
+    echo "    $(_color_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
-    echo "    --all                 - launch all tests"
-}
-_version () {
-    _BUILD=${_BUILD:-}
-    if [ "${_BUILD}" != "" ]
-    then
-        _BUILD=", build ${_BUILD}"
-    fi
-    echo "${_VERSION:-unknown}${_BUILD}"
+    echo "    $(_color_yellow "--all")                 - launch all tests"
+    echo "    $(_color_yellow "--no-restart")          - do not restart container(s)"
 }
 
 _read_options () {
@@ -25,24 +18,39 @@ _read_options () {
                 exit
                 ;;
             -V | --version)
+                _log_debug "Option '${PARAM}' Value '${VALUE}'"
                 _log_print "${SCRIPT_NAME:-unknown} version $(_version)"
                 exit
+                ;;
+            # Undocumented
+            --save-build-hash)                      
+                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _BUILD="$(_get_git_hash)"
+                if [ "${_BUILD}" != "" ]
+                then
+                    echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"   
+                    _log_debug "Saved build hash '${_BUILD}' to '${LIB_DIR:-.}/BUILD'"
+                fi
                 ;;
             --all)
                 _log_debug "Option '${PARAM}' Value '${VALUE}'"
                 ;;
-            --save-build-file)
+            --analyze)
                 _log_debug "Option '${PARAM}' Value '${VALUE}'"
-                _BUILD="${_BUILD:-}"
-                if [ "${_BUILD}" != "" ]
-                then
-                    echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"   
-                fi
+                ;;
+            --unit)
+                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                ;;
+            --metrics)
+                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                ;;
+            --beauty | --beautify)
+                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                ;;
+            --no-restart)
+                _log_debug "Option '${PARAM}' Value '${VALUE}'"
                 ;;
             -y)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
-                ;;
-            --db-path)
                 _log_debug "Option '${PARAM}' Value '${VALUE}'"
                 ;;
             *)

@@ -15,12 +15,27 @@ if [ -e "${__file}" ]
 then
     _BUILD="$(cat "${__file}")"
 else 
+    _BUILD="$(_get_git_hash)"
+fi
+export _BUILD
+
+_get_git_hash () {
     _BUILD="$(cd "${SCRIPT_DIR}" && git log --pretty=format:'%h' -n 1 2>&1)"
-    if [ $? -gt 1 ]
+    # shellcheck disable=SC2181
+    if [ $? -ne 0 ]
     then
         _BUILD=""
     fi
-fi
-export _BUILD
+    echo "${_BUILD}"
+}
+
+_version () {
+    _BUILD=${_BUILD:-}
+    if [ "${_BUILD}" != "" ]
+    then
+        _BUILD=", build ${_BUILD}"
+    fi
+    echo "${_VERSION:-unknown}${_BUILD}"
+}
 
 unset __file

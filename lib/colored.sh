@@ -5,6 +5,7 @@ false; COL_FALSE=$?
 
 ### Color Constants
 __COL_ANSI_DARK="\033[2m"
+__COL_ANSI_BOLD="\033[1m"
 
 __COL_ANSI_NONE="\033[0m"
 __COL_ANSI_RED="\033[0;31m"
@@ -24,6 +25,7 @@ __col_reset_colors () {
     __col_ansi_green=""
     __col_ansi_yellow=""
     __col_ansi_cyan=""
+    __col_ansi_bold=""
     __col_ansi_bold_red=""
     __col_ansi_bold_green=""
     __col_ansi_bold_yellow=""
@@ -36,12 +38,16 @@ __col_set_colors () {
     __col_ansi_green=${__COL_ANSI_GREEN}
     __col_ansi_yellow=${__COL_ANSI_YELLOW}
     __col_ansi_cyan=${__COL_ANSI_CYAN}
+    __col_ansi_bold=${__COL_ANSI_BOLD}
     __col_ansi_bold_red=${__COL_ANSI_BOLD_RED}
     __col_ansi_bold_green=${__COL_ANSI_BOLD_GREEN}
     __col_ansi_bold_yellow=${__COL_ANSI_BOLD_YELLOW}
     __col_ansi_bold_cyan=${__COL_ANSI_BOLD_CYAN}
 }
 
+_color_bold () {
+    echo "${__col_ansi_bold}$*${__col_ansi_none}"
+}
 _color_dark () {
     echo "${__col_ansi_dark}$*${__col_ansi_none}"
 }
