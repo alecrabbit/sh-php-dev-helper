@@ -18,13 +18,13 @@ _read_options () {
                 exit
                 ;;
             -V | --version)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 _log_print "${SCRIPT_NAME:-unknown} version $(_version)"
                 exit
                 ;;
             # Undocumented
             --save-build-hash)                      
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 _BUILD="$(_get_git_hash)"
                 if [ "${_BUILD}" != "" ]
                 then
@@ -33,28 +33,28 @@ _read_options () {
                 fi
                 ;;
             --all)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 ;;
             --analyze)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 ;;
             --unit)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 ;;
             --metrics)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 ;;
             --beauty | --beautify)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 ;;
             --no-restart)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 ;;
             -y)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 ;;
             *)
-                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 _log_error "Unknown option '${PARAM}'"                
                 __usage
                 exit 1
