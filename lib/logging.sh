@@ -12,14 +12,14 @@ fi
 ### Logging functions.
 
 _log_warn () {
-  _log_print "⚠️  ${LOG_NAME}$(_color_bold_yellow "WARNING") $*\n" ${PTS_TRUE} ${PTS_TRUE}
+  _log_print "⚠️  ${LOG_NAME}$(_color_bold_yellow "WARNING") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
 }
 _log_error () {
-  _log_print "🛑 ${LOG_NAME}$(_color_bold_red "ERROR") $*\n" ${PTS_TRUE} ${PTS_TRUE}
+  _log_print "🛑 ${LOG_NAME}$(_color_bold_red "ERROR") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
 }
 _log_fatal () {
-  _log_print "🔥 ${LOG_NAME}$(_color_bold_red "FATAL") $*\n" ${PTS_TRUE} ${PTS_TRUE}
-  exit ${PTS_ERROR}
+  _log_print "🔥 ${LOG_NAME}$(_color_bold_red "FATAL") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
+  exit "${PTS_ERROR}"
 }
 
 ### Messages functions
@@ -31,7 +31,7 @@ _log_fatal () {
 #   $2 int (Optional)Print new line in the end.
 #   $3 int (Optional)Print new line in the begining.
 _log_print () {
-    if [ "${3:-${PTS_FALSE}}" -eq ${PTS_TRUE} ]
+    if [ "${3:-${PTS_FALSE}}" -eq "${PTS_TRUE}" ]
     then
         __leading_nl="\n"
     else
@@ -46,7 +46,7 @@ _log_print () {
         __message="${__leading_nl}${1}"
     fi
     # Echo new line by default
-    if [ "${2:-${PTS_TRUE}}" -eq ${PTS_TRUE} ]; then
+    if [ "${2:-${PTS_TRUE}}" -eq "${PTS_TRUE}" ]; then
         __message="${__message}\n"
     fi
     # shellcheck disable=SC2059

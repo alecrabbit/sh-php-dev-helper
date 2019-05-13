@@ -14,6 +14,8 @@ WORK_DIR="${PWD}"
 . "${LIB_DIR}/version.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/options.sh"
+# shellcheck disable=SC1090
+. "${LIB_DIR}/helpers.sh"
 
 _read_options "$@"
 
@@ -27,7 +29,13 @@ __title="${__TITLE} - Testing..."
 _log_debug "Setting title '${__title}'"
 _pts_set_terminal_title "${__title}"
 
-sleep 1
+_show_options 
+
+if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ] 
+then
+    _log_debug "Executing..."
+    sleep 1
+fi
 
 ### Finish
 __title="${__TITLE}"
