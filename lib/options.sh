@@ -31,6 +31,14 @@ _read_options () {
             --all)
                 _log_debug "Option '${PARAM}' Value '${VALUE}'"
                 ;;
+            --save-build-file)
+                _log_debug "Option '${PARAM}' Value '${VALUE}'"
+                _BUILD="${_BUILD:-}"
+                if [ "${_BUILD}" != "" ]
+                then
+                    echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"   
+                fi
+                ;;
             -y)
                 _log_debug "Option '${PARAM}' Value '${VALUE}'"
                 ;;
