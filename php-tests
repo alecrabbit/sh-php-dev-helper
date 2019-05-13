@@ -21,7 +21,21 @@ _read_options "$@"
 _log_header "PHP tests script"
 _log_debug "Version $(_version)"
 
+### Start
+__TITLE="$(_pts_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
+__title="${__TITLE} - Testing..."
+_log_debug "Setting title '${__title}'"
+_pts_set_terminal_title "${__title}"
+
+sleep 1
+
+### Finish
+__title="${__TITLE}"
+_log_debug "Setting title '${__title}'"
+_pts_set_terminal_title "${__title}"
+
 ### Debug code 
+_log_debug "Debug messages:"
 _log_debug "SCRIPT_NAME: ${SCRIPT_NAME}"
 _log_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
 _log_debug "WORK_DIR: ${WORK_DIR}"
