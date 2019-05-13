@@ -14,7 +14,13 @@ __file="${LIB_DIR:-.}/BUILD"
 if [ -e "${__file}" ]
 then
     _BUILD="$(cat "${__file}")"
-    export _BUILD
+else 
+    _BUILD="$(cd "${SCRIPT_DIR}" && git log --pretty=format:'%h' -n 1 2>&1)"
+    if [ $? -gt 1 ]
+    then
+        _BUILD=""
+    fi
 fi
+export _BUILD
 
 unset __file

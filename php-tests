@@ -17,7 +17,7 @@ _read_options "$@"
 
 ### Print header
 _log_header "PHP tests script"
-_log_debug "Version ${_VERSION:-0.0.0}"
+_log_debug "Version $(_version)"
 
 ### Debug code 
 _log_debug "SCRIPT_NAME: ${SCRIPT_NAME}"

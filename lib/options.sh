@@ -5,13 +5,13 @@ __usage () {
     echo "Options:"
     echo "    --all                 - launch all tests"
 }
-__version () {
+_version () {
     _BUILD=${_BUILD:-}
     if [ "${_BUILD}" != "" ]
     then
         _BUILD=", build ${_BUILD}"
     fi
-    echo "${SCRIPT_NAME:-unknown} version ${_VERSION:-unknown}${_BUILD}"
+    echo "${_VERSION:-unknown}${_BUILD}"
 }
 
 _read_options () {
@@ -25,7 +25,7 @@ _read_options () {
                 exit
                 ;;
             -V | --version)
-                __version
+                _log_print "${SCRIPT_NAME:-unknown} version $(_version)"
                 exit
                 ;;
             --all)
