@@ -50,12 +50,13 @@ __title="${__TITLE} - Testing..."
 _log_debug "Setting title '${__title}'"
 _pts_set_terminal_title "${__title}"
 
-if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ] 
-then
+if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
     _log_debug "Executing..."
-    if [ "${_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ];
-    then
+    if [ "${_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         _phpunit_exec
+        _multi_tester_exec
+        _php_cs_exec
+        _php_cs_bf_exec
     else
         _log_error "Container is not started"
     fi

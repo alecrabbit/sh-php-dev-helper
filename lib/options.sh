@@ -21,7 +21,7 @@ __set_default_options () {
     PTS_METRICS=${PTS_FALSE}
     PTS_MULTI=${PTS_FALSE}
     PTS_CS=${PTS_FALSE}
-    PTS_BEAUTY=${PTS_FALSE}
+    PTS_CS_BF=${PTS_FALSE}
     PTS_PHPUNIT=${PTS_TRUE}
     PTS_PHPUNIT_COVERAGE=${PTS_FALSE}
     __ALL_OPTION=${PTS_FALSE}
@@ -30,11 +30,11 @@ __set_default_options () {
 __process_options () {
     if [ "${PTS_ANALYSIS}" -eq "${PTS_TRUE}" ]; then
         PTS_CS=${PTS_TRUE}
-        PTS_BEAUTY=${PTS_TRUE}
+        PTS_CS_BF=${PTS_TRUE}
     fi
     if [ "${__ALL_OPTION}" -eq "${PTS_TRUE}" ]; then
         PTS_CS=${PTS_TRUE}
-        PTS_BEAUTY=${PTS_TRUE}
+        PTS_CS_BF=${PTS_TRUE}
         PTS_PHPUNIT=${PTS_TRUE}
         PTS_PHPUNIT_COVERAGE=${PTS_TRUE}
     fi
@@ -48,7 +48,7 @@ __export_options () {
     export PTS_METRICS
     export PTS_MULTI
     export PTS_CS
-    export PTS_BEAUTY
+    export PTS_CS_BF
     export PTS_PHPUNIT
     export PTS_PHPUNIT_COVERAGE
 }
@@ -64,7 +64,7 @@ _show_options () {
     _show_option "${PTS_METRICS}" "PHPMetrics"
     _show_option "${PTS_MULTI}" "Multi-tester"
     _show_option "${PTS_CS}" "Code sniffer"
-    _show_option "${PTS_BEAUTY}" "Beautifier"
+    _show_option "${PTS_CS_BF}" "Beautifier"
     _show_option "${PTS_PHPUNIT}" "PHPUnit"
     _show_option "${PTS_PHPUNIT_COVERAGE}" "Code coverage"
 }
@@ -131,7 +131,7 @@ _read_options () {
                 ;;
             -b | --beauty | --beautify)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_BEAUTY=${PTS_TRUE}
+                PTS_CS_BF=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --no-restart)
