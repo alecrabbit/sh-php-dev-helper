@@ -7,7 +7,6 @@ export SCRIPT_NAME
 
 SCRIPT_DIR="$(dirname "$0")"
 LIB_DIR="${SCRIPT_DIR}/lib"
-COMMANDS_DIR="${LIB_DIR}/commands"
 WORK_DIR="${PWD}"
 
 # shellcheck disable=SC1090
@@ -23,7 +22,7 @@ WORK_DIR="${PWD}"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/settings.sh"
 # shellcheck disable=SC1090
-. "${COMMANDS_DIR}/phpunit.sh"
+. "${LIB_DIR}/commands.sh"
 
 _read_options "$@"
 
