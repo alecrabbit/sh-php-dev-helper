@@ -46,13 +46,13 @@ _phpunit_exec () {
                 _log_comment "Generating XDEBUG Filter..."
                 docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit --dump-xdebug-filter "${PTS_XDEBUG_FILTER_FILE}"
             fi
-            _log_notice "run phpunit with coverage"
+            _log_debug "Run phpunit with coverage"
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit --prepend "${PTS_XDEBUG_FILTER_FILE}" \
             --coverage-html "${PTS_PHPUNIT_COVERAGE_HTML_REPORT}" \
             --coverage-clover "${PTS_PHPUNIT_COVERAGE_CLOVER_REPORT}" \
             --coverage-text
         else 
-            _log_warn "run phpunit WITHOUT coverage"
+            _log_debug "Run phpunit WITHOUT coverage"
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit
         fi
     fi

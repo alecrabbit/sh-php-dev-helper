@@ -93,6 +93,7 @@ _read_options () {
                 then
                     echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"
                     _log_debug "Saved build hash '${_BUILD}' to '${LIB_DIR:-.}/BUILD'"
+                    _log_print "${_BUILD}"
                 fi
                 exit "${PTS_TRUE}"
                 ;;
