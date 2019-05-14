@@ -54,6 +54,7 @@ if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
     _log_debug "Executing..."
     if [ "${_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         _phpunit_exec
+        _php_metrics_exec
         _multi_tester_exec
         _php_cs_exec
         _php_cs_bf_exec

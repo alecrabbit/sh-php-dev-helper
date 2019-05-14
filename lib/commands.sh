@@ -34,10 +34,21 @@ _php_cs_bf_exec () {
     fi
 }
 
+_php_metrics_exec () {
+    if [ "${PTS_METRICS}" -eq "${PTS_TRUE}" ]; then
+        _log_info "PHP Metrics..."
+        if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmetrics --version
+        then
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmetrics --report-html="${PTS_PHPMETRICS_OUTPUT_DIR}" .
+        fi
+    fi
+}
+
 _phpunit_exec () {
     _log_debug "Running PHPUnit launch"
     if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]; then
         _log_print "$(_color_green "PHP Version:")\n$(__php_version)"
+        _log_info "PHPUnit..."
         if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${PTS_TRUE}" ] && [ "${_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
             if [ -e "${PTS_XDEBUG_FILTER_FILE}" ]
             then
