@@ -4,9 +4,13 @@ __usage () {
     echo "    $(_color_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
     echo "    $(_color_yellow "-a, --all")             - launch all tests"
-    echo "    $(_color_yellow "--no-restart")          - do not restart container(s)"
-    echo "    $(_color_yellow "--unit")                - enable phpunit"
-    echo "    $(_color_yellow "--coverage")            - enable code coverage"
+    # echo "    $(_color_yellow "--no-restart")          - do not restart container(s)"
+    echo "    $(_color_yellow "-s, --analyze")         - enable static analysis tools"
+    echo "    $(_color_yellow "-b, --beauty")          - enable php_cs sniffer and beautifier"
+    echo "    $(_color_yellow "-c, --coverage")        - enable code coverage"
+    echo "    $(_color_yellow "--metrics")             - enable phpmetrics"
+    echo "    $(_color_yellow "--multi")               - enable multi-tester"
+    echo "    $(_color_yellow "-u, --unit")            - enable phpunit"
 }
 
 __set_default_options () {
@@ -55,8 +59,8 @@ _show_options () {
         _show_option "${PTS_EXECUTE}" "Execute"
         _show_option "${PTS_REQUIRE_DEBUG_IMAGE}" "Debug image required"
         _show_option "${PTS_ANALYSIS}" "Analysis"
-    fi
-    # _show_option "${PTS_RESTART}" "Container restart"
+        _show_option "${PTS_RESTART}" "Container restart"
+   fi
     _show_option "${PTS_METRICS}" "PHPMetrics"
     _show_option "${PTS_MULTI}" "Multi-tester"
     _show_option "${PTS_CS}" "Code sniffer"
@@ -100,32 +104,43 @@ _read_options () {
             -a | --all)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 __ALL_OPTION=${PTS_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
-            --analyze)
+            -s | --analyze)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_ANALYSIS=${PTS_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
-            --unit)
+            -u | --unit)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPUNIT=${PTS_TRUE}
                 ;;
-            --coverage)
+            -c | --coverage)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPUNIT_COVERAGE=${PTS_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --metrics)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_METRICS=${PTS_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
-            --beauty | --beautify)
+            --multi)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_MULTI=${PTS_TRUE}
+                ;;
+            -b | --beauty | --beautify)
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_BEAUTY=${PTS_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --no-restart)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_RESTART=${PTS_FALSE}
                 ;;
-            -y)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                ;;
+            # -y)
+            #     _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+            #     ;;
             *)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 _log_error "Unknown option '${PARAM}'"

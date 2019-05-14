@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 set -u  # Treat unset variables as an error.
+start_time=$(date +%s)
 
 SCRIPT_NAME="$(basename "$0")"
+export SCRIPT_NAME
+
 SCRIPT_DIR="$(dirname "$0")"
 LIB_DIR="${SCRIPT_DIR}/lib"
 COMMANDS_DIR="${LIB_DIR}/commands"
@@ -28,44 +31,56 @@ _read_options "$@"
 _log_header "PHP tests script"
 _log_debug "Version $(_version)"
 
+### Run checks
+_check_working_env
+
+_show_options
+_CONTAINER_STARTED=${PTS_FALSE}
+_DEBUG_IMAGE_USED=${PTS_FALSE}
+if _is_container_started
+then
+    export _CONTAINER_STARTED=${PTS_TRUE}
+    if _is_debug_image_used; then
+        export _DEBUG_IMAGE_USED=${PTS_TRUE}
+    fi
+fi
+
 ### Start
 __TITLE="$(_pts_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 __title="${__TITLE} - Testing..."
 _log_debug "Setting title '${__title}'"
 _pts_set_terminal_title "${__title}"
 
-_show_options
-if _is_container_started
-then
-    _is_debug_image_used
-fi
-# if _is_container_started 
-# then
-#     _is_debug_image_used
-# fi
-
 if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ] 
 then
     _log_debug "Executing..."
+    if [ "${_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ];
+    then
+        _phpunit_exec
+    else
+        _log_error "Container is not started"
+    fi
 fi
-# _phpunit_exec
 
 ### Finish
+_log_dark "Executed in $(($(date +%s)-start_time))s"
+_log_dark "Bye!"
+
 __title="${__TITLE}"
 _log_debug "Setting title '${__title}'"
 _pts_set_terminal_title "${__title}"
 
 ### Debug code 
-_log_debug "Debug messages:"
-_log_debug "SCRIPT_NAME: ${SCRIPT_NAME}"
-_log_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
-_log_debug "WORK_DIR: ${WORK_DIR}"
+# _log_debug "Debug messages:"
+# _log_debug "SCRIPT_NAME: ${SCRIPT_NAME}"
+# _log_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
+# _log_debug "WORK_DIR: ${WORK_DIR}"
 
-_log_dark "dark"
-_log_info "info"
-_log_comment "comment"
-_log_notice "notice"
+# _log_dark "dark"
+# _log_info "info"
+# _log_comment "comment"
+# _log_notice "notice"
 
-_log_warn "Warn message"
-_log_error "Error message"
-_log_fatal "Fatal message"
+# _log_warn "Warn message"
+# _log_error "Error message"
+# _log_fatal "Fatal message"

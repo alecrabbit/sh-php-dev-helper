@@ -5,46 +5,31 @@ if [ -z "${LIB_DIR:-}" ]; then
 fi
 
 _phpunit_exec () {
-    if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ] 
+    _log_debug "Running PHPUnit launch"
+    if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]
     then
-        if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]
+        _log_print "$(_color_green "PHP Version:")\n$(__php_version)"
+        if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${PTS_TRUE}" ] && [ "${_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ];
         then
-            _log_debug "PHPUnit launch script"
-            _log_print "$(_color_dark "PHP Version:")\n$(__php_version)"
+            if [ -e "${PTS_XDEBUG_FILTER_FILE}" ]
+            then
+                _log_info "Found XDEBUG Filter file..."
+            else
+                _log_comment "Generating XDEBUG Filter..."
+                docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit --dump-xdebug-filter "${PTS_XDEBUG_FILTER_FILE}"
+            fi
+            _log_notice "run phpunit with coverage"
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit --prepend "${PTS_XDEBUG_FILTER_FILE}" \
+            --coverage-html "${PTS_PHPUNIT_COVERAGE_HTML_REPORT}" \
+            --coverage-clover "${PTS_PHPUNIT_COVERAGE_CLOVER_REPORT}" \
+            --coverage-text
+        else 
+            _log_warn "run phpunit WITHOUT coverage"
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit
         fi
     fi
-    unset __version
 }
 
 __php_version () {
     docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app php -v
 }
-# info "PhpUnit..."
-# if [[ ${EXEC} == 1 ]]
-# then
-#   if [[ ${COVERAGE} == 1 ]]
-#   then
-#     if [[ -e "./../${XDEBUG_FILTER_FILE}" ]]
-#     then
-#         info "Found XDEBUG Filter file..."
-#     else
-#         comment "Generating XDEBUG Filter..."
-#         docker-compose -f ${DOCKER_COMPOSE_FILE} exec app phpunit --dump-xdebug-filter ${XDEBUG_FILTER_FILE}
-#     fi
-#     comment "Running tests with coverage..."
-#     docker-compose -f ${DOCKER_COMPOSE_FILE} exec app phpunit --prepend ${XDEBUG_FILTER_FILE} \
-#         --coverage-html ${PHPUNIT_COVERAGE_HTML_REPORT} \
-#         --coverage-clover ${PHPUNIT_COVERAGE_CLOVER_REPORT} \
-#         --coverage-text
-#   else
-#     if [[ -z "$@" ]]
-#     then
-#         comment "Running tests..."
-#     fi
-#     docker-compose -f ${DOCKER_COMPOSE_FILE} exec app phpunit "$@"
-#   fi
-# else
-#   no-exec
-# fi
-
-

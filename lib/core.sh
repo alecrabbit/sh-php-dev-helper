@@ -22,19 +22,24 @@ _pts_check_user () {
     fi
 }
 _pts_set_terminal_title () {
-    if [ "${PTS_TITLE}" -eq 1 ]
-    then
+    if [ "${PTS_TITLE}" -eq 1 ]; then
         # shellcheck disable=SC2059
         printf "\033]0;${1}\007"
     fi
 }
 
 _pts_get_title_from_file () {
-    if [ -e "${1}" ]
-    then
+    if [ -e "${1}" ]; then
         title="$(cat "${1}")"
     else
         title="${2:-Terminal}"
     fi
     echo "${title}"
+}
+
+_pts_check_command () {
+    if [ -x "$(command -v "${1}")" ]; then
+        return "${PTS_TRUE}"
+    fi
+    return "${PTS_FALSE}"
 }
