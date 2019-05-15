@@ -49,7 +49,8 @@ _phpunit_exec () {
     if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]; then
         _log_print "$(_color_green "PHP Version:")\n$(__php_version)"
         _log_info "PHPUnit..."
-        _log_debug "PTS_PHPUNIT_COVERAGE:[$(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")] PTS_DEBUG_IMAGE_USED:[$(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")]"
+        _log_debug "Run with coverage: $(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")"
+        _log_debug "Debug image used: $(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")"
         if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${PTS_TRUE}" ] && [ "${PTS_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
             if [ -e "${PTS_XDEBUG_FILTER_FILE}" ]
             then

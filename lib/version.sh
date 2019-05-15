@@ -5,7 +5,7 @@ if [ -e "${__file}" ]
 then
     _VERSION="$(cat "${__file}")"
 else
-    _VERSION="0.0.0"
+    _VERSION="x.y.z"
 fi
 export _VERSION
 
@@ -35,6 +35,11 @@ _version () {
     then
         _BUILD=", build ${_BUILD}"
     fi
+   
+    if [ "${1:-${PTS_FALSE}}" -ne "${PTS_TRUE}" ]; then
+        _BUILD=""
+    fi
+
     echo "${_VERSION:-unknown}${_BUILD}"
 }
 

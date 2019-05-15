@@ -28,7 +28,8 @@ _read_options "$@"
 
 ### Print header
 _log_header "PHP tests script"
-_log_debug "Version $(_version)"
+_log_info "Version $(_version)"
+_log_debug "Version $(_version "${PTS_TRUE}")"
 
 ### Run checks
 _check_working_env
