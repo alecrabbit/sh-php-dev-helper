@@ -14,6 +14,7 @@ __usage () {
     echo "    $(_color_yellow "--psalm")               - enable psalm"
     echo "    $(_color_yellow "-s, --analyze")         - enable static analysis tools"
     echo "    $(_color_yellow "-u, --unit")            - enable phpunit"
+    echo "    $(_color_yellow "--update")              - update script"
     echo
     # shellcheck disable=SC2005
     echo "$(_color_dark "Note: options order is important")"
