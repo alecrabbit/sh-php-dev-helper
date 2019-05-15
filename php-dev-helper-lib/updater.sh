@@ -44,6 +44,7 @@ __updater_download () {
         _log_debug "Writing new version ${_LATEST_VERSION} > ${VERSION_FILE}"
         # shellcheck disable=SC2116
         _log_debug "Writing new version\n$(echo "${_LATEST_VERSION}" > "${VERSION_FILE}" 2>&1)"
+        _log_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     else
         _log_fatal "Error occurred during download"
     fi
