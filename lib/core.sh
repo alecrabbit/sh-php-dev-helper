@@ -14,6 +14,27 @@ export PTS_FALSE
 export PTS_ERROR
 export PTS_DEBUG
 
+core_int_to_string () {
+    case ${1} in
+        ${PTS_TRUE})
+            echo "True"
+            return
+        ;;
+        ${PTS_FALSE})
+            echo "False"
+            return
+        ;;
+        ${PTS_ERROR})
+            echo "Error"
+            return
+        ;;
+        *)
+            echo "${1}"
+            return
+        ;;
+   esac
+}
+
 _pts_check_user () {
     if [ "$(whoami)" = "root" ]; then
         if [ "${PTS_ALLOW_ROOT}" -eq 0 ]; then

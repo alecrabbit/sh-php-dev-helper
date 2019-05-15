@@ -21,19 +21,19 @@ _check_working_env () {
 
 __is_debug_image_used () {
     __message="Unable to define image: Container not started"
-    _DEBUG_IMAGE_USED="${PTS_ERROR}"
+    PTS_DEBUG_IMAGE_USED="${PTS_ERROR}"
     if [ "${_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         if docker-compose images | grep -q "${PTS_DEBUG_IMAGE}"
         then
             __message="Debug image is used"
-            _DEBUG_IMAGE_USED="${PTS_TRUE}"
+            PTS_DEBUG_IMAGE_USED="${PTS_TRUE}"
         else
             __message="Regular image is used"
-            _DEBUG_IMAGE_USED=${PTS_FALSE}
+            PTS_DEBUG_IMAGE_USED=${PTS_FALSE}
         fi
     fi
     _log_debug "${__message}"
-    export _DEBUG_IMAGE_USED
+    export PTS_DEBUG_IMAGE_USED
     unset __message
 }
 
@@ -61,7 +61,7 @@ _pts_helper_check_container () {
     if [ "${_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         _log_debug "Container started"
         # if __is_debug_image_used; then
-        #     _DEBUG_IMAGE_USED=${PTS_TRUE}
+        #     PTS_DEBUG_IMAGE_USED=${PTS_TRUE}
         # fi
     else
         _log_debug "Trying to start container"
@@ -74,11 +74,12 @@ _pts_helper_check_container () {
     if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${PTS_TRUE}" ]; then
         _log_debug "Debug image required"
         PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
-        if [ "${_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
+        if [ "${PTS_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
             _log_debug "Debug image used"
         else
             _log_debug "Restarting to debug image"
             _pts_helper_restart_container "${_DOCKER_COMPOSE_FILE_DEBUG}"
+            __check_container
         fi
     else
         PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE}"

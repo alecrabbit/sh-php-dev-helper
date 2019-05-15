@@ -45,12 +45,12 @@ _php_metrics_exec () {
 }
 
 _phpunit_exec () {
-    _log_debug "Running PHPUnit launch"
+    _log_debug "Running PHPUnit"
     if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]; then
         _log_print "$(_color_green "PHP Version:")\n$(__php_version)"
         _log_info "PHPUnit..."
-        _log_debug "PTS_PHPUNIT_COVERAGE:[${PTS_PHPUNIT_COVERAGE}] _DEBUG_IMAGE_USED:[${_DEBUG_IMAGE_USED}]"
-        if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${PTS_TRUE}" ] && [ "${_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
+        _log_debug "PTS_PHPUNIT_COVERAGE:[$(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")] PTS_DEBUG_IMAGE_USED:[$(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")]"
+        if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${PTS_TRUE}" ] && [ "${PTS_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
             if [ -e "${PTS_XDEBUG_FILTER_FILE}" ]
             then
                 _log_info "Found XDEBUG Filter file..."
