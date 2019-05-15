@@ -6,7 +6,11 @@ export _DOCKER_COMPOSE_FILE_DEBUG="docker-compose-debug.yml"
 
 export PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
 
+
 export PHPSTAN_LEVEL=7
+export PSALM_LEVEL=3
+export PSALM_CONFIG="psalm.xml"
+
 export PTS_SOURCE_DIR="src"
 export PTS_TESTS_DIR="tests"
 export PTS_TMP_DIR_PARTIAL="tmp"

@@ -24,15 +24,52 @@ _phpstan_exec () {
     fi
 }
 
-# _phpstan_exec () {
-#     if [ "${PTS_PHPSTAN}" -eq "${PTS_TRUE}" ]; then
-#         _log_info "PHPStan..."
-#         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan -V
-#         then
-#             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan analyze "${PTS_SOURCE_DIR}" --level="${PHPSTAN_LEVEL}"
-#         fi
+_psalm_exec () {
+    if [ "${PTS_PHPSTAN}" -eq "${PTS_TRUE}" ]; then
+        _log_info "Psalm..."
+        if [ -e "${WORK_DIR}/${PSALM_CONFIG}" ]
+        then
+            _log_debug "Config file '${PSALM_CONFIG}' found"
+        else
+            _log_comment "Config file '${PSALM_CONFIG}' not found"
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app psalm --init "${PTS_SOURCE_DIR}" "${PSALM_LEVEL}"
+        fi
+        if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app psalm --version
+        then
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app psalm
+        fi
+    fi
+}
+
+# PSALM_CONFIG="./../psalm.xml"
+# PSALM_LEVEL=3
+
+# if [[ -e ${PSALM_CONFIG} ]]
+# then
+#   comment "Psalm config found..."
+# else
+#   comment "Creating psalm config..."
+#   if [[ ${EXEC} == 1  ]]
+#     then
+#       docker-compose -f ${DOCKER_COMPOSE_FILE} exec app psalm --init ${SOURCE_DIR} ${PSALM_LEVEL}
+#     else
+#       no-exec
+#   fi
+# fi
+
+# info "Psalm..."
+# docker-compose -f ${DOCKER_COMPOSE_FILE} exec app psalm --version
+# if [[ ${EXEC} == 1 ]]
+# then
+#     if [[ -z "$@" ]]
+#     then
+#         docker-compose -f ${DOCKER_COMPOSE_FILE} exec app psalm
+#     else
+#         docker-compose -f ${DOCKER_COMPOSE_FILE} exec app psalm "$@"
 #     fi
-# }
+# else
+#   no-exec
+# fi
 
 _php_cs_exec () {
     if [ "${PTS_CS}" -eq "${PTS_TRUE}" ]; then

@@ -27,7 +27,7 @@ WORK_DIR="${PWD}"
 _read_options "$@"
 
 ### Print header
-_log_header "PHP tests script"
+_log_header "PHP Dev Helper Script"
 _log_info "Version $(_version)"
 _log_debug "Version $(_version "${PTS_TRUE}")"
 
@@ -53,6 +53,7 @@ if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
         _php_metrics_exec
         _multi_tester_exec
         _phpstan_exec
+        _psalm_exec
         _php_cs_exec
         _php_cs_bf_exec
     else
