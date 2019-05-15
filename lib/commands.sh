@@ -24,19 +24,15 @@ _phpstan_exec () {
     fi
 }
 
-# info "PHPStan..."
-# docker-compose -f ${DOCKER_COMPOSE_FILE} exec app phpstan -V
-# if [[ ${EXEC} == 1 ]]
-# then
-#     if [[ -z "$@" ]]
-#     then
-#         docker-compose -f ${DOCKER_COMPOSE_FILE} exec app phpstan analyze ${SOURCE_DIR} --level=${PHPSTAN_LEVEL}
-#     else
-#         docker-compose -f ${DOCKER_COMPOSE_FILE} exec app phpstan "$@"
+# _phpstan_exec () {
+#     if [ "${PTS_PHPSTAN}" -eq "${PTS_TRUE}" ]; then
+#         _log_info "PHPStan..."
+#         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan -V
+#         then
+#             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan analyze "${PTS_SOURCE_DIR}" --level="${PHPSTAN_LEVEL}"
+#         fi
 #     fi
-# else
-#   no-exec
-# fi
+# }
 
 _php_cs_exec () {
     if [ "${PTS_CS}" -eq "${PTS_TRUE}" ]; then

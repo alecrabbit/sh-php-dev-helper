@@ -26,33 +26,33 @@ helper_check_working_env () {
 }
 
 __is_debug_image_used () {
-    __message="Unable to define image: Container not started"
+    __message="unable to define image(container not running)"
     PTS_DEBUG_IMAGE_USED="${PTS_ERROR}"
     if [ "${PTS_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         if docker-compose images | grep -q "${PTS_DEBUG_IMAGE}"
         then
-            __message="Debug image is used"
+            __message="Debug"
             PTS_DEBUG_IMAGE_USED="${PTS_TRUE}"
         else
-            __message="Regular image is used"
+            __message="Regular"
             PTS_DEBUG_IMAGE_USED=${PTS_FALSE}
         fi
     fi
-    _log_debug "${__message}"
+    _log_debug "Image used: ${__message}"
     export PTS_DEBUG_IMAGE_USED
     unset __message
 }
 
 __is_container_started () {
-    __message="Container NOT started in"
+    __message="NOT running"
     PTS_CONTAINER_STARTED=${PTS_FALSE}
 
     if docker-compose images | grep -q -e "$(basename "${WORK_DIR}")" -e "Up"
     then
-        __message="Container started in"
+        __message="is up and running"
         PTS_CONTAINER_STARTED="${PTS_TRUE}"
     fi
-    _log_debug "${__message} '${WORK_DIR}'"
+    _log_debug "Container: ${__message}"
     export PTS_CONTAINER_STARTED
     unset __message
 }
@@ -65,7 +65,7 @@ _pts_helper_check_container () {
     _log_debug "Checking container"
     __check_container
     if [ "${PTS_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
-        _log_debug "Container started"
+        _log_debug "Container is running"
         # if __is_debug_image_used; then
         #     PTS_DEBUG_IMAGE_USED=${PTS_TRUE}
         # fi
@@ -78,10 +78,10 @@ _pts_helper_check_container () {
     fi
 
     if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${PTS_TRUE}" ]; then
-        _log_debug "Debug image required"
+        _log_debug "Debug image required, need to restart container?"
         PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
         if [ "${PTS_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
-            _log_debug "Debug image used"
+            _log_debug "No restart needed: debug image used"
         else
             _log_debug "Restarting to debug image"
             _pts_helper_restart_container "${_DOCKER_COMPOSE_FILE_DEBUG}"
@@ -95,10 +95,23 @@ _pts_helper_check_container () {
 }
 
 _pts_helper_restart_container () {
-    docker-compose down && _pts_helper_start_container "${1}"
+    _log_debug "Container: Restarting"
+    _log_debug "Container: Stopping"
+    if docker-compose down 
+    then
+        _log_debug "Container successfully stopped"
+    else
+        _log_fatal "Unable to stop container"
+    fi
+    _pts_helper_start_container "${1}"
 }
 
 _pts_helper_start_container () {
     _log_debug "Starting container using '${1}'"
-    docker-compose -f "${1}" up -d
+    if docker-compose -f "${1}" up -d
+    then
+        _log_debug "Container successfully started"
+    else
+        _log_fatal "Unable to start container"
+    fi
 }

@@ -32,6 +32,8 @@ _log_info "Version $(_version)"
 _log_debug "Version $(_version "${PTS_TRUE}")"
 
 ### Run checks
+_log_debug "Working directory: ${WORK_DIR}"
+
 helper_check_working_env
 
 _show_options
