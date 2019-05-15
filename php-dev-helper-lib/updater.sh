@@ -27,6 +27,7 @@ updater_run () {
         _log_info "Updater: processing"
         __updater_download
     else
+        _log_info "You are using latest version: ${_VERSION}"
         _log_comment "No update needed"
     fi    
 }
