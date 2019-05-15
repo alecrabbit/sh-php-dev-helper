@@ -1,0 +1,6 @@
+.gitignore         export-ignore
+.travis.yml        export-ignore
+CHANGELOG.md       export-ignore
+TODO.md            export-ignore
+CONTRIBUTING.md    export-ignore
+README.md          export-ignore
