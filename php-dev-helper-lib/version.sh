@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 VERSION_FILE="${LIB_DIR:-.}/VERSION"
+BUILD_FILE="${LIB_DIR:-.}/BUILD"
 __file="${VERSION_FILE}"
 
 if [ -e "${__file}" ]
@@ -10,7 +11,7 @@ else
 fi
 export _VERSION
 
-__file="${LIB_DIR:-.}/BUILD"
+__file="${BUILD_FILE}"
 
 if [ -e "${__file}" ]
 then
