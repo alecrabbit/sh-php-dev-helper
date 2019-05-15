@@ -86,3 +86,21 @@ core_backup_realpath () {
 
     unset ppt_path_ ppt_old_ ppt_new_
 }
+
+core_get_realpath ()
+{
+    if check_command "realpath"
+    then
+        ppt_new_="$(realpath "${1}" 2>&1)"
+        if [ $? -ne "${PTS_TRUE}" ]
+        then
+            _ppt_debug "Error: ${ppt_new_}"
+            _ppt_debug "Using _ppt_backup_realpath function"
+            core_backup_realpath "${1}"
+            return ${PTS_TRUE}
+        fi
+        echo "${ppt_new_}"
+    else
+        core_backup_realpath "${1}"
+    fi
+}
