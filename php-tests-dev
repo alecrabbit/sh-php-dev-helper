@@ -41,7 +41,7 @@ _log_debug "Work dir: ${WORK_DIR}"
 _log_debug "VERSION file: ${VERSION_FILE}"
 _log_debug "BUILD file: ${BUILD_FILE}"
 
-_log_debug "Hash: $(version_save_build_hash)"
+_log_debug "$(version_save_build_hash)"
 
 _read_options "$@"
 
