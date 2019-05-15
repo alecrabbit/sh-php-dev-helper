@@ -37,7 +37,9 @@ __updater_download () {
     _log_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     _log_debug "Recreating '${__dir}'\n$(mkdir -p "${__dir}" 2>&1)"
     _log_debug "Downloading to '${__dir}/${_PACKAGE}-${_LATEST_VERSION}'"
-    if cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${_LATEST_VERSION}.tar.gz" | tar -xzv 2>&1
+    _log_debug "$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${_LATEST_VERSION}.tar.gz" | tar -xzv 2>&1)"
+    # shellcheck disable=SC2181
+     if [ $? -eq 0 ]
     then
         _log_debug "Package downloaded"
         _log_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${_LATEST_VERSION}"/. "${SCRIPT_DIR}"/. 2>&1)"
