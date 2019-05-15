@@ -39,7 +39,7 @@ __updater_download () {
     if cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${_LATEST_VERSION}.tar.gz" | tar -xzv
     then
         _log_debug "Package downloaded"
-        _log_debug "Copying new files\n$(cp -rv "${__dir}/${_PACKAGE}-${_LATEST_VERSION}"/. "${SCRIPT_DIR}"/. 2>&1)"
+        _log_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${_LATEST_VERSION}"/. "${SCRIPT_DIR}"/. 2>&1)"
     else
         _log_fatal "Error occurred during download"
     fi
