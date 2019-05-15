@@ -74,7 +74,7 @@ _show_options () {
     _show_option "${PTS_METRICS}" "PHPMetrics"
     _show_option "${PTS_MULTI}" "Multi-tester"
     _show_option "${PTS_PHPSTAN}" "PHPStan"
-    _show_option "${PTS_PSALM}" "vimeo/psalm"
+    _show_option "${PTS_PSALM}" "Psalm"
     _show_option "${PTS_CS}" "Code sniffer"
     _show_option "${PTS_CS_BF}" "Beautifier"
     _show_option "${PTS_PHPUNIT}" "PHPUnit"
