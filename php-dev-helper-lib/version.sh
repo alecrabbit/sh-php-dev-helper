@@ -56,6 +56,10 @@ version_update_needed () {
  
 version_save_build_hash () {
     _BUILD="$(_get_git_hash)"
+    if [ $? -ne 0 ] 
+    then
+        return "${PTS_FALSE}"
+    fi
     _log_debug "Build hash: '${_BUILD}'"
     if [ "${_BUILD}" != "" ]
     then
