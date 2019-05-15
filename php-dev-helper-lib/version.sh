@@ -7,7 +7,7 @@ if [ -e "${__file}" ]
 then
     _VERSION="$(cat "${__file}")"
 else
-    _VERSION="x.y.z"
+    _VERSION="0.0.0"
 fi
 export _VERSION
 
