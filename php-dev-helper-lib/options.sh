@@ -92,10 +92,12 @@ _read_options () {
         VALUE=$(echo "$1" | awk -F= '{print $2}')
         case $PARAM in
             -h | --help)
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 __usage
                 exit
                 ;;
             --update)
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 updater_run
                 exit
                 ;;

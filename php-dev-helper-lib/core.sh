@@ -108,6 +108,7 @@ core_get_realpath ()
 }
 
 core_check_if_dir_exists () {
+    _log_debug "Checking if directory exists '${1}'"
     __DIRECTORY=$(core_get_realpath "${1}")
     if [ $? -eq ${PTS_TRUE} ]
     then
@@ -119,7 +120,7 @@ core_check_if_dir_exists () {
             fi
         fi
     fi
-    _PTS_debug "Directory NOT exists '${__DIRECTORY}'"
+    _log_debug "Directory NOT exists '${__DIRECTORY}'"
     unset __DIRECTORY
     return ${PTS_FALSE}
 }

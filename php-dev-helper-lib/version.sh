@@ -43,4 +43,9 @@ _version () {
     echo "${_VERSION:-unknown}${_BUILD}"
 }
 
+version_update_needed () {
+    test "$(echo "${_VERSION} ${1}" | tr " " "\n" | sort -V | head -n 1)" != "${1}";
+}
+ 
+
 unset __file

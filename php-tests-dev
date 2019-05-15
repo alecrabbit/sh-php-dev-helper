@@ -24,6 +24,8 @@ WORK_DIR="${PWD}"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/commands.sh"
 # shellcheck disable=SC1090
+. "${LIB_DIR}/github.sh"
+# shellcheck disable=SC1090
 . "${LIB_DIR}/updater.sh"
 
 _read_options "$@"
