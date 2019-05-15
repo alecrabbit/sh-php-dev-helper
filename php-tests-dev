@@ -41,6 +41,8 @@ _log_debug "Work dir: ${WORK_DIR}"
 _log_debug "VERSION file: ${VERSION_FILE}"
 _log_debug "BUILD file: ${BUILD_FILE}"
 
+_log_debug "Hash: $(version_save_build_hash)"
+
 _read_options "$@"
 
 ### Print header
@@ -89,7 +91,7 @@ __title="${__TITLE}"
 _log_debug "Setting title '${__title}'"
 _pts_set_terminal_title "${__title}"
 
-### Debug code 
+### Debug code
 # _log_debug "Debug messages:"
 # _log_debug "SCRIPT_NAME: ${SCRIPT_NAME}"
 # _log_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
