@@ -25,7 +25,7 @@ helper_check_working_env () {
     _log_debug "Checking docker-compose: installed"
     if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}"
     then
-        _log_fatal "docker-compose files not found"
+        _log_fatal "docker-compose file(s) not found"
     fi
 }
 
