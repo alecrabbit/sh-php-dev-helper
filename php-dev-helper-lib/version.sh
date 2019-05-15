@@ -49,5 +49,15 @@ version_update_needed () {
     test "$(echo "${_VERSION} ${1}" | tr " " "\n" | sort -V | head -n 1)" != "${1}";
 }
  
+version_save_build_hash () {
+    _BUILD="$(_get_git_hash)"
+    if [ "${_BUILD}" != "" ]
+    then
+        echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"
+        _log_debug "Saved build hash '${_BUILD}' to '${LIB_DIR:-.}/BUILD'"
+        _log_print "${_BUILD}"
+    fi
+    exit "${PTS_TRUE}"
+}
 
 unset __file

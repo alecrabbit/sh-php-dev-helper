@@ -109,14 +109,7 @@ _read_options () {
             # Undocumented
             --save-build-hash)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                _BUILD="$(_get_git_hash)"
-                if [ "${_BUILD}" != "" ]
-                then
-                    echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"
-                    _log_debug "Saved build hash '${_BUILD}' to '${LIB_DIR:-.}/BUILD'"
-                    _log_print "${_BUILD}"
-                fi
-                exit "${PTS_TRUE}"
+                version_save_build_hash
                 ;;
             # Undocumented
             --no-exec)
