@@ -22,6 +22,10 @@ fi
 export _BUILD
 
 _get_git_hash () {
+    if ! core_check_if_dir_exists "${SCRIPT_DIR}/.git"
+    then
+        _log_debug "BUILD Hash: No repository found"
+    fi
     _BUILD="$(cd "${SCRIPT_DIR}" && git log --pretty=format:'%h' -n 1 2>&1)"
     # shellcheck disable=SC2181
     if [ $? -ne 0 ]
