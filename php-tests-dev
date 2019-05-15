@@ -34,15 +34,8 @@ _log_debug "Version $(_version)"
 _check_working_env
 
 _show_options
-_CONTAINER_STARTED=${PTS_FALSE}
-_DEBUG_IMAGE_USED=${PTS_FALSE}
-if _is_container_started
-then
-    export _CONTAINER_STARTED=${PTS_TRUE}
-    if _is_debug_image_used; then
-        export _DEBUG_IMAGE_USED=${PTS_TRUE}
-    fi
-fi
+_pts_helper_check_container
+
 
 ### Start
 __TITLE="$(_pts_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"

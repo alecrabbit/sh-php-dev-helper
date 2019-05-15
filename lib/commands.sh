@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 if [ -z "${LIB_DIR:-}" ]; then
-    echo "This script can not be runned standalone."
+    echo "This script can not run standalone."
     exit 1
 fi
 
@@ -9,7 +9,7 @@ _multi_tester_exec () {
         _log_info "Multi tester..."
         if ! docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app multi-tester
         then
-            _log_debug "Error occured"
+            _log_debug "Error occurred"
         fi
     fi
 }
@@ -49,6 +49,7 @@ _phpunit_exec () {
     if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]; then
         _log_print "$(_color_green "PHP Version:")\n$(__php_version)"
         _log_info "PHPUnit..."
+        _log_debug "PTS_PHPUNIT_COVERAGE:[${PTS_PHPUNIT_COVERAGE}] _DEBUG_IMAGE_USED:[${_DEBUG_IMAGE_USED}]"
         if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${PTS_TRUE}" ] && [ "${_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
             if [ -e "${PTS_XDEBUG_FILTER_FILE}" ]
             then

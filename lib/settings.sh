@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 export PTS_DEBUG_IMAGE="debug"
-export PTS_DOCKER_COMPOSE_FILE="docker-compose.yml"
-export PTS_DOCKER_COMPOSE_DEBUG_FILE="docker-compose-debug.yml"
+
+export _DOCKER_COMPOSE_FILE="docker-compose.yml"
+export _DOCKER_COMPOSE_FILE_DEBUG="docker-compose-debug.yml"
+
+export PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
 
 export PTS_TESTS_DIR="tests"
 export PTS_TMP_DIR_PARTIAL="tmp"

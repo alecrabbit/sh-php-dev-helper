@@ -29,7 +29,7 @@ _log_fatal () {
 # Args:
 #   $1 string Message to print.
 #   $2 int (Optional)Print new line in the end.
-#   $3 int (Optional)Print new line in the begining.
+#   $3 int (Optional)Print new line in the beginning.
 _log_print () {
     if [ "${3:-${PTS_FALSE}}" -eq "${PTS_TRUE}" ]
     then

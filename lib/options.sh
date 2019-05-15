@@ -54,13 +54,16 @@ __export_options () {
 }
 
 _show_options () {
+    if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${PTS_TRUE}" ]; then
+        _log_debug "Debug image required"
+    fi
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
         _show_option "${PTS_EXECUTE}" "Execute"
-        _show_option "${PTS_REQUIRE_DEBUG_IMAGE}" "Debug image required"
+        # _show_option "${PTS_REQUIRE_DEBUG_IMAGE}" "Debug image required"
         _show_option "${PTS_ANALYSIS}" "Analysis"
         _show_option "${PTS_RESTART}" "Container restart"
-   fi
+    fi
     _show_option "${PTS_METRICS}" "PHPMetrics"
     _show_option "${PTS_MULTI}" "Multi-tester"
     _show_option "${PTS_CS}" "Code sniffer"
