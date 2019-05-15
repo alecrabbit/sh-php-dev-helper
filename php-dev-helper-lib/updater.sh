@@ -48,7 +48,6 @@ __updater_install () {
         _log_debug "Writing new version ${_LATEST_VERSION} > ${VERSION_FILE}"
         # shellcheck disable=SC2116
         _log_debug "Writing new version\n$(echo "${_LATEST_VERSION}" > "${VERSION_FILE}" 2>&1)"
-        _log_debug "Writing new build\n$(_get_git_hash > "${BUILD_FILE}" 2>&1)"
         _log_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
         _log_info "Update complete ${_VERSION} -> ${_LATEST_VERSION}"
     else
