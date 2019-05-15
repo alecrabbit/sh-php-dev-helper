@@ -24,15 +24,15 @@ updater_run () {
         then
             _log_fatal "It seems you are trying to update lib source dir"
         fi
-        _log_info "Updater: processing"
-        __updater_download
+        _log_info "Updating..."
+        __updater_install
     else
         _log_info "You are using latest version: ${_VERSION}"
         _log_comment "No update needed"
     fi    
 }
 
-__updater_download () {
+__updater_install () {
     __dir="${WORK_DIR}/${__TMP_DIR}"
     _log_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     _log_debug "Recreating '${__dir}'\n$(mkdir -p "${__dir}" 2>&1)"
