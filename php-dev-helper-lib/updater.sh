@@ -7,15 +7,19 @@ _LATEST_VERSION=""
 
 updater_run () {
     _log_debug "Updater: checking install"
-    _LATEST_VERSION="$(github_get_latest_release "${_REPOSITORY}")"
-    if [ "${_LATEST_VERSION}" = "" ]; then
-        _log_debug "Updater: release not found"
-        _log_debug "Updater: searching for tag"
-        _LATEST_VERSION="$(github_get_tags "${_REPOSITORY}")"
-        if [ "${_LATEST_VERSION}" = "" ]; then
-            _log_fatal "No releases or tags found for repository '${_REPOSITORY}'"
-        fi
+    _LATEST_VERSION="$(github_get_latest_version "${_REPOSITORY}" 2>&1)"
+    if [ $? -ne "${PTS_TRUE}" ];then
+        _log_fatal "${_LATEST_VERSION}"
     fi
+    # _LATEST_VERSION="$(github_get_latest_release "${_REPOSITORY}")"
+    # if [ "${_LATEST_VERSION}" = "" ]; then
+    #     _log_debug "Updater: release not found"
+    #     _log_debug "Updater: searching for tag"
+    #     _LATEST_VERSION="$(github_get_tags "${_REPOSITORY}")"
+    #     if [ "${_LATEST_VERSION}" = "" ]; then
+    #         _log_fatal "No releases or tags found for repository '${_REPOSITORY}'"
+    #     fi
+    # fi
     _log_debug "Github last version: ${_LATEST_VERSION}"
     if version_update_needed "${_LATEST_VERSION}"; then
         _log_comment "Current version: ${_VERSION}"
