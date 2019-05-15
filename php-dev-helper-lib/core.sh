@@ -66,3 +66,23 @@ check_command () {
     fi
     return "${PTS_FALSE}"
 }
+
+_ppt_backup_realpath () {
+    ppt_path_=${1}
+
+    # prepend current directory to relative paths
+    echo "${ppt_path_}" |grep '^/' >/dev/null 2>&1 \
+        || ppt_path_="${PWD}/${ppt_path_}"
+
+    # clean up the path. if all seds supported true regular expressions, then
+    # this is what it would be:
+    ppt_old_=${ppt_path_}
+    while true; do
+        ppt_new_=`echo "${ppt_old_}" | sed 's/[^/]*\/\.\.\/*//;s/\/\.\//\//'`
+        [ "${ppt_old_}" = "${ppt_new_}" ] && break
+        ppt_old_=${ppt_new_}
+    done
+    echo "${ppt_new_}"
+
+    unset ppt_path_ ppt_old_ ppt_new_
+}
