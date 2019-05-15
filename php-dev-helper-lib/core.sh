@@ -125,3 +125,18 @@ core_check_if_dir_exists () {
     return ${PTS_FALSE}
 }
 
+core_is_dir_contains () {
+    __FILES="${2}"
+    __DIR="${1}"
+    for __file in ${__FILES}; do
+        if [ ! -e "${__DIR}/${__file}" ]
+        then
+            _log_dark "Not found: '${__DIR}/${__file}'"
+            unset __FILES __file
+            return ${PTS_FALSE}
+        fi
+    done
+    unset __DIR __FILES __file
+    return ${PTS_TRUE}
+}
+
