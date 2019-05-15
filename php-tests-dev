@@ -32,7 +32,7 @@ _log_info "Version $(_version)"
 _log_debug "Version $(_version "${PTS_TRUE}")"
 
 ### Run checks
-_check_working_env
+helper_check_working_env
 
 _show_options
 _pts_helper_check_container
@@ -46,7 +46,7 @@ _pts_set_terminal_title "${__title}"
 
 if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
     _log_debug "Executing..."
-    if [ "${_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         _phpunit_exec
         _php_metrics_exec
         _multi_tester_exec

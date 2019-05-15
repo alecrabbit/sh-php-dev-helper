@@ -5,11 +5,13 @@ __usage () {
     echo "Options:"
     echo "    $(_color_yellow "-a, --all")             - launch all tests"
     # echo "    $(_color_yellow "--no-restart")          - do not restart container(s)"
-    echo "    $(_color_yellow "-s, --analyze")         - enable static analysis tools"
     echo "    $(_color_yellow "-b, --beauty")          - enable php_cs sniffer and beautifier"
     echo "    $(_color_yellow "-c, --coverage")        - enable code coverage"
     echo "    $(_color_yellow "--metrics")             - enable phpmetrics"
     echo "    $(_color_yellow "--multi")               - enable multi-tester"
+    echo "    $(_color_yellow "--phpstan")             - enable phpstan"
+    echo "    $(_color_yellow "--psalm")               - enable psalm"
+    echo "    $(_color_yellow "-s, --analyze")         - enable static analysis tools"
     echo "    $(_color_yellow "-u, --unit")            - enable phpunit"
 }
 
@@ -22,6 +24,8 @@ __set_default_options () {
     PTS_MULTI=${PTS_FALSE}
     PTS_CS=${PTS_FALSE}
     PTS_CS_BF=${PTS_FALSE}
+    PTS_PHPSTAN=${PTS_FALSE}
+    PTS_PSALM=${PTS_FALSE}
     PTS_PHPUNIT=${PTS_TRUE}
     PTS_PHPUNIT_COVERAGE=${PTS_FALSE}
     __ALL_OPTION=${PTS_FALSE}
@@ -29,12 +33,16 @@ __set_default_options () {
 
 __process_options () {
     if [ "${PTS_ANALYSIS}" -eq "${PTS_TRUE}" ]; then
-        PTS_CS=${PTS_TRUE}
-        PTS_CS_BF=${PTS_TRUE}
+        # PTS_CS=${PTS_TRUE}
+        # PTS_CS_BF=${PTS_TRUE}
+        PTS_PHPSTAN=${PTS_TRUE}
+        PTS_PSALM=${PTS_TRUE}
     fi
     if [ "${__ALL_OPTION}" -eq "${PTS_TRUE}" ]; then
         PTS_CS=${PTS_TRUE}
         PTS_CS_BF=${PTS_TRUE}
+        PTS_PHPSTAN=${PTS_TRUE}
+        PTS_PSALM=${PTS_TRUE}
         PTS_PHPUNIT=${PTS_TRUE}
         PTS_PHPUNIT_COVERAGE=${PTS_TRUE}
     fi
@@ -49,23 +57,24 @@ __export_options () {
     export PTS_MULTI
     export PTS_CS
     export PTS_CS_BF
+    export PTS_PHPSTAN
+    export PTS_PSALM
     export PTS_PHPUNIT
     export PTS_PHPUNIT_COVERAGE
 }
 
 _show_options () {
-    if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${PTS_TRUE}" ]; then
-        _log_debug "Debug image required"
-    fi
+    _log_debug "Show selected options:"
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
         _show_option "${PTS_EXECUTE}" "Execute"
-        # _show_option "${PTS_REQUIRE_DEBUG_IMAGE}" "Debug image required"
         _show_option "${PTS_ANALYSIS}" "Analysis"
         _show_option "${PTS_RESTART}" "Container restart"
     fi
     _show_option "${PTS_METRICS}" "PHPMetrics"
     _show_option "${PTS_MULTI}" "Multi-tester"
+    _show_option "${PTS_PHPSTAN}" "PHPStan"
+    _show_option "${PTS_PSALM}" "vimeo/psalm"
     _show_option "${PTS_CS}" "Code sniffer"
     _show_option "${PTS_CS_BF}" "Beautifier"
     _show_option "${PTS_PHPUNIT}" "PHPUnit"
@@ -127,6 +136,16 @@ _read_options () {
             --metrics)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_METRICS=${PTS_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                ;;
+            --phpstan)
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_PHPSTAN=${PTS_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                ;;
+            --psalm)
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_PSALM=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --multi)

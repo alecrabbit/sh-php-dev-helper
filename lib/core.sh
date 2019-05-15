@@ -35,13 +35,15 @@ core_int_to_string () {
    esac
 }
 
-_pts_check_user () {
+user_is_root () {
     if [ "$(whoami)" = "root" ]; then
         if [ "${PTS_ALLOW_ROOT}" -eq 0 ]; then
-                _log_fatal "DO NOT run this script under root!"
+                return "${PTS_TRUE}"
             fi
     fi
+    return "${PTS_FALSE}"
 }
+
 _pts_set_terminal_title () {
     if [ "${PTS_TITLE}" -eq 1 ]; then
         # shellcheck disable=SC2059
@@ -58,7 +60,7 @@ _pts_get_title_from_file () {
     echo "${title}"
 }
 
-_pts_check_command () {
+check_command () {
     if [ -x "$(command -v "${1}")" ]; then
         return "${PTS_TRUE}"
     fi

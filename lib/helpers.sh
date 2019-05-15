@@ -11,18 +11,24 @@ _show_option () {
     unset __value __option_name __option_value
 }
 
-_check_working_env () {
-    _pts_check_user
-    if ! _pts_check_command "docker-compose"
+helper_check_working_env () {
+    if user_is_root
+    then
+        _log_fatal "DO NOT run this script under root!"
+    fi
+    _log_debug "Checking user: $(whoami)"
+
+    if ! check_command "docker-compose"
     then 
         _log_fatal "docker-compose is NOT installed!"
     fi
+    _log_debug "Checking docker-compose: installed"
 }
 
 __is_debug_image_used () {
     __message="Unable to define image: Container not started"
     PTS_DEBUG_IMAGE_USED="${PTS_ERROR}"
-    if [ "${_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         if docker-compose images | grep -q "${PTS_DEBUG_IMAGE}"
         then
             __message="Debug image is used"
@@ -39,15 +45,15 @@ __is_debug_image_used () {
 
 __is_container_started () {
     __message="Container NOT started in"
-    _CONTAINER_STARTED=${PTS_FALSE}
+    PTS_CONTAINER_STARTED=${PTS_FALSE}
 
     if docker-compose images | grep -q -e "$(basename "${WORK_DIR}")" -e "Up"
     then
         __message="Container started in"
-        _CONTAINER_STARTED="${PTS_TRUE}"
+        PTS_CONTAINER_STARTED="${PTS_TRUE}"
     fi
     _log_debug "${__message} '${WORK_DIR}'"
-    export _CONTAINER_STARTED
+    export PTS_CONTAINER_STARTED
     unset __message
 }
 __check_container () {
@@ -58,7 +64,7 @@ __check_container () {
 _pts_helper_check_container () {        
     _log_debug "Checking container"
     __check_container
-    if [ "${_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         _log_debug "Container started"
         # if __is_debug_image_used; then
         #     PTS_DEBUG_IMAGE_USED=${PTS_TRUE}
