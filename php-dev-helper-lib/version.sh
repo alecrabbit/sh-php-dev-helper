@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
-__file="${LIB_DIR:-.}/VERSION"
+_VERSION_FILE="${LIB_DIR:-.}/VERSION"
+__file="${_VERSION_FILE}"
 
 if [ -e "${__file}" ]
 then
