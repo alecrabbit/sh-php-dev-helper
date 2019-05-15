@@ -91,16 +91,36 @@ core_get_realpath ()
 {
     if check_command "realpath"
     then
-        ppt_new_="$(realpath "${1}" 2>&1)"
+        __realpath="$(realpath "${1}" 2>&1)"
         if [ $? -ne "${PTS_TRUE}" ]
         then
-            _ppt_debug "Error: ${ppt_new_}"
+            _ppt_debug "Error: ${__realpath}"
             _ppt_debug "Using _ppt_backup_realpath function"
+            unset __realpath
             core_backup_realpath "${1}"
-            return ${PTS_TRUE}
+            return $?
         fi
-        echo "${ppt_new_}"
+        echo "${__realpath}"
     else
         core_backup_realpath "${1}"
     fi
+    unset __realpath
 }
+
+core_check_if_dir_exists () {
+    __DIRECTORY=$(core_get_realpath "${1}")
+    if [ $? -eq ${PTS_TRUE} ]
+    then
+        if [ -d "${__DIRECTORY}" ]; then
+            if [ ! -L "${__DIRECTORY}" ]; then
+                _log_debug "Directory exists '${__DIRECTORY}'"
+                unset __DIRECTORY
+                return ${PTS_TRUE}
+            fi
+        fi
+    fi
+    _PTS_debug "Directory NOT exists '${__DIRECTORY}'"
+    unset __DIRECTORY
+    return ${PTS_FALSE}
+}
+

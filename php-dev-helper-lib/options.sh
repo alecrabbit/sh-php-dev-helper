@@ -95,6 +95,10 @@ _read_options () {
                 __usage
                 exit
                 ;;
+            --update)
+                updater_run
+                exit
+                ;;
             -V | --version)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 _log_print "${SCRIPT_NAME:-unknown} version $(_version)"
