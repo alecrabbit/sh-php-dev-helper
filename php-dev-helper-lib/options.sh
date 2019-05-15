@@ -103,8 +103,7 @@ _read_options () {
                 ;;
             -V | --version)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                _log_print "${SCRIPT_NAME:-unknown} version $(_version)"
-                _log_debug "Version $(_version "${PTS_TRUE}")"
+                _log_print "${SCRIPT_NAME:-unknown} version $(_version "${PTS_TRUE}")"
                 exit "${PTS_TRUE}"
                 ;;
             # Undocumented
