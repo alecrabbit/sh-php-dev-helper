@@ -56,18 +56,17 @@ version_update_needed () {
  
 version_save_build_hash () {
     _BUILD="$(_get_git_hash)"
-    if [ $? -ne 0 ] 
+    if [ $? -ne "${PTS_TRUE}" ] 
     then
         return "${PTS_FALSE}"
     fi
-    _log_debug "Build hash: '${_BUILD}'"
+    _log_debug "Got build hash: '${_BUILD}'"
     if [ "${_BUILD}" != "" ]
     then
         echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"
         _log_debug "Saved build hash '${_BUILD}' to '${LIB_DIR:-.}/BUILD'"
         echo "${_BUILD}"
     fi
-    exit "${PTS_TRUE}"
 }
 
 unset __file

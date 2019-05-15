@@ -41,7 +41,13 @@ _log_debug "Work dir: ${WORK_DIR}"
 _log_debug "VERSION file: ${VERSION_FILE}"
 _log_debug "BUILD file: ${BUILD_FILE}"
 
-_log_debug "$(version_save_build_hash)"
+__hash="$(version_save_build_hash)"
+if [ $? -eq "${PTS_TRUE}" ]
+then
+    _log_debug "Saved hash: '${__hash}'"
+else
+    _log_debug "Hash not saved"
+fi
 
 _read_options "$@"
 

@@ -110,6 +110,7 @@ _read_options () {
             --save-build-hash)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 version_save_build_hash
+                exit "${PTS_TRUE}"
                 ;;
             # Undocumented
             --no-exec)
