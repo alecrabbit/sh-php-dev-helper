@@ -31,6 +31,8 @@ WORK_DIR="${PWD}"
 SCRIPT_DIR="$(core_get_realpath "${SCRIPT_DIR}")"
 LIB_DIR="$(core_get_realpath "${LIB_DIR}")"
 WORK_DIR="$(core_get_realpath "${WORK_DIR}")"
+VERSION_FILE="$(core_get_realpath "${VERSION_FILE}")"
+
 
 _log_debug "Script dir: ${SCRIPT_DIR}"
 _log_debug "Lib dir: ${LIB_DIR}"

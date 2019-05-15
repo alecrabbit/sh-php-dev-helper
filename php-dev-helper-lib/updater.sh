@@ -42,8 +42,7 @@ __updater_download () {
         _log_debug "Package downloaded"
         _log_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${_LATEST_VERSION}"/. "${SCRIPT_DIR}"/. 2>&1)"
         # shellcheck disable=SC2116
-        _log_debug "Writing new version\n$(echo "${_LATEST_VERSION}" > "${_VERSION_FILE}" 2>&1)"
-        echo "${_LATEST_VERSION}" > "${_VERSION_FILE}"
+        _log_debug "Writing new version\n$(echo "${_LATEST_VERSION}" > "${VERSION_FILE}" 2>&1)"
     else
         _log_fatal "Error occurred during download"
     fi
