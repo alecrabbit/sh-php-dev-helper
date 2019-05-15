@@ -5,14 +5,18 @@ __usage () {
     echo "Options:"
     echo "    $(_color_yellow "-a, --all")             - launch all tests"
     # echo "    $(_color_yellow "--no-restart")          - do not restart container(s)"
-    echo "    $(_color_yellow "-b, --beauty")          - enable php_cs sniffer and beautifier"
-    echo "    $(_color_yellow "-c, --coverage")        - enable code coverage"
+    echo "    $(_color_yellow "-b, --beauty")          - enable php code sniffer beautifier"
+    echo "    $(_color_yellow "-c, --coverage")        - enable phpunit code coverage"
+    echo "    $(_color_yellow "--cs")                  - enable php code sniffer"
     echo "    $(_color_yellow "--metrics")             - enable phpmetrics"
     echo "    $(_color_yellow "--multi")               - enable multi-tester"
     echo "    $(_color_yellow "--phpstan")             - enable phpstan"
     echo "    $(_color_yellow "--psalm")               - enable psalm"
     echo "    $(_color_yellow "-s, --analyze")         - enable static analysis tools"
     echo "    $(_color_yellow "-u, --unit")            - enable phpunit"
+    echo
+    # shellcheck disable=SC2005
+    echo "$(_color_dark "Note: options order is important")"
 }
 
 __set_default_options () {
@@ -33,8 +37,7 @@ __set_default_options () {
 
 __process_options () {
     if [ "${PTS_ANALYSIS}" -eq "${PTS_TRUE}" ]; then
-        # PTS_CS=${PTS_TRUE}
-        # PTS_CS_BF=${PTS_TRUE}
+        PTS_PHPUNIT=${PTS_FALSE}
         PTS_PHPSTAN=${PTS_TRUE}
         PTS_PSALM=${PTS_TRUE}
     fi
@@ -71,14 +74,14 @@ _show_options () {
         _show_option "${PTS_ANALYSIS}" "Analysis"
         _show_option "${PTS_RESTART}" "Container restart"
     fi
-    _show_option "${PTS_METRICS}" "PHPMetrics"
-    _show_option "${PTS_MULTI}" "Multi-tester"
     _show_option "${PTS_PHPSTAN}" "PHPStan"
     _show_option "${PTS_PSALM}" "Psalm"
     _show_option "${PTS_CS}" "Code sniffer"
-    _show_option "${PTS_CS_BF}" "Beautifier"
+    _show_option "${PTS_CS_BF}" "Code sniffer Beautifier"
     _show_option "${PTS_PHPUNIT}" "PHPUnit"
-    _show_option "${PTS_PHPUNIT_COVERAGE}" "Code coverage"
+    _show_option "${PTS_PHPUNIT_COVERAGE}" "PHPUnit code coverage"
+    _show_option "${PTS_METRICS}" "PHPMetrics"
+    _show_option "${PTS_MULTI}" "Multi-tester"
 }
 
 _read_options () {
@@ -131,6 +134,7 @@ _read_options () {
             -c | --coverage)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPUNIT_COVERAGE=${PTS_TRUE}
+                PTS_PHPUNIT=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --metrics)
@@ -141,11 +145,19 @@ _read_options () {
             --phpstan)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPSTAN=${PTS_TRUE}
+                PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --psalm)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PSALM=${PTS_TRUE}
+                PTS_PHPUNIT=${PTS_FALSE}
+                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                ;;
+            --cs)
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_CS=${PTS_TRUE}
+                PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --multi)
@@ -155,11 +167,16 @@ _read_options () {
             -b | --beauty | --beautify)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_CS_BF=${PTS_TRUE}
+                PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --no-restart)
                 _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_RESTART=${PTS_FALSE}
+                ;;
+            --debug)
+                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_DEBUG=1
                 ;;
             # -y)
             #     _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
