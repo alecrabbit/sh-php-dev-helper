@@ -25,9 +25,9 @@ Usage:
     php-tests [options]
 Options:
     -h                    - show help message and exit
-    -a, --all             - launch all tests
+    -a, --all             - run all tests (not includes --metrics and --multi)
     -b, --beauty          - enable php code sniffer beautifier
-    -c, --coverage        - enable phpunit code coverage
+    -c, --coverage        - enable phpunit code coverage (includes -u)
     --cs                  - enable php code sniffer
     --metrics             - enable phpmetrics
     --multi               - enable multi-tester
