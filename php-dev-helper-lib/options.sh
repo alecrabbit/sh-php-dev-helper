@@ -3,6 +3,7 @@ __usage () {
     echo "Usage:"
     echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
+    echo "    $(colored_yellow "-h")                    - show help message and exit"
     echo "    $(colored_yellow "-a, --all")             - launch all tests"
     # echo "    $(colored_yellow "--no-restart")          - do not restart container(s)"
     echo "    $(colored_yellow "-b, --beauty")          - enable php code sniffer beautifier"
