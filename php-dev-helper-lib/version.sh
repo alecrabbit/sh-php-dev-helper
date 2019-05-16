@@ -25,7 +25,7 @@ _get_git_hash () {
     if ! core_check_if_dir_exists "${SCRIPT_DIR}/.git"
     then
         console_debug "BUILD Hash: No repository found"
-        return "${PTS_FALSE}"
+        return "${CR_FALSE}"
     fi
     _BUILD="$(cd "${SCRIPT_DIR}" && git log --pretty=format:'%h' -n 1 2>&1)"
     # shellcheck disable=SC2181
@@ -43,7 +43,7 @@ _version () {
         _BUILD=", build ${_BUILD}"
     fi
    
-    if [ "${1:-${PTS_FALSE}}" -ne "${PTS_TRUE}" ]; then
+    if [ "${1:-${CR_FALSE}}" -ne "${CR_TRUE}" ]; then
         _BUILD=""
     fi
 
@@ -56,9 +56,9 @@ version_update_needed () {
  
 version_save_build_hash () {
     _BUILD="$(_get_git_hash)"
-    if [ $? -ne "${PTS_TRUE}" ] 
+    if [ $? -ne "${CR_TRUE}" ] 
     then
-        return "${PTS_FALSE}"
+        return "${CR_FALSE}"
     fi
     console_debug "Got build hash: '${_BUILD}'"
     if [ "${_BUILD}" != "" ]

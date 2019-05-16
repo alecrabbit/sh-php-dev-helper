@@ -22,34 +22,34 @@ __usage () {
 }
 
 __set_default_options () {
-    PTS_EXECUTE=${PTS_TRUE}
-    PTS_REQUIRE_DEBUG_IMAGE=${PTS_FALSE}
-    PTS_RESTART=${PTS_FALSE}
-    PTS_ANALYSIS=${PTS_FALSE}
-    PTS_METRICS=${PTS_FALSE}
-    PTS_MULTI=${PTS_FALSE}
-    PTS_CS=${PTS_FALSE}
-    PTS_CS_BF=${PTS_FALSE}
-    PTS_PHPSTAN=${PTS_FALSE}
-    PTS_PSALM=${PTS_FALSE}
-    PTS_PHPUNIT=${PTS_TRUE}
-    PTS_PHPUNIT_COVERAGE=${PTS_FALSE}
-    __ALL_OPTION=${PTS_FALSE}
+    PTS_EXECUTE=${CR_TRUE}
+    PTS_REQUIRE_DEBUG_IMAGE=${CR_FALSE}
+    PTS_RESTART=${CR_FALSE}
+    PTS_ANALYSIS=${CR_FALSE}
+    PTS_METRICS=${CR_FALSE}
+    PTS_MULTI=${CR_FALSE}
+    PTS_CS=${CR_FALSE}
+    PTS_CS_BF=${CR_FALSE}
+    PTS_PHPSTAN=${CR_FALSE}
+    PTS_PSALM=${CR_FALSE}
+    PTS_PHPUNIT=${CR_TRUE}
+    PTS_PHPUNIT_COVERAGE=${CR_FALSE}
+    __ALL_OPTION=${CR_FALSE}
 }
 
 __process_options () {
-    if [ "${PTS_ANALYSIS}" -eq "${PTS_TRUE}" ]; then
-        PTS_PHPUNIT=${PTS_FALSE}
-        PTS_PHPSTAN=${PTS_TRUE}
-        PTS_PSALM=${PTS_TRUE}
+    if [ "${PTS_ANALYSIS}" -eq "${CR_TRUE}" ]; then
+        PTS_PHPUNIT=${CR_FALSE}
+        PTS_PHPSTAN=${CR_TRUE}
+        PTS_PSALM=${CR_TRUE}
     fi
-    if [ "${__ALL_OPTION}" -eq "${PTS_TRUE}" ]; then
-        PTS_CS=${PTS_TRUE}
-        PTS_CS_BF=${PTS_TRUE}
-        PTS_PHPSTAN=${PTS_TRUE}
-        PTS_PSALM=${PTS_TRUE}
-        PTS_PHPUNIT=${PTS_TRUE}
-        PTS_PHPUNIT_COVERAGE=${PTS_TRUE}
+    if [ "${__ALL_OPTION}" -eq "${CR_TRUE}" ]; then
+        PTS_CS=${CR_TRUE}
+        PTS_CS_BF=${CR_TRUE}
+        PTS_PHPSTAN=${CR_TRUE}
+        PTS_PSALM=${CR_TRUE}
+        PTS_PHPUNIT=${CR_TRUE}
+        PTS_PHPUNIT_COVERAGE=${CR_TRUE}
     fi
 }
 
@@ -70,7 +70,7 @@ __export_options () {
 
 _show_options () {
     console_dark "\nSelected options:"
-    if [ "${PTS_DEBUG}" -eq 1 ]
+    if [ "${CR_DEBUG}" -eq 1 ]
     then
         _show_option "${PTS_EXECUTE}" "Execute"
         _show_option "${PTS_ANALYSIS}" "Analysis"
@@ -106,80 +106,80 @@ _read_options () {
                 ;;
             -V | --version)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                console_print "${SCRIPT_NAME:-unknown} version $(_version "${PTS_TRUE}")"
-                exit "${PTS_TRUE}"
+                console_print "${SCRIPT_NAME:-unknown} version $(_version "${CR_TRUE}")"
+                exit "${CR_TRUE}"
                 ;;
             # Undocumented
             --save-build-hash)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 version_save_build_hash
-                exit "${PTS_TRUE}"
+                exit "${CR_TRUE}"
                 ;;
             # Undocumented
             --no-exec)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_EXECUTE=${PTS_FALSE}
+                PTS_EXECUTE=${CR_FALSE}
                 ;;
             -a | --all)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                __ALL_OPTION=${PTS_TRUE}
-                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                __ALL_OPTION=${CR_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -s | --analyze)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_ANALYSIS=${PTS_TRUE}
-                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                PTS_ANALYSIS=${CR_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -u | --unit)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_PHPUNIT=${PTS_TRUE}
+                PTS_PHPUNIT=${CR_TRUE}
                 ;;
             -c | --coverage)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_PHPUNIT_COVERAGE=${PTS_TRUE}
-                PTS_PHPUNIT=${PTS_TRUE}
-                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                PTS_PHPUNIT_COVERAGE=${CR_TRUE}
+                PTS_PHPUNIT=${CR_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --metrics)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_METRICS=${PTS_TRUE}
-                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                PTS_METRICS=${CR_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --phpstan)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_PHPSTAN=${PTS_TRUE}
-                PTS_PHPUNIT=${PTS_FALSE}
-                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                PTS_PHPSTAN=${CR_TRUE}
+                PTS_PHPUNIT=${CR_FALSE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --psalm)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_PSALM=${PTS_TRUE}
-                PTS_PHPUNIT=${PTS_FALSE}
-                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                PTS_PSALM=${CR_TRUE}
+                PTS_PHPUNIT=${CR_FALSE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --cs)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_CS=${PTS_TRUE}
-                PTS_PHPUNIT=${PTS_FALSE}
-                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                PTS_CS=${CR_TRUE}
+                PTS_PHPUNIT=${CR_FALSE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --multi)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_MULTI=${PTS_TRUE}
+                PTS_MULTI=${CR_TRUE}
                 ;;
             -b | --beauty | --beautify)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_CS_BF=${PTS_TRUE}
-                PTS_PHPUNIT=${PTS_FALSE}
-                PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
+                PTS_CS_BF=${CR_TRUE}
+                PTS_PHPUNIT=${CR_FALSE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --no-restart)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_RESTART=${PTS_FALSE}
+                PTS_RESTART=${CR_FALSE}
                 ;;
             --debug)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_DEBUG=1
+                CR_DEBUG=1
                 ;;
             # -y)
             #     console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"

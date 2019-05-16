@@ -1,33 +1,33 @@
 #!/usr/bin/env sh
 ### Define constants
-true; PTS_TRUE=$?
-false; PTS_FALSE=$?
-PTS_ERROR=2
+true; CR_TRUE=$?
+false; CR_FALSE=$?
+CR_ERROR=2
 
 # 0: Disabled 1: Enabled
-PTS_DEBUG=${DEBUG:-0}  
-PTS_ALLOW_ROOT=${ALLOW_ROOT:-0}
-CORE_TITLE=${TITLE:-1}
+CR_DEBUG=${DEBUG:-0}  
+CR_ALLOW_ROOT=${ALLOW_ROOT:-0}
+CR_TITLE=${TITLE:-1}
 
 # shellcheck disable=SC1090
 . "${MODULES_DIR}/console.sh"
 
-export PTS_TRUE
-export PTS_FALSE
-export PTS_ERROR
-export PTS_DEBUG
+export CR_TRUE
+export CR_FALSE
+export CR_ERROR
+export CR_DEBUG
 
 core_int_to_string () {
     case ${1} in
-        ${PTS_TRUE})
+        ${CR_TRUE})
             echo "True"
             return
         ;;
-        ${PTS_FALSE})
+        ${CR_FALSE})
             echo "False"
             return
         ;;
-        ${PTS_ERROR})
+        ${CR_ERROR})
             echo "Error"
             return
         ;;
@@ -40,15 +40,15 @@ core_int_to_string () {
 
 user_is_root () {
     if [ "$(whoami)" = "root" ]; then
-        if [ "${PTS_ALLOW_ROOT}" -eq 0 ]; then
-                return "${PTS_TRUE}"
+        if [ "${CR_ALLOW_ROOT}" -eq 0 ]; then
+                return "${CR_TRUE}"
             fi
     fi
-    return "${PTS_FALSE}"
+    return "${CR_FALSE}"
 }
 
 core_set_terminal_title () {
-    if [ "${CORE_TITLE}" -eq 1 ]; then
+    if [ "${CR_TITLE}" -eq 1 ]; then
         # shellcheck disable=SC2059
         printf "\033]0;${1}\007"
     fi
@@ -65,30 +65,29 @@ core_get_title_from_file () {
 
 check_command () {
     if [ -x "$(command -v "${1}")" ]; then
-        return "${PTS_TRUE}"
+        return "${CR_TRUE}"
     fi
-    return "${PTS_FALSE}"
+    return "${CR_FALSE}"
 }
 
 # See shunit2's realToAbsPath
 core_backup_realpath () {
-    ppt_path_=${1}
+    __path=${1}
 
     # prepend current directory to relative paths
-    echo "${ppt_path_}" |grep '^/' >/dev/null 2>&1 \
-        || ppt_path_="${PWD}/${ppt_path_}"
+    echo "${__path}" | grep '^/' >/dev/null 2>&1 || __path="${PWD}/${__path}"
 
     # clean up the path. if all sed rules are supported true regular expressions, then
     # this is what it would be:
-    ppt_old_=${ppt_path_}
+    __old=${__path}
     while true; do
-        ppt_new_=$(echo "${ppt_old_}" | sed 's/[^/]*\/\.\.\/*//;s/\/\.\//\//')
-        [ "${ppt_old_}" = "${ppt_new_}" ] && break
-        ppt_old_=${ppt_new_}
+        __new=$(echo "${__old}" | sed 's/[^/]*\/\.\.\/*//;s/\/\.\//\//')
+        [ "${__old}" = "${__new}" ] && break
+        __old=${__new}
     done
-    echo "${ppt_new_}"
+    echo "${__new}"
 
-    unset ppt_path_ ppt_old_ ppt_new_
+    unset __path __old __new
 }
 
 core_get_realpath ()
@@ -96,7 +95,7 @@ core_get_realpath ()
     if check_command "realpath"
     then
         __realpath="$(realpath "${1}" 2>&1)"
-        if [ $? -ne "${PTS_TRUE}" ]
+        if [ $? -ne "${CR_TRUE}" ]
         then
             console_debug "Error: ${__realpath}"
             console_debug "Using _ppt_backup_realpath function"
@@ -114,19 +113,19 @@ core_get_realpath ()
 core_check_if_dir_exists () {
     console_debug "Checking if directory exists '${1}'"
     __DIRECTORY=$(core_get_realpath "${1}")
-    if [ $? -eq ${PTS_TRUE} ]
+    if [ $? -eq ${CR_TRUE} ]
     then
         if [ -d "${__DIRECTORY}" ]; then
             if [ ! -L "${__DIRECTORY}" ]; then
                 console_debug "Directory exists '${__DIRECTORY}'"
                 unset __DIRECTORY
-                return ${PTS_TRUE}
+                return ${CR_TRUE}
             fi
         fi
     fi
     console_debug "Directory NOT exists '${__DIRECTORY}'"
     unset __DIRECTORY
-    return ${PTS_FALSE}
+    return ${CR_FALSE}
 }
 
 core_is_dir_contains () {
@@ -137,10 +136,10 @@ core_is_dir_contains () {
         then
             console_dark "Not found: '${__DIR}/${__file}'"
             unset __FILES __file
-            return ${PTS_FALSE}
+            return ${CR_FALSE}
         fi
     done
     unset __DIR __FILES __file
-    return ${PTS_TRUE}
+    return ${CR_TRUE}
 }
 

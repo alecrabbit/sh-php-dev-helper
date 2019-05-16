@@ -5,7 +5,7 @@ if [ -z "${LIB_DIR:-}" ]; then
 fi
 
 _multi_tester_exec () {
-    if [ "${PTS_MULTI}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_MULTI}" -eq "${CR_TRUE}" ]; then
         console_info "Multi tester..."
         if ! docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app multi-tester
         then
@@ -15,7 +15,7 @@ _multi_tester_exec () {
 }
 
 _phpstan_exec () {
-    if [ "${PTS_PHPSTAN}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_PHPSTAN}" -eq "${CR_TRUE}" ]; then
         console_info "PHPStan..."
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan -V
         then
@@ -25,7 +25,7 @@ _phpstan_exec () {
 }
 
 _psalm_exec () {
-    if [ "${PTS_PHPSTAN}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_PHPSTAN}" -eq "${CR_TRUE}" ]; then
         console_info "Psalm..."
         if [ -e "${WORK_DIR}/${PSALM_CONFIG}" ]
         then
@@ -72,7 +72,7 @@ _psalm_exec () {
 # fi
 
 _php_cs_exec () {
-    if [ "${PTS_CS}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_CS}" -eq "${CR_TRUE}" ]; then
         console_info "PHP Code Sniffer..."
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcs --version
         then
@@ -82,7 +82,7 @@ _php_cs_exec () {
 }
 
 _php_cs_bf_exec () {
-    if [ "${PTS_CS_BF}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_CS_BF}" -eq "${CR_TRUE}" ]; then
         console_info "PHP Code Sniffer Beautifier..."
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcbf --version
         then
@@ -92,7 +92,7 @@ _php_cs_bf_exec () {
 }
 
 _php_metrics_exec () {
-    if [ "${PTS_METRICS}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_METRICS}" -eq "${CR_TRUE}" ]; then
         console_info "PHP Metrics..."
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmetrics --version
         then
@@ -103,12 +103,12 @@ _php_metrics_exec () {
 
 _phpunit_exec () {
     console_debug "Running PHPUnit"
-    if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_PHPUNIT}" -eq "${CR_TRUE}" ]; then
         console_print "$(colored_green "PHP Version:")\n$(__php_version)"
         console_info "PHPUnit..."
         console_debug "Run with coverage: $(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")"
         console_debug "Debug image used: $(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")"
-        if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${PTS_TRUE}" ] && [ "${PTS_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
+        if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ] && [ "${PTS_DEBUG_IMAGE_USED}" -eq "${CR_TRUE}" ]; then
             if [ -e "${PTS_XDEBUG_FILTER_FILE}" ]
             then
                 console_info "Found XDEBUG Filter file..."

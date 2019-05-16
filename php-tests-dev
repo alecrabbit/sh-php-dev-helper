@@ -41,7 +41,7 @@ console_debug "VERSION file: ${VERSION_FILE}"
 console_debug "BUILD file: ${BUILD_FILE}"
 
 __hash="$(version_save_build_hash)"
-if [ $? -eq "${PTS_TRUE}" ]
+if [ $? -eq "${CR_TRUE}" ]
 then
     console_debug "Saved hash: '${__hash}'"
 else
@@ -53,7 +53,7 @@ _read_options "$@"
 ### Print header
 console_log_header "PHP Dev Helper Script"
 console_info "Version $(_version)"
-console_debug "Version $(_version "${PTS_TRUE}")"
+console_debug "Version $(_version "${CR_TRUE}")"
 
 ### Run checks
 console_debug "Working directory: ${WORK_DIR}"
@@ -70,9 +70,9 @@ __title="${__TITLE} - Testing..."
 console_debug "Setting title '${__title}'"
 core_set_terminal_title "${__title}"
 
-if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
+if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
     console_debug "Executing..."
-    if [ "${PTS_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
+    if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_TRUE}" ]; then
         _phpunit_exec
         _php_metrics_exec
         _multi_tester_exec
@@ -86,7 +86,7 @@ if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
 fi
 
 ### Finish
-if [ "${PTS_DEBUG}" -eq 0 ]; then
+if [ "${CR_DEBUG}" -eq 0 ]; then
     console_dark "$(date '+%Y-%m-%d %H:%M:%S')"
 fi
 console_dark "Executed in $(($(date +%s)-start_time))s"

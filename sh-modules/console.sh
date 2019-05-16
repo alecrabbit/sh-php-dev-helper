@@ -11,14 +11,14 @@ fi
 ### Logging functions.
 
 console_warning () {
-    console_print "⚠️  ${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
+    console_print "⚠️  ${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_error () {
-    console_print "🛑 ${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
+    console_print "🛑 ${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_fatal () {
-    console_print "🔥 ${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
-    exit "${PTS_ERROR}"
+    console_print "🔥 ${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${CR_TRUE}" "${CR_TRUE}"
+    exit "${CR_ERROR}"
 }
 
 ### Messages functions
@@ -30,13 +30,13 @@ console_fatal () {
 #   $2 int (Optional)Print new line in the end.
 #   $3 int (Optional)Print new line in the beginning.
 console_print () {
-    if [ "${3:-${PTS_FALSE}}" -eq "${PTS_TRUE}" ]
+    if [ "${3:-${CR_FALSE}}" -eq "${CR_TRUE}" ]
     then
         __leading_nl="\n"
     else
         __leading_nl=""
     fi
-    if [ "${PTS_DEBUG}" -eq 1 ]
+    if [ "${CR_DEBUG}" -eq 1 ]
     then
         # Debug enabled
         __message="${__leading_nl}$(colored_dark "$(date '+%Y-%m-%d %H:%M:%S') │") ${1}"
@@ -45,7 +45,7 @@ console_print () {
         __message="${__leading_nl}${1}"
     fi
     # Echo new line by default
-    if [ "${2:-${PTS_TRUE}}" -eq "${PTS_TRUE}" ]; then
+    if [ "${2:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
         __message="${__message}\n"
     fi
     # shellcheck disable=SC2059
@@ -59,7 +59,7 @@ console_print () {
 #   $1 string Message to print.
 
 console_debug () {
-    if [ "${PTS_DEBUG}" -eq 1 ]
+    if [ "${CR_DEBUG}" -eq 1 ]
     then
       console_dark "<DEBUG> ${1}"
     fi

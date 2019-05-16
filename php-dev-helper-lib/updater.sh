@@ -17,7 +17,7 @@ updater_run () {
     fi
     console_debug "Updater: checking install"
     _LATEST_VERSION="$(github_get_latest_version "${_REPOSITORY}" 2>&1)"
-    if [ $? -ne "${PTS_TRUE}" ];then
+    if [ $? -ne "${CR_TRUE}" ];then
         console_fatal "${_LATEST_VERSION}"
     fi
     console_debug "Github last version: ${_LATEST_VERSION}"
