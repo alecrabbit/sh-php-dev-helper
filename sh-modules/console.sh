@@ -79,3 +79,15 @@ console_log_notice () {
 console_log_header () {
     console_print "$(colored_bold_cyan "$*")"
 }
+
+console_show_option () {
+    __option_name="${2}"
+    __option_value="${1:-${CR_FALSE}}"
+    __value="$(colored_dark "--")"
+    if [ "${__option_value}" -eq  "${CR_TRUE}" ]
+    then
+        __value="$(colored_bold_green "ON")"
+    fi
+    console_print " [ ${__value} ] $(colored_bold "${__option_name}")"
+    unset __value __option_name __option_value
+}

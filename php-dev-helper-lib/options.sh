@@ -72,18 +72,18 @@ _show_options () {
     console_dark "\nSelected options:"
     if [ "${CR_DEBUG}" -eq 1 ]
     then
-        _show_option "${PTS_EXECUTE}" "Execute"
-        _show_option "${PTS_ANALYSIS}" "Analysis"
-        _show_option "${PTS_RESTART}" "Container restart"
+        console_show_option "${PTS_EXECUTE}" "Execute"
+        console_show_option "${PTS_ANALYSIS}" "Analysis"
+        console_show_option "${PTS_RESTART}" "Container restart"
     fi
-    _show_option "${PTS_PHPUNIT}" "PHPUnit"
-    _show_option "${PTS_PHPUNIT_COVERAGE}" "PHPUnit code coverage"
-    _show_option "${PTS_MULTI}" "Multi-tester"
-    _show_option "${PTS_METRICS}" "PHPMetrics"
-    _show_option "${PTS_PHPSTAN}" "PHPStan"
-    _show_option "${PTS_PSALM}" "Psalm"
-    _show_option "${PTS_CS}" "Code sniffer"
-    _show_option "${PTS_CS_BF}" "Code sniffer Beautifier"
+    console_show_option "${PTS_PHPUNIT}" "PHPUnit"
+    console_show_option "${PTS_PHPUNIT_COVERAGE}" "PHPUnit code coverage"
+    console_show_option "${PTS_MULTI}" "Multi-tester"
+    console_show_option "${PTS_METRICS}" "PHPMetrics"
+    console_show_option "${PTS_PHPSTAN}" "PHPStan"
+    console_show_option "${PTS_PSALM}" "Psalm"
+    console_show_option "${PTS_CS}" "Code sniffer"
+    console_show_option "${PTS_CS_BF}" "Code sniffer Beautifier"
     console_dark ""
 }
 

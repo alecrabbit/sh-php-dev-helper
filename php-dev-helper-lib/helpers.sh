@@ -1,16 +1,4 @@
 #!/usr/bin/env sh
-_show_option () {
-    __option_name="${2}"
-    __option_value="${1:-${CR_FALSE}}"
-    __value="$(colored_dark "--")"
-    if [ "${__option_value}" -eq  "${CR_TRUE}" ]
-    then
-        __value="$(colored_bold_green "ON")"
-    fi
-    console_print " [ ${__value} ] $(colored_bold "${__option_name}")"
-    unset __value __option_name __option_value
-}
-
 helper_check_working_env () {
     if user_is_root
     then
@@ -25,7 +13,7 @@ helper_check_working_env () {
     console_debug "Checking docker-compose: installed"
     if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}"
     then
-        console_fatal "docker-compose file(s) not found"
+        console_fatal "docker-compose*.yml file(s) not found"
     fi
 }
 
