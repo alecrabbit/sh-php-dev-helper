@@ -9,6 +9,9 @@ PTS_DEBUG=${DEBUG:-0}
 PTS_ALLOW_ROOT=${ALLOW_ROOT:-0}
 CORE_TITLE=${TITLE:-1}
 
+# shellcheck disable=SC1090
+. "${MODULES_DIR}/console.sh"
+
 export PTS_TRUE
 export PTS_FALSE
 export PTS_ERROR

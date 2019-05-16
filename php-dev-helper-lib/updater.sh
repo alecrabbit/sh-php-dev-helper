@@ -6,28 +6,19 @@ _REPOSITORY="${_OWNER}/${_PACKAGE}"
 _LATEST_VERSION=""
 
 updater_run () {
+    if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
+    then
+        console_log_fatal "It seems you are trying to update lib source dir"
+    fi
     console_debug "Updater: checking install"
     _LATEST_VERSION="$(github_get_latest_version "${_REPOSITORY}" 2>&1)"
     if [ $? -ne "${PTS_TRUE}" ];then
         console_log_fatal "${_LATEST_VERSION}"
     fi
-    # _LATEST_VERSION="$(github_get_latest_release "${_REPOSITORY}")"
-    # if [ "${_LATEST_VERSION}" = "" ]; then
-    #     console_debug "Updater: release not found"
-    #     console_debug "Updater: searching for tag"
-    #     _LATEST_VERSION="$(github_get_tags "${_REPOSITORY}")"
-    #     if [ "${_LATEST_VERSION}" = "" ]; then
-    #         console_log_fatal "No releases or tags found for repository '${_REPOSITORY}'"
-    #     fi
-    # fi
     console_debug "Github last version: ${_LATEST_VERSION}"
     if version_update_needed "${_LATEST_VERSION}"; then
         console_log_comment "Current version: ${_VERSION}"
         console_log_info "New version found: ${_LATEST_VERSION}"
-        if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
-        then
-            console_log_fatal "It seems you are trying to update lib source dir"
-        fi
         console_log_info "Updating..."
         __updater_install
     else

@@ -6,8 +6,7 @@ then
 fi
 
 # shellcheck disable=SC1090
-. "${LIB_DIR}/colored.sh"
-
+. "${MODULES_DIR}/colored.sh"
 
 ### Logging functions.
 
