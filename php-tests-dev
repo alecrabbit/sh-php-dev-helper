@@ -87,10 +87,10 @@ fi
 
 ### Finish
 if [ "${PTS_DEBUG}" -eq 0 ]; then
-    console_log_dark "$(date '+%Y-%m-%d %H:%M:%S')"
+    console_dark "$(date '+%Y-%m-%d %H:%M:%S')"
 fi
-console_log_dark "Executed in $(($(date +%s)-start_time))s"
-console_log_dark "Bye!"
+console_dark "Executed in $(($(date +%s)-start_time))s"
+console_dark "Bye!"
 
 __title="${__TITLE}"
 console_debug "Setting title '${__title}'"
@@ -102,7 +102,7 @@ core_set_terminal_title "${__title}"
 # console_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
 # console_debug "WORK_DIR: ${WORK_DIR}"
 
-# console_log_dark "dark"
+# console_dark "dark"
 # console_log_info "info"
 # console_log_comment "comment"
 # console_log_notice "notice"

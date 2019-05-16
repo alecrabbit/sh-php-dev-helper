@@ -61,10 +61,10 @@ console_log_print () {
 console_debug () {
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
-      console_log_dark "<DEBUG> ${1}"
+      console_dark "<DEBUG> ${1}"
     fi
 }
-console_log_dark () {
+console_dark () {
     console_log_print "$(colored_dark "$*")"
 }
 console_log_info () {
