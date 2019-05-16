@@ -22,18 +22,18 @@ fi
 ```bash
 $ php-tests -h
 Usage:
-    php-tests [options]
+    php-tests-dev [options]
 Options:
     -h                    - show help message and exit
-    -a, --all             - run all tests (not includes --metrics and --multi)
-    -b, --beauty          - enable php code sniffer beautifier
+    -a, --all             - run all (not includes --metrics and --multi)
+    -b                    - enable php code sniffer beautifier
     -c, --coverage        - enable phpunit code coverage (includes -u)
     --cs                  - enable php code sniffer
     --metrics             - enable phpmetrics
     --multi               - enable multi-tester
     --phpstan             - enable phpstan
     --psalm               - enable psalm
-    -s, --analyze         - enable static analysis tools
+    -s, --analyze         - enable static analysis tools (--phpstan and --psalm)
     -u, --unit            - enable phpunit
     --update              - update script
 
