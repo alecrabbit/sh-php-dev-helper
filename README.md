@@ -40,6 +40,14 @@ Options:
 Note: options order is important
 ```
 
+### Links
+
+- [phpstan/phpstan](https://github.com/phpstan/phpstan)
+- [vimeo/psalm](https://github.com/vimeo/psalm)
+- [squizlabs/PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+- [phpmetrics/PhpMetrics](https://github.com/phpmetrics/PhpMetrics)
+- [kylekatarnls/multi-tester](https://github.com/kylekatarnls/multi-tester)
+
 ### File structure
 
 ```text
