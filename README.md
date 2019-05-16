@@ -40,7 +40,7 @@ Options:
 Note: options order is important
 ```
 
-#### File structure
+### File structure
 
 ```text
 .
@@ -60,3 +60,9 @@ Note: options order is important
     ├── core.sh
     └── github.sh
 ```
+
+### Tested Operating Systems
+
+OS                                  |
+----------------------------------- |
+Ubuntu Linux (18.04 LTS)            |
