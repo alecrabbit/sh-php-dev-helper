@@ -24,7 +24,7 @@ export _BUILD
 _get_git_hash () {
     if ! core_check_if_dir_exists "${SCRIPT_DIR}/.git"
     then
-        _log_debug "BUILD Hash: No repository found"
+        console_log_debug "BUILD Hash: No repository found"
         return "${PTS_FALSE}"
     fi
     _BUILD="$(cd "${SCRIPT_DIR}" && git log --pretty=format:'%h' -n 1 2>&1)"
@@ -60,11 +60,11 @@ version_save_build_hash () {
     then
         return "${PTS_FALSE}"
     fi
-    _log_debug "Got build hash: '${_BUILD}'"
+    console_log_debug "Got build hash: '${_BUILD}'"
     if [ "${_BUILD}" != "" ]
     then
         echo "${_BUILD}" > "${LIB_DIR:-.}/BUILD"
-        _log_debug "Saved build hash '${_BUILD}' to '${LIB_DIR:-.}/BUILD'"
+        console_log_debug "Saved build hash '${_BUILD}' to '${LIB_DIR:-.}/BUILD'"
         echo "${_BUILD}"
     fi
 }

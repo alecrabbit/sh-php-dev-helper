@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
-LOG_NAME=${SCRIPT_NAME:-}
-if [ "${LOG_NAME}" != "" ]
+_SERVICE=${SCRIPT_NAME:-}
+if [ "${_SERVICE}" != "" ]
 then
-  LOG_NAME="${LOG_NAME}:"
+    _SERVICE="${_SERVICE}:"
 fi
 
 # shellcheck disable=SC1090
@@ -11,26 +11,26 @@ fi
 
 ### Logging functions.
 
-_log_warn () {
-  _log_print "⚠️  ${LOG_NAME}$(_color_bold_yellow "WARNING") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
+console_log_warn () {
+    console_log_print "⚠️  ${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
 }
-_log_error () {
-  _log_print "🛑 ${LOG_NAME}$(_color_bold_red "ERROR") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
+console_log_error () {
+    console_log_print "🛑 ${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
 }
-_log_fatal () {
-  _log_print "🔥 ${LOG_NAME}$(_color_bold_red "FATAL") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
-  exit "${PTS_ERROR}"
+console_log_fatal () {
+    console_log_print "🔥 ${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
+    exit "${PTS_ERROR}"
 }
 
 ### Messages functions
 
 # Outputs a message to stderr
-#   _log_print "message" 1
+#   console_log_print "message" 1
 # Args:
 #   $1 string Message to print.
 #   $2 int (Optional)Print new line in the end.
 #   $3 int (Optional)Print new line in the beginning.
-_log_print () {
+console_log_print () {
     if [ "${3:-${PTS_FALSE}}" -eq "${PTS_TRUE}" ]
     then
         __leading_nl="\n"
@@ -40,7 +40,7 @@ _log_print () {
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
         # Debug enabled
-        __message="${__leading_nl}$(_color_dark "$(date '+%Y-%m-%d %H:%M:%S') │") ${1}"
+        __message="${__leading_nl}$(colored_dark "$(date '+%Y-%m-%d %H:%M:%S') │") ${1}"
     else
         # Debug disabled
         __message="${__leading_nl}${1}"
@@ -59,24 +59,24 @@ _log_print () {
 # Args:
 #   $1 string Message to print.
 
-_log_debug() {
+console_log_debug () {
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
-        _log_dark "<DEBUG> ${1}"
+      console_log_dark "<DEBUG> ${1}"
     fi
 }
-_log_dark() {
-  _log_print "$(_color_dark "$*")"
+console_log_dark () {
+    console_log_print "$(colored_dark "$*")"
 }
-_log_info() {
-  _log_print "$(_color_green "$*")"
+console_log_info () {
+    console_log_print "$(colored_green "$*")"
 }
-_log_comment() {
-  _log_print "$(_color_yellow "$*")"
+console_log_comment () {
+    console_log_print "$(colored_yellow "$*")"
 }
-_log_notice() {
-  _log_print "$(_color_bold_yellow "$*")"
+console_log_notice () {
+    console_log_print "$(colored_bold_yellow "$*")"
 }
-_log_header() {
-  _log_print "$(_color_bold_cyan "$*")"
+console_log_header () {
+    console_log_print "$(colored_bold_cyan "$*")"
 }

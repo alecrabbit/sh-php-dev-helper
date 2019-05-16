@@ -1,23 +1,23 @@
 #!/usr/bin/env sh
 __usage () {
     echo "Usage:"
-    echo "    $(_color_bold "${SCRIPT_NAME}") [options]"
+    echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
-    echo "    $(_color_yellow "-a, --all")             - launch all tests"
-    # echo "    $(_color_yellow "--no-restart")          - do not restart container(s)"
-    echo "    $(_color_yellow "-b, --beauty")          - enable php code sniffer beautifier"
-    echo "    $(_color_yellow "-c, --coverage")        - enable phpunit code coverage"
-    echo "    $(_color_yellow "--cs")                  - enable php code sniffer"
-    echo "    $(_color_yellow "--metrics")             - enable phpmetrics"
-    echo "    $(_color_yellow "--multi")               - enable multi-tester"
-    echo "    $(_color_yellow "--phpstan")             - enable phpstan"
-    echo "    $(_color_yellow "--psalm")               - enable psalm"
-    echo "    $(_color_yellow "-s, --analyze")         - enable static analysis tools"
-    echo "    $(_color_yellow "-u, --unit")            - enable phpunit"
-    echo "    $(_color_yellow "--update")              - update script"
+    echo "    $(colored_yellow "-a, --all")             - launch all tests"
+    # echo "    $(colored_yellow "--no-restart")          - do not restart container(s)"
+    echo "    $(colored_yellow "-b, --beauty")          - enable php code sniffer beautifier"
+    echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage"
+    echo "    $(colored_yellow "--cs")                  - enable php code sniffer"
+    echo "    $(colored_yellow "--metrics")             - enable phpmetrics"
+    echo "    $(colored_yellow "--multi")               - enable multi-tester"
+    echo "    $(colored_yellow "--phpstan")             - enable phpstan"
+    echo "    $(colored_yellow "--psalm")               - enable psalm"
+    echo "    $(colored_yellow "-s, --analyze")         - enable static analysis tools"
+    echo "    $(colored_yellow "-u, --unit")            - enable phpunit"
+    echo "    $(colored_yellow "--update")              - update script"
     echo
     # shellcheck disable=SC2005
-    echo "$(_color_dark "Note: options order is important")"
+    echo "$(colored_dark "Note: options order is important")"
 }
 
 __set_default_options () {
@@ -68,7 +68,7 @@ __export_options () {
 }
 
 _show_options () {
-    _log_debug "Show selected options:"
+    console_log_debug "Show selected options:"
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
         _show_option "${PTS_EXECUTE}" "Execute"
@@ -87,104 +87,104 @@ _show_options () {
 
 _read_options () {
     __set_default_options
-    _log_debug "Reading options"
+    console_log_debug "Reading options"
     while [ "${1:-}" != "" ]; do
         PARAM=$(echo "$1" | awk -F= '{print $1}')
         VALUE=$(echo "$1" | awk -F= '{print $2}')
         case $PARAM in
             -h | --help)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 __usage
                 exit
                 ;;
             --update)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 updater_run
                 exit
                 ;;
             -V | --version)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                _log_print "${SCRIPT_NAME:-unknown} version $(_version "${PTS_TRUE}")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_print "${SCRIPT_NAME:-unknown} version $(_version "${PTS_TRUE}")"
                 exit "${PTS_TRUE}"
                 ;;
             # Undocumented
             --save-build-hash)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 version_save_build_hash
                 exit "${PTS_TRUE}"
                 ;;
             # Undocumented
             --no-exec)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_EXECUTE=${PTS_FALSE}
                 ;;
             -a | --all)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 __ALL_OPTION=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             -s | --analyze)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_ANALYSIS=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             -u | --unit)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPUNIT=${PTS_TRUE}
                 ;;
             -c | --coverage)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPUNIT_COVERAGE=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --metrics)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_METRICS=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --phpstan)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPSTAN=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --psalm)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PSALM=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --cs)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_CS=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --multi)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_MULTI=${PTS_TRUE}
                 ;;
             -b | --beauty | --beautify)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_CS_BF=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --no-restart)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_RESTART=${PTS_FALSE}
                 ;;
             --debug)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_DEBUG=1
                 ;;
             # -y)
-            #     _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+            #     console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
             #     ;;
             *)
-                _log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                _log_error "Unknown option '${PARAM}'"
+                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_log_error "Unknown option '${PARAM}'"
                 __usage
                 exit 1
                 ;;

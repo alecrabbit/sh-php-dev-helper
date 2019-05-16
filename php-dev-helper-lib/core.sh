@@ -7,7 +7,7 @@ PTS_ERROR=2
 # 0: Disabled 1: Enabled
 PTS_DEBUG=${DEBUG:-0}  
 PTS_ALLOW_ROOT=${ALLOW_ROOT:-0}
-PTS_TITLE=${TITLE:-1}
+CORE_TITLE=${TITLE:-1}
 
 export PTS_TRUE
 export PTS_FALSE
@@ -44,14 +44,14 @@ user_is_root () {
     return "${PTS_FALSE}"
 }
 
-_pts_set_terminal_title () {
-    if [ "${PTS_TITLE}" -eq 1 ]; then
+core_set_terminal_title () {
+    if [ "${CORE_TITLE}" -eq 1 ]; then
         # shellcheck disable=SC2059
         printf "\033]0;${1}\007"
     fi
 }
 
-_pts_get_title_from_file () {
+core_get_title_from_file () {
     if [ -e "${1}" ]; then
         title="$(cat "${1}")"
     else
@@ -67,6 +67,7 @@ check_command () {
     return "${PTS_FALSE}"
 }
 
+# See shunit2's realToAbsPath
 core_backup_realpath () {
     ppt_path_=${1}
 
@@ -108,19 +109,19 @@ core_get_realpath ()
 }
 
 core_check_if_dir_exists () {
-    _log_debug "Checking if directory exists '${1}'"
+    console_log_debug "Checking if directory exists '${1}'"
     __DIRECTORY=$(core_get_realpath "${1}")
     if [ $? -eq ${PTS_TRUE} ]
     then
         if [ -d "${__DIRECTORY}" ]; then
             if [ ! -L "${__DIRECTORY}" ]; then
-                _log_debug "Directory exists '${__DIRECTORY}'"
+                console_log_debug "Directory exists '${__DIRECTORY}'"
                 unset __DIRECTORY
                 return ${PTS_TRUE}
             fi
         fi
     fi
-    _log_debug "Directory NOT exists '${__DIRECTORY}'"
+    console_log_debug "Directory NOT exists '${__DIRECTORY}'"
     unset __DIRECTORY
     return ${PTS_FALSE}
 }
@@ -131,7 +132,7 @@ core_is_dir_contains () {
     for __file in ${__FILES}; do
         if [ ! -e "${__DIR}/${__file}" ]
         then
-            _log_dark "Not found: '${__DIR}/${__file}'"
+            console_log_dark "Not found: '${__DIR}/${__file}'"
             unset __FILES __file
             return ${PTS_FALSE}
         fi

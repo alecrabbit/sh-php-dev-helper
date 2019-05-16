@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 ### Define constants
-true; COL_TRUE=$?
-false; COL_FALSE=$?
+true; COL_TRUE=${CORE_TRUE:-$?}
+false; COL_FALSE=${CORE_FALSE:-$?}
 
 ### Color Constants
 __COL_ANSI_DARK="\033[2m"
@@ -45,38 +45,38 @@ __col_set_colors () {
     __col_ansi_bold_cyan=${__COL_ANSI_BOLD_CYAN}
 }
 
-_color_bold () {
+colored_bold () {
     echo "${__col_ansi_bold}$*${__col_ansi_none}"
 }
-_color_dark () {
+colored_dark () {
     echo "${__col_ansi_dark}$*${__col_ansi_none}"
 }
-_color_red () {
+colored_red () {
     echo "${__col_ansi_red}$*${__col_ansi_none}"
 }
-_color_green () {
+colored_green () {
     echo "${__col_ansi_green}$*${__col_ansi_none}"
 }
-_color_yellow () {
+colored_yellow () {
     echo "${__col_ansi_yellow}$*${__col_ansi_none}"
 }
-_color_cyan () {
+colored_cyan () {
     echo "${__col_ansi_cyan}$*${__col_ansi_none}"
 }
-_color_bold_red () {
+colored_bold_red () {
     echo "${__col_ansi_bold_red}$*${__col_ansi_none}"
 }
-_color_bold_green () {
+colored_bold_green () {
     echo "${__col_ansi_bold_green}$*${__col_ansi_none}"
 }
-_color_bold_yellow () {
+colored_bold_yellow () {
     echo "${__col_ansi_bold_yellow}$*${__col_ansi_none}"
 }
-_color_bold_cyan () {
+colored_bold_cyan () {
     echo "${__col_ansi_bold_cyan}$*${__col_ansi_none}"
 }
 
-_core_configureColor() {
+_colored_configureColor() {
   __col_color=${COL_FALSE}  # By default, no color.
   __col_reset_colors
   case ${1} in
@@ -90,7 +90,7 @@ _core_configureColor() {
       fi
       ;;
     'never') ;;
-    *) _log_fatal "Unrecognized color option '${1}'" ;;
+    *) console_log_fatal "Unrecognized color option '${1}'" ;;
   esac
 
   case ${__col_color} in
@@ -105,4 +105,4 @@ _core_configureColor() {
   unset __col_color __col_tput_
 }
 
-_core_configureColor "${COLOR:-auto}" # Options are 'never', 'always', or 'auto'
+_colored_configureColor "${COLOR:-auto}" # Options are 'never', 'always', or 'auto'

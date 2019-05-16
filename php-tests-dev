@@ -34,30 +34,30 @@ WORK_DIR="$(core_get_realpath "${WORK_DIR}")"
 VERSION_FILE="$(core_get_realpath "${VERSION_FILE}")"
 BUILD_FILE="$(core_get_realpath "${BUILD_FILE}")"
 
-_log_debug "Script name: ${SCRIPT_NAME}"
-_log_debug "Script dir: ${SCRIPT_DIR}"
-_log_debug "Lib dir: ${LIB_DIR}"
-_log_debug "Work dir: ${WORK_DIR}"
-_log_debug "VERSION file: ${VERSION_FILE}"
-_log_debug "BUILD file: ${BUILD_FILE}"
+console_log_debug "Script name: ${SCRIPT_NAME}"
+console_log_debug "Script dir: ${SCRIPT_DIR}"
+console_log_debug "Lib dir: ${LIB_DIR}"
+console_log_debug "Work dir: ${WORK_DIR}"
+console_log_debug "VERSION file: ${VERSION_FILE}"
+console_log_debug "BUILD file: ${BUILD_FILE}"
 
 __hash="$(version_save_build_hash)"
 if [ $? -eq "${PTS_TRUE}" ]
 then
-    _log_debug "Saved hash: '${__hash}'"
+    console_log_debug "Saved hash: '${__hash}'"
 else
-    _log_debug "Hash not saved"
+    console_log_debug "Hash not saved"
 fi
 
 _read_options "$@"
 
 ### Print header
-_log_header "PHP Dev Helper Script"
-_log_info "Version $(_version)"
-_log_debug "Version $(_version "${PTS_TRUE}")"
+console_log_header "PHP Dev Helper Script"
+console_log_info "Version $(_version)"
+console_log_debug "Version $(_version "${PTS_TRUE}")"
 
 ### Run checks
-_log_debug "Working directory: ${WORK_DIR}"
+console_log_debug "Working directory: ${WORK_DIR}"
 
 helper_check_working_env
 
@@ -66,13 +66,13 @@ _pts_helper_check_container
 
 
 ### Start
-__TITLE="$(_pts_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
+__TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 __title="${__TITLE} - Testing..."
-_log_debug "Setting title '${__title}'"
-_pts_set_terminal_title "${__title}"
+console_log_debug "Setting title '${__title}'"
+core_set_terminal_title "${__title}"
 
 if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
-    _log_debug "Executing..."
+    console_log_debug "Executing..."
     if [ "${PTS_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         _phpunit_exec
         _php_metrics_exec
@@ -82,32 +82,32 @@ if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
         _php_cs_exec
         _php_cs_bf_exec
     else
-        _log_error "Container is not started"
+        console_log_error "Container is not started"
     fi
 fi
 
 ### Finish
 if [ "${PTS_DEBUG}" -eq 0 ]; then
-    _log_dark "$(date '+%Y-%m-%d %H:%M:%S')"
+    console_log_dark "$(date '+%Y-%m-%d %H:%M:%S')"
 fi
-_log_dark "Executed in $(($(date +%s)-start_time))s"
-_log_dark "Bye!"
+console_log_dark "Executed in $(($(date +%s)-start_time))s"
+console_log_dark "Bye!"
 
 __title="${__TITLE}"
-_log_debug "Setting title '${__title}'"
-_pts_set_terminal_title "${__title}"
+console_log_debug "Setting title '${__title}'"
+core_set_terminal_title "${__title}"
 
 ### Debug code
-# _log_debug "Debug messages:"
-# _log_debug "SCRIPT_NAME: ${SCRIPT_NAME}"
-# _log_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
-# _log_debug "WORK_DIR: ${WORK_DIR}"
+# console_log_debug "Debug messages:"
+# console_log_debug "SCRIPT_NAME: ${SCRIPT_NAME}"
+# console_log_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
+# console_log_debug "WORK_DIR: ${WORK_DIR}"
 
-# _log_dark "dark"
-# _log_info "info"
-# _log_comment "comment"
-# _log_notice "notice"
+# console_log_dark "dark"
+# console_log_info "info"
+# console_log_comment "comment"
+# console_log_notice "notice"
 
-# _log_warn "Warn message"
-# _log_error "Error message"
-# _log_fatal "Fatal message"
+# console_log_warn "Warn message"
+# console_log_error "Error message"
+# console_log_fatal "Fatal message"
