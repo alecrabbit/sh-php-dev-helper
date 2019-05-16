@@ -98,8 +98,8 @@ core_get_realpath ()
         __realpath="$(realpath "${1}" 2>&1)"
         if [ $? -ne "${PTS_TRUE}" ]
         then
-            _ppt_debug "Error: ${__realpath}"
-            _ppt_debug "Using _ppt_backup_realpath function"
+            console_debug "Error: ${__realpath}"
+            console_debug "Using _ppt_backup_realpath function"
             unset __realpath
             core_backup_realpath "${1}"
             return $?
@@ -135,7 +135,7 @@ core_is_dir_contains () {
     for __file in ${__FILES}; do
         if [ ! -e "${__DIR}/${__file}" ]
         then
-            console_log_dark "Not found: '${__DIR}/${__file}'"
+            console_dark "Not found: '${__DIR}/${__file}'"
             unset __FILES __file
             return ${PTS_FALSE}
         fi
