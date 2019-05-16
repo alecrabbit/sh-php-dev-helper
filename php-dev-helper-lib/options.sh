@@ -4,10 +4,10 @@ __usage () {
     echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
     echo "    $(colored_yellow "-h")                    - show help message and exit"
-    echo "    $(colored_yellow "-a, --all")             - launch all tests"
+    echo "    $(colored_yellow "-a, --all")             - run all (not includes --metrics and --multi)"
     # echo "    $(colored_yellow "--no-restart")          - do not restart container(s)"
     echo "    $(colored_yellow "-b, --beauty")          - enable php code sniffer beautifier"
-    echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage"
+    echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage (includes -u)"
     echo "    $(colored_yellow "--cs")                  - enable php code sniffer"
     echo "    $(colored_yellow "--metrics")             - enable phpmetrics"
     echo "    $(colored_yellow "--multi")               - enable multi-tester"
@@ -69,21 +69,22 @@ __export_options () {
 }
 
 _show_options () {
-    console_debug "Show selected options:"
+    console_dark "\nSelected options:"
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
         _show_option "${PTS_EXECUTE}" "Execute"
         _show_option "${PTS_ANALYSIS}" "Analysis"
         _show_option "${PTS_RESTART}" "Container restart"
     fi
+    _show_option "${PTS_PHPUNIT}" "PHPUnit"
+    _show_option "${PTS_PHPUNIT_COVERAGE}" "PHPUnit code coverage"
+    _show_option "${PTS_MULTI}" "Multi-tester"
+    _show_option "${PTS_METRICS}" "PHPMetrics"
     _show_option "${PTS_PHPSTAN}" "PHPStan"
     _show_option "${PTS_PSALM}" "Psalm"
     _show_option "${PTS_CS}" "Code sniffer"
     _show_option "${PTS_CS_BF}" "Code sniffer Beautifier"
-    _show_option "${PTS_PHPUNIT}" "PHPUnit"
-    _show_option "${PTS_PHPUNIT_COVERAGE}" "PHPUnit code coverage"
-    _show_option "${PTS_METRICS}" "PHPMetrics"
-    _show_option "${PTS_MULTI}" "Multi-tester"
+    console_dark ""
 }
 
 _read_options () {
@@ -105,7 +106,7 @@ _read_options () {
                 ;;
             -V | --version)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                console_log_print "${SCRIPT_NAME:-unknown} version $(_version "${PTS_TRUE}")"
+                console_print "${SCRIPT_NAME:-unknown} version $(_version "${PTS_TRUE}")"
                 exit "${PTS_TRUE}"
                 ;;
             # Undocumented
@@ -185,7 +186,7 @@ _read_options () {
             #     ;;
             *)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                console_log_error "Unknown option '${PARAM}'"
+                console_error "Unknown option '${PARAM}'"
                 __usage
                 exit 1
                 ;;

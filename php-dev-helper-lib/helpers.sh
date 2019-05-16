@@ -7,25 +7,25 @@ _show_option () {
     then
         __value="$(colored_bold_green "ON")"
     fi
-    console_log_print "[ ${__value} ] $(colored_bold "${__option_name}")"
+    console_print " [ ${__value} ] $(colored_bold "${__option_name}")"
     unset __value __option_name __option_value
 }
 
 helper_check_working_env () {
     if user_is_root
     then
-        console_log_fatal "DO NOT run this script under root!"
+        console_fatal "DO NOT run this script under root!"
     fi
     console_debug "Checking user: $(whoami)"
 
     if ! check_command "docker-compose"
     then 
-        console_log_fatal "docker-compose is NOT installed!"
+        console_fatal "docker-compose is NOT installed!"
     fi
     console_debug "Checking docker-compose: installed"
     if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}"
     then
-        console_log_fatal "docker-compose file(s) not found"
+        console_fatal "docker-compose file(s) not found"
     fi
 }
 
@@ -112,7 +112,7 @@ _pts_helper_restart_container () {
     then
         console_debug "Container successfully stopped"
     else
-        console_log_fatal "Unable to stop container"
+        console_fatal "Unable to stop container"
     fi
     _pts_helper_start_container "${1}"
 }
@@ -123,6 +123,6 @@ _pts_helper_start_container () {
     then
         console_debug "Container successfully started"
     else
-        console_log_fatal "Unable to start container"
+        console_fatal "Unable to start container"
     fi
 }

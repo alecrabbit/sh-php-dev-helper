@@ -104,7 +104,7 @@ _php_metrics_exec () {
 _phpunit_exec () {
     console_debug "Running PHPUnit"
     if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]; then
-        console_log_print "$(colored_green "PHP Version:")\n$(__php_version)"
+        console_print "$(colored_green "PHP Version:")\n$(__php_version)"
         console_info "PHPUnit..."
         console_debug "Run with coverage: $(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")"
         console_debug "Debug image used: $(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")"

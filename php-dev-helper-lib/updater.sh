@@ -8,12 +8,17 @@ _LATEST_VERSION=""
 updater_run () {
     if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
     then
-        console_log_fatal "It seems you are trying to update lib source dir"
+        __remote="$(cd "${SCRIPT_DIR}" && git remote -v)"
+        console_debug "Remote:\n${__remote}"
+        __result="$(echo "${__remote}" | grep -e "${_REPOSITORY}")"
+        if [ "${__result}" != "" ]; then
+            console_fatal "It seems you are trying to update lib sources"
+        fi
     fi
     console_debug "Updater: checking install"
     _LATEST_VERSION="$(github_get_latest_version "${_REPOSITORY}" 2>&1)"
     if [ $? -ne "${PTS_TRUE}" ];then
-        console_log_fatal "${_LATEST_VERSION}"
+        console_fatal "${_LATEST_VERSION}"
     fi
     console_debug "Github last version: ${_LATEST_VERSION}"
     if version_update_needed "${_LATEST_VERSION}"; then
@@ -45,7 +50,7 @@ __updater_install () {
         console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
         console_info "Update complete ${_VERSION} -> ${_LATEST_VERSION}"
     else
-        console_log_fatal "Error occurred during download"
+        console_fatal "Error occurred during download"
     fi
     unset __dir
 }

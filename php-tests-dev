@@ -81,7 +81,7 @@ if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
         _php_cs_exec
         _php_cs_bf_exec
     else
-        console_log_error "Container is not started"
+        console_error "Container is not started"
     fi
 fi
 
@@ -107,6 +107,6 @@ core_set_terminal_title "${__title}"
 # console_log_comment "comment"
 # console_log_notice "notice"
 
-# console_log_warn "Warn message"
-# console_log_error "Error message"
-# console_log_fatal "Fatal message"
+# console_warning "Warn message"
+# console_error "Error message"
+# console_fatal "Fatal message"

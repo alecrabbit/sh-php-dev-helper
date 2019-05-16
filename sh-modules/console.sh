@@ -10,26 +10,26 @@ fi
 
 ### Logging functions.
 
-console_log_warn () {
-    console_log_print "⚠️  ${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
+console_warning () {
+    console_print "⚠️  ${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
 }
-console_log_error () {
-    console_log_print "🛑 ${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
+console_error () {
+    console_print "🛑 ${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
 }
-console_log_fatal () {
-    console_log_print "🔥 ${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
+console_fatal () {
+    console_print "🔥 ${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${PTS_TRUE}" "${PTS_TRUE}"
     exit "${PTS_ERROR}"
 }
 
 ### Messages functions
 
 # Outputs a message to stderr
-#   console_log_print "message" 1
+#   console_print "message" 1
 # Args:
 #   $1 string Message to print.
 #   $2 int (Optional)Print new line in the end.
 #   $3 int (Optional)Print new line in the beginning.
-console_log_print () {
+console_print () {
     if [ "${3:-${PTS_FALSE}}" -eq "${PTS_TRUE}" ]
     then
         __leading_nl="\n"
@@ -65,17 +65,17 @@ console_debug () {
     fi
 }
 console_dark () {
-    console_log_print "$(colored_dark "$*")"
+    console_print "$(colored_dark "$*")"
 }
 console_info () {
-    console_log_print "$(colored_green "$*")"
+    console_print "$(colored_green "$*")"
 }
 console_log_comment () {
-    console_log_print "$(colored_yellow "$*")"
+    console_print "$(colored_yellow "$*")"
 }
 console_log_notice () {
-    console_log_print "$(colored_bold_yellow "$*")"
+    console_print "$(colored_bold_yellow "$*")"
 }
 console_log_header () {
-    console_log_print "$(colored_bold_cyan "$*")"
+    console_print "$(colored_bold_cyan "$*")"
 }

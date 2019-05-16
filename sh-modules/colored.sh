@@ -90,7 +90,7 @@ _colored_configureColor() {
       fi
       ;;
     'never') ;;
-    *) console_log_fatal "Unrecognized color option '${1}'" ;;
+    *) console_fatal "Unrecognized color option '${1}'" ;;
   esac
 
   case ${__col_color} in
