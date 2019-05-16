@@ -52,7 +52,7 @@ _read_options "$@"
 
 ### Print header
 console_log_header "PHP Dev Helper Script"
-console_log_info "Version $(_version)"
+console_info "Version $(_version)"
 console_debug "Version $(_version "${PTS_TRUE}")"
 
 ### Run checks
@@ -103,7 +103,7 @@ core_set_terminal_title "${__title}"
 # console_debug "WORK_DIR: ${WORK_DIR}"
 
 # console_dark "dark"
-# console_log_info "info"
+# console_info "info"
 # console_log_comment "comment"
 # console_log_notice "notice"
 

@@ -18,12 +18,11 @@ updater_run () {
     console_debug "Github last version: ${_LATEST_VERSION}"
     if version_update_needed "${_LATEST_VERSION}"; then
         console_log_comment "Current version: ${_VERSION}"
-        console_log_info "New version found: ${_LATEST_VERSION}"
-        console_log_info "Updating..."
+        console_info "New version found: ${_LATEST_VERSION}"
+        console_info "Updating..."
         __updater_install
     else
-        console_log_info "You are using latest version: ${_VERSION}"
-        console_log_comment "No update needed"
+        console_info "You are using latest version: ${_VERSION}"
     fi    
 }
 
@@ -44,7 +43,7 @@ __updater_install () {
         # shellcheck disable=SC2116
         console_debug "Writing new version\n$(echo "${_LATEST_VERSION}" > "${VERSION_FILE}" 2>&1)"
         console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
-        console_log_info "Update complete ${_VERSION} -> ${_LATEST_VERSION}"
+        console_info "Update complete ${_VERSION} -> ${_LATEST_VERSION}"
     else
         console_log_fatal "Error occurred during download"
     fi

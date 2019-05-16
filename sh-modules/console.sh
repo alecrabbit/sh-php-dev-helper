@@ -67,7 +67,7 @@ console_debug () {
 console_dark () {
     console_log_print "$(colored_dark "$*")"
 }
-console_log_info () {
+console_info () {
     console_log_print "$(colored_green "$*")"
 }
 console_log_comment () {
