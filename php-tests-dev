@@ -12,7 +12,7 @@ WORK_DIR="${PWD}"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/core.sh"
 # shellcheck disable=SC1090
-. "${LIB_DIR}/logging.sh"
+. "${LIB_DIR}/console.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/version.sh"
 # shellcheck disable=SC1090
