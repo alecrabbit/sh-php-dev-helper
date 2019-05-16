@@ -48,16 +48,26 @@ __is_debug_image_used () {
 # }
 
 __check_container () {
+    PTS_DEBUG_IMAGE_USED="${CR_ERROR}"
+    PTS_CONTAINER_STARTED="${CR_FALSE}"
     if docker_compose_is_container_started "${WORK_DIR}"
     then
         PTS_CONTAINER_STARTED="${CR_TRUE}"
         console_debug "Container is running"
+        if docker_compose_is_debug_image_used "${WORK_DIR}"
+        then
+            __message="Debug"
+            PTS_DEBUG_IMAGE_USED="${CR_TRUE}"
+        else
+            __message="Regular"
+            PTS_DEBUG_IMAGE_USED=${CR_FALSE}
+        fi
     else
-        PTS_CONTAINER_STARTED="${CR_FALSE}"
         console_debug "Container is NOT running"
     fi
+    console_debug "Image used: ${__message:-unable to define image(container not running)}"
     export PTS_CONTAINER_STARTED
-    __is_debug_image_used
+    export PTS_DEBUG_IMAGE_USED
 }
 
 _pts_helper_check_container () {        
