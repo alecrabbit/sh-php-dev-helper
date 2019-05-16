@@ -34,19 +34,19 @@ WORK_DIR="$(core_get_realpath "${WORK_DIR}")"
 VERSION_FILE="$(core_get_realpath "${VERSION_FILE}")"
 BUILD_FILE="$(core_get_realpath "${BUILD_FILE}")"
 
-console_log_debug "Script name: ${SCRIPT_NAME}"
-console_log_debug "Script dir: ${SCRIPT_DIR}"
-console_log_debug "Lib dir: ${LIB_DIR}"
-console_log_debug "Work dir: ${WORK_DIR}"
-console_log_debug "VERSION file: ${VERSION_FILE}"
-console_log_debug "BUILD file: ${BUILD_FILE}"
+console_debug "Script name: ${SCRIPT_NAME}"
+console_debug "Script dir: ${SCRIPT_DIR}"
+console_debug "Lib dir: ${LIB_DIR}"
+console_debug "Work dir: ${WORK_DIR}"
+console_debug "VERSION file: ${VERSION_FILE}"
+console_debug "BUILD file: ${BUILD_FILE}"
 
 __hash="$(version_save_build_hash)"
 if [ $? -eq "${PTS_TRUE}" ]
 then
-    console_log_debug "Saved hash: '${__hash}'"
+    console_debug "Saved hash: '${__hash}'"
 else
-    console_log_debug "Hash not saved"
+    console_debug "Hash not saved"
 fi
 
 _read_options "$@"
@@ -54,10 +54,10 @@ _read_options "$@"
 ### Print header
 console_log_header "PHP Dev Helper Script"
 console_log_info "Version $(_version)"
-console_log_debug "Version $(_version "${PTS_TRUE}")"
+console_debug "Version $(_version "${PTS_TRUE}")"
 
 ### Run checks
-console_log_debug "Working directory: ${WORK_DIR}"
+console_debug "Working directory: ${WORK_DIR}"
 
 helper_check_working_env
 
@@ -68,11 +68,11 @@ _pts_helper_check_container
 ### Start
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 __title="${__TITLE} - Testing..."
-console_log_debug "Setting title '${__title}'"
+console_debug "Setting title '${__title}'"
 core_set_terminal_title "${__title}"
 
 if [ "${PTS_EXECUTE}" -eq "${PTS_TRUE}" ]; then
-    console_log_debug "Executing..."
+    console_debug "Executing..."
     if [ "${PTS_CONTAINER_STARTED}" -eq "${PTS_TRUE}" ]; then
         _phpunit_exec
         _php_metrics_exec
@@ -94,14 +94,14 @@ console_log_dark "Executed in $(($(date +%s)-start_time))s"
 console_log_dark "Bye!"
 
 __title="${__TITLE}"
-console_log_debug "Setting title '${__title}'"
+console_debug "Setting title '${__title}'"
 core_set_terminal_title "${__title}"
 
 ### Debug code
-# console_log_debug "Debug messages:"
-# console_log_debug "SCRIPT_NAME: ${SCRIPT_NAME}"
-# console_log_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
-# console_log_debug "WORK_DIR: ${WORK_DIR}"
+# console_debug "Debug messages:"
+# console_debug "SCRIPT_NAME: ${SCRIPT_NAME}"
+# console_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
+# console_debug "WORK_DIR: ${WORK_DIR}"
 
 # console_log_dark "dark"
 # console_log_info "info"

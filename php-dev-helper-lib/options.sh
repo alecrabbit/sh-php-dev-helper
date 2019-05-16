@@ -68,7 +68,7 @@ __export_options () {
 }
 
 _show_options () {
-    console_log_debug "Show selected options:"
+    console_debug "Show selected options:"
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
         _show_option "${PTS_EXECUTE}" "Execute"
@@ -87,103 +87,103 @@ _show_options () {
 
 _read_options () {
     __set_default_options
-    console_log_debug "Reading options"
+    console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
         PARAM=$(echo "$1" | awk -F= '{print $1}')
         VALUE=$(echo "$1" | awk -F= '{print $2}')
         case $PARAM in
             -h | --help)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 __usage
                 exit
                 ;;
             --update)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 updater_run
                 exit
                 ;;
             -V | --version)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 console_log_print "${SCRIPT_NAME:-unknown} version $(_version "${PTS_TRUE}")"
                 exit "${PTS_TRUE}"
                 ;;
             # Undocumented
             --save-build-hash)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 version_save_build_hash
                 exit "${PTS_TRUE}"
                 ;;
             # Undocumented
             --no-exec)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_EXECUTE=${PTS_FALSE}
                 ;;
             -a | --all)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 __ALL_OPTION=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             -s | --analyze)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_ANALYSIS=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             -u | --unit)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPUNIT=${PTS_TRUE}
                 ;;
             -c | --coverage)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPUNIT_COVERAGE=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --metrics)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_METRICS=${PTS_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --phpstan)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPSTAN=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --psalm)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PSALM=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --cs)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_CS=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --multi)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_MULTI=${PTS_TRUE}
                 ;;
             -b | --beauty | --beautify)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_CS_BF=${PTS_TRUE}
                 PTS_PHPUNIT=${PTS_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${PTS_TRUE}
                 ;;
             --no-restart)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_RESTART=${PTS_FALSE}
                 ;;
             --debug)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_DEBUG=1
                 ;;
             # -y)
-            #     console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+            #     console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
             #     ;;
             *)
-                console_log_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 console_log_error "Unknown option '${PARAM}'"
                 __usage
                 exit 1

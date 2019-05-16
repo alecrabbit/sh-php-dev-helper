@@ -59,7 +59,7 @@ console_log_print () {
 # Args:
 #   $1 string Message to print.
 
-console_log_debug () {
+console_debug () {
     if [ "${PTS_DEBUG}" -eq 1 ]
     then
       console_log_dark "<DEBUG> ${1}"

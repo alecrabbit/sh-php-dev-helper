@@ -9,7 +9,7 @@ _multi_tester_exec () {
         console_log_info "Multi tester..."
         if ! docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app multi-tester
         then
-            console_log_debug "Error occurred"
+            console_debug "Error occurred"
         fi
     fi
 }
@@ -29,7 +29,7 @@ _psalm_exec () {
         console_log_info "Psalm..."
         if [ -e "${WORK_DIR}/${PSALM_CONFIG}" ]
         then
-            console_log_debug "Config file '${PSALM_CONFIG}' found"
+            console_debug "Config file '${PSALM_CONFIG}' found"
         else
             console_log_comment "Config file '${PSALM_CONFIG}' not found"
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app psalm --init "${PTS_SOURCE_DIR}" "${PSALM_LEVEL}"
@@ -102,12 +102,12 @@ _php_metrics_exec () {
 }
 
 _phpunit_exec () {
-    console_log_debug "Running PHPUnit"
+    console_debug "Running PHPUnit"
     if [ "${PTS_PHPUNIT}" -eq "${PTS_TRUE}" ]; then
         console_log_print "$(colored_green "PHP Version:")\n$(__php_version)"
         console_log_info "PHPUnit..."
-        console_log_debug "Run with coverage: $(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")"
-        console_log_debug "Debug image used: $(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")"
+        console_debug "Run with coverage: $(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")"
+        console_debug "Debug image used: $(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")"
         if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${PTS_TRUE}" ] && [ "${PTS_DEBUG_IMAGE_USED}" -eq "${PTS_TRUE}" ]; then
             if [ -e "${PTS_XDEBUG_FILTER_FILE}" ]
             then
@@ -116,13 +116,13 @@ _phpunit_exec () {
                 console_log_comment "Generating XDEBUG Filter..."
                 docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit --dump-xdebug-filter "${PTS_XDEBUG_FILTER_FILE}"
             fi
-            console_log_debug "Run phpunit with coverage"
+            console_debug "Run phpunit with coverage"
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit --prepend "${PTS_XDEBUG_FILTER_FILE}" \
             --coverage-html "${PTS_PHPUNIT_COVERAGE_HTML_REPORT}" \
             --coverage-clover "${PTS_PHPUNIT_COVERAGE_CLOVER_REPORT}" \
             --coverage-text
         else 
-            console_log_debug "Run phpunit WITHOUT coverage"
+            console_debug "Run phpunit WITHOUT coverage"
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit
         fi
     fi

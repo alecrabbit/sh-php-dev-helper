@@ -109,19 +109,19 @@ core_get_realpath ()
 }
 
 core_check_if_dir_exists () {
-    console_log_debug "Checking if directory exists '${1}'"
+    console_debug "Checking if directory exists '${1}'"
     __DIRECTORY=$(core_get_realpath "${1}")
     if [ $? -eq ${PTS_TRUE} ]
     then
         if [ -d "${__DIRECTORY}" ]; then
             if [ ! -L "${__DIRECTORY}" ]; then
-                console_log_debug "Directory exists '${__DIRECTORY}'"
+                console_debug "Directory exists '${__DIRECTORY}'"
                 unset __DIRECTORY
                 return ${PTS_TRUE}
             fi
         fi
     fi
-    console_log_debug "Directory NOT exists '${__DIRECTORY}'"
+    console_debug "Directory NOT exists '${__DIRECTORY}'"
     unset __DIRECTORY
     return ${PTS_FALSE}
 }

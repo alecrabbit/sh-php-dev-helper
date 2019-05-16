@@ -6,21 +6,21 @@ _REPOSITORY="${_OWNER}/${_PACKAGE}"
 _LATEST_VERSION=""
 
 updater_run () {
-    console_log_debug "Updater: checking install"
+    console_debug "Updater: checking install"
     _LATEST_VERSION="$(github_get_latest_version "${_REPOSITORY}" 2>&1)"
     if [ $? -ne "${PTS_TRUE}" ];then
         console_log_fatal "${_LATEST_VERSION}"
     fi
     # _LATEST_VERSION="$(github_get_latest_release "${_REPOSITORY}")"
     # if [ "${_LATEST_VERSION}" = "" ]; then
-    #     console_log_debug "Updater: release not found"
-    #     console_log_debug "Updater: searching for tag"
+    #     console_debug "Updater: release not found"
+    #     console_debug "Updater: searching for tag"
     #     _LATEST_VERSION="$(github_get_tags "${_REPOSITORY}")"
     #     if [ "${_LATEST_VERSION}" = "" ]; then
     #         console_log_fatal "No releases or tags found for repository '${_REPOSITORY}'"
     #     fi
     # fi
-    console_log_debug "Github last version: ${_LATEST_VERSION}"
+    console_debug "Github last version: ${_LATEST_VERSION}"
     if version_update_needed "${_LATEST_VERSION}"; then
         console_log_comment "Current version: ${_VERSION}"
         console_log_info "New version found: ${_LATEST_VERSION}"
@@ -38,21 +38,21 @@ updater_run () {
 
 __updater_install () {
     __dir="${WORK_DIR}/${__TMP_DIR}"
-    console_log_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
-    console_log_debug "Recreating '${__dir}'\n$(mkdir -p "${__dir}" 2>&1)"
-    console_log_debug "Downloading to '${__dir}/${_PACKAGE}-${_LATEST_VERSION}'"
-    console_log_debug "$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${_LATEST_VERSION}.tar.gz" | tar -xzv 2>&1)"
+    console_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
+    console_debug "Recreating '${__dir}'\n$(mkdir -p "${__dir}" 2>&1)"
+    console_debug "Downloading to '${__dir}/${_PACKAGE}-${_LATEST_VERSION}'"
+    console_debug "$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${_LATEST_VERSION}.tar.gz" | tar -xzv 2>&1)"
     # shellcheck disable=SC2181
      if [ $? -eq 0 ]
     then
-        console_log_debug "Package downloaded"
-        console_log_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${_LATEST_VERSION}"/. "${SCRIPT_DIR}"/. 2>&1)"
-        console_log_debug "Renaming\n$(mv "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
+        console_debug "Package downloaded"
+        console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${_LATEST_VERSION}"/. "${SCRIPT_DIR}"/. 2>&1)"
+        console_debug "Renaming\n$(mv "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
         
-        console_log_debug "Writing new version ${_LATEST_VERSION} > ${VERSION_FILE}"
+        console_debug "Writing new version ${_LATEST_VERSION} > ${VERSION_FILE}"
         # shellcheck disable=SC2116
-        console_log_debug "Writing new version\n$(echo "${_LATEST_VERSION}" > "${VERSION_FILE}" 2>&1)"
-        console_log_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
+        console_debug "Writing new version\n$(echo "${_LATEST_VERSION}" > "${VERSION_FILE}" 2>&1)"
+        console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
         console_log_info "Update complete ${_VERSION} -> ${_LATEST_VERSION}"
     else
         console_log_fatal "Error occurred during download"
