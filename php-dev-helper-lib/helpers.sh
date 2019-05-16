@@ -47,17 +47,17 @@ __is_debug_image_used () {
     unset __message
 }
 
-docker_compose_is_container_started () {
-    __work_dir="${1}"
-    __name="$(basename "${__work_dir}")"
-    __result="$(cd "${__work_dir}" && docker-compose ps | grep -e "${__name}" -e "Up")"
-    if [ "${__result}" != "" ]
-    then
-        return "${CR_TRUE}"
-    fi
-    unset __work_dir __result __name
-    return "${CR_FALSE}"
-}
+# docker_compose_is_container_started () {
+#     __work_dir="${1}"
+#     __name="$(basename "${__work_dir}")"
+#     __result="$(cd "${__work_dir}" && docker-compose ps | grep -e "${__name}" -e "Up")"
+#     if [ "${__result}" != "" ]
+#     then
+#         return "${CR_TRUE}"
+#     fi
+#     unset __work_dir __result __name
+#     return "${CR_FALSE}"
+# }
 
 __check_container () {
     if docker_compose_is_container_started "${WORK_DIR}"

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 ### Define constants
-true; COL_TRUE=${CORE_TRUE:-$?}
-false; COL_FALSE=${CORE_FALSE:-$?}
+true; CR_TRUE=${CR_TRUE:-$?}
+false; CR_FALSE=${CR_FALSE:-$?}
 
 ### Color Constants
 __COL_ANSI_DARK="\033[2m"
@@ -77,16 +77,16 @@ colored_bold_cyan () {
 }
 
 _colored_configureColor() {
-  __col_color=${COL_FALSE}  # By default, no color.
+  __col_color=${CR_FALSE}  # By default, no color.
   __col_reset_colors
   case ${1} in
-    'always') __col_color=${COL_TRUE} ;;
+    'always') __col_color=${CR_TRUE} ;;
     'auto')
       ( exec tput >/dev/null 2>&1 )  # Check for existence of tput command.
       if [ $? -lt 127 ]; then
         __col_tput_=$(tput colors)
         # shellcheck disable=SC2166,SC2181
-        [ $? -eq 0 -a "${__col_tput_}" -ge 16 ] && __col_color=${COL_TRUE}
+        [ $? -eq 0 -a "${__col_tput_}" -ge 16 ] && __col_color=${CR_TRUE}
       fi
       ;;
     'never') ;;
@@ -94,10 +94,10 @@ _colored_configureColor() {
   esac
 
   case ${__col_color} in
-    ${COL_TRUE})
+    ${CR_TRUE})
       __col_set_colors
       ;;
-    ${COL_FALSE})
+    ${CR_FALSE})
       __col_reset_colors
       ;;
   esac

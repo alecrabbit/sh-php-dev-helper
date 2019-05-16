@@ -15,6 +15,8 @@ WORK_DIR="${PWD}"
 # shellcheck disable=SC1090
 . "${MODULES_DIR}/github.sh"
 # shellcheck disable=SC1090
+. "${MODULES_DIR}/docker.sh"
+# shellcheck disable=SC1090
 . "${LIB_DIR}/version.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/options.sh"
