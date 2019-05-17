@@ -31,27 +31,13 @@ PROJECT_NAME="$(basename "${WORK_DIR}")"
 . "${LIB_DIR}/commands.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/updater.sh"
-# Load ${AUX_DEV_MODULE} module if present
-if [ -e "${LIB_DIR}/${AUX_DEV_MODULE}" ]; then
+# Load PTS_AUX_DEV_MODULE module if present
+if [ -e "${LIB_DIR}/${PTS_AUX_DEV_MODULE}" ]; then
     # shellcheck disable=SC1090
-    . "${LIB_DIR}/${AUX_DEV_MODULE}" && console_debug "Module '${AUX_DEV_MODULE}' processed"
+    . "${LIB_DIR}/${PTS_AUX_DEV_MODULE}" && console_debug "Module '${PTS_AUX_DEV_MODULE}' processed"
 else
-    console_debug "Dev module '${AUX_DEV_MODULE}' not found"
+    console_debug "Aux dev module '${PTS_AUX_DEV_MODULE}' not found"
 fi
-
-SCRIPT_DIR="$(core_get_realpath "${SCRIPT_DIR}")"
-LIB_DIR="$(core_get_realpath "${LIB_DIR}")"
-WORK_DIR="$(core_get_realpath "${WORK_DIR}")"
-VERSION_FILE="$(core_get_realpath "${VERSION_FILE}")"
-BUILD_FILE="$(core_get_realpath "${BUILD_FILE}")"
-
-console_debug "Testing project: ${PROJECT_NAME}"
-console_debug "Script name: ${SCRIPT_NAME}"
-console_debug "Script dir: ${SCRIPT_DIR}"
-console_debug "Lib dir: ${LIB_DIR}"
-console_debug "Work dir: ${WORK_DIR}"
-console_debug "VERSION file: ${VERSION_FILE}"
-console_debug "BUILD file: ${BUILD_FILE}"
 
 _pts_read_options "$@"
 

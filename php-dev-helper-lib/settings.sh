@@ -4,7 +4,7 @@ export PTS_DEBUG_IMAGE="debug"
 export PTS_SOURCE_DIR="src"
 export PTS_TESTS_DIR="tests"
 
-export AUX_DEV_MODULE="dev.sh"
+export PTS_AUX_DEV_MODULE="dev.sh"
 
 export _DOCKER_COMPOSE_FILE="docker-compose.yml"
 export _DOCKER_COMPOSE_FILE_DEBUG="docker-compose-debug.yml"
