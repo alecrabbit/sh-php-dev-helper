@@ -65,7 +65,7 @@ __updater_install () {
         console_info "Update complete ${_VERSION}, build ${_BUILD} -> ${__version}, build $(cat "${BUILD_FILE}")"
     else
         console_debug "${__result}"
-        console_error "Possible cause: incorrect version ${__version}"
+        console_error "Possible cause: incorrect version $(colored_bold_cyan "'${__version}'")"
         console_fatal "Error occurred during download"
     fi
     unset __dir __version __result
