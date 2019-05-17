@@ -37,11 +37,10 @@ _pts_updater_run () {
         console_info "New version found: ${_LATEST_VERSION}"
         console_info "Updating..."
         __updater_install "${_LATEST_VERSION}"
-        unset _LATEST_VERSION _OWNER _REPOSITORY _PACKAGE
     else
         console_info "You are using latest version: ${_VERSION}"
     fi
-    unset __REQUIRED_VERSION  
+    unset __REQUIRED_VERSION _LATEST_VERSION _OWNER _REPOSITORY _PACKAGE 
 }
 
 __updater_install () {
@@ -66,6 +65,7 @@ __updater_install () {
         console_info "Update complete ${_VERSION}, build ${_BUILD} -> ${__version}, build $(cat "${BUILD_FILE}")"
     else
         console_debug "${__result}"
+        console_error "Possible cause: incorrect version ${__version}"
         console_fatal "Error occurred during download"
     fi
     unset __dir __version __result
