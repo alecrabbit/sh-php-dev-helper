@@ -50,6 +50,9 @@ __col_set_colors () {
     __col_ansi_bold_cyan=${__COL_ANSI_BOLD_CYAN}
 }
 
+colored_default () {
+    echo "$*"
+}
 colored_bold () {
     echo "${__col_ansi_bold}$*${__col_ansi_none}"
 }

@@ -106,7 +106,7 @@ _read_options () {
                 ;;
             -V | --version)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                console_print "${SCRIPT_NAME:-unknown} version $(_version "${CR_TRUE}")"
+                console_print "$(colored_default "${SCRIPT_NAME:-unknown}") version $(_version "${CR_TRUE}")"
                 exit "${CR_TRUE}"
                 ;;
             # Undocumented
