@@ -17,8 +17,8 @@ updater_run () {
         fi
     fi
     if [ "${__REQUIRED_VERSION}" != "" ]; then
-        console_comment "User required version: ${__REQUIRED_VERSION}"
         if [ "${__REQUIRED_VERSION}" != "${_VERSION}" ]; then
+            console_comment "User required version: ${__REQUIRED_VERSION}"
             __updater_install "${__REQUIRED_VERSION}"
         else
             console_comment "You are already using this version: ${_VERSION}"
