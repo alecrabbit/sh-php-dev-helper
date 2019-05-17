@@ -5,7 +5,6 @@ __usage () {
     echo "Options:"
     echo "    $(colored_yellow "-h")                    - show help message and exit"
     echo "    $(colored_yellow "-a, --all")             - run all (not includes --metrics and --multi)"
-    # echo "    $(colored_yellow "--no-restart")          - do not restart container(s)"
     echo "    $(colored_yellow "-b ")                   - enable php code sniffer beautifier"
     echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage (includes -u)"
     echo "    $(colored_yellow "--cs")                  - enable php code sniffer"
@@ -181,9 +180,6 @@ _read_options () {
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 CR_DEBUG=1
                 ;;
-            # -y)
-            #     console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-            #     ;;
             *)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 console_error "Unknown option '${PARAM}'"
