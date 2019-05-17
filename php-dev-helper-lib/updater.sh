@@ -8,9 +8,10 @@ _LATEST_VERSION=""
 updater_run () {
     __REQUIRED_VERSION="${1:-}"
     if [ "${__REQUIRED_VERSION}" != "" ]; then
+        console_comment "User required version: ${__REQUIRED_VERSION}"
         console_notice "Upgrade/Downgrade to a specific version not implemented yet"
         console_info "PR's are welcomed"
-        console_debug "User required version: ${__REQUIRED_VERSION}"
+        return "${CR_FALSE}"
     fi
     if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
     then
