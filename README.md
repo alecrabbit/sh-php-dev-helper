@@ -40,6 +40,8 @@ Options:
 Note: options order is important
 ```
 
+> Notes on using [--update](.docs/update_option.md) option
+
 ### Links
 
 - [phpstan/phpstan](https://github.com/phpstan/phpstan)
