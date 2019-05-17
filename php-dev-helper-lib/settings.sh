@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
+export PTS_TMP_DIR=".tmp"
 export PTS_DEBUG_IMAGE="debug"
+export PTS_SOURCE_DIR="src"
+export PTS_TESTS_DIR="tests"
 
 export _DOCKER_COMPOSE_FILE="docker-compose.yml"
 export _DOCKER_COMPOSE_FILE_DEBUG="docker-compose-debug.yml"
@@ -10,10 +13,8 @@ export PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
 export PHPSTAN_LEVEL=7
 export PSALM_LEVEL=3
 export PSALM_CONFIG="psalm.xml"
-
-export PTS_SOURCE_DIR="src"
-export PTS_TESTS_DIR="tests"
 export PTS_TMP_DIR_PARTIAL="tmp"
+export PTS_SOURCE_DIR="src"
 export PTS_TMP_DIR="${PTS_TESTS_DIR}/${PTS_TMP_DIR_PARTIAL}"
 export PTS_PHPMETRICS_DIR="phpmetrics"
 export PTS_COVERAGE_DIR="coverage"

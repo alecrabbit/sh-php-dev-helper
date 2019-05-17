@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-__TMP_DIR=".tmp"
 _OWNER="alecrabbit"
 _PACKAGE="sh-php-dev-helper"
 _REPOSITORY="${_OWNER}/${_PACKAGE}"
@@ -44,7 +43,7 @@ updater_run () {
 }
 
 __updater_install () {
-    __dir="${WORK_DIR}/${__TMP_DIR}"
+    __dir="${WORK_DIR}/${PTS_TMP_DIR}"
     __version="${1}"
     console_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     console_debug "Recreating '${__dir}'\n$(mkdir -p "${__dir}" 2>&1)"
