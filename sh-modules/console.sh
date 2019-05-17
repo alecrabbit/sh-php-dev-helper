@@ -7,14 +7,15 @@
 true; CR_TRUE=${CR_TRUE:-$?}
 false; CR_FALSE=${CR_FALSE:-$?}
 
+# shellcheck disable=SC1090
+. "${MODULES_DIR}/colored.sh"
+
 _SERVICE=${SCRIPT_NAME:-}
 if [ "${_SERVICE}" != "" ]
 then
-    _SERVICE="${_SERVICE}:"
+    # _SERVICE="${_SERVICE}:"
+    _SERVICE="$(colored_cyan "${_SERVICE}"):"
 fi
-
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/colored.sh"
 
 ### Logging functions.
 
