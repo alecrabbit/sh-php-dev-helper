@@ -57,6 +57,7 @@ Note: options order is important
 ├── php-dev-helper-lib
 │   ├── BUILD
 │   ├── commands.sh
+│   ├── functions.sh
 │   ├── helpers.sh
 │   ├── options.sh
 │   ├── settings.sh
@@ -68,7 +69,9 @@ Note: options order is important
     ├── colored.sh
     ├── console.sh
     ├── core.sh
+    ├── docker.sh
     └── github.sh
+
 ```
 
 ### Tested Operating Systems
