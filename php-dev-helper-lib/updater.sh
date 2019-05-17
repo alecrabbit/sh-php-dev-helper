@@ -7,12 +7,6 @@ _LATEST_VERSION=""
 
 updater_run () {
     __REQUIRED_VERSION="${1:-}"
-    if [ "${__REQUIRED_VERSION}" != "" ]; then
-        console_comment "User required version: ${__REQUIRED_VERSION}"
-        console_notice "Upgrade/Downgrade to a specific version not implemented yet"
-        console_info "PR's are welcomed"
-        return "${CR_FALSE}"
-    fi
     if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
     then
         __remote="$(cd "${SCRIPT_DIR}" && git remote -v)"
@@ -21,6 +15,14 @@ updater_run () {
         if [ "${__result}" != "" ]; then
             console_fatal "It seems you are trying to update lib sources"
         fi
+    fi
+    if [ "${__REQUIRED_VERSION}" != "" ]; then
+        console_comment "User required version: ${__REQUIRED_VERSION}"
+        # console_error "Upgrade/Downgrade to a specific version not implemented yet"
+        # console_info "Pull requests are welcomed"
+        __updater_install "${__REQUIRED_VERSION}"
+        return "${CR_TRUE}"
+        # return "${CR_FALSE}"
     fi
     console_debug "Updater: checking install"
     _LATEST_VERSION="$(github_get_latest_version "${_REPOSITORY}" 2>&1)"
@@ -32,7 +34,7 @@ updater_run () {
         console_comment "Current version: ${_VERSION}"
         console_info "New version found: ${_LATEST_VERSION}"
         console_info "Updating..."
-        __updater_install
+        __updater_install "${_LATEST_VERSION}"
     else
         console_info "You are using latest version: ${_VERSION}"
     fi
@@ -41,24 +43,25 @@ updater_run () {
 
 __updater_install () {
     __dir="${WORK_DIR}/${__TMP_DIR}"
+    __version="${1}"
     console_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     console_debug "Recreating '${__dir}'\n$(mkdir -p "${__dir}" 2>&1)"
-    console_debug "Downloading to '${__dir}/${_PACKAGE}-${_LATEST_VERSION}'"
-    console_debug "$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${_LATEST_VERSION}.tar.gz" | tar -xzv 2>&1)"
+    console_debug "Downloading to '${__dir}/${_PACKAGE}-${__version}'"
+    console_debug "$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
     # shellcheck disable=SC2181
      if [ $? -eq 0 ]
     then
         console_debug "Package downloaded"
-        console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${_LATEST_VERSION}"/. "${SCRIPT_DIR}"/. 2>&1)"
+        console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
         console_debug "Renaming\n$(mv "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
         
-        console_debug "Writing new version ${_LATEST_VERSION} > ${VERSION_FILE}"
+        console_debug "Writing new version ${__version} > ${VERSION_FILE}"
         # shellcheck disable=SC2116
-        console_debug "Writing new version\n$(echo "${_LATEST_VERSION}" > "${VERSION_FILE}" 2>&1)"
+        console_debug "Writing new version\n$(echo "${__version}" > "${VERSION_FILE}" 2>&1)"
         console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
-        console_info "Update complete ${_VERSION} -> ${_LATEST_VERSION}"
+        console_info "Update complete ${_VERSION} -> ${__version}"
     else
         console_fatal "Error occurred during download"
     fi
-    unset __dir
+    unset __dir __version
 }
