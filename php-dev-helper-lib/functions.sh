@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
+PROJECT_NAME="$(basename "${WORK_DIR}")"
+
 _pts_check_working_env () {
+    console_debug "Working directory: ${WORK_DIR}"
     if user_is_root
     then
         console_fatal "DO NOT run this script under root!"
@@ -16,7 +19,69 @@ _pts_check_working_env () {
         console_notice "\nAre you in the right directory?"
         console_fatal "docker-compose*.yml file(s) not found in current directory"
     fi
+    __allowed_file="${HOME}/${PTS_ALLOWED_DIRS_FILE}"
+     __disallowed_file="${HOME}/${PTS_DISALLOWED_DIRS_FILE}"
+    __check_file_create_if_not_found "${__allowed_file}"
+    __check_file_create_if_not_found "${__disallowed_file}"
+
+    __project_allowed="$(__file_contains_string "${__allowed_file}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
+    __project_disallowed="$(__file_contains_string "${__disallowed_file}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
+
+    __result="$(echo "${PROJECT_NAME}" | grep -i "${WORKING_PREFIX}")"
+    if [ "${__result}" != "" ]; then
+        console_debug "Your project name contains '${WORKING_PREFIX}'"
+    else
+        if [ "${__project_allowed}" = "${CR_TRUE}" ] || [ "${__project_disallowed}" = "${CR_TRUE}" ]; then
+            console_debug "Your project dir '${WORK_DIR}' is registered"
+            console_debug "Allowed: $(core_int_to_string "${__project_allowed}") Disallowed: $(core_int_to_string "${__project_disallowed}")"
+            if [ "${__project_disallowed}" = "${CR_TRUE}" ]; then
+                console_fatal "Disallowed project"
+            fi
+        else
+            console_warning "Your project dir '${WORK_DIR}' is NOT registered"
+            if core_ask_question "Allow or disallow project?" "${CR_FALSE}" "ad"; then
+                console_debug "Register your project dir '${WORK_DIR}' as allowed"
+                echo "${WORK_DIR}" >> "${__allowed_file}"
+                __project_allowed="${CR_TRUE}"
+            else
+                console_debug "Register your project dir '${WORK_DIR}' as disallowed"
+                echo "${WORK_DIR}" >> "${__disallowed_file}"
+                __project_disallowed="${CR_TRUE}"
+                console_fatal "Disallowed project"
+            fi
+        fi
+    fi
+    console_print "$(colored_green "Testing project":) $(colored_cyan "${PROJECT_NAME}")"
+
+    unset __allowed_file __disallowed_file __result __project_allowed __project_disallowed
 }
+
+__file_contains_string () {
+    __file="${1}"
+    __string="${2}"
+    __result="$(grep "${__string}" "${__file}")"
+    console_debug  "s'${__string}' f'${__file}' r'${__result}'"
+    if [ "${__result}" != "" ]; then
+        unset __file __string __result
+        return "${CR_TRUE}"
+    fi
+    unset __file __string __result
+    return "${CR_FALSE}"
+}
+
+__check_file_create_if_not_found () {
+    __file="${1}"
+    if [ -e "${__file}" ];
+    then
+        console_debug "File '${__file}' found"
+    else
+        console_debug "File '${__file}' NOT found"
+        console_debug "Creating file '${__file}'"
+        touch "${__file}"
+    fi
+    unset __file
+}
+
 __check_container () {
     PTS_DEBUG_IMAGE_USED="${CR_ERROR}"
     PTS_CONTAINER_STARTED="${CR_FALSE}"

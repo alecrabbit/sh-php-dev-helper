@@ -9,7 +9,6 @@ SCRIPT_DIR="$(dirname "$0")"
 MODULES_DIR="${SCRIPT_DIR}/sh-modules"
 LIB_DIR="${SCRIPT_DIR}/php-dev-helper-lib"
 WORK_DIR="${PWD}"
-PROJECT_NAME="$(basename "${WORK_DIR}")"
 
 # shellcheck disable=SC1090
 . "${MODULES_DIR}/core.sh"
@@ -45,21 +44,14 @@ console_comment "Version $(_version)"
 console_debug "Version $(_version "${CR_TRUE}")"
 
 ### Run checks
-console_debug "Working directory: ${WORK_DIR}"
-
 _pts_check_working_env
-
-console_print "$(colored_green "Testing project":) $(colored_cyan "${PROJECT_NAME}")"
-
-_pts_show_options
+_pts_show_selected_options
 _pts_check_container
 
-
-### Start
+### Testing
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
-core_set_terminal_title "${__TITLE} - Testing..."
-
 if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
+    core_set_terminal_title "${__TITLE} - Testing..."
     console_debug "Executing..."
     if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_TRUE}" ]; then
         _phpunit_exec

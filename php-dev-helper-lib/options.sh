@@ -67,7 +67,7 @@ __export_options () {
     export PTS_PHPUNIT_COVERAGE
 }
 
-_pts_show_options () {
+_pts_show_selected_options () {
     console_dark "\nSelected options:"
     if [ "${CR_DEBUG}" -eq 1 ]
     then

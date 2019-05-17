@@ -161,6 +161,42 @@ core_check_int_bool_env_value () {
 
 }
 
+core_ask_question () {
+    __allowed_answers="${3:-ny}"
+    __accept_any="${2:-${CR_FALSE}}"
+    if [ "${__accept_any}" -eq "${CR_TRUE}" ]; then
+        __allowed_answers="y/n"
+    fi
+    # shellcheck disable=SC2059
+    printf "${1} [${__allowed_answers}] "
+    __old_stty_cfg=$(stty -g)
+    stty raw -echo
+
+    if [ "${_pts_silent_operation:-${CR_FALSE}}" -eq "${CR_TRUE}" ]
+    then
+        __answer="y"
+    else
+        if [ "${__accept_any}" -eq "${CR_TRUE}" ]; then
+            __answer=$(head -c 1)  # anything accepted
+        else
+            __answer=$( while ! head -c 1 | grep -i "[${__allowed_answers}]" ;do true ;done )  # only yn accepted
+       fi
+    fi
+    stty "${__old_stty_cfg}"
+    unset __old_stty_cfg
+    echo "${__answer}"
+    console_debug "Got answer '${__answer}'"
+    if echo "${__answer}" | grep -iq "^$(echo "${__allowed_answers}" | head -c 1)" ;then
+        console_debug "Confirmed"
+        unset __answer
+        return ${CR_TRUE}
+    fi
+    console_print ""
+    unset __answer
+    return ${CR_FALSE}
+}
+
+
 core_check_int_bool_env_value "${CR_DEBUG}" "DEBUG" 
 core_check_int_bool_env_value "${CR_ALLOW_ROOT}" "ALLOW_ROOT" 
 core_check_int_bool_env_value "${CR_TITLE}" "TITLE" 
