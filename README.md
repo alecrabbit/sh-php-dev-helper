@@ -58,7 +58,6 @@ Note: options order is important
 │   ├── BUILD
 │   ├── commands.sh
 │   ├── functions.sh
-│   ├── helpers.sh
 │   ├── options.sh
 │   ├── settings.sh
 │   ├── updater.sh
