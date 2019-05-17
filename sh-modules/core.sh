@@ -149,3 +149,19 @@ core_is_dir_contains () {
     return ${CR_TRUE}
 }
 
+core_check_int_bool_env_value () {
+      case ${1} in
+        1 | 0) ;;
+        *) 
+            echo "ERROR: Unrecognized value ${2}=${1}" >&2
+            echo "       Allowed: ${2}=1, ${2}=0"
+            exit 1
+            ;;
+  esac
+
+}
+
+core_check_int_bool_env_value "${CR_DEBUG}" "DEBUG" 
+core_check_int_bool_env_value "${CR_ALLOW_ROOT}" "ALLOW_ROOT" 
+core_check_int_bool_env_value "${CR_TITLE}" "TITLE" 
+

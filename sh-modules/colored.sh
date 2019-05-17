@@ -96,8 +96,8 @@ _colored_configureColor() {
       ;;
     'never') ;;
     *) 
-        echo "Unrecognized value COLOR=${1}" >&2
-        echo "Allowed: 'auto', 'always', 'never'"
+        echo "ERROR: Unrecognized value COLOR=${1}" >&2
+        echo "       Allowed: 'auto', 'always', 'never'"
         exit 1
         ;;
   esac
