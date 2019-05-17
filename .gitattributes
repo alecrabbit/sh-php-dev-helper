@@ -1,5 +1,4 @@
 /.docs             export-ignore
-/sh-modules/aux.sh export-ignore
 .gitignore         export-ignore
 .gitattributes     export-ignore
 .travis.yml        export-ignore
