@@ -47,7 +47,7 @@ __updater_install () {
     console_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     console_debug "Recreating '${__dir}'\n$(mkdir -p "${__dir}" 2>&1)"
     console_debug "Downloading to '${__dir}/${_PACKAGE}-${__version}'"
-    console_debug "$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
+    __result="$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
     # shellcheck disable=SC2181
      if [ $? -eq 0 ]
     then
@@ -61,7 +61,8 @@ __updater_install () {
         console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
         console_info "Update complete ${_VERSION} -> ${__version}"
     else
+        console_debug "${__result}"
         console_fatal "Error occurred during download"
     fi
-    unset __dir __version
+    unset __dir __version __result
 }
