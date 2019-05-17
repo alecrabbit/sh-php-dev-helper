@@ -135,7 +135,7 @@ core_is_dir_contains () {
     for __file in ${__FILES}; do
         if [ ! -e "${__DIR}/${__file}" ]
         then
-            console_dark "Not found: '${__DIR}/${__file}'"
+            console_debug "Not found: '${__DIR}/${__file}'"
             unset __FILES __file
             return ${CR_FALSE}
         fi

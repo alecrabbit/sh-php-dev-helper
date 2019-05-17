@@ -13,7 +13,8 @@ helper_check_working_env () {
     console_debug "Checking docker-compose: installed"
     if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}"
     then
-        console_fatal "docker-compose*.yml file(s) not found"
+        console_notice "\nAre you in the right directory?"
+        console_fatal "docker-compose*.yml file(s) not found in current directory"
     fi
 }
 
