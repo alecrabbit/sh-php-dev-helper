@@ -18,9 +18,11 @@ updater_run () {
     fi
     if [ "${__REQUIRED_VERSION}" != "" ]; then
         console_comment "User required version: ${__REQUIRED_VERSION}"
-        # console_error "Upgrade/Downgrade to a specific version not implemented yet"
-        # console_info "Pull requests are welcomed"
-        __updater_install "${__REQUIRED_VERSION}"
+        if [ "${__REQUIRED_VERSION}" != "${_VERSION}" ]; then
+            __updater_install "${__REQUIRED_VERSION}"
+        else
+            console_comment "You are already using this version: ${_VERSION}"
+        fi
         return "${CR_TRUE}"
         # return "${CR_FALSE}"
     fi
