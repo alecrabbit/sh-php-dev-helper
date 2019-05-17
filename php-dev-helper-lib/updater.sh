@@ -55,6 +55,7 @@ __updater_install () {
      if [ $? -eq 0 ]
     then
         console_debug "Package downloaded"
+        console_debug "Deleting dev module 'aux.sh'\n$(rm -v "${__dir}/${_PACKAGE}-${__version}"/aux.sh 2>&1)"
         console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
         console_debug "Renaming\n$(mv "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
         
