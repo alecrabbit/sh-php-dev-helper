@@ -31,7 +31,7 @@ _psalm_exec () {
         then
             console_debug "Config file '${PSALM_CONFIG}' found"
         else
-            console_log_comment "Config file '${PSALM_CONFIG}' not found"
+            console_comment "Config file '${PSALM_CONFIG}' not found"
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app psalm --init "${PTS_SOURCE_DIR}" "${PSALM_LEVEL}"
         fi
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app psalm --version
@@ -113,7 +113,7 @@ _phpunit_exec () {
             then
                 console_info "Found XDEBUG Filter file..."
             else
-                console_log_comment "Generating XDEBUG Filter..."
+                console_comment "Generating XDEBUG Filter..."
                 docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit --dump-xdebug-filter "${PTS_XDEBUG_FILTER_FILE}"
             fi
             console_debug "Run phpunit with coverage"

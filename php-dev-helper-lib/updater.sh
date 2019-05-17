@@ -22,7 +22,7 @@ updater_run () {
     fi
     console_debug "Github last version: ${_LATEST_VERSION}"
     if version_update_needed "${_LATEST_VERSION}"; then
-        console_log_comment "Current version: ${_VERSION}"
+        console_comment "Current version: ${_VERSION}"
         console_info "New version found: ${_LATEST_VERSION}"
         console_info "Updating..."
         __updater_install

@@ -35,18 +35,6 @@ __is_debug_image_used () {
     unset __message
 }
 
-# docker_compose_is_container_started () {
-#     __work_dir="${1}"
-#     __name="$(basename "${__work_dir}")"
-#     __result="$(cd "${__work_dir}" && docker-compose ps | grep -e "${__name}" -e "Up")"
-#     if [ "${__result}" != "" ]
-#     then
-#         return "${CR_TRUE}"
-#     fi
-#     unset __work_dir __result __name
-#     return "${CR_FALSE}"
-# }
-
 __check_container () {
     PTS_DEBUG_IMAGE_USED="${CR_ERROR}"
     PTS_CONTAINER_STARTED="${CR_FALSE}"
@@ -75,11 +63,9 @@ _pts_helper_check_container () {
     __check_container "${WORK_DIR}"
     if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_TRUE}" ]; then
         console_debug "Container is running"
-        # if __is_debug_image_used; then
-        #     PTS_DEBUG_IMAGE_USED=${CR_TRUE}
-        # fi
     else
-        console_debug "Trying to start container"
+        console_comment "Container is not running"
+        console_info "Trying to start container"
         console_debug "Using debug image by default"
         _pts_helper_start_container "${_DOCKER_COMPOSE_FILE_DEBUG}"
         PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
@@ -92,6 +78,7 @@ _pts_helper_check_container () {
         if [ "${PTS_DEBUG_IMAGE_USED}" -eq "${CR_TRUE}" ]; then
             console_debug "No restart needed: debug image used"
         else
+            console_info "Debug image required - restarting..."
             console_debug "Restarting to debug image"
             _pts_helper_restart_container "${_DOCKER_COMPOSE_FILE_DEBUG}"
             __check_container

@@ -70,13 +70,13 @@ console_dark () {
 console_info () {
     console_print "$(colored_green "$*")"
 }
-console_log_comment () {
+console_comment () {
     console_print "$(colored_yellow "$*")"
 }
-console_log_notice () {
+console_notice () {
     console_print "$(colored_bold_yellow "$*")"
 }
-console_log_header () {
+console_header () {
     console_print "$(colored_bold_cyan "$*")"
 }
 

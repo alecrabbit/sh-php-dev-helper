@@ -53,7 +53,7 @@ fi
 _read_options "$@"
 
 ### Print header
-console_log_header "PHP Dev Helper Script"
+console_header "PHP Dev Helper Script"
 console_info "Version $(_version)"
 console_debug "Version $(_version "${CR_TRUE}")"
 
@@ -106,8 +106,8 @@ core_set_terminal_title "${__title}"
 
 # console_dark "dark"
 # console_info "info"
-# console_log_comment "comment"
-# console_log_notice "notice"
+# console_comment "comment"
+# console_notice "notice"
 
 # console_warning "Warn message"
 # console_error "Error message"
