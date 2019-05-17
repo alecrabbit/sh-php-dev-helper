@@ -45,7 +45,7 @@ _pts_updater_run () {
 }
 
 __updater_install () {
-    __dir="${WORK_DIR}/${PTS_TMP_DIR}"
+    __dir="${WORK_DIR}/${PTS_UPDATER_TMP_DIR}"
     __version="${1}"
     console_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     console_debug "Recreating '${__dir}'\n$(mkdir -pv "${__dir}" 2>&1)"
