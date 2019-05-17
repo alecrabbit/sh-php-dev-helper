@@ -25,6 +25,7 @@ _get_git_hash () {
     if ! core_check_if_dir_exists "${SCRIPT_DIR}/.git"
     then
         console_debug "BUILD Hash: No repository found"
+        console_error "Unable to get hash"
         return "${CR_FALSE}"
     fi
     _BUILD="$(cd "${SCRIPT_DIR}" && git log --pretty=format:'%h' -n 1 2>&1)"
