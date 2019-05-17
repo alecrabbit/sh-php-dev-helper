@@ -1,23 +1,4 @@
 #!/usr/bin/env sh
-helper_check_working_env () {
-    if user_is_root
-    then
-        console_fatal "DO NOT run this script under root!"
-    fi
-    console_debug "Checking user: $(whoami)"
-
-    if ! check_command "docker-compose"
-    then 
-        console_fatal "docker-compose is NOT installed!"
-    fi
-    console_debug "Checking docker-compose: installed"
-    if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}"
-    then
-        console_notice "\nAre you in the right directory?"
-        console_fatal "docker-compose*.yml file(s) not found in current directory"
-    fi
-}
-
 __is_debug_image_used () {
     __message="unable to define image(container not running)"
     PTS_DEBUG_IMAGE_USED="${CR_ERROR}"
