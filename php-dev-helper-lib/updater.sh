@@ -5,7 +5,6 @@ _REPOSITORY="${_OWNER}/${_PACKAGE}"
 _LATEST_VERSION=""
 
 updater_run () {
-    __REQUIRED_VERSION="${1:-}"
     if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
     then
         __remote="$(cd "${SCRIPT_DIR}" && git remote -v)"
@@ -14,7 +13,9 @@ updater_run () {
         if [ "${__result}" != "" ]; then
             console_fatal "It seems you are trying to update lib sources"
         fi
+        unset __remote __result
     fi
+    __REQUIRED_VERSION="${1:-}"
     if [ "${__REQUIRED_VERSION}" != "" ]; then
         if [ "${__REQUIRED_VERSION}" != "${_VERSION}" ] || [ "${__REQUIRED_VERSION}" = "master" ]; then
             console_comment "User required version: ${__REQUIRED_VERSION}"
@@ -22,6 +23,7 @@ updater_run () {
         else
             console_comment "You are already using this version: ${_VERSION}"
         fi
+        unset __REQUIRED_VERSION _LATEST_VERSION _OWNER _REPOSITORY _PACKAGE 
         return "${CR_TRUE}"
     fi
     console_debug "Updater: checking install"
@@ -35,6 +37,7 @@ updater_run () {
         console_info "New version found: ${_LATEST_VERSION}"
         console_info "Updating..."
         __updater_install "${_LATEST_VERSION}"
+        unset _LATEST_VERSION _OWNER _REPOSITORY _PACKAGE
     else
         console_info "You are using latest version: ${_VERSION}"
     fi
