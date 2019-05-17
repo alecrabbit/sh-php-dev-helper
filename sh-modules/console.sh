@@ -1,4 +1,12 @@
 #!/usr/bin/env sh
+
+# DEPENDS ON:    
+# colored.sh
+
+### Define constants
+true; CR_TRUE=${CR_TRUE:-$?}
+false; CR_FALSE=${CR_FALSE:-$?}
+
 _SERVICE=${SCRIPT_NAME:-}
 if [ "${_SERVICE}" != "" ]
 then

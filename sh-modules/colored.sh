@@ -1,4 +1,9 @@
 #!/usr/bin/env sh
+
+#######################
+### NO DEPENDENCIES ###
+#######################
+
 ### Define constants
 true; CR_TRUE=${CR_TRUE:-$?}
 false; CR_FALSE=${CR_FALSE:-$?}
@@ -90,7 +95,11 @@ _colored_configureColor() {
       fi
       ;;
     'never') ;;
-    *) console_fatal "Unrecognized color option '${1}'" ;;
+    *) 
+        echo "Unrecognized value COLOR=${1}" >&2
+        echo "Allowed: 'auto', 'always', 'never'"
+        exit 1
+        ;;
   esac
 
   case ${__col_color} in

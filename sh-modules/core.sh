@@ -1,4 +1,9 @@
 #!/usr/bin/env sh
+
+# DEPENDS ON:     
+# console.sh
+# └── colored.sh
+
 ### Define constants
 true; CR_TRUE=$?
 false; CR_FALSE=$?
