@@ -48,7 +48,7 @@ __updater_install () {
     __dir="${WORK_DIR}/${PTS_TMP_DIR}"
     __version="${1}"
     console_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
-    console_debug "Recreating '${__dir}'\n$(mkdir -p "${__dir}" 2>&1)"
+    console_debug "Recreating '${__dir}'\n$(mkdir -pv "${__dir}" 2>&1)"
     console_debug "Downloading to '${__dir}/${_PACKAGE}-${__version}'"
     __result="$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
     # shellcheck disable=SC2181
@@ -57,7 +57,7 @@ __updater_install () {
         console_debug "Package downloaded"
         console_debug "Deleting dev module '${AUX_DEV_MODULE}'\n$(rm -v "${__dir}/${_PACKAGE}-${__version}"/${AUX_DEV_MODULE} 2>&1)"
         console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
-        console_debug "Renaming\n$(mv "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
+        console_debug "Renaming\n$(mv -v "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
         
         console_debug "Writing new version ${__version} > ${VERSION_FILE}"
         # shellcheck disable=SC2116
