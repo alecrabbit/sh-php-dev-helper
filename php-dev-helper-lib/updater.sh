@@ -16,7 +16,7 @@ updater_run () {
         fi
     fi
     if [ "${__REQUIRED_VERSION}" != "" ]; then
-        if [ "${__REQUIRED_VERSION}" != "${_VERSION}" ]; then
+        if [ "${__REQUIRED_VERSION}" != "${_VERSION}" ] && [ "${__REQUIRED_VERSION}" != "master" ]; then
             console_comment "User required version: ${__REQUIRED_VERSION}"
             __updater_install "${__REQUIRED_VERSION}"
         else
