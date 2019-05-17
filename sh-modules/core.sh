@@ -49,6 +49,7 @@ user_is_root () {
 
 core_set_terminal_title () {
     if [ "${CR_TITLE}" -eq 1 ]; then
+        console_debug "Setting title '${1}'"
         # shellcheck disable=SC2059
         printf "\033]0;${1}\007"
     fi

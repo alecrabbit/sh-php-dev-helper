@@ -9,6 +9,7 @@ SCRIPT_DIR="$(dirname "$0")"
 MODULES_DIR="${SCRIPT_DIR}/sh-modules"
 LIB_DIR="${SCRIPT_DIR}/php-dev-helper-lib"
 WORK_DIR="${PWD}"
+PROJECT_NAME="$(basename "${WORK_DIR}")"
 
 # shellcheck disable=SC1090
 . "${MODULES_DIR}/core.sh"
@@ -28,6 +29,8 @@ WORK_DIR="${PWD}"
 . "${LIB_DIR}/commands.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/updater.sh"
+# shellcheck disable=SC1090
+. "${LIB_DIR}/functions.sh"
 
 SCRIPT_DIR="$(core_get_realpath "${SCRIPT_DIR}")"
 LIB_DIR="$(core_get_realpath "${LIB_DIR}")"
@@ -35,6 +38,7 @@ WORK_DIR="$(core_get_realpath "${WORK_DIR}")"
 VERSION_FILE="$(core_get_realpath "${VERSION_FILE}")"
 BUILD_FILE="$(core_get_realpath "${BUILD_FILE}")"
 
+console_debug "Testing project: ${PROJECT_NAME}"
 console_debug "Script name: ${SCRIPT_NAME}"
 console_debug "Script dir: ${SCRIPT_DIR}"
 console_debug "Lib dir: ${LIB_DIR}"
@@ -62,15 +66,15 @@ console_debug "Working directory: ${WORK_DIR}"
 
 helper_check_working_env
 
+console_info "Testing project: ${PROJECT_NAME}"
+
 _show_options
 _pts_helper_check_container
 
 
 ### Start
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
-__title="${__TITLE} - Testing..."
-console_debug "Setting title '${__title}'"
-core_set_terminal_title "${__title}"
+core_set_terminal_title "${__TITLE} - Testing..."
 
 if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
     console_debug "Executing..."
@@ -82,6 +86,14 @@ if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
         _psalm_exec
         _php_cs_exec
         _php_cs_bf_exec
+
+        if [ -e "${PTS_TEST_REPORT_INDEX}" ]
+        then
+            console_info "Report file found: '${PTS_TEST_REPORT_INDEX}'"
+        else
+            console_comment "Generating report file: '${PTS_TEST_REPORT_INDEX}'"
+            generate_report_file
+        fi
     else
         console_error "Container is not started"
     fi
@@ -94,21 +106,4 @@ fi
 console_dark "Executed in $(($(date +%s)-start_time))s"
 console_dark "Bye!"
 
-__title="${__TITLE}"
-console_debug "Setting title '${__title}'"
-core_set_terminal_title "${__title}"
-
-### Debug code
-# console_debug "Debug messages:"
-# console_debug "SCRIPT_NAME: ${SCRIPT_NAME}"
-# console_debug "SCRIPT_DIR: ${SCRIPT_DIR}"
-# console_debug "WORK_DIR: ${WORK_DIR}"
-
-# console_dark "dark"
-# console_info "info"
-# console_comment "comment"
-# console_notice "notice"
-
-# console_warning "Warn message"
-# console_error "Error message"
-# console_fatal "Fatal message"
+core_set_terminal_title "${__TITLE}"

@@ -16,14 +16,13 @@ updater_run () {
         fi
     fi
     if [ "${__REQUIRED_VERSION}" != "" ]; then
-        if [ "${__REQUIRED_VERSION}" != "${_VERSION}" ] && [ "${__REQUIRED_VERSION}" != "master" ]; then
+        if [ "${__REQUIRED_VERSION}" != "${_VERSION}" ] || [ "${__REQUIRED_VERSION}" = "master" ]; then
             console_comment "User required version: ${__REQUIRED_VERSION}"
             __updater_install "${__REQUIRED_VERSION}"
         else
             console_comment "You are already using this version: ${_VERSION}"
         fi
         return "${CR_TRUE}"
-        # return "${CR_FALSE}"
     fi
     console_debug "Updater: checking install"
     _LATEST_VERSION="$(github_get_latest_version "${_REPOSITORY}" 2>&1)"
