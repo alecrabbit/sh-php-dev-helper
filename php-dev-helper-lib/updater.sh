@@ -6,6 +6,12 @@ _REPOSITORY="${_OWNER}/${_PACKAGE}"
 _LATEST_VERSION=""
 
 updater_run () {
+    __REQUIRED_VERSION="${1:-}"
+    if [ "${__REQUIRED_VERSION}" != "" ]; then
+        console_notice "Upgrade/Downgrade to a specific version not implemented yet"
+        console_info "PR's are welcomed"
+        console_debug "User required version: ${__REQUIRED_VERSION}"
+    fi
     if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
     then
         __remote="$(cd "${SCRIPT_DIR}" && git remote -v)"
@@ -28,7 +34,8 @@ updater_run () {
         __updater_install
     else
         console_info "You are using latest version: ${_VERSION}"
-    fi    
+    fi
+    unset __REQUIRED_VERSION  
 }
 
 __updater_install () {

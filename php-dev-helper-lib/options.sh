@@ -101,7 +101,7 @@ _read_options () {
                 ;;
             --update)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                updater_run
+                updater_run "${VALUE}"
                 exit
                 ;;
             -V | --version)
