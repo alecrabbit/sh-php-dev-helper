@@ -31,10 +31,12 @@ PROJECT_NAME="$(basename "${WORK_DIR}")"
 . "${LIB_DIR}/commands.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/updater.sh"
-# Load aux.sh module if present
-if [ -e "${LIB_DIR}/aux.sh" ]; then
+# Load ${AUX_DEV_MODULE} module if present
+if [ -e "${LIB_DIR}/${AUX_DEV_MODULE}" ]; then
     # shellcheck disable=SC1090
-    . "${LIB_DIR}/aux.sh" && console_debug "Module 'aux.sh' processed"
+    . "${LIB_DIR}/${AUX_DEV_MODULE}" && console_debug "Module '${AUX_DEV_MODULE}' processed"
+else
+    console_debug "Dev module '${AUX_DEV_MODULE}' not found"
 fi
 
 SCRIPT_DIR="$(core_get_realpath "${SCRIPT_DIR}")"
