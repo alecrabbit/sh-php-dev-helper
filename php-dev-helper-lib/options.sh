@@ -67,7 +67,7 @@ __export_options () {
     export PTS_PHPUNIT_COVERAGE
 }
 
-_show_options () {
+_pts_show_options () {
     console_dark "\nSelected options:"
     if [ "${CR_DEBUG}" -eq 1 ]
     then
@@ -86,7 +86,7 @@ _show_options () {
     console_dark ""
 }
 
-_read_options () {
+_pts_read_options () {
     __set_default_options
     console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
@@ -100,7 +100,7 @@ _read_options () {
                 ;;
             --update)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                updater_run "${VALUE}"
+                _pts_updater_run "${VALUE}"
                 exit
                 ;;
             -V | --version)

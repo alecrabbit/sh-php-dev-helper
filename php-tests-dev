@@ -22,6 +22,8 @@ PROJECT_NAME="$(basename "${WORK_DIR}")"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/options.sh"
 # shellcheck disable=SC1090
+. "${LIB_DIR}/functions.sh"
+# shellcheck disable=SC1090
 . "${LIB_DIR}/helpers.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/settings.sh"
@@ -29,8 +31,6 @@ PROJECT_NAME="$(basename "${WORK_DIR}")"
 . "${LIB_DIR}/commands.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/updater.sh"
-# shellcheck disable=SC1090
-. "${LIB_DIR}/functions.sh"
 
 SCRIPT_DIR="$(core_get_realpath "${SCRIPT_DIR}")"
 LIB_DIR="$(core_get_realpath "${LIB_DIR}")"
@@ -54,7 +54,7 @@ else
     console_debug "Hash not saved"
 fi
 
-_read_options "$@"
+_pts_read_options "$@"
 
 ### Print header
 console_header "PHP Dev Helper Script"
@@ -64,12 +64,12 @@ console_debug "Version $(_version "${CR_TRUE}")"
 ### Run checks
 console_debug "Working directory: ${WORK_DIR}"
 
-_check_working_env
+_pts_check_working_env
 
 console_print "$(colored_green "Testing project":) $(colored_cyan "${PROJECT_NAME}")"
 
-_show_options
-_pts_helper_check_container
+_pts_show_options
+_pts_check_container
 
 
 ### Start
@@ -92,7 +92,7 @@ if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
             console_info "Report file found: '${PTS_TEST_REPORT_INDEX}'"
         else
             console_comment "Generating report file: '${PTS_TEST_REPORT_INDEX}'"
-            _generate_report_file
+            _pts_generate_report_file
         fi
     else
         console_error "Container is not started"

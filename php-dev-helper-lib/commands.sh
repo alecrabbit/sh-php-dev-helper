@@ -41,36 +41,6 @@ _psalm_exec () {
     fi
 }
 
-# PSALM_CONFIG="./../psalm.xml"
-# PSALM_LEVEL=3
-
-# if [[ -e ${PSALM_CONFIG} ]]
-# then
-#   comment "Psalm config found..."
-# else
-#   comment "Creating psalm config..."
-#   if [[ ${EXEC} == 1  ]]
-#     then
-#       docker-compose -f ${DOCKER_COMPOSE_FILE} exec app psalm --init ${SOURCE_DIR} ${PSALM_LEVEL}
-#     else
-#       no-exec
-#   fi
-# fi
-
-# info "Psalm..."
-# docker-compose -f ${DOCKER_COMPOSE_FILE} exec app psalm --version
-# if [[ ${EXEC} == 1 ]]
-# then
-#     if [[ -z "$@" ]]
-#     then
-#         docker-compose -f ${DOCKER_COMPOSE_FILE} exec app psalm
-#     else
-#         docker-compose -f ${DOCKER_COMPOSE_FILE} exec app psalm "$@"
-#     fi
-# else
-#   no-exec
-# fi
-
 _php_cs_exec () {
     if [ "${PTS_CS}" -eq "${CR_TRUE}" ]; then
         console_info "PHP Code Sniffer..."

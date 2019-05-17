@@ -4,7 +4,7 @@ _PACKAGE="sh-php-dev-helper"
 _REPOSITORY="${_OWNER}/${_PACKAGE}"
 _LATEST_VERSION=""
 
-updater_run () {
+_pts_updater_run () {
     if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
     then
         __remote="$(cd "${SCRIPT_DIR}" && git remote -v)"
