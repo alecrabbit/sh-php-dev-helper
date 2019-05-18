@@ -1,2 +1,6 @@
 /.vscode/
 /.eval/
+
+.sh-php-tests-allowed-dirs
+.sh-php-tests-disallowed-dirs
+.sh-php-tests-settings

@@ -19,16 +19,27 @@ _pts_check_working_env () {
         console_notice "\nAre you in the right directory?"
         console_fatal "docker-compose*.yml file(s) not found in current directory"
     fi
-    __allowed_file="${HOME}/${PTS_ALLOWED_DIRS_FILE}"
-     __disallowed_file="${HOME}/${PTS_DISALLOWED_DIRS_FILE}"
-    __check_file_create_if_not_found "${__allowed_file}"
-    __check_file_create_if_not_found "${__disallowed_file}"
+    if [ "${DIR_CONTROL}" -eq "${CR_ENABLED}" ]; then
+        console_warning "DIR_CONTROL is an experimental feature"
+        __dir_control
+    fi
+    console_print "$(colored_green "Testing project":) $(colored_cyan "${PROJECT_NAME}")"
+}
 
-    __project_allowed="$(__file_contains_string "${__allowed_file}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
-    __project_disallowed="$(__file_contains_string "${__disallowed_file}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
+__dir_control () {
+    __check_file_create_if_not_found "${PTS_ALLOWED_DIRS_FILE}"
+    __check_file_create_if_not_found "${PTS_DISALLOWED_DIRS_FILE}"
 
-    __result="$(echo "${PROJECT_NAME}" | grep -i "${WORKING_PREFIX}")"
-    if [ "${__result}" != "" ]; then
+    __project_allowed="$(__file_contains_string "${PTS_ALLOWED_DIRS_FILE}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
+    __project_disallowed="$(__file_contains_string "${PTS_DISALLOWED_DIRS_FILE}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
+
+    if [ "${USE_DIR_PREFIX}" -eq "${CR_ENABLED}" ]; then
+        console_debug "USE_DIR_PREFIX enabled"
+        __result="$(echo "${PROJECT_NAME}" | grep -i "${WORKING_PREFIX}")"
+    fi
+
+    if [ "${__result:-}" != "" ]; then
+        console_debug "Your project allowed by name '${PROJECT_NAME}'"
         console_debug "Your project name contains '${WORKING_PREFIX}'"
     else
         if [ "${__project_allowed}" = "${CR_TRUE}" ] || [ "${__project_disallowed}" = "${CR_TRUE}" ]; then
@@ -41,19 +52,17 @@ _pts_check_working_env () {
             console_warning "Your project dir '${WORK_DIR}' is NOT registered"
             if core_ask_question "Allow or disallow project?" "${CR_FALSE}" "ad"; then
                 console_debug "Register your project dir '${WORK_DIR}' as allowed"
-                echo "${WORK_DIR}" >> "${__allowed_file}"
+                echo "${WORK_DIR}" >> "${PTS_ALLOWED_DIRS_FILE}"
                 __project_allowed="${CR_TRUE}"
             else
                 console_debug "Register your project dir '${WORK_DIR}' as disallowed"
-                echo "${WORK_DIR}" >> "${__disallowed_file}"
+                echo "${WORK_DIR}" >> "${PTS_DISALLOWED_DIRS_FILE}"
                 __project_disallowed="${CR_TRUE}"
                 console_fatal "Disallowed project"
             fi
         fi
     fi
-    console_print "$(colored_green "Testing project":) $(colored_cyan "${PROJECT_NAME}")"
-
-    unset __allowed_file __disallowed_file __result __project_allowed __project_disallowed
+    unset __result __project_allowed __project_disallowed
 }
 
 __file_contains_string () {

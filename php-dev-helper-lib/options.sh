@@ -92,7 +92,7 @@ _pts_read_options () {
     while [ "${1:-}" != "" ]; do
         PARAM=$(echo "$1" | awk -F= '{print $1}')
         VALUE=$(echo "$1" | awk -F= '{print $2}')
-        case $PARAM in
+        case ${PARAM} in
             -h | --help)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 __usage

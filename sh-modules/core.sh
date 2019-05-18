@@ -9,10 +9,11 @@ true; CR_TRUE=$?
 false; CR_FALSE=$?
 CR_ERROR=2
 
-# 0: Disabled 1: Enabled
-CR_DEBUG=${DEBUG:-0}  
-CR_ALLOW_ROOT=${ALLOW_ROOT:-0}
-CR_TITLE=${TITLE:-1}
+CR_ENABLED=1
+CR_DISABLED=0
+CR_DEBUG=${DEBUG:-${CR_DISABLED}}  
+CR_ALLOW_ROOT=${ALLOW_ROOT:-${CR_DISABLED}}
+CR_TITLE=${TITLE:-${CR_ENABLED}}
 
 # shellcheck disable=SC1090
 . "${MODULES_DIR}/console.sh"
@@ -21,6 +22,8 @@ export CR_TRUE
 export CR_FALSE
 export CR_ERROR
 export CR_DEBUG
+export CR_ENABLED
+export CR_DISABLED
 
 core_int_to_string () {
     case ${1} in
@@ -149,9 +152,15 @@ core_is_dir_contains () {
     return ${CR_TRUE}
 }
 
+core_show_used_value () {
+    console_debug "Using value '${1}=${2}'"
+}
+
 core_check_int_bool_env_value () {
       case ${1} in
-        1 | 0) ;;
+        1 | 0)
+            core_show_used_value "${2}" "${1}"
+            ;;
         *) 
             echo "ERROR: Unrecognized value ${2}=${1}" >&2
             echo "       Allowed: ${2}=1, ${2}=0"
@@ -196,8 +205,6 @@ core_ask_question () {
     return ${CR_FALSE}
 }
 
-
 core_check_int_bool_env_value "${CR_DEBUG}" "DEBUG" 
 core_check_int_bool_env_value "${CR_ALLOW_ROOT}" "ALLOW_ROOT" 
 core_check_int_bool_env_value "${CR_TITLE}" "TITLE" 
-
