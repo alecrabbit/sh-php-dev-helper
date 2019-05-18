@@ -188,21 +188,36 @@ core_ask_question () {
         if [ "${__accept_any}" -eq "${CR_TRUE}" ]; then
             __answer=$(head -c 1)  # anything accepted
         else
-            __answer=$( while ! head -c 1 | grep -i "[${__allowed_answers}]" ;do true ;done )  # only yn accepted
-       fi
+            __answer=$( while ! head -c 1 | grep -i "[${__allowed_answers}]" ;do true ;done )  # only __allowed_answers accepted
+        fi
     fi
     stty "${__old_stty_cfg}"
     unset __old_stty_cfg
     echo "${__answer}"
     console_debug "Got answer '${__answer}'"
-    if echo "${__answer}" | grep -iq "^$(echo "${__allowed_answers}" | head -c 1)" ;then
+    # first symbol of __allowed_answers considered as yes
+    if echo "${__answer}" | grep -iq "^$(echo "${__allowed_answers}" | head -c 1)" ;then 
         console_debug "Confirmed"
         unset __answer
         return ${CR_TRUE}
     fi
+    # anything else is false
     console_print ""
     unset __answer
     return ${CR_FALSE}
+}
+
+core_file_contains_string () {
+    __file="${1}"
+    __string="${2}"
+    __result="$(grep "${__string}" "${__file}")"
+    console_debug  "s'${__string}' f'${__file}' r'${__result}'"
+    if [ "${__result}" != "" ]; then
+        unset __file __string __result
+        return "${CR_TRUE}"
+    fi
+    unset __file __string __result
+    return "${CR_FALSE}"
 }
 
 core_check_int_bool_env_value "${CR_DEBUG}" "DEBUG" 

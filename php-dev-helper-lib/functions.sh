@@ -30,8 +30,8 @@ __dir_control () {
     __check_file_create_if_not_found "${PTS_ALLOWED_DIRS_FILE}"
     __check_file_create_if_not_found "${PTS_DISALLOWED_DIRS_FILE}"
 
-    __project_allowed="$(__file_contains_string "${PTS_ALLOWED_DIRS_FILE}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
-    __project_disallowed="$(__file_contains_string "${PTS_DISALLOWED_DIRS_FILE}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
+    __project_allowed="$(core_file_contains_string "${PTS_ALLOWED_DIRS_FILE}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
+    __project_disallowed="$(core_file_contains_string "${PTS_DISALLOWED_DIRS_FILE}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
 
     if [ "${USE_DIR_PREFIX}" -eq "${CR_ENABLED}" ]; then
         console_debug "USE_DIR_PREFIX enabled"
@@ -50,7 +50,7 @@ __dir_control () {
             fi
         else
             console_warning "Your project dir '${WORK_DIR}' is NOT registered"
-            if core_ask_question "Allow or disallow project?" "${CR_FALSE}" "ad"; then
+            if core_ask_question "Allow(a) or disallow(d) to test project?" "${CR_FALSE}" "ad"; then
                 console_debug "Register your project dir '${WORK_DIR}' as allowed"
                 echo "${WORK_DIR}" >> "${PTS_ALLOWED_DIRS_FILE}"
                 __project_allowed="${CR_TRUE}"
@@ -63,19 +63,6 @@ __dir_control () {
         fi
     fi
     unset __result __project_allowed __project_disallowed
-}
-
-__file_contains_string () {
-    __file="${1}"
-    __string="${2}"
-    __result="$(grep "${__string}" "${__file}")"
-    console_debug  "s'${__string}' f'${__file}' r'${__result}'"
-    if [ "${__result}" != "" ]; then
-        unset __file __string __result
-        return "${CR_TRUE}"
-    fi
-    unset __file __string __result
-    return "${CR_FALSE}"
 }
 
 __check_file_create_if_not_found () {
