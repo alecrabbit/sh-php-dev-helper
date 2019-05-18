@@ -188,7 +188,7 @@ core_ask_question () {
         if [ "${__accept_any}" -eq "${CR_TRUE}" ]; then
             __answer=$(head -c 1)  # anything accepted
         else
-            __answer=$( while ! head -c 1 | grep -i "[${__allowed_answers}]" ;do true ;done )  # only __allowed_answers accepted
+            __answer=$( while ! head -c 1 | grep -i "[${__allowed_answers}]"; do true;  done )  # only __allowed_answers accepted
         fi
     fi
     stty "${__old_stty_cfg}"

@@ -49,7 +49,11 @@ __dir_control () {
                 console_fatal "Disallowed project"
             fi
         else
+            console_dark "Files:"
+            console_dark "${PTS_ALLOWED_DIRS_FILE}"
+            console_dark "${PTS_DISALLOWED_DIRS_FILE}"
             console_warning "Your project dir '${WORK_DIR}' is NOT registered"
+            console_dark "This can not be canceled - you should select one of options"
             if core_ask_question "Allow(a) or disallow(d) to test project?" "${CR_FALSE}" "ad"; then
                 console_debug "Register your project dir '${WORK_DIR}' as allowed"
                 echo "${WORK_DIR}" >> "${PTS_ALLOWED_DIRS_FILE}"
