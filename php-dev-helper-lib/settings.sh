@@ -42,7 +42,8 @@ __show_error () {
 _settings_check_variables () {
     console_debug "Checking settings"
     # DIR_CONTROL Directory access control engine
-    case ${DIR_CONTROL:-${CR_DISABLED}} in
+    DIR_CONTROL=${DIR_CONTROL:-${CR_DISABLED}}
+    case ${DIR_CONTROL} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
         ${_SETTINGS_ENABLED})
             DIR_CONTROL=${CR_ENABLED}
@@ -54,9 +55,10 @@ _settings_check_variables () {
             __show_error "DIR_CONTROL" "${DIR_CONTROL}" ${_SETTINGS_DISABLED}
             DIR_CONTROL=${CR_DISABLED}
             ;;
-   esac
-   core_show_used_value "DIR_CONTROL" "${DIR_CONTROL}"
-   # USE_DIR_PREFIX Directory access control assumes that 'php' in dir name is a go
+    esac
+    core_show_used_value "DIR_CONTROL" "${DIR_CONTROL}"
+    # USE_DIR_PREFIX Directory access control assumes that 'php' in dir name is a go
+    USE_DIR_PREFIX=${USE_DIR_PREFIX:-${CR_DISABLED}}
     case ${USE_DIR_PREFIX:-${CR_DISABLED}} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
         ${_SETTINGS_ENABLED})
