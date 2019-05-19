@@ -7,18 +7,25 @@
 # git.sh
 # version.sh
 
-_pts_updater_run () {
-    if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
+_do_not_update_dev () {
+    __dir=${1:-.}
+    __repository=${2}
+        if core_check_if_dir_exists "${__dir}/.git"
     then
-        __remote="$(cd "${SCRIPT_DIR}" && git remote -v)"
+        __remote="$(cd "${__dir}" && git remote -v)"
         console_debug "Remote:\n${__remote}"
-        __result="$(echo "${__remote}" | grep -e "${PDH_REPOSITORY}")"
+        __result="$(echo "${__remote}" | grep -e "${__repository}")"
         if [ "${__result}" != "" ]; then
             console_fatal "It seems you are trying to update lib sources"
         fi
         unset __remote __result
     fi
+}
+
+_pts_updater_run () {
     __REQUIRED_VERSION="${1:-}"
+    _do_not_update_dev "${SCRIPT_DIR}" "${PDH_REPOSITORY}"
+
     if [ "${__REQUIRED_VERSION}" != "" ]; then
         if [ "${__REQUIRED_VERSION}" != "${SCRIPT_VERSION}" ] \
         || [ "${__REQUIRED_VERSION}" = "${VERSION_MASTER}"  ] \
