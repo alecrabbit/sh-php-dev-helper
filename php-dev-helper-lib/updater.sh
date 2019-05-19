@@ -63,7 +63,7 @@ __updater_install () {
     __version="${4}"
     if updater_download "${__dir}" "${__repository}" "${__package}" "${__version}"
     then
-        console_debug "Installing package"
+        console_comment "Installing package"
         console_debug "Deleting dev module '${PTS_AUX_DEV_MODULE}'\n$(rm -v "${__dir}/${__package}-${__version}/${PTS_AUX_DEV_MODULE}" 2>&1)"
         console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${__package}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
         console_debug "Renaming\n$(mv -v "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
@@ -90,7 +90,7 @@ updater_download () {
     __result="$(cd "${__to_dir}" && wget -qO- "https://github.com/${__repository}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
     # shellcheck disable=SC2181
     if [ $? -eq 0 ]; then
-        console_debug "Package '${__package}-${__version}' downloaded"
+        console_info "Package '${__package}-${__version}' downloaded"
         return "${CR_TRUE}"
     fi
     
