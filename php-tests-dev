@@ -72,6 +72,7 @@ if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
             console_comment "Generating report file: '${PTS_TEST_REPORT_INDEX}'"
             _pts_generate_report_file
         fi
+        console_print ""
     else
         console_error "Container is not started"
     fi
@@ -83,7 +84,7 @@ if [ "${CR_DEBUG}" -eq 0 ]; then
 else
     __time=""
 fi
-console_print "\n🏁 $(colored_yellow "Done!")\n${__time}"
+console_print "🏁 $(colored_yellow "Done!")\n${__time}"
 console_dark "Executed in $(($(date +%s)-start_time))s"
 console_dark "Bye!"
 
