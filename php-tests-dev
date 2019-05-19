@@ -21,13 +21,13 @@ WORK_DIR="${PWD}"
 # shellcheck disable=SC1090
 . "${MODULES_DIR}/version.sh"
 # shellcheck disable=SC1090
+. "${MODULES_DIR}/updater.sh"
+# shellcheck disable=SC1090
 . "${LIB_DIR}/options.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/functions.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/commands.sh"
-# shellcheck disable=SC1090
-. "${LIB_DIR}/updater.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/settings.sh"
 # Load PTS_AUX_DEV_MODULE module if present
