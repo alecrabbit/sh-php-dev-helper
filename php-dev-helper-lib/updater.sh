@@ -74,7 +74,6 @@ __updater_install () {
         console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
         console_info "Update complete: ${SCRIPT_VERSION}, build ${SCRIPT_BUILD} -> ${__version}, build $(cat "${BUILD_FILE}")"
     else
-        console_error "Possible cause: incorrect version $(colored_bold_cyan "'${4}'")"
         console_fatal "Error occurred during download"
     fi
     unset __dir __version __result __package __repository
@@ -96,7 +95,8 @@ updater_download () {
     fi
     
     console_debug "${__result}"
- 
+    console_error "Possible cause: incorrect version $(colored_bold_cyan "'${__version}'")"
+
     unset __to_dir __version __result __package __repository
     return "${CR_FALSE}"
 }
