@@ -21,21 +21,21 @@ else
 fi
 export _BUILD
 
-_get_git_hash () {
-    if ! core_check_if_dir_exists "${SCRIPT_DIR}/.git"
-    then
-        console_debug "BUILD Hash: No repository found"
-        console_error "Unable to get hash"
-        return "${CR_FALSE}"
-    fi
-    _BUILD="$(cd "${SCRIPT_DIR}" && git log --pretty=format:'%h' -n 1 2>&1)"
-    # shellcheck disable=SC2181
-    if [ $? -ne 0 ]
-    then
-        _BUILD=""
-    fi
-    echo "${_BUILD}"
-}
+# _get_git_hash () {
+#     if ! core_check_if_dir_exists "${SCRIPT_DIR}/.git"
+#     then
+#         console_debug "BUILD Hash: No repository found"
+#         console_error "Unable to get hash"
+#         return "${CR_FALSE}"
+#     fi
+#     _BUILD="$(cd "${SCRIPT_DIR}" && git log --pretty=format:'%h' -n 1 2>&1)"
+#     # shellcheck disable=SC2181
+#     if [ $? -ne 0 ]
+#     then
+#         _BUILD=""
+#     fi
+#     echo "${_BUILD}"
+# }
 
 _version () {
     _BUILD=${_BUILD:-}
@@ -56,7 +56,7 @@ version_update_needed () {
 }
  
 version_save_build_hash () {
-    _BUILD="$(_get_git_hash)"
+    _BUILD="$(git_get_head_hash "${SCRIPT_DIR}")"
     if [ $? -ne "${CR_TRUE}" ] 
     then
         return "${CR_FALSE}"
