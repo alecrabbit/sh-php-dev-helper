@@ -203,7 +203,7 @@ _pts_updater_run () {
         || [ "${__REQUIRED_VERSION}" = "${VERSION_MASTER}"  ] \
         || [ "${__REQUIRED_VERSION}" = "${VERSION_DEVELOP}"  ]; then
             console_comment "User required version: ${__REQUIRED_VERSION}"
-            __updater_install "${WORK_DIR}/${PTS_UPDATER_TMP_DIR}" "${PDH_REPOSITORY}" "${PDH_PACKAGE}" "${__REQUIRED_VERSION}"
+            __updater_install "${HOME}/${PTS_UPDATER_TMP_DIR}" "${PDH_REPOSITORY}" "${PDH_PACKAGE}" "${__REQUIRED_VERSION}"
         else
             console_comment "You are already using this version: ${SCRIPT_VERSION}"
         fi
@@ -220,7 +220,7 @@ _pts_updater_run () {
         console_comment "Current version: ${SCRIPT_VERSION}"
         console_info "New version found: ${_LATEST_VERSION}"
         console_info "Updating..."
-        __updater_install "${WORK_DIR}/${PTS_UPDATER_TMP_DIR}" "${PDH_REPOSITORY}" "${PDH_PACKAGE}" "${_LATEST_VERSION}"
+        __updater_install "${HOME}/${PTS_UPDATER_TMP_DIR}" "${PDH_REPOSITORY}" "${PDH_PACKAGE}" "${_LATEST_VERSION}"
     else
         console_info "You are using latest version: ${SCRIPT_VERSION}"
     fi
