@@ -247,6 +247,6 @@ __updater_install () {
         unset __dir __version __result __package __repository
         return "${CR_TRUE}"
     else
-        console_fatal "Error occurred during download"
+        console_fatal "Unable to update package"
     fi
 }
