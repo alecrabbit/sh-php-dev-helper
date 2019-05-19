@@ -67,7 +67,7 @@ __updater_install () {
         # shellcheck disable=SC2116
         console_debug "Writing new version\n$(echo "${__version}" > "${VERSION_FILE}" 2>&1)"
         console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
-        console_info "Update complete ${SCRIPT_VERSION}, build ${SCRIPT_BUILD} -> ${__version}, build $(cat "${BUILD_FILE}")"
+        console_info "Update complete: ${SCRIPT_VERSION}, build ${SCRIPT_BUILD} -> ${__version}, build $(cat "${BUILD_FILE}")"
     else
         console_debug "${__result}"
         console_error "Possible cause: incorrect version $(colored_bold_cyan "'${__version}'")"
