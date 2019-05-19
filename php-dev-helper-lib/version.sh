@@ -17,20 +17,25 @@ if [ -e "${__file}" ]
 then
     _BUILD="$(cat "${__file}")"
 else 
-    _BUILD="$(_get_git_hash)"
+    _BUILD="$(git_get_head_hash "${SCRIPT_DIR}")"
 fi
 export _BUILD
 
 _version () {
     _BUILD=${_BUILD:-}
     _VERSION="${_VERSION:-0.0.0}"
-    if [ "${_VERSION}" = "0.0.0" ] || [ "${_VERSION}" = "develop" ] || [ "${_VERSION}" = "master" ] || [ "${1:-${CR_FALSE}}" = "${CR_TRUE}" ]; then
+    __show_build="${1:-${CR_FALSE}}"
+    if [ "${_VERSION}" = "0.0.0" ] || [ "${_VERSION}" = "develop" ] || [ "${_VERSION}" = "master" ] || [ "${__show_build}" = "${CR_TRUE}" ]; then
         if [ "${_BUILD}" != "" ]
         then
-            _BUILD="$(colored_dark ", build ${_BUILD}")"
+            _BUILD=", build ${_BUILD}"
+            if [ "${__show_build}" = "${CR_FALSE}" ]; then
+                _BUILD="$(colored_dark "${_BUILD}")"
+            fi
         fi
     fi
     echo "${_VERSION}${_BUILD}"
+    unset __show_build
 }
 
 version_update_needed () {
