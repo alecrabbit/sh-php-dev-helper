@@ -63,14 +63,14 @@ console_print () {
 }
 
 # Output message
-#   _log_<func> "message"
+#   console_<func> "message"
 # Args:
 #   $1 string Message to print.
 
 console_debug () {
     if [ "${CR_DEBUG}" -eq 1 ]
     then
-      console_dark "<DEBUG> ${1}"
+      console_dark "<DEBUG> $*"
     fi
 }
 console_dark () {

@@ -17,11 +17,11 @@ _pts_updater_run () {
     fi
     __REQUIRED_VERSION="${1:-}"
     if [ "${__REQUIRED_VERSION}" != "" ]; then
-        if [ "${__REQUIRED_VERSION}" != "${_VERSION}" ] || [ "${__REQUIRED_VERSION}" = "master" ] || [ "${__REQUIRED_VERSION}" = "develop" ]; then
+        if [ "${__REQUIRED_VERSION}" != "${SCRIPT_VERSION}" ] || [ "${__REQUIRED_VERSION}" = "master" ] || [ "${__REQUIRED_VERSION}" = "develop" ]; then
             console_comment "User required version: ${__REQUIRED_VERSION}"
             __updater_install "${__REQUIRED_VERSION}"
         else
-            console_comment "You are already using this version: ${_VERSION}"
+            console_comment "You are already using this version: ${SCRIPT_VERSION}"
         fi
         unset __REQUIRED_VERSION _LATEST_VERSION _OWNER _REPOSITORY _PACKAGE 
         return "${CR_TRUE}"
@@ -33,12 +33,12 @@ _pts_updater_run () {
     fi
     console_debug "Github last version: ${_LATEST_VERSION}"
     if version_update_needed "${_LATEST_VERSION}"; then
-        console_comment "Current version: ${_VERSION}"
+        console_comment "Current version: ${SCRIPT_VERSION}"
         console_info "New version found: ${_LATEST_VERSION}"
         console_info "Updating..."
         __updater_install "${_LATEST_VERSION}"
     else
-        console_info "You are using latest version: ${_VERSION}"
+        console_info "You are using latest version: ${SCRIPT_VERSION}"
     fi
     unset __REQUIRED_VERSION _LATEST_VERSION _OWNER _REPOSITORY _PACKAGE 
 }
@@ -62,7 +62,7 @@ __updater_install () {
         # shellcheck disable=SC2116
         console_debug "Writing new version\n$(echo "${__version}" > "${VERSION_FILE}" 2>&1)"
         console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
-        console_info "Update complete ${_VERSION}, build ${_BUILD} -> ${__version}, build $(cat "${BUILD_FILE}")"
+        console_info "Update complete ${SCRIPT_VERSION}, build ${SCRIPT_BUILD} -> ${__version}, build $(cat "${BUILD_FILE}")"
     else
         console_debug "${__result}"
         console_error "Possible cause: incorrect version $(colored_bold_cyan "'${__version}'")"

@@ -32,6 +32,10 @@ export PTS_PHPUNIT_COVERAGE_CLOVER_REPORT="${PTS_TMP_DIR}/${PTS_COVERAGE_DIR}/cl
 export PTS_XDEBUG_FILTER_FILE="${PTS_TMP_DIR}/xdebug-filter.php"
 export PTS_TEST_REPORT_INDEX="${PTS_TESTS_DIR}/report.html"
 
+export VERSION_FILE="${LIB_DIR:-.}/VERSION"
+export BUILD_FILE="${LIB_DIR:-.}/BUILD"
+export DEFAULT_SCRIPT_NAME="php-dev-helper"
+
 _SETTINGS_ENABLED='enabled'
 _SETTINGS_DISABLED='disabled'
 

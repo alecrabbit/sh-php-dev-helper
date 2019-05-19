@@ -46,6 +46,23 @@ core_int_to_string () {
    esac
 }
 
+core_int_ed_to_string () {
+    case ${1} in
+        ${CR_ENABLED})
+            echo "enabled"
+            return
+        ;;
+        ${CR_DISABLED})
+            echo "disabled"
+            return
+        ;;
+        *)
+            echo "${1}"
+            return
+        ;;
+   esac
+}
+
 user_is_root () {
     if [ "$(whoami)" = "root" ]; then
         if [ "${CR_ALLOW_ROOT}" -eq 0 ]; then
@@ -211,7 +228,7 @@ core_file_contains_string () {
     __file="${1}"
     __string="${2}"
     __result="$(grep "${__string}" "${__file}")"
-    console_debug  "s'${__string}' f'${__file}' r'${__result}'"
+    # console_debug "s'${__string}' f'${__file}' r'${__result}'"
     if [ "${__result}" != "" ]; then
         unset __file __string __result
         return "${CR_TRUE}"
