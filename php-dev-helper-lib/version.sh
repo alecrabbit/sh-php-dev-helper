@@ -21,34 +21,16 @@ else
 fi
 export _BUILD
 
-# _get_git_hash () {
-#     if ! core_check_if_dir_exists "${SCRIPT_DIR}/.git"
-#     then
-#         console_debug "BUILD Hash: No repository found"
-#         console_error "Unable to get hash"
-#         return "${CR_FALSE}"
-#     fi
-#     _BUILD="$(cd "${SCRIPT_DIR}" && git log --pretty=format:'%h' -n 1 2>&1)"
-#     # shellcheck disable=SC2181
-#     if [ $? -ne 0 ]
-#     then
-#         _BUILD=""
-#     fi
-#     echo "${_BUILD}"
-# }
-
 _version () {
     _BUILD=${_BUILD:-}
-    if [ "${_BUILD}" != "" ]
-    then
-        _BUILD=", build ${_BUILD}"
+    _VERSION="${_VERSION:-0.0.0}"
+    if [ "${_VERSION}" = "0.0.0" ] || [ "${_VERSION}" = "develop" ] || [ "${_VERSION}" = "master" ] || [ "${1:-${CR_FALSE}}" = "${CR_TRUE}" ]; then
+        if [ "${_BUILD}" != "" ]
+        then
+            _BUILD="$(colored_dark ", build ${_BUILD}")"
+        fi
     fi
-   
-    if [ "${1:-${CR_FALSE}}" -ne "${CR_TRUE}" ]; then
-        _BUILD=""
-    fi
-
-    echo "${_VERSION:-unknown}${_BUILD}"
+    echo "${_VERSION}${_BUILD}"
 }
 
 version_update_needed () {
@@ -70,4 +52,9 @@ version_save_build_hash () {
     fi
 }
 
+version_print () {
+    __current_version="$(_version "${CR_TRUE}")"
+    console_print "$(colored_default "${SCRIPT_NAME:-unknown}") version ${__current_version}"
+    unset __current_version
+}
 unset __file

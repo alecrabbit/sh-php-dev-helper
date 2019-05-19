@@ -83,7 +83,7 @@ if [ "${CR_DEBUG}" -eq 0 ]; then
 else
     __time=""
 fi
-console_print "\n🏁 ${__time} $(colored_yellow "Done!")"
+console_print "\n🏁 $(colored_yellow "Done!")\n${__time}"
 console_dark "Executed in $(($(date +%s)-start_time))s"
 console_dark "Bye!"
 
