@@ -48,7 +48,7 @@ _pts_updater_run () {
         console_comment "Current version: ${SCRIPT_VERSION}"
         console_info "New version found: ${_LATEST_VERSION}"
         console_info "Updating..."
-        __updater_install "${_LATEST_VERSION}"
+        __updater_install "${WORK_DIR}/${PTS_UPDATER_TMP_DIR}" "${PDH_REPOSITORY}" "${PDH_PACKAGE}" "${_LATEST_VERSION}"
     else
         console_info "You are using latest version: ${SCRIPT_VERSION}"
     fi
@@ -56,18 +56,20 @@ _pts_updater_run () {
 }
 
 __updater_install () {
-    __dir="${WORK_DIR}/${PTS_UPDATER_TMP_DIR}"
-    __version="${1}"
+    __dir="${1}"
+    __repository="${2}"
+    __package="${3}"
+    __version="${4}"
     console_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     console_debug "Recreating '${__dir}'\n$(mkdir -pv "${__dir}" 2>&1)"
-    console_debug "Downloading to '${__dir}/${PDH_PACKAGE}-${__version}'"
-    __result="$(cd "${__dir}" && wget -qO- "https://github.com/${PDH_REPOSITORY}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
+    console_debug "Downloading to '${__dir}/${__package}-${__version}'"
+    __result="$(cd "${__dir}" && wget -qO- "https://github.com/${__repository}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
     # shellcheck disable=SC2181
-     if [ $? -eq 0 ]
+    if [ $? -eq 0 ]
     then
         console_debug "Package downloaded"
-        console_debug "Deleting dev module '${PTS_AUX_DEV_MODULE}'\n$(rm -v "${__dir}/${PDH_PACKAGE}-${__version}/${PTS_AUX_DEV_MODULE}" 2>&1)"
-        console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${PDH_PACKAGE}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
+        console_debug "Deleting dev module '${PTS_AUX_DEV_MODULE}'\n$(rm -v "${__dir}/${__package}-${__version}/${PTS_AUX_DEV_MODULE}" 2>&1)"
+        console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${__package}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
         console_debug "Renaming\n$(mv -v "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
         
         console_debug "Writing new version ${__version} > ${VERSION_FILE}"
@@ -80,5 +82,5 @@ __updater_install () {
         console_error "Possible cause: incorrect version $(colored_bold_cyan "'${__version}'")"
         console_fatal "Error occurred during download"
     fi
-    unset __dir __version __result
+    unset __dir __version __result __package __repository
 }
