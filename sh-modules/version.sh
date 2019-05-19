@@ -55,18 +55,21 @@ version_update_needed () {
 }
  
 version_save_build_hash () {
-    SCRIPT_BUILD="$(git_get_head_hash "${SCRIPT_DIR:-.}")"
+    __script_dir="${1:-.}"
+    __lib_dir="${2:-.}"
+    __build="$(git_get_head_hash "${__script_dir}")"
     if [ $? -ne "${CR_TRUE}" ] 
     then
         return "${CR_FALSE}"
     fi
-    console_debug "Got build hash: '${SCRIPT_BUILD}'"
-    if [ "${SCRIPT_BUILD}" != "" ]
+    console_debug "Got build hash: '${__build}'"
+    if [ "${__build}" != "" ]
     then
-        echo "${SCRIPT_BUILD}" > "${LIB_DIR:-.}/BUILD"
-        console_debug "Saved build hash '${SCRIPT_BUILD}' to '${LIB_DIR:-.}/BUILD'"
-        echo "${SCRIPT_BUILD}"
+        echo "${__build}" > "${__lib_dir}/BUILD"
+        console_debug "Saved build hash '${__build}' to '${__lib_dir}/BUILD'"
+        echo "${__build}"
     fi
+    unset __build __script_dir __lib_dir
 }
 
 version_print () {

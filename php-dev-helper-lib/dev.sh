@@ -1,12 +1,4 @@
 #!/usr/bin/env sh
-__hash="$(version_save_build_hash)"
-if [ $? -eq "${CR_TRUE}" ]
-then
-    console_debug "Saved hash: '${__hash}'"
-else
-    console_debug "Hash not saved"
-fi
-
 SCRIPT_DIR="$(core_get_realpath "${SCRIPT_DIR}")"
 LIB_DIR="$(core_get_realpath "${LIB_DIR}")"
 WORK_DIR="$(core_get_realpath "${WORK_DIR}")"
@@ -20,3 +12,11 @@ console_debug "Lib dir: ${LIB_DIR}"
 console_debug "Work dir: ${WORK_DIR}"
 console_debug "VERSION file: ${VERSION_FILE}"
 console_debug "BUILD file: ${BUILD_FILE}"
+
+__hash="$(version_save_build_hash "${SCRIPT_DIR}" "${LIB_DIR}")"
+if [ $? -eq "${CR_TRUE}" ]
+then
+    console_debug "Saved hash: '${__hash}'"
+else
+    console_debug "Hash not saved"
+fi

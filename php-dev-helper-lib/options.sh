@@ -111,7 +111,7 @@ _pts_read_options () {
             # Undocumented
             --save-build-hash)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                version_save_build_hash
+                version_save_build_hash "${SCRIPT_DIR}" "${LIB_DIR}"
                 exit "${CR_TRUE}"
                 ;;
             # Undocumented
