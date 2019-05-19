@@ -75,11 +75,11 @@ __updater_install () {
         console_debug "Writing new version\n$(echo "${__version}" > "${VERSION_FILE}" 2>&1)"
         console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
         console_info "Update complete: ${SCRIPT_VERSION}, build ${SCRIPT_BUILD} -> ${__version}, build $(cat "${BUILD_FILE}")"
+        unset __dir __version __result __package __repository
+        return "${CR_TRUE}"
     else
         console_fatal "Error occurred during download"
     fi
-    unset __dir __version __result __package __repository
-    return "${CR_TRUE}"
 }
 
 updater_download () {
