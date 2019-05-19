@@ -14,7 +14,7 @@ updater_download () {
     console_debug "Recreating '${__to_dir}'\n$(mkdir -pv "${__to_dir}" 2>&1)"
     console_debug "Downloading to '${__to_dir}/${__package}-${__version}'"
 
-    __result="$(wget -nv -O download.tar.gz -o /dev/stderr "https://github.com/${__repository}/archive/${__version}.tar.gz" 2>&1 )"
+    __result="$(cd "${__to_dir}" && wget -nv -O download.tar.gz -o /dev/stderr "https://github.com/${__repository}/archive/${__version}.tar.gz" 2>&1 )"
     if [ $? -ne "${CR_TRUE}" ]
     then
         console_error "${__result}"
