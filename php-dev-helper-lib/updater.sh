@@ -12,7 +12,7 @@ _pts_updater_run () {
     then
         __remote="$(cd "${SCRIPT_DIR}" && git remote -v)"
         console_debug "Remote:\n${__remote}"
-        __result="$(echo "${__remote}" | grep -e "${_REPOSITORY}")"
+        __result="$(echo "${__remote}" | grep -e "${PDH_REPOSITORY}")"
         if [ "${__result}" != "" ]; then
             console_fatal "It seems you are trying to update lib sources"
         fi
@@ -32,7 +32,7 @@ _pts_updater_run () {
         return "${CR_TRUE}"
     fi
     console_debug "Updater: checking install"
-    _LATEST_VERSION="$(github_get_latest_version "${_REPOSITORY}" 2>&1)"
+    _LATEST_VERSION="$(github_get_latest_version "${PDH_REPOSITORY}" 2>&1)"
     if [ $? -ne "${CR_TRUE}" ];then
         console_fatal "${_LATEST_VERSION}"
     fi
@@ -54,7 +54,7 @@ __updater_install () {
     console_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     console_debug "Recreating '${__dir}'\n$(mkdir -pv "${__dir}" 2>&1)"
     console_debug "Downloading to '${__dir}/${PDH_PACKAGE}-${__version}'"
-    __result="$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
+    __result="$(cd "${__dir}" && wget -qO- "https://github.com/${PDH_REPOSITORY}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
     # shellcheck disable=SC2181
      if [ $? -eq 0 ]
     then
