@@ -48,8 +48,7 @@ _pts_updater_run () {
         console_comment "Current version: ${SCRIPT_VERSION}"
         console_info "New version found: ${_LATEST_VERSION}"
         console_info "Updating..."
-        if __updater_install "${WORK_DIR}/${PTS_UPDATER_TMP_DIR}" "${PDH_REPOSITORY}" "${PDH_PACKAGE}" "${_LATEST_VERSION}"
-        then
+        if __updater_install "${WORK_DIR}/${PTS_UPDATER_TMP_DIR}" "${PDH_REPOSITORY}" "${PDH_PACKAGE}" "${_LATEST_VERSION}"; then
             console_debug "Successfully installed new version"
         else
             console_debug "---Successfully installed new version"
