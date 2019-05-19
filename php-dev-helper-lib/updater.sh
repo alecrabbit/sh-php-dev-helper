@@ -1,8 +1,11 @@
 #!/usr/bin/env sh
-_OWNER="alecrabbit"
-_PACKAGE="sh-php-dev-helper"
-_REPOSITORY="${_OWNER}/${_PACKAGE}"
-_LATEST_VERSION=""
+
+# DEPENDS ON:     
+# core.sh
+# └── console.sh
+#     └── colored.sh
+# git.sh
+# version.sh
 
 _pts_updater_run () {
     if core_check_if_dir_exists "${SCRIPT_DIR}/.git"
@@ -17,13 +20,15 @@ _pts_updater_run () {
     fi
     __REQUIRED_VERSION="${1:-}"
     if [ "${__REQUIRED_VERSION}" != "" ]; then
-        if [ "${__REQUIRED_VERSION}" != "${SCRIPT_VERSION}" ] || [ "${__REQUIRED_VERSION}" = "master" ] || [ "${__REQUIRED_VERSION}" = "develop" ]; then
+        if [ "${__REQUIRED_VERSION}" != "${SCRIPT_VERSION}" ] \
+        || [ "${__REQUIRED_VERSION}" = "${VERSION_MASTER}"  ] \
+        || [ "${__REQUIRED_VERSION}" = "${VERSION_DEVELOP}"  ]; then
             console_comment "User required version: ${__REQUIRED_VERSION}"
             __updater_install "${__REQUIRED_VERSION}"
         else
             console_comment "You are already using this version: ${SCRIPT_VERSION}"
         fi
-        unset __REQUIRED_VERSION _LATEST_VERSION _OWNER _REPOSITORY _PACKAGE 
+        unset __REQUIRED_VERSION _LATEST_VERSION 
         return "${CR_TRUE}"
     fi
     console_debug "Updater: checking install"
@@ -40,7 +45,7 @@ _pts_updater_run () {
     else
         console_info "You are using latest version: ${SCRIPT_VERSION}"
     fi
-    unset __REQUIRED_VERSION _LATEST_VERSION _OWNER _REPOSITORY _PACKAGE 
+    unset __REQUIRED_VERSION _LATEST_VERSION 
 }
 
 __updater_install () {
@@ -48,14 +53,14 @@ __updater_install () {
     __version="${1}"
     console_debug "Removing '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
     console_debug "Recreating '${__dir}'\n$(mkdir -pv "${__dir}" 2>&1)"
-    console_debug "Downloading to '${__dir}/${_PACKAGE}-${__version}'"
+    console_debug "Downloading to '${__dir}/${PDH_PACKAGE}-${__version}'"
     __result="$(cd "${__dir}" && wget -qO- "https://github.com/${_REPOSITORY}/archive/${__version}.tar.gz" | tar -xzv 2>&1)"
     # shellcheck disable=SC2181
      if [ $? -eq 0 ]
     then
         console_debug "Package downloaded"
-        console_debug "Deleting dev module '${PTS_AUX_DEV_MODULE}'\n$(rm -v "${__dir}/${_PACKAGE}-${__version}/${PTS_AUX_DEV_MODULE}" 2>&1)"
-        console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${_PACKAGE}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
+        console_debug "Deleting dev module '${PTS_AUX_DEV_MODULE}'\n$(rm -v "${__dir}/${PDH_PACKAGE}-${__version}/${PTS_AUX_DEV_MODULE}" 2>&1)"
+        console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${PDH_PACKAGE}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
         console_debug "Renaming\n$(mv -v "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
         
         console_debug "Writing new version ${__version} > ${VERSION_FILE}"

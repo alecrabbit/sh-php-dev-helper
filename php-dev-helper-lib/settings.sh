@@ -36,6 +36,12 @@ export VERSION_FILE="${LIB_DIR:-.}/VERSION"
 export BUILD_FILE="${LIB_DIR:-.}/BUILD"
 export DEFAULT_SCRIPT_NAME="php-dev-helper"
 
+_OWNER="alecrabbit"
+export PDH_PACKAGE="sh-php-dev-helper"
+export _REPOSITORY="${_OWNER}/${PDH_PACKAGE}"
+export _LATEST_VERSION=""
+
+
 _SETTINGS_ENABLED='enabled'
 _SETTINGS_DISABLED='disabled'
 

@@ -6,8 +6,8 @@
 #     └── colored.sh
 # git.sh
 
-__DEVELOP="develop"
-__MASTER="master"
+export VERSION_DEVELOP="develop"
+export VERSION_MASTER="master"
 
 version_load_version () {
     __file="${1}"
@@ -15,7 +15,7 @@ version_load_version () {
     then
         __version="$(cat "${__file}")"
     else
-        __version="${__DEVELOP}"
+        __version="${VERSION_DEVELOP}"
     fi
     echo "${__version}"
     unset __file __version
@@ -35,9 +35,9 @@ version_load_build () {
 
 version_string () {
     SCRIPT_BUILD=${SCRIPT_BUILD:-}
-    SCRIPT_VERSION="${SCRIPT_VERSION:-${__DEVELOP}}"
+    SCRIPT_VERSION="${SCRIPT_VERSION:-${VERSION_DEVELOP}}"
     __show_build="${1:-${CR_FALSE}}"
-    if [ "${SCRIPT_VERSION}" = "${__DEVELOP}" ] || [ "${SCRIPT_VERSION}" = "${__MASTER}" ] || [ "${__show_build}" = "${CR_TRUE}" ]; then
+    if [ "${SCRIPT_VERSION}" = "${VERSION_DEVELOP}" ] || [ "${SCRIPT_VERSION}" = "${VERSION_MASTER}" ] || [ "${__show_build}" = "${CR_TRUE}" ]; then
         if [ "${SCRIPT_BUILD}" != "" ]
         then
             SCRIPT_BUILD=", build ${SCRIPT_BUILD}"
