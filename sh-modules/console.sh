@@ -92,11 +92,13 @@ console_header () {
 console_show_option () {
     __option_name="${2}"
     __option_value="${1:-${CR_FALSE}}"
-    __value="$(colored_dark "--")"
+    # __value="$(colored_dark "--")"
+    __value="  "
     if [ "${__option_value}" -eq  "${CR_TRUE}" ]
     then
-        __value="$(colored_bold_green "ON")"
+        # __value="$(colored_bold_green "ON")"
+        __value="✔️ "
     fi
-    console_print " [ ${__value} ] $(colored_bold "${__option_name}")"
+    console_print " ${__value} $(colored_bold "${__option_name}")"
     unset __value __option_name __option_value
 }
