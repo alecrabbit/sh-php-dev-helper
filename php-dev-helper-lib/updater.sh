@@ -79,6 +79,7 @@ __updater_install () {
         console_fatal "Error occurred during download"
     fi
     unset __dir __version __result __package __repository
+    return "${CR_TRUE}"
 }
 
 updater_download () {
