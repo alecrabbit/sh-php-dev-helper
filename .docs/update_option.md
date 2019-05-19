@@ -16,3 +16,5 @@ php-tests --update=master
 ```bash
 php-tests --update=develop
 ```
+
+> Note: after updating to `master` or `develop` update function considers these versions as latest. To update to numbered version you should use option `--update=<version-number>`
