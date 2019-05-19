@@ -19,11 +19,12 @@ updater_download () {
     then
         console_error "${__result}"
     else 
-        __result="$(tar -xzvf download.tar.gz 2>&1)"
+        console_info "Package '${__package}-${__version}' downloaded"
+        __result="$(cd "${__to_dir}" && tar -xzvf download.tar.gz 2>&1)"
         if [ $? -ne "${CR_TRUE}" ]; then
             console_error "${__result}"
         else
-            console_info "Package '${__package}-${__version}' downloaded"
+            console_info "Package '${__package}-${__version}' extracted"
             return "${CR_TRUE}"
         fi
     fi
