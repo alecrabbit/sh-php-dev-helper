@@ -20,3 +20,9 @@ console_debug "Lib dir: ${LIB_DIR}"
 console_debug "Work dir: ${WORK_DIR}"
 console_debug "VERSION file: ${VERSION_FILE}"
 console_debug "BUILD file: ${BUILD_FILE}"
+
+_VERSION="$(version_load_version "${VERSION_FILE}")"
+_BUILD="$(version_load_build "${BUILD_FILE}")"
+
+export _VERSION
+export _BUILD

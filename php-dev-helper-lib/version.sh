@@ -1,25 +1,50 @@
 #!/usr/bin/env sh
 VERSION_FILE="${LIB_DIR:-.}/VERSION"
 BUILD_FILE="${LIB_DIR:-.}/BUILD"
-__file="${VERSION_FILE}"
 
-if [ -e "${__file}" ]
-then
-    _VERSION="$(cat "${__file}")"
-else
-    _VERSION="develop"
-fi
-export _VERSION
+version_load_version () {
+    __file="${1}"
+    if [ -e "${__file}" ]
+    then
+        __version="$(cat "${__file}")"
+    else
+        __version="develop"
+    fi
+    echo "${__version}"
+    unset __file __version
+}
 
-__file="${BUILD_FILE}"
+version_load_build () {
+    __file="${1}"
+    if [ -e "${__file}" ]
+    then
+        __build="$(cat "${__file}")"
+    else 
+        __build="$(git_get_head_hash "${SCRIPT_DIR}")"
+    fi
+    echo "${__build}"
+    unset __file __build
+}
 
-if [ -e "${__file}" ]
-then
-    _BUILD="$(cat "${__file}")"
-else 
-    _BUILD="$(git_get_head_hash "${SCRIPT_DIR}")"
-fi
-export _BUILD
+# __file="${VERSION_FILE}"
+
+# if [ -e "${__file}" ]
+# then
+#     _VERSION="$(cat "${__file}")"
+# else
+#     _VERSION="develop"
+# fi
+# export _VERSION
+
+# __file="${BUILD_FILE}"
+
+# if [ -e "${__file}" ]
+# then
+#     _BUILD="$(cat "${__file}")"
+# else 
+#     _BUILD="$(git_get_head_hash "${SCRIPT_DIR}")"
+# fi
+# export _BUILD
 
 version_string () {
     _BUILD=${_BUILD:-}
@@ -62,4 +87,9 @@ version_print () {
     console_print "$(colored_default "${SCRIPT_NAME:-unknown}") version ${__current_version}"
     unset __current_version
 }
-unset __file
+
+_VERSION="$(version_load_version "${VERSION_FILE}")"
+_BUILD="$(version_load_build "${BUILD_FILE}")"
+
+export _VERSION
+export _BUILD
