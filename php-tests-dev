@@ -41,9 +41,9 @@ fi
 _pts_read_options "$@"
 
 ### Print header
-console_header "PHP Dev Helper Script"
-console_comment "Version $(_version)"
-console_debug "Version $(_version "${CR_TRUE}")"
+console_header "🐇 PHP Dev Helper Script"
+console_debug "Version $(version_string "${CR_TRUE}")"
+console_comment "Version $(version_string)"
 
 ### Run checks
 _pts_check_working_env

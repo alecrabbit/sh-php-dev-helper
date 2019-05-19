@@ -7,7 +7,7 @@ if [ -e "${__file}" ]
 then
     _VERSION="$(cat "${__file}")"
 else
-    _VERSION="0.0.0"
+    _VERSION="develop"
 fi
 export _VERSION
 
@@ -21,11 +21,11 @@ else
 fi
 export _BUILD
 
-_version () {
+version_string () {
     _BUILD=${_BUILD:-}
     _VERSION="${_VERSION:-0.0.0}"
     __show_build="${1:-${CR_FALSE}}"
-    if [ "${_VERSION}" = "0.0.0" ] || [ "${_VERSION}" = "develop" ] || [ "${_VERSION}" = "master" ] || [ "${__show_build}" = "${CR_TRUE}" ]; then
+    if [ "${_VERSION}" = "develop" ] || [ "${_VERSION}" = "master" ] || [ "${__show_build}" = "${CR_TRUE}" ]; then
         if [ "${_BUILD}" != "" ]
         then
             _BUILD=", build ${_BUILD}"
@@ -58,7 +58,7 @@ version_save_build_hash () {
 }
 
 version_print () {
-    __current_version="$(_version "${CR_TRUE}")"
+    __current_version="$(version_string "${CR_TRUE}")"
     console_print "$(colored_default "${SCRIPT_NAME:-unknown}") version ${__current_version}"
     unset __current_version
 }
