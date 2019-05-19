@@ -63,7 +63,7 @@ __updater_install () {
     __version="${4}"
     if updater_download "${__dir}" "${__repository}" "${__package}" "${__version}"
     then
-        console_debug "Package downloaded"
+        console_debug "Installing package"
         console_debug "Deleting dev module '${PTS_AUX_DEV_MODULE}'\n$(rm -v "${__dir}/${__package}-${__version}/${PTS_AUX_DEV_MODULE}" 2>&1)"
         console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${__package}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
         console_debug "Renaming\n$(mv -v "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/${SCRIPT_NAME}" 2>&1)"
@@ -74,7 +74,6 @@ __updater_install () {
         console_debug "Cleanup '${__dir}'\n$(rm -rfv "${__dir}" 2>&1)"
         console_info "Update complete: ${SCRIPT_VERSION}, build ${SCRIPT_BUILD} -> ${__version}, build $(cat "${BUILD_FILE}")"
     else
-        console_debug "${__result}"
         console_error "Possible cause: incorrect version $(colored_bold_cyan "'${__version}'")"
         console_fatal "Error occurred during download"
     fi
