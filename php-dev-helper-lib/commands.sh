@@ -6,7 +6,7 @@ fi
 
 _multi_tester_exec () {
     if [ "${PTS_MULTI}" -eq "${CR_TRUE}" ]; then
-        console_info "Multi tester..."
+        console_section "Multi tester..."
         if ! docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app multi-tester
         then
             console_debug "Error occurred"
@@ -16,7 +16,7 @@ _multi_tester_exec () {
 
 _phpstan_exec () {
     if [ "${PTS_PHPSTAN}" -eq "${CR_TRUE}" ]; then
-        console_info "PHPStan..."
+        console_section "PHPStan..."
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan -V
         then
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan analyze "${PTS_SOURCE_DIR}" --level="${PHPSTAN_LEVEL}"
@@ -26,7 +26,7 @@ _phpstan_exec () {
 
 _psalm_exec () {
     if [ "${PTS_PHPSTAN}" -eq "${CR_TRUE}" ]; then
-        console_info "Psalm..."
+        console_section "Psalm..."
         if [ -e "${WORK_DIR}/${PSALM_CONFIG}" ]
         then
             console_debug "Config file '${PSALM_CONFIG}' found"
@@ -43,7 +43,7 @@ _psalm_exec () {
 
 _php_cs_exec () {
     if [ "${PTS_CS}" -eq "${CR_TRUE}" ]; then
-        console_info "PHP Code Sniffer..."
+        console_section "PHP Code Sniffer..."
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcs --version
         then
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcs
@@ -53,7 +53,7 @@ _php_cs_exec () {
 
 _php_cs_bf_exec () {
     if [ "${PTS_CS_BF}" -eq "${CR_TRUE}" ]; then
-        console_info "PHP Code Sniffer Beautifier..."
+        console_section "PHP Code Sniffer Beautifier..."
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcbf --version
         then
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcbf
@@ -63,7 +63,7 @@ _php_cs_bf_exec () {
 
 _php_metrics_exec () {
     if [ "${PTS_METRICS}" -eq "${CR_TRUE}" ]; then
-        console_info "PHP Metrics..."
+        console_section "PHP Metrics..."
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmetrics --version
         then
             docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmetrics --report-html="${PTS_PHPMETRICS_OUTPUT_DIR}" .
@@ -74,8 +74,8 @@ _php_metrics_exec () {
 _phpunit_exec () {
     console_debug "Running PHPUnit"
     if [ "${PTS_PHPUNIT}" -eq "${CR_TRUE}" ]; then
-        console_print "$(colored_green "PHP Version:")\n$(__php_version)"
-        console_info "PHPUnit..."
+        __php_version
+        console_section "PHPUnit..."
         console_debug "Run with coverage: $(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")"
         console_debug "Debug image used: $(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")"
         if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ] && [ "${PTS_DEBUG_IMAGE_USED}" -eq "${CR_TRUE}" ]; then
@@ -99,5 +99,6 @@ _phpunit_exec () {
 }
 
 __php_version () {
+    console_section "PHP Version"
     docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app php -v
 }

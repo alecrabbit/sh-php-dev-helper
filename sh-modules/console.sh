@@ -88,6 +88,9 @@ console_notice () {
 console_header () {
     console_print "$(colored_bold_cyan "$*")"
 }
+console_section () {
+    console_print "$(colored_bold_green "$*")"
+}
 
 console_show_option () {
     __option_name="${2}"
