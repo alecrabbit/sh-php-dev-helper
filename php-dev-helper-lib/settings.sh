@@ -44,10 +44,12 @@ if [ "${CR_EMOJIS}" -eq "${CR_ENABLED}" ];then
     export EMOJI_RABBIT="🐇 "
     export EMOJI_ROCKET="🚀 "
     export EMOJI_FIN_FLAG="🏁 "
+    export EMOJI_CHECK="✔️ "
 else
     export EMOJI_RABBIT=""
     export EMOJI_ROCKET=""
     export EMOJI_FIN_FLAG=""
+    export EMOJI_CHECK=""
 fi
 
 _SETTINGS_ENABLED='enabled'

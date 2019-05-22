@@ -95,12 +95,19 @@ console_section () {
 console_show_option () {
     __option_name="${2}"
     __option_value="${1:-${CR_FALSE}}"
-    # __value="$(colored_dark "--")"
-    __value="  "
+    if [ "${CR_EMOJIS}" -eq "${CR_ENABLED}" ];then
+        __value="   "
+    else 
+        __value="[ ]"
+    fi
     if [ "${__option_value}" -eq  "${CR_TRUE}" ]
     then
-        # __value="$(colored_bold_green "ON")"
-        __value="✔️ "
+        if [ "${CR_EMOJIS}" -eq "${CR_ENABLED}" ];then
+            __value="${EMOJI_CHECK} "
+        else 
+            __value="[$(colored_bold_green "X")]"
+        fi
+
     fi
     console_print " ${__value} $(colored_bold "${__option_name}")"
     unset __value __option_name __option_value

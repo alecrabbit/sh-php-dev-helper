@@ -68,7 +68,7 @@ __export_options () {
 }
 
 _pts_show_selected_options () {
-    console_dark "\n    Selected options:"
+    console_dark "\n     Selected options:"
     if [ "${CR_DEBUG}" -eq 1 ]
     then
         console_show_option "${PTS_EXECUTE}" "Execute"
