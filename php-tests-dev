@@ -44,10 +44,10 @@ SCRIPT_BUILD="$(version_load_build "${BUILD_FILE}")"
 export SCRIPT_VERSION
 export SCRIPT_BUILD
 
-console_debug "Version $(version_string "${CR_TRUE}")"
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 
 func_print_header "PHP Tests and Analysis tool"
+
 ### Read options
 _pts_read_options "$@"
 

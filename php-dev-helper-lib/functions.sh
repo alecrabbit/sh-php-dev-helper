@@ -253,6 +253,7 @@ __updater_install () {
 
 func_print_header () {
     console_header "${EMOJI_RABBIT}${1}"
+    console_debug "Version $(version_string "${CR_TRUE}")"
     console_comment "Version $(version_string)"
 }
 
