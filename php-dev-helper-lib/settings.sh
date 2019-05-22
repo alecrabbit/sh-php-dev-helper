@@ -91,11 +91,27 @@ _settings_check_variables () {
             CR_EMOJIS=${CR_DISABLED}
             ;;
         *)
-            __show_error "EMOJIS" "${EMOJIS}" ${_SETTINGS_DISABLED}
-            CR_EMOJIS=${CR_DISABLED}
+            __show_error "EMOJIS" "${EMOJIS}" ${_SETTINGS_ENABLED}
+            CR_EMOJIS=${CR_ENABLED}
             ;;
     esac
     core_show_used_value "EMOJIS" "${CR_EMOJIS}"
+    # DEBUG
+    CR_DEBUG=${DEBUG:-${CR_DISABLED}}
+    case ${DEBUG:-${CR_DISABLED}} in
+        ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
+        ${_SETTINGS_ENABLED})
+            CR_DEBUG=${CR_ENABLED}
+            ;;
+        ${_SETTINGS_DISABLED})
+            CR_DEBUG=${CR_DISABLED}
+            ;;
+        *)
+            __show_error "DEBUG" "${DEBUG}" ${_SETTINGS_DISABLED}
+            CR_DEBUG=${CR_DISABLED}
+            ;;
+    esac
+    core_show_used_value "DEBUG" "${CR_DEBUG}"
     # TITLE Change terminal title while running
     CR_TITLE=${TITLE:-${CR_ENABLED}}
     case ${TITLE:-${CR_DISABLED}} in
@@ -107,8 +123,8 @@ _settings_check_variables () {
             CR_TITLE=${CR_DISABLED}
             ;;
         *)
-            __show_error "TITLE" "${TITLE}" ${_SETTINGS_DISABLED}
-            CR_TITLE=${CR_DISABLED}
+            __show_error "TITLE" "${TITLE}" ${_SETTINGS_ENABLED}
+            CR_TITLE=${CR_ENABLED}
             ;;
     esac
     core_show_used_value "TITLE" "${CR_TITLE}"
