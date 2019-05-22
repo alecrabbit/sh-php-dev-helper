@@ -14,7 +14,6 @@ CR_DISABLED=0
 CR_DEBUG=${DEBUG:-${CR_DISABLED}}  
 CR_ALLOW_ROOT=${ALLOW_ROOT:-${CR_DISABLED}}
 CR_TITLE=${TITLE:-${CR_ENABLED}}
-CR_EMOJIS=${EMOJIS:-${CR_ENABLED}}
 
 # shellcheck disable=SC1090
 . "${MODULES_DIR}/console.sh"
@@ -241,4 +240,3 @@ core_file_contains_string () {
 core_check_int_bool_env_value "${CR_DEBUG}" "DEBUG" 
 core_check_int_bool_env_value "${CR_ALLOW_ROOT}" "ALLOW_ROOT" 
 core_check_int_bool_env_value "${CR_TITLE}" "TITLE" 
-core_check_int_bool_env_value "${CR_EMOJIS}" "EMOJIS" 

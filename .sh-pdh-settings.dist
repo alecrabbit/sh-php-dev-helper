@@ -1,3 +1,6 @@
+### Use emojis
+# EMOJIS=enabled                        # enabled by default
+
 ### Directory access control 
 ## Allows you to avoid unwanted php-tests run for example in python project dir
 # DIR_CONTROL=disabled                  # disabled by default

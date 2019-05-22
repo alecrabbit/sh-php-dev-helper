@@ -39,19 +39,6 @@ export DEFAULT_SCRIPT_NAME="php-dev-helper"
 export PDH_PACKAGE="sh-php-dev-helper"
 export PDH_REPOSITORY="alecrabbit/${PDH_PACKAGE}"
 
-### Emojis
-if [ "${CR_EMOJIS}" -eq "${CR_ENABLED}" ];then
-    export EMOJI_RABBIT="🐇 "
-    export EMOJI_ROCKET="🚀 "
-    export EMOJI_FIN_FLAG="🏁 "
-    export EMOJI_CHECK="✔️ "
-else
-    export EMOJI_RABBIT=""
-    export EMOJI_ROCKET=""
-    export EMOJI_FIN_FLAG=""
-    export EMOJI_CHECK=""
-fi
-
 _SETTINGS_ENABLED='enabled'
 _SETTINGS_DISABLED='disabled'
 
@@ -91,9 +78,24 @@ _settings_check_variables () {
             __show_error "USE_DIR_PREFIX" "${USE_DIR_PREFIX}" ${_SETTINGS_DISABLED}
             USE_DIR_PREFIX=${CR_DISABLED}
             ;;
-   esac
-   core_show_used_value "USE_DIR_PREFIX" "${USE_DIR_PREFIX}"
-
+    esac
+    core_show_used_value "USE_DIR_PREFIX" "${USE_DIR_PREFIX}"
+    # EMOJIS
+    CR_EMOJIS=${EMOJIS:-${CR_ENABLED}}
+    case ${EMOJIS:-${CR_DISABLED}} in
+        ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
+        ${_SETTINGS_ENABLED})
+            CR_EMOJIS=${CR_ENABLED}
+            ;;
+        ${_SETTINGS_DISABLED})
+            CR_EMOJIS=${CR_DISABLED}
+            ;;
+        *)
+            __show_error "EMOJIS" "${EMOJIS}" ${_SETTINGS_DISABLED}
+            CR_EMOJIS=${CR_DISABLED}
+            ;;
+    esac
+    core_show_used_value "EMOJIS" "${CR_EMOJIS}"
 }
 
 ### LOAD SETTINGS FROM FILE
@@ -105,3 +107,16 @@ fi
 
 ### CHECK LOADED SETTINGS
 _settings_check_variables
+
+### Emojis
+if [ "${CR_EMOJIS}" -eq "${CR_ENABLED}" ];then
+    export EMOJI_RABBIT="🐇 "
+    export EMOJI_ROCKET="🚀 "
+    export EMOJI_FIN_FLAG="🏁 "
+    export EMOJI_CHECK="✔️ "
+else
+    export EMOJI_RABBIT=""
+    export EMOJI_ROCKET=""
+    export EMOJI_FIN_FLAG=""
+    export EMOJI_CHECK=""
+fi
