@@ -9,9 +9,9 @@ export PTS_COVERAGE_DIR="coverage"
 
 export PTS_AUX_DEV_MODULE="dev.sh"
 
-__SETTINGS_FILE="${SCRIPT_DIR}/.sh-php-tests-settings"
-export PTS_ALLOWED_DIRS_FILE="${SCRIPT_DIR}/.sh-php-tests-allowed-dirs"
-export PTS_DISALLOWED_DIRS_FILE="${SCRIPT_DIR}/.sh-php-tests-disallowed-dirs"
+__SETTINGS_FILE="${SCRIPT_DIR}/.sh-pdh-settings"
+export PTS_ALLOWED_DIRS_FILE="${SCRIPT_DIR}/.sh-pdh-allowed-dirs"
+export PTS_DISALLOWED_DIRS_FILE="${SCRIPT_DIR}/.sh-pdh-disallowed-dirs"
 
 export WORKING_PREFIX="php"
 

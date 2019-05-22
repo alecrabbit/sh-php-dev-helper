@@ -1,5 +1,5 @@
 ### Directory access control 
-## Allows you to avoid unwanted php-tests run for example in python pjoject dir
+## Allows you to avoid unwanted php-tests run for example in python project dir
 # DIR_CONTROL=disabled                  # disabled by default
 ## If DIR_CONTROL is enabled consider project dir name 'php-some-project' as allowed
 # USE_DIR_PREFIX=disabled               # disabled by default
