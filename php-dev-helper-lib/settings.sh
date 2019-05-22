@@ -96,6 +96,22 @@ _settings_check_variables () {
             ;;
     esac
     core_show_used_value "EMOJIS" "${CR_EMOJIS}"
+    # TITLE Change terminal title while running
+    CR_TITLE=${TITLE:-${CR_ENABLED}}
+    case ${TITLE:-${CR_DISABLED}} in
+        ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
+        ${_SETTINGS_ENABLED})
+            CR_TITLE=${CR_ENABLED}
+            ;;
+        ${_SETTINGS_DISABLED})
+            CR_TITLE=${CR_DISABLED}
+            ;;
+        *)
+            __show_error "TITLE" "${TITLE}" ${_SETTINGS_DISABLED}
+            CR_TITLE=${CR_DISABLED}
+            ;;
+    esac
+    core_show_used_value "TITLE" "${CR_TITLE}"
 }
 
 ### LOAD SETTINGS FROM FILE
