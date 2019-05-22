@@ -44,19 +44,18 @@ SCRIPT_BUILD="$(version_load_build "${BUILD_FILE}")"
 export SCRIPT_VERSION
 export SCRIPT_BUILD
 
-_pts_read_options "$@"
-
-### Print header
-console_header "${EMOJI_RABBIT}PHP Tests and Analysis tool"
 console_debug "Version $(version_string "${CR_TRUE}")"
-console_comment "Version $(version_string)"
+__TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
+
+func_print_header "PHP Tests and Analysis tool"
+### Read options
+_pts_read_options "$@"
 
 ### Run checks
 _pts_check_working_env
 _pts_show_selected_options
 _pts_check_container
 
-__TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 
 ### Testing
 if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
@@ -85,15 +84,4 @@ if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
     fi
 fi
 
-### Finish
-if [ "${CR_DEBUG}" -eq 0 ]; then
-    __time="$(colored_dark "$(date '+%Y-%m-%d %H:%M:%S')")"
-else
-    __time=""
-fi
-console_print "${EMOJI_FIN_FLAG}$(colored_yellow "Done!")\n${__time}"
-console_dark "Executed in $(($(date +%s)-start_time))s"
-console_dark "Bye!"
-
-core_set_terminal_title "${__TITLE}"
-unset __time
+func_print_footer "${start_time}"

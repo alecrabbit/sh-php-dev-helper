@@ -250,3 +250,22 @@ __updater_install () {
         console_fatal "Unable to update package"
     fi
 }
+
+func_print_header () {
+    console_header "${EMOJI_RABBIT}${1}"
+    console_comment "Version $(version_string)"
+}
+
+func_print_footer () {
+    if [ "${CR_DEBUG}" -eq 0 ]; then
+        __time="$(colored_dark "$(date '+%Y-%m-%d %H:%M:%S')")"
+    else
+        __time=""
+    fi
+    console_print "${EMOJI_FIN_FLAG}$(colored_yellow "Done!")\n${__time}"
+    console_dark "Executed in $(($(date +%s)-${1}))s"
+    console_dark "Bye!"
+
+    core_set_terminal_title "${__TITLE}"
+    unset __time
+}
