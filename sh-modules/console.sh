@@ -89,7 +89,7 @@ console_header () {
     console_print "$(colored_bold_cyan "$*")"
 }
 console_section () {
-    console_print "$(colored_bold_green "$*")"
+    console_print "$(colored_bold_blue "$*")"
 }
 
 console_show_option () {

@@ -21,6 +21,10 @@ __COL_ANSI_YELLOW="\033[0;33m"
 __COL_ANSI_BOLD_YELLOW="\033[1;33m"
 __COL_ANSI_CYAN="\033[0;36m"
 __COL_ANSI_BOLD_CYAN="\033[1;36m"
+__COL_ANSI_BLUE="\033[0;34m"
+__COL_ANSI_BOLD_BLUE="\033[1;34m"
+__COL_ANSI_PURPLE="\033[0;35m"
+__COL_ANSI_BOLD_PURPLE="\033[1;35m"
 
 ### Define
 __col_reset_colors () {
@@ -30,11 +34,15 @@ __col_reset_colors () {
     __col_ansi_green=""
     __col_ansi_yellow=""
     __col_ansi_cyan=""
+    __col_ansi_blue=""
+    __col_ansi_purple=""
     __col_ansi_bold=""
     __col_ansi_bold_red=""
     __col_ansi_bold_green=""
     __col_ansi_bold_yellow=""
     __col_ansi_bold_cyan=""
+    __col_ansi_bold_blue=""
+    __col_ansi_bold_purple=""
 }
 __col_set_colors () {
     __col_ansi_none=${__COL_ANSI_NONE}
@@ -43,11 +51,15 @@ __col_set_colors () {
     __col_ansi_green=${__COL_ANSI_GREEN}
     __col_ansi_yellow=${__COL_ANSI_YELLOW}
     __col_ansi_cyan=${__COL_ANSI_CYAN}
+    __col_ansi_blue=${__COL_ANSI_BLUE}
+    __col_ansi_purple=${__COL_ANSI_PURPLE}
     __col_ansi_bold=${__COL_ANSI_BOLD}
     __col_ansi_bold_red=${__COL_ANSI_BOLD_RED}
     __col_ansi_bold_green=${__COL_ANSI_BOLD_GREEN}
     __col_ansi_bold_yellow=${__COL_ANSI_BOLD_YELLOW}
     __col_ansi_bold_cyan=${__COL_ANSI_BOLD_CYAN}
+    __col_ansi_bold_blue=${__COL_ANSI_BOLD_BLUE}
+    __col_ansi_bold_purple=${__COL_ANSI_BOLD_PURPLE}
 }
 
 colored_default () {
@@ -71,6 +83,12 @@ colored_yellow () {
 colored_cyan () {
     echo "${__col_ansi_cyan}$*${__col_ansi_none}"
 }
+colored_blue () {
+    echo "${__col_ansi_blue}$*${__col_ansi_none}"
+}
+colored_purple () {
+    echo "${__col_ansi_purple}$*${__col_ansi_none}"
+}
 colored_bold_red () {
     echo "${__col_ansi_bold_red}$*${__col_ansi_none}"
 }
@@ -82,6 +100,12 @@ colored_bold_yellow () {
 }
 colored_bold_cyan () {
     echo "${__col_ansi_bold_cyan}$*${__col_ansi_none}"
+}
+colored_bold_blue () {
+    echo "${__col_ansi_bold_blue}$*${__col_ansi_none}"
+}
+colored_bold_purple () {
+    echo "${__col_ansi_bold_purple}$*${__col_ansi_none}"
 }
 
 _colored_configureColor() {
