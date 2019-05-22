@@ -47,7 +47,7 @@ export SCRIPT_BUILD
 _pts_read_options "$@"
 
 ### Print header
-console_header "🐇 PHP Tests and Analysis tool"
+console_header "${EMOJI_RABBIT}PHP Tests and Analysis tool"
 console_debug "Version $(version_string "${CR_TRUE}")"
 console_comment "Version $(version_string)"
 
@@ -63,7 +63,7 @@ if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
     core_set_terminal_title "${__TITLE} - Testing..."
     console_debug "Executing..."
     if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_TRUE}" ]; then
-        console_comment "🚀 Processing...."
+        console_comment "${EMOJI_ROCKET}Processing...."
         _phpunit_exec
         _php_metrics_exec
         _multi_tester_exec
@@ -91,7 +91,7 @@ if [ "${CR_DEBUG}" -eq 0 ]; then
 else
     __time=""
 fi
-console_print "🏁 $(colored_yellow "Done!")\n${__time}"
+console_print "${EMOJI_FIN_FLAG}$(colored_yellow "Done!")\n${__time}"
 console_dark "Executed in $(($(date +%s)-start_time))s"
 console_dark "Bye!"
 

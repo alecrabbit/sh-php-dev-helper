@@ -39,6 +39,16 @@ export DEFAULT_SCRIPT_NAME="php-dev-helper"
 export PDH_PACKAGE="sh-php-dev-helper"
 export PDH_REPOSITORY="alecrabbit/${PDH_PACKAGE}"
 
+### Emojis
+if [ "${CR_EMOJIS}" -eq "${CR_ENABLED}" ];then
+    export EMOJI_RABBIT="🐇 "
+    export EMOJI_ROCKET="🚀 "
+    export EMOJI_FIN_FLAG="🏁 "
+else
+    export EMOJI_RABBIT=""
+    export EMOJI_ROCKET=""
+    export EMOJI_FIN_FLAG=""
+fi
 
 _SETTINGS_ENABLED='enabled'
 _SETTINGS_DISABLED='disabled'
