@@ -1,5 +1,9 @@
 ### Use emojis
 # EMOJIS=enabled                        # enabled by default
+### Can change terminal title
+# TITLE=enabled                         # enabled by default
+### Allow run under root
+# ALLOW_ROOT=disabled                   # disabled by default
 
 ### Directory access control 
 ## Allows you to avoid unwanted php-tests run for example in python project dir

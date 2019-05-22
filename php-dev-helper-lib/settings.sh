@@ -112,6 +112,22 @@ _settings_check_variables () {
             ;;
     esac
     core_show_used_value "TITLE" "${CR_TITLE}"
+    # ALLOW_ROOT Allow run under root
+    CR_ALLOW_ROOT=${ALLOW_ROOT:-${CR_DISABLED}}
+    case ${ALLOW_ROOT:-${CR_DISABLED}} in
+        ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
+        ${_SETTINGS_ENABLED})
+            CR_ALLOW_ROOT=${CR_ENABLED}
+            ;;
+        ${_SETTINGS_DISABLED})
+            CR_ALLOW_ROOT=${CR_DISABLED}
+            ;;
+        *)
+            __show_error "ALLOW_ROOT" "${ALLOW_ROOT}" ${_SETTINGS_DISABLED}
+            CR_ALLOW_ROOT=${CR_DISABLED}
+            ;;
+    esac
+    core_show_used_value "ALLOW_ROOT" "${CR_ALLOW_ROOT}"
 }
 
 ### LOAD SETTINGS FROM FILE
