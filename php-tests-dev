@@ -44,12 +44,12 @@ SCRIPT_BUILD="$(version_load_build "${BUILD_FILE}")"
 export SCRIPT_VERSION
 export SCRIPT_BUILD
 
+### Read options
+_pts_read_options "$@"
+
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 
 func_print_header "PHP Tests and Analysis tool"
-
-### Read options
-_pts_read_options "$@"
 
 ### Run checks
 _pts_check_working_env

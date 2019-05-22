@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-__usage () {
+__pts_usage () {
     echo "Usage:"
     echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
@@ -15,12 +15,13 @@ __usage () {
     echo "    $(colored_yellow "-s, --analyze")         - enable static analysis tools (--phpstan and --psalm)"
     echo "    $(colored_yellow "-u, --unit")            - enable phpunit"
     echo "    $(colored_yellow "--update")              - update script"
+    echo "    $(colored_yellow "-V, --version")         - show version"
     echo
     # shellcheck disable=SC2005
     echo "$(colored_dark "Note: options order is important")"
 }
 
-__set_default_options () {
+__pts_set_default_options () {
     PTS_EXECUTE=${CR_TRUE}
     PTS_REQUIRE_DEBUG_IMAGE=${CR_FALSE}
     PTS_RESTART=${CR_FALSE}
@@ -36,7 +37,7 @@ __set_default_options () {
     __ALL_OPTION=${CR_FALSE}
 }
 
-__process_options () {
+__pts_process_options () {
     if [ "${PTS_ANALYSIS}" -eq "${CR_TRUE}" ]; then
         PTS_PHPUNIT=${CR_FALSE}
         PTS_PHPSTAN=${CR_TRUE}
@@ -52,7 +53,7 @@ __process_options () {
     fi
 }
 
-__export_options () {
+__pts_export_options () {
     export PTS_EXECUTE
     export PTS_REQUIRE_DEBUG_IMAGE
     export PTS_RESTART
@@ -87,7 +88,7 @@ _pts_show_selected_options () {
 }
 
 _pts_read_options () {
-    __set_default_options
+    __pts_set_default_options
     console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
         PARAM=$(echo "$1" | awk -F= '{print $1}')
@@ -95,7 +96,7 @@ _pts_read_options () {
         case ${PARAM} in
             -h | --help)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                __usage
+                __pts_usage
                 exit
                 ;;
             --update)
@@ -183,13 +184,92 @@ _pts_read_options () {
             *)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 console_error "Unknown option '${PARAM}'"
-                __usage
+                __pts_usage
                 exit 1
                 ;;
         esac
         shift
     done
-    __process_options
-    __export_options
+    __pts_process_options
+    __pts_export_options
+    unset PARAM VALUE
+}
+
+__moomba_usage () {
+    echo "Usage:"
+    echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
+    echo "Options:"
+    echo "    $(colored_yellow "-h")                    - show help message and exit"
+    echo "    $(colored_yellow "--update")              - update script"
+    echo "    $(colored_yellow "-V, --version")         - show version"
+    echo
+    # shellcheck disable=SC2005
+    echo "$(colored_dark "Note: options order is important")"
+}
+
+
+__moomba_set_default_options () {
+    :
+}
+__moomba_process_options () {
+    :
+}
+__moomba_export_options () {
+    :
+}
+
+
+_moomba_read_options () {
+    __moomba_set_default_options
+    console_debug "Reading options"
+    while [ "${1:-}" != "" ]; do
+        PARAM=$(echo "$1" | awk -F= '{print $1}')
+        VALUE=$(echo "$1" | awk -F= '{print $2}')
+        case ${PARAM} in
+            -h | --help)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                __moomba_usage
+                exit
+                ;;
+            --update)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                _pts_updater_run "${VALUE}"
+                exit
+                ;;
+            -V | --version)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                version_print
+                exit "${CR_TRUE}"
+                ;;
+            # Undocumented
+            --save-build-hash)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                version_save_build_hash "${SCRIPT_DIR}" "${LIB_DIR}"
+                exit "${CR_TRUE}"
+                ;;
+            # Undocumented
+            --no-exec)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_EXECUTE=${CR_FALSE}
+                ;;
+            --no-restart)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_RESTART=${CR_FALSE}
+                ;;
+            --debug)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                CR_DEBUG=1
+                ;;
+            *)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_error "Unknown option '${PARAM}'"
+                __moomba_usage
+                exit 1
+                ;;
+        esac
+        shift
+    done
+    __moomba_process_options
+    __moomba_export_options
     unset PARAM VALUE
 }
