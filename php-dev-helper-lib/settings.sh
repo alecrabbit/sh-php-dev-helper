@@ -158,11 +158,17 @@ _settings_check_variables
 
 ### Emojis
 if [ "${CR_EMOJIS}" -eq "${CR_ENABLED}" ];then
+    export EMOJI_WARNING="⚠️  "
+    export EMOJI_ERROR="🛑 "
+    export EMOJI_FATAL="🔥 "
     export EMOJI_RABBIT="🐇 "
     export EMOJI_ROCKET="🚀 "
     export EMOJI_FIN_FLAG="🏁 "
     export EMOJI_CHECK="✔️ "
 else
+    export EMOJI_WARNING=""
+    export EMOJI_ERROR=""
+    export EMOJI_FATAL=""
     export EMOJI_RABBIT=""
     export EMOJI_ROCKET=""
     export EMOJI_FIN_FLAG=""

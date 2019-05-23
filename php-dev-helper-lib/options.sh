@@ -182,8 +182,12 @@ _pts_read_options () {
                 PTS_RESTART=${CR_FALSE}
                 ;;
             --debug)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 CR_DEBUG=1
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                ;;
+            --show-message-samples)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_show_messages_samples
                 ;;
             *)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"

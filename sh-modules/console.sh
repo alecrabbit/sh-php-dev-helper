@@ -20,13 +20,13 @@ fi
 ### Logging functions.
 
 console_warning () {
-    console_print "⚠️  ${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${CR_TRUE}" "${CR_TRUE}"
+    console_print "${EMOJI_WARNING}${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_error () {
-    console_print "🛑 ${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${CR_TRUE}" "${CR_TRUE}"
+    console_print "${EMOJI_ERROR}${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_fatal () {
-    console_print "🔥 ${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${CR_TRUE}" "${CR_TRUE}"
+    console_print "${EMOJI_FATAL}${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${CR_TRUE}" "${CR_TRUE}"
     exit "${CR_ERROR}"
 }
 
@@ -111,4 +111,19 @@ console_show_option () {
     fi
     console_print " ${__value} $(colored_bold "${__option_name}")"
     unset __value __option_name __option_value
+}
+
+console_show_messages_samples () {
+    console_print "Simple print"
+    console_debug "Debug string"
+    console_dark "Dark string"
+    console_info "Info string"
+    console_comment "This is a comment"
+    console_notice "Notice sample!" 
+    console_header "Header sample" 
+    console_section "Section sample" 
+
+    console_warning "console_notice" 
+    console_error "console_notice" 
+    console_fatal "console_notice" 
 }
