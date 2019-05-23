@@ -97,8 +97,8 @@ _settings_check_variables () {
     esac
     core_show_used_value "EMOJIS" "${CR_EMOJIS}"
     # DEBUG
-    CR_DEBUG=${DEBUG:-${CR_DISABLED}}
-    case ${DEBUG:-${CR_DISABLED}} in
+    CR_DEBUG=${CR_DEBUG:-${DEBUG:-${CR_DISABLED}}}
+    case ${CR_DEBUG:-${CR_DISABLED}} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
         ${_SETTINGS_ENABLED})
             CR_DEBUG=${CR_ENABLED}

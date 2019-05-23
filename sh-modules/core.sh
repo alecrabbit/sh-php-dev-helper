@@ -153,17 +153,22 @@ core_check_if_dir_exists () {
 }
 
 core_is_dir_contains () {
+    __SHOW="${3:-${CR_FALSE}}"
     __FILES="${2}"
     __DIR="${1}"
     for __file in ${__FILES}; do
         if [ ! -e "${__DIR}/${__file}" ]
         then
-            console_debug "Not found: '${__DIR}/${__file}'"
-            unset __FILES __file
+            if [ "${__SHOW}" -eq  "${CR_TRUE}" ]; then
+                console_comment "File not found: '${__DIR}/${__file}'"
+            else
+                console_debug "File not found: '${__DIR}/${__file}'"
+            fi
+            unset __DIR __FILES __file __SHOW
             return ${CR_FALSE}
         fi
     done
-    unset __DIR __FILES __file
+    unset __DIR __FILES __file __SHOW
     return ${CR_TRUE}
 }
 
