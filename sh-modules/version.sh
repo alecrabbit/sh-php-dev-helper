@@ -15,7 +15,8 @@ version_load_version () {
     then
         __version="$(cat "${__file}")"
     else
-        __version="${VERSION_DEVELOP}"
+        # __version="${VERSION_DEVELOP}"
+        __version="0.1.54"
     fi
     echo "${__version}"
     unset __file __version
@@ -45,6 +46,8 @@ version_string () {
                 SCRIPT_BUILD="$(colored_dark "${SCRIPT_BUILD}")"
             fi
         fi
+    else
+        SCRIPT_BUILD=""
     fi
     echo "${SCRIPT_VERSION}${SCRIPT_BUILD}"
     unset __show_build
