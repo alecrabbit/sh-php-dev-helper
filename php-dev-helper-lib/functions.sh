@@ -111,9 +111,9 @@ _pts_check_container () {
     if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_FALSE}" ]; then
         console_comment "Container is not running"
         console_info "Trying to start container"
-        console_debug "Using debug image by default"
-        __start_container "${_DOCKER_COMPOSE_FILE_DEBUG}"
-        PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
+        console_debug "Using regular image by default"
+        __start_container "${_DOCKER_COMPOSE_FILE}"
+        PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE}"
         __check_container
     fi
 
