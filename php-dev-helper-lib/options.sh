@@ -25,7 +25,7 @@ __pts_set_default_options () {
     PTS_EXECUTE=${CR_TRUE}
     PTS_REQUIRE_DEBUG_IMAGE=${CR_FALSE}
     PTS_RESTART=${CR_FALSE}
-    PTS_ANALYSIS=${CR_FALSE}
+    # PTS_ANALYSIS=${CR_FALSE}
     PTS_METRICS=${CR_FALSE}
     PTS_MULTI=${CR_FALSE}
     PTS_CS=${CR_FALSE}
@@ -38,10 +38,12 @@ __pts_set_default_options () {
 }
 
 __pts_process_options () {
-    if [ "${PTS_ANALYSIS}" -eq "${CR_TRUE}" ]; then
-        PTS_PHPUNIT=${CR_FALSE}
-        PTS_PHPSTAN=${CR_TRUE}
-        PTS_PSALM=${CR_TRUE}
+    # if [ "${PTS_ANALYSIS}" -eq "${CR_TRUE}" ]; then
+    #     PTS_PHPSTAN=${CR_TRUE}
+    #     PTS_PSALM=${CR_TRUE}
+    # fi
+    if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ]; then
+        PTS_PHPUNIT=${CR_TRUE}
     fi
     if [ "${__ALL_OPTION}" -eq "${CR_TRUE}" ]; then
         PTS_CS=${CR_TRUE}
@@ -57,7 +59,7 @@ __pts_export_options () {
     export PTS_EXECUTE
     export PTS_REQUIRE_DEBUG_IMAGE
     export PTS_RESTART
-    export PTS_ANALYSIS
+    # export PTS_ANALYSIS
     export PTS_METRICS
     export PTS_MULTI
     export PTS_CS
@@ -73,7 +75,7 @@ _pts_show_selected_options () {
     if [ "${CR_DEBUG}" -eq 1 ]
     then
         console_show_option "${PTS_EXECUTE}" "Execute"
-        console_show_option "${PTS_ANALYSIS}" "Analysis"
+        # console_show_option "${PTS_ANALYSIS}" "Analysis"
         console_show_option "${PTS_RESTART}" "Container restart"
     fi
     console_show_option "${PTS_PHPUNIT}" "PHPUnit"
@@ -127,7 +129,9 @@ _pts_read_options () {
                 ;;
             -s | --analyze)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_ANALYSIS=${CR_TRUE}
+                PTS_PHPUNIT=${CR_FALSE}
+                PTS_PHPSTAN=${CR_TRUE}
+                PTS_PSALM=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -u | --unit)
