@@ -25,7 +25,7 @@ _phpstan_exec () {
 }
 
 _psalm_exec () {
-    if [ "${PTS_PHPSTAN}" -eq "${CR_TRUE}" ]; then
+    if [ "${PTS_PSALM}" -eq "${CR_TRUE}" ]; then
         console_section "Psalm..."
         if [ -e "${WORK_DIR}/${PSALM_CONFIG}" ]
         then
