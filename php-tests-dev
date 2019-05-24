@@ -71,14 +71,16 @@ if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
         _php_cs_exec
         _php_cs_bf_exec
 
-        if [ -e "${PTS_TEST_REPORT_INDEX}" ]
-        then
-            console_info "Report file found: '${PTS_TEST_REPORT_INDEX}'"
-        else
-            console_comment "Generating report file: '${PTS_TEST_REPORT_INDEX}'"
-            _pts_generate_report_file
+        if [ "${PTS_METRICS}" -eq "${CR_TRUE}" ] || [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ]; then
+            console_print ""
+            if [ -e "${PTS_TEST_REPORT_INDEX}" ]
+            then
+                console_info "Report file found: '${PTS_TEST_REPORT_INDEX}'"
+            else
+                console_comment "Generating report file: '${PTS_TEST_REPORT_INDEX}'"
+                _pts_generate_report_file
+            fi
         fi
-        console_print ""
     else
         console_error "Container is not started"
     fi

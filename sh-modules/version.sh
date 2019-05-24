@@ -15,8 +15,7 @@ version_load_version () {
     then
         __version="$(cat "${__file}")"
     else
-        # __version="${VERSION_DEVELOP}"
-        __version="0.1.54"
+        __version="${VERSION_DEVELOP}"
     fi
     echo "${__version}"
     unset __file __version

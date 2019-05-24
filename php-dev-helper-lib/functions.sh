@@ -264,6 +264,7 @@ func_print_footer () {
     else
         __time=""
     fi
+    console_print ""
     console_print "${EMOJI_FIN_FLAG}$(colored_yellow "Done!")\n${__time}"
     console_dark "Executed in $(($(date +%s)-${1}))s"
     console_dark "Bye!"
