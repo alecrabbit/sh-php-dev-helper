@@ -17,16 +17,28 @@ _multi_tester_exec () {
 _phpstan_exec () {
     if [ "${PTS_PHPSTAN}" -eq "${CR_TRUE}" ]; then
         console_section "PHPStan..."
-        if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan -V
-        then
-            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan analyze "${PTS_SOURCE_DIR}" --level="${PHPSTAN_LEVEL}"
+        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+            __colors="--ansi"
+        else    
+            __colors="--no-ansi"
         fi
+
+        if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan -V "${__colors}"
+        then
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan analyze "${PTS_SOURCE_DIR}" --level="${PHPSTAN_LEVEL}" "${__colors}"
+        fi
+        unset __colors
     fi
 }
 
 _psalm_exec () {
     if [ "${PTS_PSALM}" -eq "${CR_TRUE}" ]; then
         console_section "Psalm..."
+        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+            __colors=""
+        else    
+            __colors="-m"
+        fi
         if [ -e "${WORK_DIR}/${PSALM_CONFIG}" ]
         then
             console_debug "Config file '${PSALM_CONFIG}' found"
@@ -36,28 +48,41 @@ _psalm_exec () {
         fi
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app psalm --version
         then
-            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app psalm
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app psalm "${__colors}"
         fi
+        unset __colors
     fi
 }
 
 _php_cs_exec () {
     if [ "${PTS_CS}" -eq "${CR_TRUE}" ]; then
         console_section "PHP Code Sniffer..."
-        if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcs --version
-        then
-            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcs
+        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+            __colors="--colors"
+        else    
+            __colors="--no-colors"
         fi
+        if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcs --version "${__colors}"
+        then
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcs "${__colors}"
+        fi
+        unset __colors
     fi
 }
 
 _php_cs_bf_exec () {
     if [ "${PTS_CS_BF}" -eq "${CR_TRUE}" ]; then
         console_section "PHP Code Sniffer Beautifier..."
-        if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcbf --version
-        then
-            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcbf
+        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+            __colors="--colors"
+        else    
+            __colors="--no-colors"
         fi
+        if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcbf --version "${__colors}"
+        then
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpcbf "${__colors}"
+        fi
+        unset __colors
     fi
 }
 
@@ -78,23 +103,29 @@ _phpunit_exec () {
         console_section "PHPUnit..."
         console_debug "Run with coverage: $(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")"
         console_debug "Debug image used: $(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")"
+        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+            __colors="--colors=always"
+        else    
+            __colors="--colors=never"
+        fi
         if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ] && [ "${PTS_DEBUG_IMAGE_USED}" -eq "${CR_TRUE}" ]; then
             if [ -e "${PTS_XDEBUG_FILTER_FILE}" ]
             then
                 console_info "Found XDEBUG Filter file..."
             else
                 console_comment "Generating XDEBUG Filter..."
-                docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit --dump-xdebug-filter "${PTS_XDEBUG_FILTER_FILE}"
+                docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit "${__colors}" --dump-xdebug-filter "${PTS_XDEBUG_FILTER_FILE}"
             fi
             console_debug "Run phpunit with coverage"
-            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit --prepend "${PTS_XDEBUG_FILTER_FILE}" \
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit "${__colors}" --prepend "${PTS_XDEBUG_FILTER_FILE}" \
             --coverage-html "${PTS_PHPUNIT_COVERAGE_HTML_REPORT}" \
             --coverage-clover "${PTS_PHPUNIT_COVERAGE_CLOVER_REPORT}" \
             --coverage-text
         else 
             console_debug "Run phpunit WITHOUT coverage"
-            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpunit "${__colors}"
         fi
+        unset __colors
     fi
 }
 

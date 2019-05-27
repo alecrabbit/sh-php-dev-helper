@@ -8,6 +8,8 @@
 true; CR_TRUE=${CR_TRUE:-$?}
 false; CR_FALSE=${CR_FALSE:-$?}
 
+COL_COLOR="${COLOR:-${CR_FALSE}}"
+
 ### Color Constants
 __COL_ANSI_DARK="\033[2m"
 __COL_ANSI_BOLD="\033[1m"
@@ -132,9 +134,11 @@ _colored_configureColor() {
   case ${__col_color} in
     ${CR_TRUE})
       __col_set_colors
+      COL_COLOR=${CR_TRUE}
       ;;
     ${CR_FALSE})
       __col_reset_colors
+      COL_COLOR=${CR_FALSE}
       ;;
   esac
 
@@ -142,3 +146,5 @@ _colored_configureColor() {
 }
 
 _colored_configureColor "${COLOR:-auto}" # Options are 'never', 'always', or 'auto'
+
+export COL_COLOR
