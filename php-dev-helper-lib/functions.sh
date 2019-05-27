@@ -112,9 +112,12 @@ _pts_check_container () {
     if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_FALSE}" ]; then
         console_comment "Container is not running"
         console_info "Trying to start container"
-        console_debug "Using regular image by default"
-        __start_container "${_DOCKER_COMPOSE_FILE}"
-        PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE}"
+        if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${CR_TRUE}" ]; then
+            PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
+        else
+            PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE}"
+        fi
+        __start_container "${PTS_DOCKER_COMPOSE_FILE}"
         __check_container "${WORK_DIR}"
     fi
 
@@ -126,7 +129,7 @@ _pts_check_container () {
         else
             console_info "Debug image required - restarting..."
             console_debug "Restarting to debug image"
-            __restart_container "${_DOCKER_COMPOSE_FILE_DEBUG}"
+            __restart_container "${PTS_DOCKER_COMPOSE_FILE}"
             __check_container "${WORK_DIR}"
         fi
     else
