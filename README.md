@@ -36,6 +36,8 @@ Options:
     -s, --analyze         - enable static analysis tools (--phpstan and --psalm)
     -u, --unit            - enable phpunit
     --update              - update script
+    -V, --version         - show version
+    --without-composer    - do not check for 'composer.json' file and 'vendor' dir
 
 Note: options order is important
 ```
@@ -54,24 +56,29 @@ Note: options order is important
 
 ```text
 .
+├── moomba
 ├── php-dev-helper-lib
 │   ├── BUILD
 │   ├── commands.sh
 │   ├── functions.sh
 │   ├── options.sh
 │   ├── settings.sh
+│   ├── sh-modules
+│   │   ├── capitalize.sed
+│   │   ├── colored.sh
+│   │   ├── console.sh
+│   │   ├── core.sh
+│   │   ├── docker.sh
+│   │   ├── github.sh
+│   │   ├── git.sh
+│   │   ├── updater.sh
+│   │   └── version.sh
 │   ├── updater.sh
-│   ├── VERSION
-│   └── version.sh
-├── php-tests
-└── sh-modules
-    ├── colored.sh
-    ├── console.sh
-    ├── core.sh
-    ├── docker.sh
-    └── github.sh
-
+│   └── VERSION
+└── php-tests
 ```
+
+> Note: `moomba` is an upcoming package installation script
 
 ### Tested Operating Systems
 
