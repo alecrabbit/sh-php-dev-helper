@@ -19,7 +19,7 @@ fi
 
 ### Options
 
-```bash
+```text
 $ php-tests -h
 Usage:
     php-tests-dev [options]
