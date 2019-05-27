@@ -185,6 +185,12 @@ _pts_read_options () {
                 CR_DEBUG=1
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 ;;
+            --no-ansi | --no-color | --monochrome )
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_comment "Use env variable COLOR:"
+                console_print "    COLOR=never ${SCRIPT_NAME}"
+                exit
+                ;;
             --show-message-samples)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 console_show_messages_samples
