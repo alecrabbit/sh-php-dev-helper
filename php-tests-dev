@@ -53,8 +53,8 @@ func_print_header "PHP Tests and Analysis tool"
 
 ### Run checks
 _pts_check_working_env
-console_print ""
-console_print "$(colored_green "Project":) $(colored_bold_purple "$(core_get_project_name "${_COMPOSER_JSON_FILE}")")"
+_pts_show_project_type_and_name
+
 console_debug "Output use color: $(core_int_to_string "${CR_COLOR}")"
 
 _pts_show_selected_options

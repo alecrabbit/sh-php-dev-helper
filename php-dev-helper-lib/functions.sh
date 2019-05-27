@@ -295,3 +295,16 @@ func_print_footer () {
     core_set_terminal_title "${__TITLE}"
     unset __time
 }
+
+_pts_show_project_type_and_name () {
+    console_print ""
+    __project_type="$(core_get_project_type "${_COMPOSER_JSON_FILE}")"
+    # __project_type="$(core_capitalize_every_word "${__project_type}")"
+    __project_name="$(core_get_project_name "${_COMPOSER_JSON_FILE}")"
+
+    __project_type="$(colored_blue "(${__project_type})")"
+    __project_name="$(colored_bold_purple "${__project_name}")"
+
+    console_print "${__project_name} ${__project_type}"
+    unset __project_type __project_name
+}

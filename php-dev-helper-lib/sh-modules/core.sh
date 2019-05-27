@@ -246,7 +246,16 @@ core_get_project_name () {
     __composer_json_file="$(core_get_realpath "${1}")"
     grep -m1 '"name":' "${__composer_json_file}" |                            # Get name line
     sed -E 's/.*"([^"]+)".*/\1/'                                              # Pluck JSON value
+}
 
+core_get_project_type () {
+    __composer_json_file="$(core_get_realpath "${1}")"
+    grep -m1 '"type":' "${__composer_json_file}" |                            # Get name line
+    sed -E 's/.*"([^"]+)".*/\1/'                                              # Pluck JSON value
+}
+
+core_capitalize_every_word () {
+    echo "$@" | sed -f "${MODULES_DIR}/capitalize.sed"
 }
 
 core_check_int_bool_env_value "${CR_DEBUG}" "DEBUG" 
