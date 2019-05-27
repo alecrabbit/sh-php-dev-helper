@@ -85,3 +85,5 @@ Note: options order is important
 OS                                  |
 ----------------------------------- |
 Ubuntu Linux (18.04 LTS)            |
+
+> Note: it should work practically on any linux installation.
