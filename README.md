@@ -6,6 +6,11 @@
 
 used with [alecrabbit/php-package-template](https://github.com/alecrabbit/php-package-template/)
 
+### Requirements
+
+- docker
+- docker-compose (17.04.0+)
+
 ### Standalone
 
 You can install this script to your `~/.local/bin` dir. Make sure your `.profile` file contains these lines:
