@@ -14,16 +14,15 @@ _pts_check_working_env () {
         console_fatal "docker-compose is NOT installed!"
     fi
     console_debug "Checking docker-compose: installed"
-    if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}" "${CR_TRUE}"
+    if ! core_is_dir_contains "${WORK_DIR}" "${_COMPOSER_JSON_FILE} ${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}" "${CR_TRUE}"
     then
         console_notice "\nAre you in the right directory?"
-        console_fatal "docker-compose*.yml file(s) not found in current directory"
+        console_fatal "Required file(s) not found in current directory"
     fi
     if [ "${DIR_CONTROL}" -eq "${CR_ENABLED}" ]; then
         console_warning "DIR_CONTROL is an experimental feature"
         __dir_control
     fi
-    console_print "$(colored_green "Testing project":) $(colored_cyan "${PROJECT_NAME}")"
 }
 
 __dir_control () {

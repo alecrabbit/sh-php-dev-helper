@@ -51,6 +51,9 @@ __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 
 func_print_header "PHP Tests and Analysis tool"
 
+console_print ""
+console_print "$(colored_green "Project":) $(colored_bold_purple "$(core_get_project_name "${_COMPOSER_JSON_FILE}")")"
+
 ### Run checks
 _pts_check_working_env
 _pts_show_selected_options

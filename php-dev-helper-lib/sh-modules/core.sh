@@ -240,4 +240,11 @@ core_file_contains_string () {
     return "${CR_FALSE}"
 }
 
+core_get_project_name () {
+    __composer_json_file="$(core_get_realpath "${1}")"
+    grep -m1 '"name":' "${__composer_json_file}" |                            # Get name line
+    sed -E 's/.*"([^"]+)".*/\1/'                                              # Pluck JSON value
+
+}
+
 core_check_int_bool_env_value "${CR_DEBUG}" "DEBUG" 
