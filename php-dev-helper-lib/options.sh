@@ -16,6 +16,7 @@ __pts_usage () {
     echo "    $(colored_yellow "-u, --unit")            - enable phpunit"
     echo "    $(colored_yellow "--update")              - update script"
     echo "    $(colored_yellow "-V, --version")         - show version"
+    echo "    $(colored_yellow "--without-composer")    - do not check for 'composer.json' file and 'vendor' dir"
     echo
     # shellcheck disable=SC2005
     echo "$(colored_dark "Note: options order is important")"
@@ -33,6 +34,7 @@ __pts_set_default_options () {
     PTS_PHPSTAN=${CR_FALSE}
     PTS_PSALM=${CR_FALSE}
     PTS_PHPUNIT=${CR_TRUE}
+    PTS_WITH_COMPOSER=${CR_TRUE}
     PTS_PHPUNIT_COVERAGE=${CR_FALSE}
     __ALL_OPTION=${CR_FALSE}
 }
@@ -67,6 +69,7 @@ __pts_export_options () {
     export PTS_PHPSTAN
     export PTS_PSALM
     export PTS_PHPUNIT
+    export PTS_WITH_COMPOSER
     export PTS_PHPUNIT_COVERAGE
 }
 
@@ -183,6 +186,10 @@ _pts_read_options () {
                 ;;
             --debug)
                 CR_DEBUG=1
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                ;;
+            --without-composer)
+                PTS_WITH_COMPOSER=${CR_FALSE}
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 ;;
             --no-ansi | --no-color | --monochrome )

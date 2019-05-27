@@ -14,7 +14,12 @@ _pts_check_working_env () {
         console_fatal "docker-compose is NOT installed!"
     fi
     console_debug "Checking docker-compose: installed"
-    if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG} ${_COMPOSER_JSON_FILE}" "${CR_TRUE}"
+    if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
+        __composer_file=" ${_COMPOSER_JSON_FILE}"
+    else
+        __composer_file=""
+    fi
+    if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}${__composer_file}" "${CR_TRUE}"
     then
         console_notice "\nAre you in the right directory?"
         console_fatal "Required file(s) not found in current directory"
@@ -23,6 +28,7 @@ _pts_check_working_env () {
         console_warning "DIR_CONTROL is an experimental feature"
         __dir_control
     fi
+    unset __composer_file
 }
 
 __dir_control () {
@@ -140,12 +146,14 @@ _pts_check_container () {
 }
 
 _pts_check_vendor_dir () {
-    if core_check_if_dir_exists "${WORK_DIR}/vendor"; then
-        console_debug "Dir 'vendor' found"
-    else 
-        console_error "No 'vendor' dir"
-        console_comment "Installing..."
-        __execute_command "${PTS_DOCKER_COMPOSE_FILE}" "composer install"
+    if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
+        if core_check_if_dir_exists "${WORK_DIR}/vendor"; then
+            console_debug "Dir 'vendor' found"
+        else 
+            console_error "No 'vendor' dir"
+            console_comment "Installing..."
+            __execute_command "${PTS_DOCKER_COMPOSE_FILE}" "composer install"
+        fi
     fi
 }
 
@@ -300,14 +308,16 @@ func_print_footer () {
 }
 
 _pts_show_project_type_and_name () {
-    console_print ""
-    __project_type="$(core_get_project_type "${_COMPOSER_JSON_FILE}")"
-    # __project_type="$(core_capitalize_every_word "${__project_type}")"
-    __project_name="$(core_get_project_name "${_COMPOSER_JSON_FILE}")"
+    if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
+        console_print ""
+        __project_type="$(core_get_project_type "${_COMPOSER_JSON_FILE}")"
+        # __project_type="$(core_capitalize_every_word "${__project_type}")"
+        __project_name="$(core_get_project_name "${_COMPOSER_JSON_FILE}")"
 
-    __project_type="$(colored_blue "(${__project_type})")"
-    __project_name="$(colored_bold_purple "${__project_name}")"
+        __project_type="$(colored_blue "(${__project_type})")"
+        __project_name="$(colored_bold_purple "${__project_name}")"
 
-    console_print "${__project_name} ${__project_type}"
-    unset __project_type __project_name
+        console_print "${__project_name} ${__project_type}"
+        unset __project_type __project_name
+    fi
 }
