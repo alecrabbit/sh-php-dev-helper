@@ -166,6 +166,8 @@ core_is_dir_contains () {
             fi
             unset __DIR __FILES __file __SHOW
             return ${CR_FALSE}
+        else
+            console_debug "Found file: '${__DIR}/${__file}'"
         fi
     done
     unset __DIR __FILES __file __SHOW
