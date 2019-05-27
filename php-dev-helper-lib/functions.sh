@@ -82,13 +82,14 @@ __check_file_create_if_not_found () {
 }
 
 __check_container () {
+    __dir="${WORK_DIR}"
     PTS_DEBUG_IMAGE_USED="${CR_ERROR}"
     PTS_CONTAINER_STARTED="${CR_FALSE}"
-    if docker_compose_is_container_started "${WORK_DIR}"
+    if docker_compose_is_container_started "${__dir}"
     then
         PTS_CONTAINER_STARTED="${CR_TRUE}"
         console_debug "Container is running"
-        if docker_compose_is_debug_image_used "${WORK_DIR}"
+        if docker_compose_is_debug_image_used "${__dir}"
         then
             __message="Debug"
             PTS_DEBUG_IMAGE_USED="${CR_TRUE}"
@@ -102,6 +103,7 @@ __check_container () {
     console_debug "Image used: ${__message:-unable to define image(container not running)}"
     export PTS_CONTAINER_STARTED
     export PTS_DEBUG_IMAGE_USED
+    unset __dir
 }
 
 _pts_check_container () {        
@@ -113,7 +115,7 @@ _pts_check_container () {
         console_debug "Using regular image by default"
         __start_container "${_DOCKER_COMPOSE_FILE}"
         PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE}"
-        __check_container
+        __check_container "${WORK_DIR}"
     fi
 
     if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${CR_TRUE}" ]; then
@@ -125,13 +127,22 @@ _pts_check_container () {
             console_info "Debug image required - restarting..."
             console_debug "Restarting to debug image"
             __restart_container "${_DOCKER_COMPOSE_FILE_DEBUG}"
-            __check_container
+            __check_container "${WORK_DIR}"
         fi
     else
         PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE}"
     fi
 
     export PTS_DOCKER_COMPOSE_FILE
+}
+_pts_check_vendor_dir () {
+    if core_check_if_dir_exists "${WORK_DIR}/vendor"; then
+        console_debug "Dir 'vendor' found"
+    else 
+        console_comment "No 'vendor' dir"
+        console_comment "Installing..."
+        __execute_command "${PTS_DOCKER_COMPOSE_FILE}" "composer install"
+    fi
 }
 
 __restart_container () {
@@ -153,6 +164,18 @@ __start_container () {
         console_debug "Container successfully started"
     else
         console_fatal "Unable to start container"
+    fi
+}
+
+__execute_command () {
+    console_debug "Executing command '${2}' using '${1}'"
+    __command="docker-compose -f ${1} exec app ${2}"
+    console_debug "${__command}"
+    if ${__command}
+    then
+        console_debug "Command successfully executed"
+    else
+        console_fatal "Unable to to execute command '${2}'"
     fi
 }
 
