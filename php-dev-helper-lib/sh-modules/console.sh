@@ -20,13 +20,13 @@ fi
 ### Logging functions.
 
 console_warning () {
-    console_print "${EMOJI_WARNING}${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${CR_TRUE}" "${CR_TRUE}"
+    console_print "${EMOJI_WARNING:-}${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_error () {
-    console_print "${EMOJI_ERROR}${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${CR_TRUE}" "${CR_TRUE}"
+    console_print "${EMOJI_ERROR:-}${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_fatal () {
-    console_print "${EMOJI_FATAL}${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${CR_TRUE}" "${CR_TRUE}"
+    console_print "${EMOJI_FATAL:-}${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${CR_TRUE}" "${CR_TRUE}"
     exit "${CR_ERROR}"
 }
 

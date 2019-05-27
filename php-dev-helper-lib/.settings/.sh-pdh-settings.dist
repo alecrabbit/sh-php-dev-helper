@@ -1,3 +1,5 @@
+### Color settings
+# COLOR=enabled                         # enabled by default
 ### Use emojis
 # EMOJIS=enabled                        # enabled by default
 ### Can change terminal title

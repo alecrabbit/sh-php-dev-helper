@@ -7,6 +7,7 @@
 ### Define constants
 true; CR_TRUE=${CR_TRUE:-$?}
 false; CR_FALSE=${CR_FALSE:-$?}
+CR_COLOR=${CR_DISABLED} # Default color setting
 
 ### Color Constants
 __COL_ANSI_DARK="\033[2m"
@@ -142,6 +143,7 @@ _colored_configureColor() {
     unset __col_color __col_tput_
 }
 
-_colored_configureColor "${COLOR:-auto}" # Options are 'never', 'always', or 'auto'
+__col_reset_colors
+# _colored_configureColor "${COLOR:-auto}" # Options are 'never', 'always', or 'auto'
 
 export CR_COLOR

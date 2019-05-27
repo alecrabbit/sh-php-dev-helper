@@ -50,8 +50,8 @@ __show_error () {
 
 _settings_check_variables () {
     console_debug "Checking settings"
-    # CR_COLOR Directory access control engine
-    CR_COLOR=${CR_COLOR:-${CR_ENABLED}}
+    # CR_COLOR Color settings
+    CR_COLOR=${COLOR:-${CR_ENABLED}}
     case ${CR_COLOR} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
         ${_SETTINGS_ENABLED})
@@ -191,4 +191,13 @@ else
     export EMOJI_ROCKET=""
     export EMOJI_FIN_FLAG=""
     export EMOJI_CHECK=""
+fi
+
+### Color
+# Options are 'never', 'always', or 'auto'
+if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ];then
+    _colored_configureColor "always"
+    console_debug "Using color: Enabled"
+else
+    _colored_configureColor "never" 
 fi
