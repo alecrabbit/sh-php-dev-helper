@@ -183,6 +183,7 @@ if [ "${CR_EMOJIS}" -eq "${CR_ENABLED}" ];then
     export EMOJI_ROCKET="🚀 "
     export EMOJI_FIN_FLAG="🏁 "
     export EMOJI_CHECK="✔️ "
+    export EMOJI_NEW="🆕 " 
 else
     export EMOJI_WARNING=""
     export EMOJI_ERROR=""
@@ -191,6 +192,7 @@ else
     export EMOJI_ROCKET=""
     export EMOJI_FIN_FLAG=""
     export EMOJI_CHECK=""
+    export EMOJI_NEW="" 
 fi
 
 ### Color
