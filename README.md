@@ -42,7 +42,7 @@ Options:
 Note: options order is important
 ```
 
-> Notes on using `--update` option: [link](.docs/update_option.md)
+> [Notes](.docs/update_option.md) on using `--update` option
 
 ### Links
 
