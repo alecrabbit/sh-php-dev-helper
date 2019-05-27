@@ -1,6 +1,6 @@
 # Using --update option
 
-```bash
+```text
 $ php-tests --update
 Current version: 0.2.4
 New version found: 0.2.5
@@ -11,7 +11,7 @@ Update complete: 0.2.4@b191f57 -> 🆕 0.2.5@c656fcf
 
 You can add version to update to (e.g. to rollback after update)
 
-```bash
+```text
 $ php-tests --update=0.1.54
 You are already using this version: 0.1.54
 ```
