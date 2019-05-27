@@ -40,7 +40,7 @@ version_string () {
     if [ "${SCRIPT_VERSION}" = "${VERSION_DEVELOP}" ] || [ "${SCRIPT_VERSION}" = "${VERSION_MASTER}" ] || [ "${__show_build}" = "${CR_TRUE}" ]; then
         if [ "${SCRIPT_BUILD}" != "" ]
         then
-            SCRIPT_BUILD=", build ${SCRIPT_BUILD}"
+            SCRIPT_BUILD="@${SCRIPT_BUILD}"
             if [ "${__show_build}" = "${CR_FALSE}" ]; then
                 SCRIPT_BUILD="$(colored_dark "${SCRIPT_BUILD}")"
             fi
