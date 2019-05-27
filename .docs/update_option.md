@@ -1,6 +1,6 @@
 # Using --update option
 
-You can add version to update to(e.g. to rollback after update)
+You can add version to update to (e.g. to rollback after update)
 
 ```bash
 $ php-tests --update=0.1.54
@@ -19,4 +19,4 @@ php-tests --update=master
 php-tests --update=develop
 ```
 
-> Note: update function considers `master` or `develop` versions as latest. To update later to numbered version you should use option `--update=<version-number>`. Simple `--update` won't work as you expect.
+> Note: update function considers `master` or `develop` versions as latest. To update later to a numbered version you should use the option `--update=<version-number>`. Simple `--update` won't work as you expect.
