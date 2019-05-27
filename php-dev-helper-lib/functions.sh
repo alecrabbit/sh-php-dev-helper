@@ -135,11 +135,12 @@ _pts_check_container () {
 
     export PTS_DOCKER_COMPOSE_FILE
 }
+
 _pts_check_vendor_dir () {
     if core_check_if_dir_exists "${WORK_DIR}/vendor"; then
         console_debug "Dir 'vendor' found"
     else 
-        console_comment "No 'vendor' dir"
+        console_error "No 'vendor' dir"
         console_comment "Installing..."
         __execute_command "${PTS_DOCKER_COMPOSE_FILE}" "composer install"
     fi
