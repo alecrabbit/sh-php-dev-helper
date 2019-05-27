@@ -16,7 +16,7 @@ $ php-tests --update=0.1.54
 You are already using this version: 0.1.54
 ```
 
-> Note: Check [releases](https://github.com/alecrabbit/sh-php-dev-helper/releases) tab for latest version number
+> Note: Check [releases](https://github.com/alecrabbit/sh-php-dev-helper/releases) tab for the latest version number
 
 Also allowed to use `master` and `develop` versions
 
