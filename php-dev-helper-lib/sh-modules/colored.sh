@@ -8,8 +8,6 @@
 true; CR_TRUE=${CR_TRUE:-$?}
 false; CR_FALSE=${CR_FALSE:-$?}
 
-COL_COLOR="${COLOR:-${CR_FALSE}}"
-
 ### Color Constants
 __COL_ANSI_DARK="\033[2m"
 __COL_ANSI_BOLD="\033[1m"
@@ -111,40 +109,39 @@ colored_bold_purple () {
 }
 
 _colored_configureColor() {
-  __col_color=${CR_FALSE}  # By default, no color.
-  __col_reset_colors
-  case ${1} in
-    'always') __col_color=${CR_TRUE} ;;
-    'auto')
-      ( exec tput >/dev/null 2>&1 )  # Check for existence of tput command.
-      if [ $? -lt 127 ]; then
-        __col_tput_=$(tput colors)
-        # shellcheck disable=SC2166,SC2181
-        [ $? -eq 0 -a "${__col_tput_}" -ge 16 ] && __col_color=${CR_TRUE}
-      fi
-      ;;
-    'never') ;;
-    *) 
-        echo "ERROR: Unrecognized value COLOR=${1}" >&2
-        echo "       Allowed: 'auto', 'always', 'never'"
-        exit 1
-        ;;
-  esac
+    __col_color=${CR_FALSE}  # By default, no color.
+    __col_reset_colors
+    case ${1} in
+        'always') __col_color=${CR_TRUE} ;;
+        'auto')
+            ( exec tput >/dev/null 2>&1 )  # Check for existence of tput command.
+            if [ $? -lt 127 ]; then
+                __col_tput_=$(tput colors)
+                # shellcheck disable=SC2166,SC2181
+                [ $? -eq 0 -a "${__col_tput_}" -ge 16 ] && __col_color=${CR_TRUE}
+            fi
+            ;;
+        'never') ;;
+        *) 
+            echo "ERROR: Unrecognized value COLOR=${1}" >&2
+            echo "       Allowed: 'auto', 'always', 'never'"
+            exit 1
+            ;;
+    esac
 
-  case ${__col_color} in
-    ${CR_TRUE})
-      __col_set_colors
-      COL_COLOR=${CR_TRUE}
-      ;;
-    ${CR_FALSE})
-      __col_reset_colors
-      COL_COLOR=${CR_FALSE}
-      ;;
-  esac
-
-  unset __col_color __col_tput_
+    case ${__col_color} in
+        ${CR_TRUE})
+            __col_set_colors
+            CR_COLOR=${CR_ENABLED}
+            ;;
+        ${CR_FALSE})
+            __col_reset_colors
+            CR_COLOR=${CR_DISABLED}
+            ;;
+    esac
+    unset __col_color __col_tput_
 }
 
 _colored_configureColor "${COLOR:-auto}" # Options are 'never', 'always', or 'auto'
 
-export COL_COLOR
+export CR_COLOR

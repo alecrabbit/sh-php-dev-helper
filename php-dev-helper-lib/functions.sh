@@ -43,7 +43,7 @@ __dir_control () {
     else
         if [ "${__project_allowed}" = "${CR_TRUE}" ] || [ "${__project_disallowed}" = "${CR_TRUE}" ]; then
             console_debug "Your project dir '${WORK_DIR}' is registered"
-            console_debug "Allowed: $(core_int_to_string "${__project_allowed}") Disallowed: $(core_int_to_string "${__project_disallowed}")"
+            console_debug "Allowed: $(core_bool_to_string "${__project_allowed}") Disallowed: $(core_bool_to_string "${__project_disallowed}")"
             if [ "${__project_disallowed}" = "${CR_TRUE}" ]; then
                 console_fatal "Disallowed project"
             fi

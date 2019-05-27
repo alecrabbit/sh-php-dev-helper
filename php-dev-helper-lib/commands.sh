@@ -17,7 +17,7 @@ _multi_tester_exec () {
 _phpstan_exec () {
     if [ "${PTS_PHPSTAN}" -eq "${CR_TRUE}" ]; then
         console_section "PHPStan..."
-        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+        if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ]; then
             __colors="--ansi"
         else    
             __colors="--no-ansi"
@@ -34,7 +34,7 @@ _phpstan_exec () {
 _psalm_exec () {
     if [ "${PTS_PSALM}" -eq "${CR_TRUE}" ]; then
         console_section "Psalm..."
-        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+        if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ]; then
             __colors=""
         else    
             __colors="-m"
@@ -57,7 +57,7 @@ _psalm_exec () {
 _php_cs_exec () {
     if [ "${PTS_CS}" -eq "${CR_TRUE}" ]; then
         console_section "PHP Code Sniffer..."
-        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+        if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ]; then
             __colors="--colors"
         else    
             __colors="--no-colors"
@@ -73,7 +73,7 @@ _php_cs_exec () {
 _php_cs_bf_exec () {
     if [ "${PTS_CS_BF}" -eq "${CR_TRUE}" ]; then
         console_section "PHP Code Sniffer Beautifier..."
-        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+        if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ]; then
             __colors="--colors"
         else    
             __colors="--no-colors"
@@ -101,9 +101,9 @@ _phpunit_exec () {
     if [ "${PTS_PHPUNIT}" -eq "${CR_TRUE}" ]; then
         __php_version
         console_section "PHPUnit..."
-        console_debug "Run with coverage: $(core_int_to_string "${PTS_PHPUNIT_COVERAGE}")"
-        console_debug "Debug image used: $(core_int_to_string "${PTS_DEBUG_IMAGE_USED}")"
-        if [ "${COL_COLOR}" -eq "${CR_TRUE}" ]; then
+        console_debug "Run with coverage: $(core_bool_to_string "${PTS_PHPUNIT_COVERAGE}")"
+        console_debug "Debug image used: $(core_bool_to_string "${PTS_DEBUG_IMAGE_USED}")"
+        if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ]; then
             __colors="--colors=always"
         else    
             __colors="--colors=never"

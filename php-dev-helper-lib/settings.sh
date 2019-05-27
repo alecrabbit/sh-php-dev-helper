@@ -50,6 +50,22 @@ __show_error () {
 
 _settings_check_variables () {
     console_debug "Checking settings"
+    # CR_COLOR Directory access control engine
+    CR_COLOR=${CR_COLOR:-${CR_ENABLED}}
+    case ${CR_COLOR} in
+        ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
+        ${_SETTINGS_ENABLED})
+            CR_COLOR=${CR_ENABLED}
+            ;;
+        ${_SETTINGS_DISABLED})
+            CR_COLOR=${CR_DISABLED}
+            ;;
+        *)
+            __show_error "CR_COLOR" "${CR_COLOR}" ${_SETTINGS_DISABLED}
+            CR_COLOR=${CR_DISABLED}
+            ;;
+    esac
+    core_show_used_value "CR_COLOR" "${CR_COLOR}"
     # DIR_CONTROL Directory access control engine
     DIR_CONTROL=${DIR_CONTROL:-${CR_DISABLED}}
     case ${DIR_CONTROL} in

@@ -55,7 +55,7 @@ func_print_header "PHP Tests and Analysis tool"
 _pts_check_working_env
 console_print ""
 console_print "$(colored_green "Project":) $(colored_bold_purple "$(core_get_project_name "${_COMPOSER_JSON_FILE}")")"
-console_debug "Output use color: $(core_int_to_string "${COL_COLOR}")"
+console_debug "Output use color: $(core_int_to_string "${CR_COLOR}")"
 
 _pts_show_selected_options
 _pts_check_container

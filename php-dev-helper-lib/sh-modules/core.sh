@@ -23,7 +23,7 @@ export CR_DEBUG
 export CR_ENABLED
 export CR_DISABLED
 
-core_int_to_string () {
+core_bool_to_string () {
     case ${1} in
         ${CR_TRUE})
             echo "True"
@@ -44,14 +44,14 @@ core_int_to_string () {
    esac
 }
 
-core_int_ed_to_string () {
+core_int_to_string () {
     case ${1} in
         ${CR_ENABLED})
-            echo "enabled"
+            echo "Enabled"
             return
         ;;
         ${CR_DISABLED})
-            echo "disabled"
+            echo "Disabled"
             return
         ;;
         *)
