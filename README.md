@@ -1,9 +1,9 @@
 # PHP Dev Helper Script
 
 > Note: WIP - On a way to be a standalone tool.
-> 
+>
 > `php-tests` - PHP Tests and Analysis tool
-> 
+>
 > `moomba` - PHP Package creator(from template)
 
 ## Usage
@@ -69,6 +69,8 @@ Note: options order is important
 
 ### File structure
 
+> Note: `moomba` is an upcoming package installation script
+
 ```text
 .
 ├── moomba
@@ -92,8 +94,6 @@ Note: options order is important
 │   └── VERSION
 └── php-tests
 ```
-
-> Note: `moomba` is an upcoming package installation script
 
 ### Tested Operating Systems
 
