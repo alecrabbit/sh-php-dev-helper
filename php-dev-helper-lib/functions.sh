@@ -2,12 +2,7 @@
 PROJECT_NAME="$(basename "${WORK_DIR}")"
 
 _pts_check_working_env () {
-    console_debug "Working directory: ${WORK_DIR}"
-    if user_is_root
-    then
-        console_fatal "DO NOT run this script under root!"
-    fi
-    console_debug "Checking user: $(whoami)"
+    func_check_user
 
     if ! check_command "docker-compose"
     then 
@@ -29,6 +24,14 @@ _pts_check_working_env () {
         __dir_control
     fi
     unset __composer_file
+}
+
+func_check_user () {
+    console_debug "Checking user: $(whoami)"
+    if user_is_root
+    then
+        console_fatal "DO NOT run this script under root!"
+    fi
 }
 
 __dir_control () {

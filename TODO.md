@@ -2,10 +2,9 @@
 
 ## PHP-Tests
 
----
+- [ ] Add magic number detector [povils/phpmnd](https://github.com/povils/phpmnd)
 
-- [x] Add security checks
-- [ ] Disable color for security checks
+---
 
 ## Moomba
 
