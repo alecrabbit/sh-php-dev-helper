@@ -17,6 +17,7 @@ __pts_usage () {
     echo "    $(colored_yellow "-u, --unit")            - enable phpunit"
     echo "    $(colored_yellow "--update")              - update script"
     echo "    $(colored_yellow "-V, --version")         - show version"
+    echo "    $(colored_yellow "-v")                    - check for forgotten var dumps"
     echo "    $(colored_yellow "--without-composer")    - do not check for 'composer.json' file and 'vendor' dir"
     echo
     # shellcheck disable=SC2005
@@ -27,7 +28,7 @@ __pts_set_default_options () {
     PTS_EXECUTE=${CR_TRUE}
     PTS_REQUIRE_DEBUG_IMAGE=${CR_FALSE}
     PTS_RESTART=${CR_FALSE}
-    # PTS_ANALYSIS=${CR_FALSE}
+    PTS_VAR_DUMP_CHECK=${CR_FALSE}
     PTS_METRICS=${CR_FALSE}
     PTS_MULTI=${CR_FALSE}
     PTS_CS=${CR_FALSE}
@@ -59,7 +60,7 @@ __pts_export_options () {
     export PTS_EXECUTE
     export PTS_REQUIRE_DEBUG_IMAGE
     export PTS_RESTART
-    # export PTS_ANALYSIS
+    export PTS_VAR_DUMP_CHECK
     export PTS_METRICS
     export PTS_MULTI
     export PTS_CS
@@ -77,11 +78,11 @@ _pts_show_selected_options () {
     if [ "${CR_DEBUG}" -eq 1 ]
     then
         console_show_option "${PTS_EXECUTE}" "Execute"
-        # console_show_option "${PTS_ANALYSIS}" "Analysis"
         console_show_option "${PTS_RESTART}" "Container restart"
     fi
     console_show_option "${PTS_PHPUNIT}" "PHPUnit"
     console_show_option "${PTS_PHPUNIT_COVERAGE}" "PHPUnit code coverage"
+    console_show_option "${PTS_VAR_DUMP_CHECK}" "Var dump checks"
     console_show_option "${PTS_MULTI}" "Multi-tester"
     console_show_option "${PTS_METRICS}" "PHPMetrics"
     console_show_option "${PTS_PHPSTAN}" "PHPStan"
@@ -114,7 +115,13 @@ _pts_read_options () {
                 version_print
                 exit "${CR_TRUE}"
                 ;;
-            # Undocumented
+            -v | --var-dump)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_VAR_DUMP_CHECK=${CR_TRUE}
+                PTS_PHPUNIT=${CR_FALSE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
+                ;;
+            # Undocumented 
             --save-build-hash)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 version_save_build_hash "${SCRIPT_DIR}" "${LIB_DIR}"

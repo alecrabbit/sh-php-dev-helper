@@ -1,8 +1,4 @@
 #!/usr/bin/env sh
-if [ -z "${LIB_DIR:-}" ]; then
-    echo "This script can not run standalone."
-    exit 1
-fi
 
 _multi_tester_exec () {
     if [ "${PTS_MULTI}" -eq "${CR_TRUE}" ]; then
@@ -11,6 +7,25 @@ _multi_tester_exec () {
         then
             console_debug "Error occurred"
         fi
+    fi
+}
+
+_var_dump_check_exec () {
+    if [ "${PTS_VAR_DUMP_CHECK}" -eq "${CR_TRUE}" ]; then
+        console_section "Checking for var dumps..."
+        if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ]; then
+            __colors=""
+        else    
+            __colors=" --no-colors"
+        fi
+        __run_options="var-dump-check ${PTS_SOURCE_DIR}${__colors}"
+        console_info "Proving checks in: ${PTS_SOURCE_DIR}"
+        # shellcheck disable=SC2086
+        if ! docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app ${__run_options}
+        then
+            console_debug "Error occurred"
+        fi
+        unset __run_options
     fi
 }
 _php_security_exec () {

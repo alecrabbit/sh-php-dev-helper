@@ -61,6 +61,7 @@ Note: options order is important
 - [phpmetrics/PhpMetrics](https://github.com/phpmetrics/PhpMetrics)
 - [kylekatarnls/multi-tester](https://github.com/kylekatarnls/multi-tester)
 - [sensiolabs/security-checker](https://github.com/sensiolabs/security-checker)
+- [JakubOnderka/PHP-Var-Dump-Check](https://github.com/JakubOnderka/PHP-Var-Dump-Check)
 
 ### File structure
 

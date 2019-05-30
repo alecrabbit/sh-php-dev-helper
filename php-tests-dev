@@ -68,6 +68,7 @@ if [ "${PTS_EXECUTE}" -eq "${CR_TRUE}" ]; then
     if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_TRUE}" ]; then
         console_comment "${EMOJI_ROCKET}Processing...."
         _phpunit_exec
+        _var_dump_check_exec
         _php_metrics_exec
         _multi_tester_exec
         _phpstan_exec
