@@ -2,7 +2,9 @@
 
 ## PHP-Tests
 
-- [ ] Add security checks
+---
+
+- [x] Add security checks
 
 ## Moomba
 
