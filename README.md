@@ -45,9 +45,11 @@ Options:
     --phpstan             - enable phpstan
     --psalm               - enable psalm
     -s, --analyze         - enable static analysis tools (--phpstan and --psalm)
+    --security            - enable security checks
     -u, --unit            - enable phpunit
     --update              - update script
     -V, --version         - show version
+    -v                    - check for forgotten var dumps
     --without-composer    - do not check for 'composer.json' file and 'vendor' dir
 
 Note: options order is important
