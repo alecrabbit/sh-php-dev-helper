@@ -1,6 +1,6 @@
 # PHP Dev Helper Script
 
-> Note: WIP - On a way to be standalone tool.
+> Note: WIP - On a way to be a standalone tool.
 > 
 > `php-tests` - PHP Tests and Analysis tool
 > 
