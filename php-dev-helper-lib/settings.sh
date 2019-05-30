@@ -198,8 +198,8 @@ fi
 ### Color
 # Options are 'never', 'always', or 'auto'
 if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ];then
-    _colored_configureColor "always"
-    console_debug "Using color: Enabled"
+    _colored_configureColor "auto"
+    console_debug "Using color: auto"
 else
     _colored_configureColor "never" 
 fi
