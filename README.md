@@ -1,7 +1,9 @@
 # PHP Dev Helper Script
 
 > Note: WIP - On a way to be standalone tool.
+> 
 > `php-tests` - PHP Tests and Analysis tool
+> 
 > `moomba` - PHP Package creator(from template)
 
 ## Usage
