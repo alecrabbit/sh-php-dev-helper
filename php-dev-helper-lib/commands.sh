@@ -13,7 +13,15 @@ _multi_tester_exec () {
         fi
     fi
 }
-
+_php_security_exec () {
+    if [ "${PTS_PHP_SECURITY}" -eq "${CR_TRUE}" ]; then
+        console_section "Sensiolabs security-checker..."
+        if ! docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app security-checker security:check composer.lock
+        then
+            console_debug "Error occurred"
+        fi
+    fi
+}
 _phpstan_exec () {
     if [ "${PTS_PHPSTAN}" -eq "${CR_TRUE}" ]; then
         console_section "PHPStan..."

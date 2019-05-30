@@ -1,5 +1,9 @@
 # TODO
 
+## PHP-Tests
+
+- [ ] Add security checks
+
 ## Moomba
 
 - [ ] store local templates in folder `templates`

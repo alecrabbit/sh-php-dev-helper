@@ -60,6 +60,7 @@ Note: options order is important
 - [squizlabs/PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 - [phpmetrics/PhpMetrics](https://github.com/phpmetrics/PhpMetrics)
 - [kylekatarnls/multi-tester](https://github.com/kylekatarnls/multi-tester)
+- [sensiolabs/security-checker](https://github.com/sensiolabs/security-checker)
 
 ### File structure
 

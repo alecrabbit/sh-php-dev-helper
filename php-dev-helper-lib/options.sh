@@ -13,6 +13,7 @@ __pts_usage () {
     echo "    $(colored_yellow "--phpstan")             - enable phpstan"
     echo "    $(colored_yellow "--psalm")               - enable psalm"
     echo "    $(colored_yellow "-s, --analyze")         - enable static analysis tools (--phpstan and --psalm)"
+    echo "    $(colored_yellow "--security")            - enable security checks"
     echo "    $(colored_yellow "-u, --unit")            - enable phpunit"
     echo "    $(colored_yellow "--update")              - update script"
     echo "    $(colored_yellow "-V, --version")         - show version"
@@ -34,16 +35,13 @@ __pts_set_default_options () {
     PTS_PHPSTAN=${CR_FALSE}
     PTS_PSALM=${CR_FALSE}
     PTS_PHPUNIT=${CR_TRUE}
+    PTS_PHP_SECURITY=${CR_FALSE}
     PTS_WITH_COMPOSER=${CR_TRUE}
     PTS_PHPUNIT_COVERAGE=${CR_FALSE}
     __ALL_OPTION=${CR_FALSE}
 }
 
 __pts_process_options () {
-    # if [ "${PTS_ANALYSIS}" -eq "${CR_TRUE}" ]; then
-    #     PTS_PHPSTAN=${CR_TRUE}
-    #     PTS_PSALM=${CR_TRUE}
-    # fi
     if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ]; then
         PTS_PHPUNIT=${CR_TRUE}
     fi
@@ -69,6 +67,7 @@ __pts_export_options () {
     export PTS_PHPSTAN
     export PTS_PSALM
     export PTS_PHPUNIT
+    export PTS_PHP_SECURITY
     export PTS_WITH_COMPOSER
     export PTS_PHPUNIT_COVERAGE
 }
@@ -87,6 +86,7 @@ _pts_show_selected_options () {
     console_show_option "${PTS_METRICS}" "PHPMetrics"
     console_show_option "${PTS_PHPSTAN}" "PHPStan"
     console_show_option "${PTS_PSALM}" "Psalm"
+    console_show_option "${PTS_PHP_SECURITY}" "Security checks"
     console_show_option "${PTS_CS}" "Code sniffer"
     console_show_option "${PTS_CS_BF}" "Code sniffer Beautifier"
     console_dark ""
@@ -141,6 +141,11 @@ _pts_read_options () {
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPUNIT=${CR_TRUE}
                 ;;
+            --security)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_PHP_SECURITY=${CR_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
+                ;;
             -c | --coverage)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_PHPUNIT_COVERAGE=${CR_TRUE}
@@ -173,6 +178,7 @@ _pts_read_options () {
             --multi)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_MULTI=${CR_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -b | --beauty | --beautify)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
@@ -194,6 +200,7 @@ _pts_read_options () {
                 ;;
             --no-ansi | --no-color | --monochrome )
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_dark "Temp solution:"
                 console_comment "Use env variable COLOR:"
                 console_print "    COLOR=never ${SCRIPT_NAME}"
                 exit
