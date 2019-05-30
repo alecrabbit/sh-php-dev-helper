@@ -5,6 +5,7 @@
 ---
 
 - [x] Add security checks
+- [ ] Disable color for security checks
 
 ## Moomba
 
