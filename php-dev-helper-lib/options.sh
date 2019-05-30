@@ -17,7 +17,7 @@ __pts_usage () {
     echo "    $(colored_yellow "-u, --unit")            - enable phpunit"
     echo "    $(colored_yellow "--update")              - update script"
     echo "    $(colored_yellow "-V, --version")         - show version"
-    echo "    $(colored_yellow "-v")                    - check for forgotten var dumps"
+    echo "    $(colored_yellow "-v")                    - enable check for forgotten var dumps"
     echo "    $(colored_yellow "--without-composer")    - do not check for 'composer.json' file and 'vendor' dir"
     echo
     # shellcheck disable=SC2005
