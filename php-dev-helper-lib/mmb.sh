@@ -68,6 +68,18 @@ mmb_show_settings () {
 
 mmb_check_working_env () {
     func_check_user
+    # if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
+    #     __composer_file=" ${_COMPOSER_JSON_FILE}"
+    # else
+    #     __composer_file=""
+    # fi
+    if core_is_dir_contains "${WORK_DIR}" "${_COMPOSER_JSON_FILE}" "${CR_TRUE}"
+    then
+        console_notice "Found file: '${_COMPOSER_JSON_FILE}'"
+        console_notice "Are you in the right directory?"
+        console_fatal "Unable to proceed"
+    fi
+
 }
 
 mmb_check_package_dir() {
