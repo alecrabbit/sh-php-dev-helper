@@ -49,15 +49,16 @@ export SCRIPT_VERSION
 export SCRIPT_BUILD
 
 ### Read options
-_moomba_read_options "$@"
+mmb_load_settings
+mmb_read_options "$@"
 
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 
 func_print_header "PHP Package creator"
 
 ### Run checks
+mmb_show_settings
 mmb_check_working_env
-mmb_load_settings
 
 ### Creating new package
 if [ "${PTS_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then

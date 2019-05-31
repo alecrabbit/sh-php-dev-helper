@@ -235,6 +235,11 @@ __moomba_usage () {
     echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
     echo "    $(colored_yellow "-h")                    - show help message and exit"
+    echo "    $(colored_yellow "-p")                    - update script"
+    echo "    $(colored_yellow "-o")                    - update script"
+    echo "    $(colored_yellow "-s")                    - update script"
+    echo "    $(colored_yellow "-n")                    - update script"
+    echo "    $(colored_yellow "-x")                    - update script"
     echo "    $(colored_yellow "--update")              - update script"
     echo "    $(colored_yellow "-V, --version")         - show version"
     echo
@@ -244,17 +249,17 @@ __moomba_usage () {
 
 
 __moomba_set_default_options () {
-    :
+    TMPL_USE_OWNER_NAMESPACE="${CR_TRUE}"
 }
 __moomba_process_options () {
     :
 }
 __moomba_export_options () {
-    :
+    export TMPL_USE_OWNER_NAMESPACE
 }
 
 
-_moomba_read_options () {
+mmb_read_options () {
     __moomba_set_default_options
     console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
@@ -286,6 +291,26 @@ _moomba_read_options () {
             --no-exec)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_EXECUTE=${CR_FALSE}
+                ;;
+            -p)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_PACKAGE_NAME="${VALUE}"
+                ;;
+            -o)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_PACKAGE_OWNER="${VALUE}"
+                ;;
+            -n)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_PACKAGE_OWNER_NAME="${VALUE}"
+                ;;
+            -s)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_PACKAGE_OWNER_NAMESPACE="${VALUE}"
+                ;;
+            -x)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_USE_OWNER_NAMESPACE="${CR_FALSE}"
                 ;;
             --no-restart)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"

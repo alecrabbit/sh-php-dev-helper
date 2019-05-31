@@ -9,10 +9,10 @@ export PTS_COVERAGE_DIR="coverage"
 
 export PTS_AUX_DEV_MODULE="dev.sh"
 
-__SETTINGS_DIR="${LIB_DIR}/.settings"
-__SETTINGS_FILE="${__SETTINGS_DIR}/.sh-pdh-settings"
-export PTS_ALLOWED_DIRS_FILE="${__SETTINGS_DIR}/.sh-pdh-allowed-dirs"
-export PTS_DISALLOWED_DIRS_FILE="${__SETTINGS_DIR}/.sh-pdh-disallowed-dirs"
+export SETTINGS_DIR="${LIB_DIR}/.settings"
+__SETTINGS_FILE="${SETTINGS_DIR}/.sh-pdh-settings"
+export PTS_ALLOWED_DIRS_FILE="${SETTINGS_DIR}/.sh-pdh-allowed-dirs"
+export PTS_DISALLOWED_DIRS_FILE="${SETTINGS_DIR}/.sh-pdh-disallowed-dirs"
 
 export WORKING_PREFIX="php"
 
