@@ -122,7 +122,7 @@ core_get_realpath ()
         if [ $? -ne "${CR_TRUE}" ]
         then
             console_debug "Error: ${__realpath}"
-            console_debug "Using _ppt_backup_realpath function"
+            console_debug "Using core_backup_realpath function"
             unset __realpath
             core_backup_realpath "${1}"
             return $?
@@ -130,6 +130,7 @@ core_get_realpath ()
         echo "${__realpath}"
     else
         core_backup_realpath "${1}"
+        return $?
     fi
     unset __realpath
 }
@@ -151,6 +152,27 @@ core_check_if_dir_exists () {
     unset __DIRECTORY
     return ${CR_FALSE}
 }
+
+# core_dir_is_empty () {
+#     console_debug "Checking if directory is empty '${1}'"
+#     __DIRECTORY=$(core_get_realpath "${1}")
+#     if [ $? -eq ${CR_TRUE} ]
+#     then
+#         __result="$(ls -A "${__DIRECTORY}" 2>&1)"
+#         if [ -z "$(ls -A "${__DIRECTORY}" 2>&1)" ]; then
+#             console_debug "Directory is empty '${__DIRECTORY}'"
+#             unset __DIRECTORY
+#             return ${CR_TRUE}
+#         else
+#             console_debug "Directory is NOT empty '${__DIRECTORY}'"
+#             unset __DIRECTORY
+#             return ${CR_FALSE}
+#         fi
+#     fi
+#     console_debug "Directory NOT exists '${__DIRECTORY}'"
+#     unset __DIRECTORY
+#     return ${CR_TRUE}
+# }
 
 core_is_dir_contains () {
     __SHOW="${3:-${CR_FALSE}}"

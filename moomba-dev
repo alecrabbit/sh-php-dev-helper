@@ -65,11 +65,12 @@ mmb_check_working_env
 ### Creating new package
 if [ "${PTS_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     mmb_working_dir
+    mmb_check_default_template
     core_set_terminal_title "${__TITLE} - Creating..."
     console_debug "Executing..."
     console_dark "Creating new package"
     console_comment "It does nothing yet"
-    mmb_cleanup
+    # mmb_cleanup
 else
     console_debug "No execution selected"
 fi

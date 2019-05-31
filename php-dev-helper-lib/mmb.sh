@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 export MMB_SETTINGS_FILE="${SETTINGS_DIR}/.templates_settings"
 export MMB_TEMPLATES_DIR="${LIB_DIR}/templates"
+export MMB_DEFAULT_TEMPLATE_DIR="${MMB_TEMPLATES_DIR}/default"
 export MMB_LICENSE_DIR="${MMB_TEMPLATES_DIR}/licenses"
 export MMB_TMP_DIR="${WORK_DIR}/mmb-tmp"
 
@@ -114,21 +115,41 @@ mmb_license_create () {
     unset __type __owner __year __file
 }
 
+mmb_download_template () {
+    github_download "${MMB_TMP_DIR}" "alecrabbit" "php-package-template" "develop"
+    console_debug "Copying files"
+    console_debug "\n$(cp -rv "${MMB_TMP_DIR}/php-package-template-develop/.template/." "${MMB_DEFAULT_TEMPLATE_DIR}/.")"
+}
+
+mmb_check_default_template () {
+    __force_download="${1:-${CR_FALSE}}"
+    if ! core_check_if_dir_exists "${MMB_DEFAULT_TEMPLATE_DIR}";then
+        console_debug "No dir: ${MMB_DEFAULT_TEMPLATE_DIR}"
+        console_debug "$(mkdir -pv "${MMB_DEFAULT_TEMPLATE_DIR}")"
+    fi
+    if [ -z "$(ls -A "${MMB_DEFAULT_TEMPLATE_DIR}")" ] || [ "${__force_download}" -eq "${CR_TRUE}" ];then
+        mmb_download_template
+    fi
+    console_debug "Default template OK"
+}
 mmb_usage () {
     echo "Usage:"
     echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
-    echo "    $(colored_yellow "-h")                    - show help message and exit"
-    echo "    $(colored_yellow "-p")                    - update script"
-    echo "    $(colored_yellow "-o")                    - update script"
-    echo "    $(colored_yellow "-s")                    - update script"
-    echo "    $(colored_yellow "-n")                    - update script"
-    echo "    $(colored_yellow "-x")                    - update script"
+    echo "    $(colored_yellow "-h, --help")            - show help message and exit"
+    echo "    $(colored_yellow "-p")                    - set package name"
+    echo "    $(colored_yellow "-o")                    - set owner"
+    echo "    $(colored_yellow "-s")                    - set owner namespace"
+    echo "    $(colored_yellow "-n")                    - set package namespace"
+    echo "    $(colored_yellow "-x")                    - do not use package namespace"
     echo "    $(colored_yellow "--update")              - update script"
+    echo "    $(colored_yellow "--update-default")      - update default template"
     echo "    $(colored_yellow "-V, --version")         - show version"
     echo
-    # shellcheck disable=SC2005
-    echo "$(colored_dark "Note: options order is important")"
+    echo "$(colored_green "Example"):"
+    echo "    ${SCRIPT_NAME} -p=new-package -o=mike"
+    echo
+    echo "$(colored_dark "Note: options order is important") "
 }
 
 mmb_set_default_options () {
@@ -157,6 +178,11 @@ mmb_read_options () {
                 exit
                 ;;
             --update)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                _pts_updater_run "${VALUE}"
+                exit
+                ;;
+            --update-default)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 _pts_updater_run "${VALUE}"
                 exit

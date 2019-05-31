@@ -1,6 +1,8 @@
 /.vscode/
 /.eval/
 
+/php-dev-helper-lib/templates/default
+
 .sh-pdh-allowed-dirs
 .sh-pdh-disallowed-dirs
 .sh-pdh-settings

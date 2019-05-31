@@ -3,7 +3,7 @@ __pts_usage () {
     echo "Usage:"
     echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
-    echo "    $(colored_yellow "-h")                    - show help message and exit"
+    echo "    $(colored_yellow "-h, --help")            - show help message and exit"
     echo "    $(colored_yellow "-a, --all")             - run all (not includes --metrics and --multi)"
     echo "    $(colored_yellow "-b ")                   - enable php code sniffer beautifier"
     echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage (includes -u)"
