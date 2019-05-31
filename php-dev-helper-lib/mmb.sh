@@ -184,7 +184,10 @@ mmb_read_options () {
                 ;;
             --update-default)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                _pts_updater_run "${VALUE}"
+                mmb_working_dir
+                mmb_check_default_template "${CR_TRUE}"
+                mmb_cleanup
+                console_info "Default template updated"
                 exit
                 ;;
             -V | --version)
