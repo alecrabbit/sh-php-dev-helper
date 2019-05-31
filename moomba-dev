@@ -42,7 +42,7 @@ fi
 # shellcheck disable=SC1090
 . "${LIB_DIR}/mmb.sh"
 # shellcheck disable=SC1090
-. "${LIB_DIR}/licenses.sh"
+. "${LIB_DIR}/tmp.sh"
 
 SCRIPT_VERSION="$(version_load_version "${VERSION_FILE}")"
 SCRIPT_BUILD="$(version_load_build "${BUILD_FILE}")"
