@@ -25,7 +25,7 @@ __pts_usage () {
 }
 
 __pts_set_default_options () {
-    PTS_EXECUTE=${CR_TRUE}
+    COMMON_EXECUTE=${CR_TRUE}
     PTS_REQUIRE_DEBUG_IMAGE=${CR_FALSE}
     PTS_RESTART=${CR_FALSE}
     PTS_VAR_DUMP_CHECK=${CR_FALSE}
@@ -57,7 +57,7 @@ __pts_process_options () {
 }
 
 __pts_export_options () {
-    export PTS_EXECUTE
+    export COMMON_EXECUTE
     export PTS_REQUIRE_DEBUG_IMAGE
     export PTS_RESTART
     export PTS_VAR_DUMP_CHECK
@@ -77,7 +77,7 @@ _pts_show_selected_options () {
     console_dark "\n     Selected options:"
     if [ "${CR_DEBUG}" -eq 1 ]
     then
-        console_show_option "${PTS_EXECUTE}" "Execute"
+        console_show_option "${COMMON_EXECUTE}" "Execute"
         console_show_option "${PTS_RESTART}" "Container restart"
     fi
     console_show_option "${PTS_PHPUNIT}" "PHPUnit"
@@ -130,7 +130,7 @@ _pts_read_options () {
             # Undocumented
             --no-exec)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_EXECUTE=${CR_FALSE}
+                COMMON_EXECUTE=${CR_FALSE}
                 ;;
             -a | --all)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"

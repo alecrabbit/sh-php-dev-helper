@@ -204,7 +204,7 @@ mmb_read_options () {
             # Undocumented
             --no-exec)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                PTS_EXECUTE=${CR_FALSE}
+                export COMMON_EXECUTE=${CR_FALSE}
                 ;;
             -p)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
@@ -228,7 +228,7 @@ mmb_read_options () {
                 ;;
             --debug)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                CR_DEBUG=1
+                export CR_DEBUG=1
                 console_debug "Script '${SCRIPT_NAME}' launched in debug mode."
                 ;;
             *)

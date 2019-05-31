@@ -63,7 +63,7 @@ mmb_show_settings
 mmb_check_working_env
 
 ### Creating new package
-if [ "${PTS_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
+if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     mmb_working_dir
     mmb_check_default_template
     core_set_terminal_title "${__TITLE} - Creating..."
