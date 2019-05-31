@@ -53,8 +53,9 @@ github_download () {
         if [ $? -ne "${CR_TRUE}" ]; then
             console_error "${__result}"
         else
+            console_debug "${__result}"
             console_debug "Package '${__package}-${__version}' extracted"
-            console_debug "$(rm -v "${__to_dir}/download.tar.gz")"
+            # console_debug "$(rm -v "${__to_dir}/download.tar.gz")"
             unset __to_dir __version __result __package __repository __package_owner
             return "${CR_TRUE}"
         fi

@@ -15,9 +15,9 @@ mmb_load_settings () {
     TMPL_PACKAGE_OWNER_NAMESPACE="BugsBunny"
     TMPL_PACKAGE_NAME="looney-tunes"
 
-    TMPL_PACKAGE_DEFAULT_DESCRIPTION="Awesome package description"
-    TMPL_PACKAGE_DEFAULT_NAMESPACE="LooneyTunes"
-    TMPL_PACKAGE_DEFAULT_DIR="php-looney-tunes"
+    TMPL_PACKAGE_DESCRIPTION="Awesome package description"
+    TMPL_PACKAGE_NAMESPACE="LooneyTunes"
+    TMPL_PACKAGE_DIR="php-looney-tunes"
     TMPL_PACKAGE_LICENSE="MIT"
 
     if [ -e "${MMB_SETTINGS_FILE}" ]
@@ -34,6 +34,28 @@ mmb_load_settings () {
     mmb_export_vars
 }
 
+mmb_replace_all_stubs () {
+    __file="${1}"
+    # Separator
+    if [ ! "${TMPL_PACKAGE_OWNER_NAMESPACE}" = "" ]
+    then
+        if [ -z "$(echo "${__file}" | grep "${_COMPOSER_JSON_FILE}")" ]; then
+            # shellcheck disable=SC1003
+            __separator='\\'
+        else
+            # shellcheck disable=SC1003
+            __separator='\\\\'
+        fi
+    else
+        __separator=''
+    fi
+
+    __result="$(sed "s/<PACKAGE_OWNER>/${TMPL_PACKAGE_OWNER}/g; s/<PACKAGE_DESCRIPTION>/${TMPL_PACKAGE_DESCRIPTION}/g; s/<PACKAGE_OWNR_NSPACE>/${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}/g; s/<PACKAGE_NSPACE>/${TMPL_PACKAGE_NAMESPACE}/g; s/<PACKAGE_NAME>/${TMPL_PACKAGE_NAME}/g;" "${__file}")"
+    console_debug "${file}\n${__result}"
+    echo "${__result}" > "${__file}" # <>
+    unset __file __result
+}
+
 mmb_export_vars () {
     export TMPL_PACKAGE_DIR_PREFIX
     export TMPL_PACKAGE_DIR_SUFFIX
@@ -43,9 +65,9 @@ mmb_export_vars () {
     export TMPL_PACKAGE_OWNER_NAMESPACE
     export TMPL_PACKAGE_NAME
 
-    export TMPL_PACKAGE_DEFAULT_DESCRIPTION
-    export TMPL_PACKAGE_DEFAULT_NAMESPACE
-    export TMPL_PACKAGE_DEFAULT_DIR
+    export TMPL_PACKAGE_DESCRIPTION
+    export TMPL_PACKAGE_NAMESPACE
+    export TMPL_PACKAGE_DIR
     export TMPL_PACKAGE_LICENSE
 }
 
@@ -56,9 +78,9 @@ mmb_show_settings () {
     console_debug "TMPL_PACKAGE_OWNER_NAME: ${TMPL_PACKAGE_OWNER_NAME}"
     console_debug "TMPL_PACKAGE_OWNER_NAMESPACE: ${TMPL_PACKAGE_OWNER_NAMESPACE}"
     console_debug "TMPL_PACKAGE_NAME: ${TMPL_PACKAGE_NAME}"
-    console_debug "TMPL_PACKAGE_DEFAULT_DESCRIPTION: ${TMPL_PACKAGE_DEFAULT_DESCRIPTION}"
-    console_debug "TMPL_PACKAGE_DEFAULT_NAMESPACE: ${TMPL_PACKAGE_DEFAULT_NAMESPACE}"
-    console_debug "TMPL_PACKAGE_DEFAULT_DIR: ${TMPL_PACKAGE_DEFAULT_DIR}"
+    console_debug "TMPL_PACKAGE_DESCRIPTION: ${TMPL_PACKAGE_DESCRIPTION}"
+    console_debug "TMPL_PACKAGE_NAMESPACE: ${TMPL_PACKAGE_NAMESPACE}"
+    console_debug "TMPL_PACKAGE_DIR: ${TMPL_PACKAGE_DIR}"
     console_debug "TMPL_USE_OWNER_NAMESPACE: $(core_bool_to_string "${TMPL_USE_OWNER_NAMESPACE}")"
     console_debug "TMPL_USE_TEMPLATE_NAME: ${TMPL_USE_TEMPLATE_NAME}"
     console_debug "TMPL_PACKAGE_LICENSE: ${TMPL_PACKAGE_LICENSE}"
@@ -73,14 +95,13 @@ mmb_show_package_values () {
         __separator="\\"
     fi
     console_print "Using template: $(colored_blue "${TMPL_USE_TEMPLATE_NAME}")"
-    console_print ""
     console_print "Name: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAME}")"
     console_print "Package: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER}/${TMPL_PACKAGE_NAME}")"
-    console_print "Namespace: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}${TMPL_PACKAGE_DEFAULT_NAMESPACE}")"
-    console_print "Description: $(colored_bold_cyan "${TMPL_PACKAGE_DEFAULT_DESCRIPTION}")"
-    console_print ""
-    console_print "Directory: $(colored_bold_cyan "${TMPL_PACKAGE_DEFAULT_DIR}")"
+    console_print "Namespace: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}${TMPL_PACKAGE_NAMESPACE}")"
+    console_print "Description: $(colored_bold_cyan "${TMPL_PACKAGE_DESCRIPTION}")"
+    console_print "Directory: $(colored_bold_cyan "${TMPL_PACKAGE_DIR}")"
     console_print "License: $(colored_bold_cyan "${TMPL_PACKAGE_LICENSE}")"
+    console_print ""
     unset __separator
 }
 
@@ -96,20 +117,20 @@ mmb_check_working_env () {
 }
 
 mmb_check_package_dir() {
-    __dir="${1}"
-    if core_check_if_dir_exists "${__dir}"; then
-        console_debug "Dir '${__dir}' exists"
-        if [ -z "$(ls -A "${__dir}")" ];then
-            console_debug "Dir '${__dir}' is empty"
+    __from="${1}"
+    if core_check_if_dir_exists "${__from}"; then
+        console_debug "Dir '${__from}' exists"
+        if [ -z "$(ls -A "${__from}")" ];then
+            console_debug "Dir '${__from}' is empty"
         else
-            console_error "Dir '${__dir}' is NOT empty"
+            console_error "Dir '${__from}' is NOT empty"
             console_fatal "Unable to proceed"
         fi
     else
-        console_debug "Creating dir: ${__dir}"
-        console_debug "$(mkdir -pv "${__dir}")"
+        console_debug "Creating dir: ${__from}"
+        console_debug "$(mkdir -pv "${__from}")"
     fi
-    unset __dir
+    unset __from
 }
 
 mmb_working_dir () {
@@ -163,6 +184,7 @@ mmb_download_template () {
     github_download "${MMB_WORK_DIR}" "alecrabbit" "php-package-template" "develop"
     console_debug "Copying files"
     console_debug "\n$(cp -rv "${MMB_WORK_DIR}/php-package-template-develop/.template/." "${MMB_DEFAULT_TEMPLATE_DIR}/.")"
+    console_debug "\n$(mv -v "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes.dist" "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes")"
 }
 
 mmb_check_default_template () {
@@ -176,6 +198,7 @@ mmb_check_default_template () {
     fi
     console_debug "Default template OK"
 }
+
 mmb_usage () {
     echo "Usage:"
     echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
@@ -203,7 +226,7 @@ mmb_set_default_options () {
 }
 
 mmb_process_options () {
-    TMPL_PACKAGE_DEFAULT_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAME}")
+    TMPL_PACKAGE_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAME}")
     mmb_prepare_package_dir
     if [ "${TMPL_USE_OWNER_NAMESPACE}" -eq "${CR_FALSE}" ]; then
         TMPL_PACKAGE_OWNER_NAMESPACE=""
@@ -225,8 +248,8 @@ mmb_prepare_package_namespace () {
 }
 
 mmb_prepare_package_dir () {
-    TMPL_PACKAGE_DEFAULT_DIR="$(core_remove_suffix "${TMPL_PACKAGE_DIR_SUFFIX}" "${TMPL_PACKAGE_NAME}")"
-    TMPL_PACKAGE_DEFAULT_DIR="${TMPL_PACKAGE_DIR_PREFIX}$(core_remove_prefix "${TMPL_PACKAGE_DIR_PREFIX}" "${TMPL_PACKAGE_DEFAULT_DIR}")${TMPL_PACKAGE_DIR_SUFFIX}"
+    TMPL_PACKAGE_DIR="$(core_remove_suffix "${TMPL_PACKAGE_DIR_SUFFIX}" "${TMPL_PACKAGE_NAME}")"
+    TMPL_PACKAGE_DIR="${TMPL_PACKAGE_DIR_PREFIX}$(core_remove_prefix "${TMPL_PACKAGE_DIR_PREFIX}" "${TMPL_PACKAGE_DIR}")${TMPL_PACKAGE_DIR_SUFFIX}"
 }
 
 mmb_read_options () {
@@ -319,4 +342,16 @@ mmb_read_options () {
     mmb_process_options
     mmb_export_options
     unset PARAM VALUE
+}
+
+mmb_create_package () {
+    console_debug "Copy all files to destination"
+    __from="${MMB_TEMPLATES_DIR}/${1}/."
+    __to="${WORK_DIR}/${2}"
+    console_debug "$(cp -rv "${__from}" "${__to}" )"
+    unset __from
+    # find ./php-ma-lov -type f -exec sed -i "s/foo/bar/g" {} \;
+    #  -exec console_debug {} \;
+    find ./php-ma-lov -type f | while read -r file; do mmb_replace_all_stubs "${file}"; done
+    unset __to
 }
