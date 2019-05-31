@@ -65,7 +65,6 @@ mmb_show_settings () {
 
 mmb_check_working_env () {
     func_check_user
-    mmb_working_dir
 }
 
 mmb_working_dir () {
@@ -75,7 +74,8 @@ mmb_working_dir () {
         console_error "Dir '${MMB_TMP_DIR}' exists. Maybe it wasn't cleaned up earlier."
         console_fatal "Unable to proceed"
     else
-        console_debug "Creating dir: ${MMB_TMP_DIR}\n$(mkdir -pv "${MMB_TMP_DIR}")"
+        console_debug "Creating dir: ${MMB_TMP_DIR}"
+        console_debug "$(mkdir -pv "${MMB_TMP_DIR}")"
     fi
 }
 
@@ -83,7 +83,8 @@ mmb_cleanup () {
     console_debug "Cleaning up"
 
     if core_check_if_dir_exists "${MMB_TMP_DIR}"; then
-        console_debug "Deleting dir: ${MMB_TMP_DIR}\n$(rm -rv "${MMB_TMP_DIR}")"
+        console_debug "Deleting dir: ${MMB_TMP_DIR}"
+        console_debug "$(rm -rv "${MMB_TMP_DIR}")"
     else
         console_debug "Dir ${MMB_TMP_DIR} NOT exists"
         console_error "Noting to clean up"
@@ -111,4 +112,106 @@ mmb_license_create () {
     fi
 
     unset __type __owner __year __file
+}
+
+mmb_usage () {
+    echo "Usage:"
+    echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
+    echo "Options:"
+    echo "    $(colored_yellow "-h")                    - show help message and exit"
+    echo "    $(colored_yellow "-p")                    - update script"
+    echo "    $(colored_yellow "-o")                    - update script"
+    echo "    $(colored_yellow "-s")                    - update script"
+    echo "    $(colored_yellow "-n")                    - update script"
+    echo "    $(colored_yellow "-x")                    - update script"
+    echo "    $(colored_yellow "--update")              - update script"
+    echo "    $(colored_yellow "-V, --version")         - show version"
+    echo
+    # shellcheck disable=SC2005
+    echo "$(colored_dark "Note: options order is important")"
+}
+
+mmb_set_default_options () {
+    TMPL_USE_OWNER_NAMESPACE="${CR_TRUE}"
+}
+
+mmb_process_options () {
+    :
+}
+
+mmb_export_options () {
+    export TMPL_USE_OWNER_NAMESPACE
+}
+
+
+mmb_read_options () {
+    mmb_set_default_options
+    console_debug "Reading options"
+    while [ "${1:-}" != "" ]; do
+        PARAM=$(echo "$1" | awk -F= '{print $1}')
+        VALUE=$(echo "$1" | awk -F= '{print $2}')
+        case ${PARAM} in
+            -h | --help)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                mmb_usage
+                exit
+                ;;
+            --update)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                _pts_updater_run "${VALUE}"
+                exit
+                ;;
+            -V | --version)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                version_print
+                exit "${CR_TRUE}"
+                ;;
+            # Undocumented
+            --save-build-hash)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                version_save_build_hash "${SCRIPT_DIR}" "${LIB_DIR}"
+                exit "${CR_TRUE}"
+                ;;
+            # Undocumented
+            --no-exec)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_EXECUTE=${CR_FALSE}
+                ;;
+            -p)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_PACKAGE_NAME="${VALUE}"
+                ;;
+            -o)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_PACKAGE_OWNER="${VALUE}"
+                ;;
+            -n)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_PACKAGE_OWNER_NAME="${VALUE}"
+                ;;
+            -s)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_PACKAGE_OWNER_NAMESPACE="${VALUE}"
+                ;;
+            -x)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                TMPL_USE_OWNER_NAMESPACE="${CR_FALSE}"
+                ;;
+            --debug)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                CR_DEBUG=1
+                console_debug "Script '${SCRIPT_NAME}' launched in debug mode."
+                ;;
+            *)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_error "Unknown option '${PARAM}'"
+                mmb_usage
+                exit 1
+                ;;
+        esac
+        shift
+    done
+    mmb_process_options
+    mmb_export_options
+    unset PARAM VALUE
 }
