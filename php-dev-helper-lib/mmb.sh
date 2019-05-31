@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 export MMB_SETTINGS_FILE="${SETTINGS_DIR}/.templates_settings"
+export MMB_TEMPLATES_DIR="${LIB_DIR}/templates"
 
 mmb_load_settings () {
     if [ -e "${MMB_SETTINGS_FILE}" ]
@@ -23,6 +24,7 @@ mmb_load_settings () {
         TMPL_PACKAGE_DEFAULT_DESCRIPTION="Awesome package description"
         TMPL_PACKAGE_DEFAULT_NAMESPACE="LooneyTunes"
         TMPL_PACKAGE_DEFAULT_DIR="php-looney-tunes"
+        TMPL_PACKAGE_LICENSE="MIT"
     fi
     mmb_export_vars
 }
@@ -39,6 +41,7 @@ mmb_export_vars () {
     export TMPL_PACKAGE_DEFAULT_DESCRIPTION
     export TMPL_PACKAGE_DEFAULT_NAMESPACE
     export TMPL_PACKAGE_DEFAULT_DIR
+    export TMPL_PACKAGE_LICENSE
 }
 
 mmb_show_settings () {
@@ -52,7 +55,8 @@ mmb_show_settings () {
     console_debug "TMPL_PACKAGE_DEFAULT_NAMESPACE: ${TMPL_PACKAGE_DEFAULT_NAMESPACE}"
     console_debug "TMPL_PACKAGE_DEFAULT_DIR: ${TMPL_PACKAGE_DEFAULT_DIR}"
     console_debug "TMPL_USE_OWNER_NAMESPACE: $(core_bool_to_string "${TMPL_USE_OWNER_NAMESPACE}")"
-    
+    console_debug "TMPL_PACKAGE_LICENSE: ${TMPL_PACKAGE_LICENSE}"
+    license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}"
 }
 
 mmb_check_working_env () {
