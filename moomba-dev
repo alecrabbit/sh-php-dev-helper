@@ -67,7 +67,8 @@ if [ "${PTS_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     core_set_terminal_title "${__TITLE} - Creating..."
     console_debug "Executing..."
     console_dark "Creating new package"
-    console_error "It does nothing"
+    console_comment "It does nothing yet"
+    mmb_cleanup
 fi
 
 func_print_footer "${start_time}"
