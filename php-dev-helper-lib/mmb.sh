@@ -39,21 +39,21 @@ mmb_replace_all_stubs () {
     # Separator
     if [ ! "${TMPL_PACKAGE_OWNER_NAMESPACE}" = "" ]
     then
-        if [ -z "$(echo "${__file}" | grep "${_COMPOSER_JSON_FILE}")" ]; then
-            # shellcheck disable=SC1003
-            __separator='\\'
-        else
-            # shellcheck disable=SC1003
-            __separator='\\\\'
-        fi
+        # shellcheck disable=SC1003
+        __separator='\\'
     else
         __separator=''
     fi
-
     __result="$(sed "s/<PACKAGE_OWNER>/${TMPL_PACKAGE_OWNER}/g; s/<PACKAGE_DESCRIPTION>/${TMPL_PACKAGE_DESCRIPTION}/g; s/<PACKAGE_OWNR_NSPACE>/${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}/g; s/<PACKAGE_NSPACE>/${TMPL_PACKAGE_NAMESPACE}/g; s/<PACKAGE_NAME>/${TMPL_PACKAGE_NAME}/g;" "${__file}")"
-    console_debug "${file}\n${__result}"
-    echo "${__result}" > "${__file}" # <>
-    unset __file __result
+    echo "${__result}" > "${__file}"
+    if echo "${__file}" | grep -q "${_COMPOSER_JSON_FILE}"; then
+        console_debug "Creating: '${__file}' -> ${__file}.tmp'"
+        # shellcheck disable=SC1003
+        __result="$(sed 's/\\/\\\\/g;' "${__file}" > "${__file}.tmp" 2>&1)"
+        console_debug "$(mv -v "${__file}.tmp" "${__file}")"
+    fi
+
+    unset __file __result __separator
 }
 
 mmb_export_vars () {
@@ -350,8 +350,9 @@ mmb_create_package () {
     __to="${WORK_DIR}/${2}"
     console_debug "$(cp -rv "${__from}" "${__to}" )"
     unset __from
-    # find ./php-ma-lov -type f -exec sed -i "s/foo/bar/g" {} \;
-    #  -exec console_debug {} \;
-    find ./php-ma-lov -type f | while read -r file; do mmb_replace_all_stubs "${file}"; done
+    find "${__to}" -type f | while read -r file; do mmb_replace_all_stubs "${file}"; done
+    console_debug "$(mkdir -pv "${__to}/src/${TMPL_PACKAGE_NAMESPACE}")"
+    console_debug "$(mv -v "${__to}/BasicClass.php" "${__to}/src/${TMPL_PACKAGE_NAMESPACE}/BasicClass.php")"
+    console_debug "$(mv -v "${__to}/BasicTest.php" "${__to}/tests/BasicTest.php")"
     unset __to
 }
