@@ -280,4 +280,30 @@ core_capitalize_every_word () {
     echo "$@" | sed -f "${MODULES_DIR}/capitalize.sed"
 }
 
+core_lowercase () {
+    echo "${1}" | tr '[:upper:]' '[:lower:]'
+}
+
+core_uppercase () {
+    echo "${1}" | tr '[:lower:]' '[:upper:]'
+}
+
+core_remove_spaces () {
+    echo "${1}" | sed "s/ //g"
+}
+
+core_remove_symbols () {
+    __symbols="[${1}]"
+    echo "${2}" | sed "s/${__symbols}//g"
+    unset __symbols
+}
+
+core_remove_prefix () {
+    echo "${2#${1}}"
+}
+
+core_remove_suffix () {
+    echo "${2%${1}}"
+}
+
 core_check_int_bool_env_value "${CR_DEBUG}" "DEBUG" 

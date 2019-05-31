@@ -69,6 +69,7 @@ if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     core_set_terminal_title "${__TITLE} - Creating..."
     console_debug "Executing..."
     console_dark "Creating new package"
+    mmb_show_package_values
     mmb_check_package_dir "${TMPL_PACKAGE_DEFAULT_DIR}"
     console_comment "It does nothing yet"
     # mmb_cleanup

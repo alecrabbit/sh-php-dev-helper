@@ -66,20 +66,33 @@ mmb_show_settings () {
     # mmb_license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}"
 }
 
+mmb_show_package_values () {
+    __separator=""
+    if [ ! "${TMPL_PACKAGE_OWNER_NAMESPACE}" = "" ]
+    then
+        __separator="\\"
+    fi
+    console_print "Using template: $(colored_blue "${TMPL_USE_TEMPLATE_NAME}")"
+    console_print ""
+    console_print "Name: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAME}")"
+    console_print "Package: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER}/${TMPL_PACKAGE_NAME}")"
+    console_print "Namespace: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}${TMPL_PACKAGE_DEFAULT_NAMESPACE}")"
+    console_print "Description: $(colored_bold_cyan "${TMPL_PACKAGE_DEFAULT_DESCRIPTION}")"
+    console_print ""
+    console_print "Directory: $(colored_bold_cyan "${TMPL_PACKAGE_DEFAULT_DIR}")"
+    console_print "License: $(colored_bold_cyan "${TMPL_PACKAGE_LICENSE}")"
+    unset __separator
+}
+
+
 mmb_check_working_env () {
     func_check_user
-    # if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
-    #     __composer_file=" ${_COMPOSER_JSON_FILE}"
-    # else
-    #     __composer_file=""
-    # fi
-    if core_is_dir_contains "${WORK_DIR}" "${_COMPOSER_JSON_FILE}" "${CR_TRUE}"
+    if core_is_dir_contains "${WORK_DIR}" "${_COMPOSER_JSON_FILE}"
     then
         console_notice "Found file: '${_COMPOSER_JSON_FILE}'"
         console_notice "Are you in the right directory?"
         console_fatal "Unable to proceed"
     fi
-
 }
 
 mmb_check_package_dir() {
@@ -190,7 +203,11 @@ mmb_set_default_options () {
 }
 
 mmb_process_options () {
-    :
+    TMPL_PACKAGE_DEFAULT_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAME}")
+    mmb_prepare_package_dir
+    if [ "${TMPL_USE_OWNER_NAMESPACE}" -eq "${CR_FALSE}" ]; then
+        TMPL_PACKAGE_OWNER_NAMESPACE=""
+    fi
 }
 
 mmb_export_options () {
@@ -198,6 +215,19 @@ mmb_export_options () {
     export TMPL_USE_TEMPLATE_NAME
 }
 
+mmb_prepare_package_namespace () {
+    __namespace=$(core_lowercase "${1}")
+    __namespace=$(core_remove_prefix "${TMPL_PACKAGE_DIR_PREFIX}" "${__namespace}")
+    __namespace=$(core_remove_symbols "-_" "$(core_capitalize_every_word "${__namespace}")")
+    console_debug "Package namespace '${__namespace}'"
+    echo "${__namespace}"
+    unset __namespace
+}
+
+mmb_prepare_package_dir () {
+    TMPL_PACKAGE_DEFAULT_DIR="$(core_remove_suffix "${TMPL_PACKAGE_DIR_SUFFIX}" "${TMPL_PACKAGE_NAME}")"
+    TMPL_PACKAGE_DEFAULT_DIR="${TMPL_PACKAGE_DIR_PREFIX}$(core_remove_prefix "${TMPL_PACKAGE_DIR_PREFIX}" "${TMPL_PACKAGE_DEFAULT_DIR}")${TMPL_PACKAGE_DIR_SUFFIX}"
+}
 
 mmb_read_options () {
     mmb_set_default_options
