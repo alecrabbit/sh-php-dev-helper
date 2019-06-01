@@ -1,4 +1,4 @@
-# PHP Dev Helper
+# 🐇 PHP Dev Helper
 
 ## What is it
 
