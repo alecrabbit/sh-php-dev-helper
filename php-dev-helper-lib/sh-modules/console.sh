@@ -26,6 +26,7 @@ console_error () {
     console_print "${EMOJI_ERROR:-}${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_fatal () {
+    core_set_terminal_title "${__TITLE}"
     console_print "${EMOJI_FATAL:-}${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${CR_TRUE}" "${CR_TRUE}"
     exit "${CR_ERROR}"
 }
