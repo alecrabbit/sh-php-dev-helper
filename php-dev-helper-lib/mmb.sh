@@ -19,6 +19,7 @@ mmb_load_settings () {
     TMPL_PACKAGE_NAMESPACE="LooneyTunes"
     TMPL_PACKAGE_DIR="php-looney-tunes"
     TMPL_PACKAGE_LICENSE="MIT"
+    TMPL_PACKAGE_TERMINAL_TITLE_EMOJI="📦"
 
     if [ -e "${MMB_SETTINGS_FILE}" ]
     then
@@ -44,7 +45,7 @@ mmb_replace_all_stubs () {
     else
         __separator=''
     fi
-    __result="$(sed "s/<PACKAGE_OWNER>/${TMPL_PACKAGE_OWNER}/g; s/<PACKAGE_DESCRIPTION>/${TMPL_PACKAGE_DESCRIPTION}/g; s/<PACKAGE_OWNR_NSPACE>/${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}/g; s/<PACKAGE_NSPACE>/${TMPL_PACKAGE_NAMESPACE}/g; s/<PACKAGE_NAME>/${TMPL_PACKAGE_NAME}/g;" "${__file}")"
+    __result="$(sed "s/<PACKAGE_EMOJI>/${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI}/g; s/<PACKAGE_OWNER>/${TMPL_PACKAGE_OWNER}/g; s/<PACKAGE_DESCRIPTION>/${TMPL_PACKAGE_DESCRIPTION}/g; s/<PACKAGE_OWNR_NSPACE>/${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}/g; s/<PACKAGE_NSPACE>/${TMPL_PACKAGE_NAMESPACE}/g; s/<PACKAGE_NAME>/${TMPL_PACKAGE_NAME}/g;" "${__file}")"
     echo "${__result}" > "${__file}"
     if echo "${__file}" | grep -q "${_COMPOSER_JSON_FILE}"; then
         console_debug "Creating: '${__file}' -> ${__file}.tmp'"
@@ -226,6 +227,10 @@ mmb_set_default_options () {
 }
 
 mmb_process_options () {
+    if [ ! "${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI}" = "" ]; then
+        TMPL_PACKAGE_TERMINAL_TITLE_EMOJI="${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI} "
+    fi
+
     TMPL_PACKAGE_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAME}")
     mmb_prepare_package_dir
     if [ "${TMPL_USE_OWNER_NAMESPACE}" -eq "${CR_FALSE}" ]; then
