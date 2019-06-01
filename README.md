@@ -1,4 +1,9 @@
-# PHP Dev Helper Script
+# PHP Dev Helper
+
+## What is it
+
+- `php-tests` tool to automate local testing, see [demo](.demo/php-tests-dev.gif)
+- `moomba` php package creator script
 
 ## Installation
 
