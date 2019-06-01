@@ -8,8 +8,10 @@
 
 ## Moomba
 
-- [ ] store local templates in folder `templates`
-- [ ] use default template from `templates/default`
-- [ ] templates used by name
+- [ ] Add setting `TMPL_DEFAULT_TEMPLATE="default"`
 
 ---
+
+- [x] store local templates in folder `templates`
+- [x] use default template from `templates/default`
+- [x] templates used by name
