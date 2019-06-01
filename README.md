@@ -155,6 +155,7 @@ Note: options order is important
 ├── .github
 │   └── ISSUE_TEMPLATE.md
 ├── .gitignore
+├── LICENSE
 ├── phpcs.xml
 ├── phpunit.xml
 ├── README.md

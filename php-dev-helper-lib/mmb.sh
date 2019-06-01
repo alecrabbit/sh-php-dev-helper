@@ -88,8 +88,6 @@ mmb_show_settings () {
     console_debug "TMPL_USE_TEMPLATE_NAME: ${TMPL_USE_TEMPLATE_NAME}"
     console_debug "TMPL_PACKAGE_LICENSE: ${TMPL_PACKAGE_LICENSE}"
     console_debug "TMPL_TEMPLATE_VERSION: ${TMPL_TEMPLATE_VERSION}"
-    
-    # mmb_license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}"
 }
 
 mmb_show_package_values () {
@@ -375,5 +373,6 @@ mmb_create_package () {
     console_debug "$(mkdir -pv "${__to}/src/${TMPL_PACKAGE_NAMESPACE}")"
     console_debug "$(mv -v "${__to}/BasicClass.php" "${__to}/src/${TMPL_PACKAGE_NAMESPACE}/BasicClass.php")"
     console_debug "$(mv -v "${__to}/BasicTest.php" "${__to}/tests/BasicTest.php")"
+    mmb_license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}" > "${__to}/LICENSE"
     unset __to
 }
