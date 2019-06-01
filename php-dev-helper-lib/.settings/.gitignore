@@ -2,3 +2,4 @@
 .sh-pdh-disallowed-dirs
 .sh-pdh-settings
 *.defaults
+.templates_settings
