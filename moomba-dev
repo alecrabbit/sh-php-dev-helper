@@ -64,6 +64,7 @@ mmb_check_working_env
 
 ### Creating new package
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
+    console_warning "Under development - use with caution!"
     mmb_working_dir
     mmb_check_default_template
     core_set_terminal_title "${__TITLE} - Creating..."
@@ -72,7 +73,7 @@ if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     mmb_show_package_values
     mmb_check_package_dir "${TMPL_PACKAGE_DIR}"
     mmb_create_package "${TMPL_USE_TEMPLATE_NAME}" "${TMPL_PACKAGE_DIR}"
-    # mmb_cleanup
+    mmb_cleanup
 else
     console_debug "No execution selected"
 fi
