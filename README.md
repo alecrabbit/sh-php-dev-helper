@@ -39,6 +39,33 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 ```
 
+### File structure
+
+```text
+.
+├── moomba
+├── php-dev-helper-lib
+│   ├── BUILD
+│   ├── commands.sh
+│   ├── functions.sh
+│   ├── mmb.sh
+│   ├── options.sh
+│   ├── settings.sh
+│   ├── sh-modules
+│   │   ├── capitalize.sed
+│   │   ├── colored.sh
+│   │   ├── console.sh
+│   │   ├── core.sh
+│   │   ├── docker.sh
+│   │   ├── github.sh
+│   │   ├── git.sh
+│   │   ├── updater.sh
+│   │   └── version.sh
+│   ├── templates
+│   └── tmp.sh
+└── php-tests
+```
+
 ## Usage
 
 ### Options
@@ -106,34 +133,6 @@ Note: options order is important
 - [kylekatarnls/multi-tester](https://github.com/kylekatarnls/multi-tester)
 - [sensiolabs/security-checker](https://github.com/sensiolabs/security-checker)
 - [JakubOnderka/PHP-Var-Dump-Check](https://github.com/JakubOnderka/PHP-Var-Dump-Check)
-
-### File structure
-
-> Note: `moomba` is an upcoming package installation script
-
-```text
-.
-├── moomba
-├── php-dev-helper-lib
-│   ├── BUILD
-│   ├── commands.sh
-│   ├── functions.sh
-│   ├── options.sh
-│   ├── settings.sh
-│   ├── sh-modules
-│   │   ├── capitalize.sed
-│   │   ├── colored.sh
-│   │   ├── console.sh
-│   │   ├── core.sh
-│   │   ├── docker.sh
-│   │   ├── github.sh
-│   │   ├── git.sh
-│   │   ├── updater.sh
-│   │   └── version.sh
-│   ├── updater.sh
-│   └── VERSION
-└── php-tests
-```
 
 ### Tested Operating Systems
 
