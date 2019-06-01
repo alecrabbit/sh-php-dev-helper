@@ -197,10 +197,13 @@ mmb_download_template () {
 mmb_check_default_template () {
     __force_download="${1:-${CR_FALSE}}"
     if ! core_check_if_dir_exists "${MMB_DEFAULT_TEMPLATE_DIR}";then
+        console_error "Default template not found"
         console_debug "No dir: ${MMB_DEFAULT_TEMPLATE_DIR}"
         console_debug "$(mkdir -pv "${MMB_DEFAULT_TEMPLATE_DIR}")"
     fi
     if [ -z "$(ls -A "${MMB_DEFAULT_TEMPLATE_DIR}")" ] || [ "${__force_download}" -eq "${CR_TRUE}" ];then
+        console_error "Default template dir is empty"
+        console_info "Downloading default template"
         mmb_download_template
     fi
     console_debug "Default template OK"
