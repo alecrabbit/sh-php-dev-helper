@@ -8,9 +8,9 @@ TMPL_PACKAGE_OWNER_NAMESPACE="MikeWazowski"
 # "Apache-2.0" "BSD-2-Clause" "BSD-3-Clause" "GPL-3.0" "MIT" 
 TMPL_PACKAGE_LICENSE="Apache-2.0" 
 
-# DEFAULTS
-# TMPL_PACKAGE_NAME="php-new-package"
+# TMPL_TEMPLATE_VERSION="master"
+# TMPL_PACKAGE_NAME="monster-tools"
 # TMPL_PACKAGE_DESCRIPTION="Awesome package description"
-# TMPL_PACKAGE_NAMESPACE="NewPackage"
-# TMPL_PACKAGE_DIR="php-new-package"
+# TMPL_PACKAGE_NAMESPACE="MonsterTools"
+# TMPL_PACKAGE_DIR="php-monster-tools"
 # TMPL_PACKAGE_TERMINAL_TITLE_EMOJI="📦"

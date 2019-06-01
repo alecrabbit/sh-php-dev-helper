@@ -2,7 +2,7 @@
 export MMB_SETTINGS_FILE="${SETTINGS_DIR}/.templates_settings"
 export MMB_TEMPLATES_DIR="${LIB_DIR}/templates"
 export MMB_DEFAULT_TEMPLATE_DIR="${MMB_TEMPLATES_DIR}/default"
-export MMB_LICENSE_DIR="${MMB_TEMPLATES_DIR}/licenses"
+export MMB_LICENSE_DIR="${MMB_TEMPLATES_DIR}/.licenses"
 export MMB_WORK_DIR="${WORK_DIR}/mmb-tmp"
 
 
@@ -15,6 +15,7 @@ mmb_load_settings () {
     TMPL_PACKAGE_OWNER_NAMESPACE="BugsBunny"
     TMPL_PACKAGE_NAME="looney-tunes"
 
+    TMPL_TEMPLATE_VERSION="develop" # todo change to "master" when ready
     TMPL_PACKAGE_DESCRIPTION="Awesome package description"
     TMPL_PACKAGE_NAMESPACE="LooneyTunes"
     TMPL_PACKAGE_DIR="php-looney-tunes"
@@ -70,6 +71,7 @@ mmb_export_vars () {
     export TMPL_PACKAGE_NAMESPACE
     export TMPL_PACKAGE_DIR
     export TMPL_PACKAGE_LICENSE
+    export TMPL_TEMPLATE_VERSION
 }
 
 mmb_show_settings () {
@@ -85,6 +87,7 @@ mmb_show_settings () {
     console_debug "TMPL_USE_OWNER_NAMESPACE: $(core_bool_to_string "${TMPL_USE_OWNER_NAMESPACE}")"
     console_debug "TMPL_USE_TEMPLATE_NAME: ${TMPL_USE_TEMPLATE_NAME}"
     console_debug "TMPL_PACKAGE_LICENSE: ${TMPL_PACKAGE_LICENSE}"
+    console_debug "TMPL_TEMPLATE_VERSION: ${TMPL_TEMPLATE_VERSION}"
     
     # mmb_license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}"
 }
@@ -121,7 +124,7 @@ mmb_check_package_dir() {
     __from="${1}"
     if core_check_if_dir_exists "${__from}"; then
         console_debug "Dir '${__from}' exists"
-        if [ -z "$(ls -A "${__from}")" ];then
+        if [ -z "$(find "${__from}" -type f)" ];then
             console_debug "Dir '${__from}' is empty"
         else
             console_error "Dir '${__from}' is NOT empty"
@@ -183,10 +186,12 @@ mmb_license_create () {
 }
 
 mmb_download_template () {
-    github_download "${MMB_WORK_DIR}" "alecrabbit" "php-package-template" "develop"
-    console_debug "Copying files"
-    console_debug "\n$(cp -rv "${MMB_WORK_DIR}/php-package-template-develop/.template/." "${MMB_DEFAULT_TEMPLATE_DIR}/.")"
+    __tmpl_version="${TMPL_TEMPLATE_VERSION}" # alecrabbit/php-package-template version
+    github_download "${MMB_WORK_DIR}" "alecrabbit" "php-package-template" "${__tmpl_version}"
+    console_debug "Copying files ${__tmpl_version}"
+    console_debug "\n$(cp -rv "${MMB_WORK_DIR}/php-package-template-${__tmpl_version}/.template/." "${MMB_DEFAULT_TEMPLATE_DIR}/.")"
     console_debug "\n$(mv -v "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes.dist" "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes")"
+    unset __tmpl_version
 }
 
 mmb_check_default_template () {
@@ -213,6 +218,7 @@ mmb_usage () {
     echo "    $(colored_yellow "-x")                    - do not use package namespace"
     echo "    $(colored_yellow "--update")              - update script"
     echo "    $(colored_yellow "--update-default")      - update default template"
+    echo "    $(colored_yellow "-t")                    - use template"
     echo "    $(colored_yellow "-V, --version")         - show version"
     echo "    $(colored_yellow "--no-interaction")      - do not ask any interactive question"
     echo
@@ -324,11 +330,17 @@ mmb_read_options () {
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 TMPL_USE_OWNER_NAMESPACE="${CR_FALSE}"
                 ;;
-            -u)
+            -t)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                if [ "${VALUE}" = "" ]; then
+                    console_fatal "Empty template name provided"
+                fi
                 TMPL_USE_TEMPLATE_NAME="${VALUE}"
                 if ! core_check_if_dir_exists "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}";then
                     console_fatal "Template '${TMPL_USE_TEMPLATE_NAME}' not found"
+                fi
+                if [ -z "$(find "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}" -type f)" ];then
+                    console_fatal "Template dir is empty"
                 fi
                 ;;
             --debug)
