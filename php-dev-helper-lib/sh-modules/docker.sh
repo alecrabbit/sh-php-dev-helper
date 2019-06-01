@@ -22,5 +22,6 @@ docker_compose_is_debug_image_used () {
     # echo "'${1}' '${__name}' '${__attr}'" >&2
     # echo "'${__result}'" >&2
     # test "${__result}" != ""
-    test "$(cd "${1}" && docker-compose images 2>&1 | grep "${2:-$(basename "${1}")}.*${3:-debug}")" != ""
+    # test "$(cd "${1}" && docker-compose images 2>&1 | grep -A1 "${2:-$(basename "${1}")}.*${3:-debug}")" != ""
+    test "$(cd "${1}" && docker-compose images 2>&1 | grep -A1 "${2:-$(basename "${1}")}" | grep "${3:-debug}")" != ""
 }

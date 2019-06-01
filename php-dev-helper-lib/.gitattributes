@@ -1,2 +1,3 @@
 dev.sh             export-ignore
 .gitignore         export-ignore
+.demo              export-ignore
