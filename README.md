@@ -44,6 +44,8 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 ```
 
+Create your own `.templates_settings`, use `.templates_settings.dist` as example
+
 ### File structure
 
 ```text
@@ -55,6 +57,9 @@ fi
 │   ├── functions.sh
 │   ├── mmb.sh
 │   ├── options.sh
+│   ├── .settings
+│   │   ├── .sh-pdh-settings.dist
+│   │   └── .templates_settings.dist
 │   ├── settings.sh
 │   ├── sh-modules
 │   │   ├── capitalize.sed
@@ -67,7 +72,15 @@ fi
 │   │   ├── updater.sh
 │   │   └── version.sh
 │   ├── templates
-│   └── tmp.sh
+│   │   └── .licenses
+│   │       ├── Apache-2.0
+│   │       ├── BSD-2-Clause
+│   │       ├── BSD-3-Clause
+│   │       ├── GPL-3.0
+│   │       └── MIT
+│   ├── tmp.sh
+│   ├── updater.sh
+│   └── VERSION
 └── php-tests
 ```
 
@@ -128,6 +141,38 @@ Note: options order is important
 ```
 
 > [Notes](.docs/update_option.md) on using `--update` option
+
+### Created package file structure(using defaults)
+
+```text
+.
+├── CHANGELOG.md
+├── composer.json
+├── docker-compose-debug.yml
+├── docker-compose.yml
+├── .dockerignore
+├── .gitattributes
+├── .github
+│   └── ISSUE_TEMPLATE.md
+├── .gitignore
+├── phpcs.xml
+├── phpunit.xml
+├── README.md
+├── .scrutinizer.yml
+├── src
+│   └── LooneyTunes
+│       └── BasicClass.php
+├── TERMINAL_TITLE
+├── tests
+│   ├── BasicTest.php
+│   ├── bootstrap.php
+│   └── debug.php
+├── TODO.md
+├── .travis
+│   └── travis-init.sh
+└── .travis.yml
+
+```
 
 ### Links
 

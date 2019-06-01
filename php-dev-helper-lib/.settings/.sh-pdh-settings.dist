@@ -7,7 +7,7 @@
 ### Allow run under root
 # ALLOW_ROOT=disabled                   # disabled by default
 
-### Directory access control 
+### Directory access control (experimental)
 ## Allows you to avoid unwanted php-tests run for example in python project dir
 # DIR_CONTROL=disabled                  # disabled by default
 ## If DIR_CONTROL is enabled consider project dir name 'php-some-project' as allowed
