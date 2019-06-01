@@ -1,25 +1,36 @@
 # PHP Dev Helper Script
 
-> Note: WIP - On a way to be a standalone tool.
->
-> `php-tests` - PHP Tests and Analysis tool
->
-> `moomba` - PHP Package creator(from template)
-
-## Usage
-
-### As a part of php template
-
-used with [alecrabbit/php-package-template](https://github.com/alecrabbit/php-package-template/)
+## Installation
 
 ### Requirements
+
+> Note : `moomba` script does not require `docker` or `docker-compose`
 
 - docker
 - docker-compose (17.04.0+)
 
-### Standalone
+### Local installation
 
-You can install this script to your `~/.local/bin` dir. Make sure your `.profile` file contains these lines:
+Get your copy of specific version
+
+ ```bash
+ version="0.3.1" && wget -qO- "https://github.com/alecrabbit/sh-php-dev-helper/archive/${version}.tar.gz" \
+ | tar -xzv && cd sh-php-dev-helper-${version}
+ ```
+
+Copy extracted files to your `~/.local/bin` dir.
+
+```bash
+cp -r . ~/.local/bin/.
+```
+
+Rename main scripts
+
+```bash
+mv moomba-dev moomba && mv php-tests-dev php-tests
+```
+
+Make sure your `.profile` file contains these lines:
 
 ```bash
 # set PATH so it includes user's private bin if it exists
@@ -28,14 +39,18 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 ```
 
+## Usage
+
 ### Options
+
+#### php-tests
 
 ```text
 $ php-tests -h
 Usage:
-    php-tests-dev [options]
+    php-tests [options]
 Options:
-    -h                    - show help message and exit
+    -h, --help            - show help message and exit
     -a, --all             - run all (not includes --metrics and --multi)
     -b                    - enable php code sniffer beautifier
     -c, --coverage        - enable phpunit code coverage (includes -u)
@@ -51,6 +66,31 @@ Options:
     -V, --version         - show version
     -v                    - enable check for forgotten var dumps
     --without-composer    - do not check for 'composer.json' file and 'vendor' dir
+
+Note: options order is important
+```
+
+#### moomba
+
+```text
+$ moomba -h
+Usage:
+    moomba [options]
+Options:
+    -h, --help            - show help message and exit
+    -p                    - set package name
+    -o                    - set owner
+    -s                    - set owner namespace
+    -n                    - set package namespace
+    -x                    - do not use package namespace
+    --update              - update script
+    --update-default      - update default template
+    -t                    - use template
+    -V, --version         - show version
+    --no-interaction      - do not ask any interactive question
+
+Example:
+    moomba-dev -p=new-package -o=mike
 
 Note: options order is important
 ```
@@ -97,8 +137,8 @@ Note: options order is important
 
 ### Tested Operating Systems
 
+> Note: it should work practically on any linux installation.
+
 OS                                  |
 ----------------------------------- |
 Ubuntu Linux (18.04 LTS)            |
-
-> Note: it should work practically on any linux installation.
