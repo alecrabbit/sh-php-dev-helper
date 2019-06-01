@@ -125,10 +125,11 @@ mmb_check_package_dir() {
             console_debug "Dir '${__from}' is empty"
         else
             console_error "Dir '${__from}' is NOT empty"
+            mmb_cleanup
             console_fatal "Unable to proceed"
         fi
     else
-        console_debug "Creating dir: ${__from}"
+        console_comment "Creating dir: ${__from}"
         console_debug "$(mkdir -pv "${__from}")"
     fi
     unset __from
