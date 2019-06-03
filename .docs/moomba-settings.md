@@ -1,6 +1,8 @@
 # `moomba` settings
 
-Settings stored in `.templates_settings` file. Example to use `.templates_settings.dist` file:
+Create your own settings in `.templates_settings` file.
+
+Example to use - `.templates_settings.dist` file:
 
 ```text
 TMPL_PACKAGE_DIR_PREFIX="php-"
