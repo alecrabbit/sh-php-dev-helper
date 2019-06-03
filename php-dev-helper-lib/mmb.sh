@@ -249,7 +249,10 @@ mmb_process_options () {
         console_unable
     fi
     if [ -z "$(find "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}" -type f)" ];then
-        console_fatal "Template '${TMPL_USE_TEMPLATE_NAME}' dir is empty"
+        console_error "Template dir '${TMPL_USE_TEMPLATE_NAME}' is empty"
+        console_dark "${MMB_TEMPLATES_DIR}:"
+        console_dark "$(ls "${MMB_TEMPLATES_DIR}")"
+        console_unable
     fi
 
     if [ ! "${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI}" = "" ]; then
@@ -387,4 +390,20 @@ mmb_create_package () {
     console_debug "$(mv -v "${__to}/BasicTest.php" "${__to}/tests/BasicTest.php")"
     mmb_license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}" > "${__to}/LICENSE"
     unset __to
+}
+
+mmb_package_created () {
+    __dir="${WORK_DIR}/${1}"
+    if ! check_command "docker-compose"
+    then 
+        console_error "docker-compose is NOT installed!"
+        console_comment "Deleting docker-compose files!"
+        console_debug "\n$(rm "${__dir}"/docker-compose*.yml)"
+    fi
+
+    if check_command "tree"; then
+        console_info "File structure:"
+        console_print "$(tree -a "${__dir}")"
+    fi
+    unset __dir
 }
