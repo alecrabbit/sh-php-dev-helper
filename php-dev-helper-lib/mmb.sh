@@ -187,7 +187,9 @@ mmb_license_create () {
 
 mmb_download_template () {
     __tmpl_version="${TMPL_TEMPLATE_VERSION}" # alecrabbit/php-package-template version
+    console_info "Downloading..."
     github_download "${MMB_WORK_DIR}" "alecrabbit" "php-package-template" "${__tmpl_version}"
+    console_info "Installing..."
     console_debug "Copying files ${__tmpl_version}"
     console_debug "\n$(cp -rv "${MMB_WORK_DIR}/php-package-template-${__tmpl_version}/.template/." "${MMB_DEFAULT_TEMPLATE_DIR}/.")"
     console_debug "\n$(mv -v "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes.dist" "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes")"
@@ -202,8 +204,7 @@ mmb_check_default_template () {
         console_debug "$(mkdir -pv "${MMB_DEFAULT_TEMPLATE_DIR}")"
     fi
     if [ -z "$(ls -A "${MMB_DEFAULT_TEMPLATE_DIR}")" ] || [ "${__force_download}" -eq "${CR_TRUE}" ];then
-        console_error "Default template dir is empty"
-        console_info "Downloading default template"
+        console_comment "Downloading and installing default template"
         mmb_download_template
     fi
     console_debug "Default template OK"
@@ -333,18 +334,22 @@ mmb_read_options () {
                 ;;
             -p)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                core_check_option_value "${VALUE}" "${PARAM}"
                 TMPL_PACKAGE_NAME="${VALUE}"
                 ;;
             -o)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                core_check_option_value "${VALUE}" "${PARAM}"
                 TMPL_PACKAGE_OWNER="${VALUE}"
                 ;;
             -n)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                core_check_option_value "${VALUE}" "${PARAM}"
                 TMPL_PACKAGE_OWNER_NAME="${VALUE}"
                 ;;
             -s)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                core_check_option_value "${VALUE}" "${PARAM}"
                 TMPL_PACKAGE_OWNER_NAMESPACE="${VALUE}"
                 ;;
             -x)
@@ -353,9 +358,7 @@ mmb_read_options () {
                 ;;
             -t)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                if [ "${VALUE}" = "" ]; then
-                    console_fatal "Empty template name provided"
-                fi
+                core_check_option_value "${VALUE}" "${PARAM}"
                 _TEMPLATE_OPTION_USED="${CR_TRUE}"
                 TMPL_USE_TEMPLATE_NAME="${VALUE}"
                 ;;
