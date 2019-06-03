@@ -296,17 +296,17 @@ mmb_read_options () {
             -h | --help)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 mmb_usage
-                exit
+                exit "${CR_TRUE}"
                 ;;
             --no-interaction)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 mmb_usage
-                exit
+                exit "${CR_TRUE}"
                 ;;
             --update)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 _pts_updater_run "${VALUE}"
-                exit
+                exit "${CR_TRUE}"
                 ;;
             --update-default)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
@@ -314,7 +314,7 @@ mmb_read_options () {
                 mmb_check_default_template "${CR_TRUE}"
                 mmb_cleanup
                 console_info "Default template updated"
-                exit
+                exit "${CR_TRUE}"
                 ;;
             -V | --version)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
