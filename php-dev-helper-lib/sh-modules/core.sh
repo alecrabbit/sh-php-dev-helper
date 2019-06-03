@@ -285,4 +285,20 @@ core_remove_suffix () {
     echo "${2%${1}}"
 }
 
+core_check_option_value () {
+    __value="${1}"
+    __option="${2:-}"
+    __message="${3:-Empty value}"
+    if [ "${__value}" = "" ]; then
+        if [ ! "${__option}" = "" ]; then
+            __message="${__message} for option: ${__option}"
+        fi
+        console_error "${__message}"
+        console_dark "Use:"
+        console_dark "    ${SCRIPT_NAME} ${__option}=<value>"
+        console_unable
+    fi
+    unset __option __value __message
+}
+
 core_check_int_bool_env_value "${CR_DEBUG}" "DEBUG" 
