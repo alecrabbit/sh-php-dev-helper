@@ -2,8 +2,10 @@
 
 ## What is it
 
-- `php-tests` tool to automate local testing, see [demo](.demo/php-tests-dev.gif)
+- `php-tests` tool to automate local testing
 - `moomba` php package creator script
+
+See [demos](.demo/demos.md)
 
 ## Installation
 
