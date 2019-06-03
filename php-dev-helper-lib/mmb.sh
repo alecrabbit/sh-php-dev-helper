@@ -15,7 +15,8 @@ mmb_load_settings () {
     TMPL_PACKAGE_OWNER_NAMESPACE="BugsBunny"
     TMPL_PACKAGE_NAME="looney-tunes"
 
-    TMPL_TEMPLATE_VERSION="develop" # todo change to "master" when ready
+    TMPL_DEFAULT_TEMPLATE="default"
+    TMPL_TEMPLATE_VERSION="develop" # TODO change to "master" when ready
     TMPL_PACKAGE_DESCRIPTION="Awesome package description"
     TMPL_PACKAGE_NAMESPACE="LooneyTunes"
     TMPL_PACKAGE_DIR="php-looney-tunes"
@@ -72,6 +73,7 @@ mmb_export_vars () {
     export TMPL_PACKAGE_DIR
     export TMPL_PACKAGE_LICENSE
     export TMPL_TEMPLATE_VERSION
+    export TMPL_DEFAULT_TEMPLATE
 }
 
 mmb_show_settings () {
