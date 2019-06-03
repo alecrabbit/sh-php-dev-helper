@@ -73,6 +73,7 @@ if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     mmb_show_package_values
     mmb_check_package_dir "${TMPL_PACKAGE_DIR}"
     mmb_create_package "${TMPL_USE_TEMPLATE_NAME}" "${TMPL_PACKAGE_DIR}"
+    mmb_package_created "${TMPL_PACKAGE_DIR}"
     mmb_cleanup
 else
     console_debug "No execution selected"

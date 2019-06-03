@@ -391,3 +391,19 @@ mmb_create_package () {
     mmb_license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}" > "${__to}/LICENSE"
     unset __to
 }
+
+mmb_package_created () {
+    __dir="${WORK_DIR}/${1}"
+    if ! check_command "docker-compose"
+    then 
+        console_error "docker-compose is NOT installed!"
+        console_comment "Deleting docker-compose files!"
+        console_debug "\n$(rm "${__dir}"/docker-compose*.yml)"
+    fi
+
+    if check_command "tree"; then
+        console_info "File structure:"
+        console_print "$(tree -a "${__dir}")"
+    fi
+    unset __dir
+}
