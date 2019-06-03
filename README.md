@@ -2,8 +2,10 @@
 
 ## What is it
 
-- `php-tests` tool to automate local testing, see [demo](.demo/php-tests-dev.gif)
-- `moomba` php package creator script
+- `php-tests` tool to automate local testing
+- `moomba` php package creator script ([settings](.docs/moomba-settings.md))
+
+See [demos](.demo/demos.md)
 
 ## Installation
 
@@ -18,8 +20,10 @@
 
 Get your copy of specific version
 
+> Note: Check [releases](https://github.com/alecrabbit/sh-php-dev-helper/releases) tab for the latest version number
+
  ```bash
- version="0.3.1" && wget -qO- "https://github.com/alecrabbit/sh-php-dev-helper/archive/${version}.tar.gz" \
+ version="0.3.3" && wget -qO- "https://github.com/alecrabbit/sh-php-dev-helper/archive/${version}.tar.gz" \
  | tar -xzv && cd sh-php-dev-helper-${version}
  ```
 
