@@ -358,6 +358,7 @@ mmb_read_options () {
                 ;;
             -t)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_info "Template to use as default: '${TMPL_USE_TEMPLATE_NAME}'"
                 core_check_option_value "${VALUE}" "${PARAM}"
                 _TEMPLATE_OPTION_USED="${CR_TRUE}"
                 TMPL_USE_TEMPLATE_NAME="${VALUE}"
