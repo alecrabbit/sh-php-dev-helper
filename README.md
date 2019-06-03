@@ -3,7 +3,7 @@
 ## What is it
 
 - `php-tests` tool to automate local testing
-- `moomba` php package creator script
+- `moomba` php package creator script ([settings](.docs/moomba-settings.md))
 
 See [demos](.demo/demos.md)
 
