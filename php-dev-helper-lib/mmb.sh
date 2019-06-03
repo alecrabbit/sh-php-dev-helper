@@ -16,7 +16,7 @@ mmb_load_settings () {
     TMPL_PACKAGE_NAME="looney-tunes"
 
     TMPL_DEFAULT_TEMPLATE="default"
-    TMPL_TEMPLATE_VERSION="develop" # TODO change to "master" when ready
+    TMPL_TEMPLATE_VERSION="master"
     TMPL_PACKAGE_DESCRIPTION="Awesome package description"
     TMPL_PACKAGE_NAMESPACE="LooneyTunes"
     TMPL_PACKAGE_DIR="php-looney-tunes"
