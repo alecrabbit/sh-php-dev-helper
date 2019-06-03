@@ -249,7 +249,10 @@ mmb_process_options () {
         console_unable
     fi
     if [ -z "$(find "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}" -type f)" ];then
-        console_fatal "Template '${TMPL_USE_TEMPLATE_NAME}' dir is empty"
+        console_error "Template dir '${TMPL_USE_TEMPLATE_NAME}' is empty"
+        console_dark "${MMB_TEMPLATES_DIR}:"
+        console_dark "$(ls "${MMB_TEMPLATES_DIR}")"
+        console_unable
     fi
 
     if [ ! "${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI}" = "" ]; then
