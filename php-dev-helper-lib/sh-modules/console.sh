@@ -30,6 +30,9 @@ console_fatal () {
     console_print "${EMOJI_FATAL:-}${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${CR_TRUE}" "${CR_TRUE}"
     exit "${CR_ERROR}"
 }
+console_unable () {
+    console_fatal "Unable to proceed"
+}
 
 ### Messages functions
 

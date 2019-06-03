@@ -8,6 +8,7 @@ TMPL_PACKAGE_OWNER_NAMESPACE="MikeWazowski"
 # "Apache-2.0" "BSD-2-Clause" "BSD-3-Clause" "GPL-3.0" "MIT" 
 TMPL_PACKAGE_LICENSE="Apache-2.0" 
 
+# TMPL_DEFAULT_TEMPLATE="default"
 # TMPL_TEMPLATE_VERSION="master"
 # TMPL_PACKAGE_NAME="monster-tools"
 # TMPL_PACKAGE_DESCRIPTION="Awesome package description"
