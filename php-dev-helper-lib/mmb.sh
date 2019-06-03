@@ -116,7 +116,7 @@ mmb_check_working_env () {
     then
         console_notice "Found file: '${_COMPOSER_JSON_FILE}'"
         console_notice "Are you in the right directory?"
-        console_fatal "Unable to proceed"
+        console_unable
     fi
 }
 
@@ -129,7 +129,7 @@ mmb_check_package_dir() {
         else
             console_error "Dir '${__from}' is NOT empty"
             mmb_cleanup
-            console_fatal "Unable to proceed"
+            console_unable
         fi
     else
         console_comment "Creating dir: ${__from}"
@@ -143,7 +143,7 @@ mmb_working_dir () {
 
     if core_check_if_dir_exists "${MMB_WORK_DIR}"; then
         console_error "Dir '${MMB_WORK_DIR}' exists. Maybe it wasn't cleaned up earlier."
-        console_fatal "Unable to proceed"
+        console_unable
     else
         console_debug "Creating dir: ${MMB_WORK_DIR}"
         console_debug "$(mkdir -pv "${MMB_WORK_DIR}")"
@@ -232,11 +232,26 @@ mmb_usage () {
 }
 
 mmb_set_default_options () {
+    _TEMPLATE_OPTION_USED="${CR_FALSE}"
+
     TMPL_USE_OWNER_NAMESPACE="${CR_TRUE}"
-    TMPL_USE_TEMPLATE_NAME="default"
+    TMPL_USE_TEMPLATE_NAME="${TMPL_DEFAULT_TEMPLATE}"
 }
 
 mmb_process_options () {
+    if ! core_check_if_dir_exists "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}";then
+        console_error "Template '${TMPL_USE_TEMPLATE_NAME}' not found"
+        if [ "${_TEMPLATE_OPTION_USED}" = "${CR_FALSE}" ]; then
+            console_dark "Settings file"
+            console_dark "${MMB_SETTINGS_FILE}:"
+            console_comment "$(grep TMPL_DEFAULT_TEMPLATE < "${MMB_SETTINGS_FILE}")"
+        fi
+        console_unable
+    fi
+    if [ -z "$(find "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}" -type f)" ];then
+        console_fatal "Template '${TMPL_USE_TEMPLATE_NAME}' dir is empty"
+    fi
+
     if [ ! "${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI}" = "" ]; then
         TMPL_PACKAGE_TERMINAL_TITLE_EMOJI="${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI} "
     fi
@@ -338,13 +353,8 @@ mmb_read_options () {
                 if [ "${VALUE}" = "" ]; then
                     console_fatal "Empty template name provided"
                 fi
+                _TEMPLATE_OPTION_USED="${CR_TRUE}"
                 TMPL_USE_TEMPLATE_NAME="${VALUE}"
-                if ! core_check_if_dir_exists "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}";then
-                    console_fatal "Template '${TMPL_USE_TEMPLATE_NAME}' not found"
-                fi
-                if [ -z "$(find "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}" -type f)" ];then
-                    console_fatal "Template dir is empty"
-                fi
                 ;;
             --debug)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
