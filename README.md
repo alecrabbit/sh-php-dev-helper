@@ -36,7 +36,7 @@ cp -r . ~/.local/bin/.
 Rename main scripts
 
 ```bash
-mv moomba-dev moomba && mv php-tests-dev php-tests
+mv moomba-dev moomba && mv php-tests-dev php-tests && mv build-image-dev build-image
 ```
 
 Make sure your `.profile` file contains these lines:

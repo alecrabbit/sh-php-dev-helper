@@ -276,6 +276,7 @@ __updater_install () {
         console_debug "Copying new files to '${SCRIPT_DIR}'\n$(cp -rv "${__dir}/${__package}-${__version}"/. "${SCRIPT_DIR}"/. 2>&1)"
         console_debug "Renaming\n$(mv -v "${SCRIPT_DIR}/php-tests-dev" "${SCRIPT_DIR}/php-tests" 2>&1)"
         console_debug "Renaming\n$(mv -v "${SCRIPT_DIR}/moomba-dev" "${SCRIPT_DIR}/moomba" 2>&1)"
+        console_debug "Renaming\n$(mv -v "${SCRIPT_DIR}/build-image-dev" "${SCRIPT_DIR}/build-image" 2>&1)"
         
         console_debug "Writing new version ${__version} > ${VERSION_FILE}"
         # shellcheck disable=SC2116
