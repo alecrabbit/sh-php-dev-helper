@@ -5,7 +5,6 @@ WORK_DIR="$(core_get_realpath "${WORK_DIR}")"
 VERSION_FILE="$(core_get_realpath "${VERSION_FILE}")"
 BUILD_FILE="$(core_get_realpath "${BUILD_FILE}")"
 
-console_debug "Testing project: ${PROJECT_NAME}"
 console_debug "Script name: ${SCRIPT_NAME}"
 console_debug "Script dir: ${SCRIPT_DIR}"
 console_debug "Lib dir: ${LIB_DIR}"

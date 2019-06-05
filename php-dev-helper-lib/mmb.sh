@@ -127,9 +127,8 @@ mmb_check_package_dir() {
         if [ -z "$(find "${__from}" -type f)" ];then
             console_debug "Dir '${__from}' is empty"
         else
-            console_error "Dir '${__from}' is NOT empty"
             mmb_cleanup
-            console_unable
+            console_unable "Dir '${__from}' is NOT empty"
         fi
     else
         console_comment "Creating dir: ${__from}"
@@ -142,8 +141,7 @@ mmb_working_dir () {
     console_debug "Prepare tmp dir"
 
     if core_dir_exists "${MMB_WORK_DIR}"; then
-        console_error "Dir '${MMB_WORK_DIR}' exists. Maybe it wasn't cleaned up earlier."
-        console_unable
+        console_unable "Dir '${MMB_WORK_DIR}' exists. Maybe it wasn't cleaned up earlier."
     else
         console_debug "Creating dir: ${MMB_WORK_DIR}"
         console_debug "$(mkdir -pv "${MMB_WORK_DIR}")"
@@ -250,10 +248,9 @@ mmb_process_options () {
         console_unable
     fi
     if [ -z "$(find "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}" -type f)" ];then
-        console_error "Template dir '${TMPL_USE_TEMPLATE_NAME}' is empty"
         console_dark "${MMB_TEMPLATES_DIR}:"
         console_dark "$(ls "${MMB_TEMPLATES_DIR}")"
-        console_unable
+        console_unable "Template dir '${TMPL_USE_TEMPLATE_NAME}' is empty"
     fi
 
     if [ ! "${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI}" = "" ]; then

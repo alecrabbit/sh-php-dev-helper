@@ -31,6 +31,11 @@ console_fatal () {
     exit "${CR_ERROR}"
 }
 console_unable () {
+    __error="${1:-}"
+    if [ ! "${__error}" = "" ];then
+        console_error "${__error}"
+    fi
+    unset __error
     console_fatal "Unable to proceed"
 }
 

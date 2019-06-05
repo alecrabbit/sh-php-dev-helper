@@ -1,12 +1,10 @@
 #!/usr/bin/env sh
-PROJECT_NAME="$(basename "${WORK_DIR}")"
-
 _pts_check_working_env () {
     func_check_user
 
     if ! check_command "docker-compose"
     then 
-        console_fatal "docker-compose is NOT installed!"
+        console_unable "docker-compose is NOT installed!"
     fi
     console_debug "Checking docker-compose: installed"
     if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
@@ -17,7 +15,7 @@ _pts_check_working_env () {
     if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}${__composer_file}" "${CR_TRUE}"
     then
         console_notice "\nAre you in the right directory?"
-        console_fatal "Required file(s) not found in current directory"
+        console_unable "Required file(s) not found in current directory"
     fi
     if [ "${DIR_CONTROL}" -eq "${CR_ENABLED}" ]; then
         console_warning "DIR_CONTROL is an experimental feature"
@@ -41,20 +39,22 @@ __dir_control () {
     __project_allowed="$(core_file_contains_string "${PTS_ALLOWED_DIRS_FILE}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
     __project_disallowed="$(core_file_contains_string "${PTS_DISALLOWED_DIRS_FILE}" "${WORK_DIR}" && echo "${CR_TRUE}" || echo "${CR_FALSE}")"
 
+    PROJECT_DIR="$(basename "${WORK_DIR}")"
+
     if [ "${USE_DIR_PREFIX}" -eq "${CR_ENABLED}" ]; then
         console_debug "USE_DIR_PREFIX enabled"
-        __result="$(echo "${PROJECT_NAME}" | grep -i "${WORKING_PREFIX}")"
+        __result="$(echo "${PROJECT_DIR}" | grep -i "${WORKING_PREFIX}")"
     fi
 
     if [ "${__result:-}" != "" ]; then
-        console_debug "Your project allowed by name '${PROJECT_NAME}'"
+        console_debug "Your project allowed by name '${PROJECT_DIR}'"
         console_debug "Your project name contains '${WORKING_PREFIX}'"
     else
         if [ "${__project_allowed}" = "${CR_TRUE}" ] || [ "${__project_disallowed}" = "${CR_TRUE}" ]; then
             console_debug "Your project dir '${WORK_DIR}' is registered"
             console_debug "Allowed: $(core_bool_to_string "${__project_allowed}") Disallowed: $(core_bool_to_string "${__project_disallowed}")"
             if [ "${__project_disallowed}" = "${CR_TRUE}" ]; then
-                console_fatal "Disallowed project"
+                console_unable "Disallowed project"
             fi
         else
             console_dark "Files:"
@@ -196,24 +196,30 @@ __execute_command () {
 
 
 _pts_generate_report_file () {
+    __project_name="$(core_get_project_name "${_COMPOSER_JSON_FILE}")"
+    __VENDOR_NAME=$(echo "$__project_name" | awk -F/ '{print $1}')
+    __PACKAGE_NAME=$(echo "$__project_name" | awk -F/ '{print $2}')
+
     cat <<EOF > "${PTS_TEST_REPORT_INDEX}"
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-  <title>${PROJECT_NAME}</title>
+  <title>${__PACKAGE_NAME}</title>
 </head>
 <body>
 
-<h1>Report &lt;${PROJECT_NAME}&gt;</h1>
+<h1><a href='#'>${__VENDOR_NAME}/${__PACKAGE_NAME}</a> report</h1>
 
 <p>Some links could be empty</p>
 <a href='${PTS_TMP_DIR_PARTIAL}/${PTS_COVERAGE_DIR}/html/index.html'>Coverage report</a><br>
 <a href='${PTS_TMP_DIR_PARTIAL}/${PTS_PHPMETRICS_DIR}/index.html'>Phpmetrics report</a><br>
+<a href='${PTS_TMP_DIR_PARTIAL}/${PTS_GRAPHS_DIR}'>Graphs dir</a><br>
 
 </body>
 </html> 
 EOF
+    unset __project_name __VENDOR_NAME __PACKAGE_NAME
 }
 
 __do_not_update_dev () {
