@@ -109,7 +109,7 @@ __check_container () {
     else
         console_debug "Container is NOT running"
     fi
-    console_debug "Image used: ${__message:-unable to define image(container not running)}"
+    console_debug "Image used: ${__message:-unable to define image(container is not running)}"
     export PTS_CONTAINER_STARTED
     export PTS_DEBUG_IMAGE_USED
     unset __dir

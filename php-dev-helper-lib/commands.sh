@@ -163,19 +163,19 @@ __php_version () {
 }
 
 _php_dependency_graph () {
-    if [ "${PTS_DEP_GRAPH}" -eq "${CR_TRUE}" ]; then
+    if [ "${PTS_DEPS_GRAPH}" -eq "${CR_TRUE}" ]; then
         console_section "Dependency graph..."
         __project_name="$(core_get_project_name "${_COMPOSER_JSON_FILE}")"
         __VENDOR_NAME=$(echo "$__project_name" | awk -F/ '{print $1}')
         __PACKAGE_NAME=$(echo "$__project_name" | awk -F/ '{print $2}')
 
-        console_dark "__VENDOR_NAME: ${__VENDOR_NAME}"
-        console_dark "__PACKAGE_NAME: ${__PACKAGE_NAME}"
+        console_debug "__VENDOR_NAME: ${__VENDOR_NAME}"
+        console_debug "__PACKAGE_NAME: ${__PACKAGE_NAME}"
 
         if ! core_dir_exists "${PTS_DEP_GRAPHS_DIR}"; then
             console_debug "$(mkdir -pv "${PTS_DEP_GRAPHS_DIR}")"
         fi
-        console_info "Creating graph from 'composer.lock' file"
+        console_comment "Creating graph from 'composer.lock' file"
         __result="$(docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app dependency-graph from-lock)"
         if [ $? -eq "${CR_TRUE}" ];then
             console_debug "Command execution result was: ${__result}"
@@ -183,7 +183,7 @@ _php_dependency_graph () {
         else 
             console_error "${__result}"
         fi
-        console_info "Creating current package graph: '${__project_name}' "
+        console_comment "Creating current package graph: '${__project_name}' "
         __result="$(docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app dependency-graph of "${__project_name}")"
         if [ $? -eq "${CR_TRUE}" ];then
             console_debug "Command execution result was: ${__result}"
@@ -191,7 +191,7 @@ _php_dependency_graph () {
         else 
             console_error "${__result}"
         fi
-        console_info "Creating vendor graph: '${__VENDOR_NAME}' "
+        console_comment "Creating vendor graph: '${__VENDOR_NAME}' "
         __result="$(docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app dependency-graph vendor "${__VENDOR_NAME}")"
         if [ $? -eq "${CR_TRUE}" ];then
             console_debug "Command execution result was: ${__result}"
@@ -199,7 +199,8 @@ _php_dependency_graph () {
         else 
             console_error "${__result}"
         fi
-
+        console_info ""
+        console_info "Open '${PTS_TEST_REPORT_INDEX}' to see graphs"
         unset __result __project_name __VENDOR_NAME __PACKAGE_NAME
     fi
 }
