@@ -56,7 +56,7 @@ __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 bdi_load_settings
 bdi_read_options "$@"
 
-func_print_header "PHP Package creator"
+func_print_header "Docker image build tool"
 
 ### Run checks
 bdi_show_settings
@@ -68,6 +68,7 @@ if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     core_set_terminal_title "${__TITLE} - Building..."
     console_debug "Executing..."
     console_dark "Building image"
+    console_error "It does NOTHING"
 else
     console_debug "No execution selected"
 fi
