@@ -8,15 +8,22 @@
 
 ## Moomba
 
+- [ ] Prompt user before writing to disk
 - [ ] Implement dir control: allow creating packages only in specified directories
 
 ---
 
-- [x] add setting `TMPL_DEFAULT_TEMPLATE="default"`
-- [x] store local templates in folder `templates`
-- [x] use default template from `templates/default`
-- [x] templates used by name
-
 ## Common
+
+- [ ] Use `FLAG_CANCELED`, `FLAG_DONE`
+
+```text
+❌ Canceled!
+
+🏁 Done!
+2019-06-04 17:18:42
+Executed in 23s
+Bye!
+```
 
 - [ ] Write tests? 🤦‍

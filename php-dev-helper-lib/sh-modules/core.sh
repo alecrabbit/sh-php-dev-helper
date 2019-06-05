@@ -194,7 +194,7 @@ core_check_int_bool_env_value () {
 }
 
 core_ask_question () {
-    __allowed_answers="${3:-ny}"
+    __allowed_answers="${3:-yn}"
     __accept_any="${2:-${CR_FALSE}}"
     if [ "${__accept_any}" -eq "${CR_TRUE}" ]; then
         __allowed_answers="y/n"
@@ -204,7 +204,7 @@ core_ask_question () {
     __old_stty_cfg=$(stty -g)
     stty raw -echo
 
-    if [ "${_pts_silent_operation:-${CR_FALSE}}" -eq "${CR_TRUE}" ]
+    if [ "${CR_OPTION_no_interaction:-${CR_FALSE}}" -eq "${CR_TRUE}" ]
     then
         __answer="y"
     else

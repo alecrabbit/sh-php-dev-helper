@@ -224,7 +224,7 @@ mmb_usage () {
     echo "    $(colored_yellow "--update-default")      - update default template"
     echo "    $(colored_yellow "-t")                    - use template"
     echo "    $(colored_yellow "-V, --version")         - show version"
-    echo "    $(colored_yellow "--no-interaction")      - do not ask any interactive question"
+    echo "    $(colored_yellow "-y, --no-interaction")      - do not ask any interactive question"
     echo
     echo "$(colored_green "Example"):"
     echo "    ${SCRIPT_NAME} -p=new-package -o=mike"
@@ -298,10 +298,9 @@ mmb_read_options () {
                 mmb_usage
                 exit "${CR_TRUE}"
                 ;;
-            --no-interaction)
+            -y | --no-interaction)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                mmb_usage
-                exit "${CR_TRUE}"
+                export CR_OPTION_no_interaction="${CR_TRUE}"
                 ;;
             --update)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"

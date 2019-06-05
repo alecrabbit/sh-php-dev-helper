@@ -71,9 +71,13 @@ if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     console_debug "Executing..."
     console_dark "Creating new package"
     mmb_show_package_values
-    mmb_check_package_dir "${TMPL_PACKAGE_DIR}"
-    mmb_create_package "${TMPL_USE_TEMPLATE_NAME}" "${TMPL_PACKAGE_DIR}"
-    mmb_package_created "${TMPL_PACKAGE_DIR}"
+    if core_ask_question "Create package '${TMPL_PACKAGE_DIR}'?"; then
+        mmb_check_package_dir "${TMPL_PACKAGE_DIR}"
+        mmb_create_package "${TMPL_USE_TEMPLATE_NAME}" "${TMPL_PACKAGE_DIR}"
+        mmb_package_created "${TMPL_PACKAGE_DIR}"
+    else 
+        console_comment "Canceled!"
+    fi
     mmb_cleanup
 else
     console_debug "No execution selected"
