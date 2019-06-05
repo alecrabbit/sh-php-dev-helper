@@ -76,6 +76,7 @@ if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
         _php_security_exec
         _php_cs_exec
         _php_cs_bf_exec
+        _php_dependency_graph
 
         if [ "${PTS_METRICS}" -eq "${CR_TRUE}" ] || [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ]; then
             console_print ""

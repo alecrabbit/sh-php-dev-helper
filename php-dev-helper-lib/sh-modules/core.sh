@@ -135,7 +135,7 @@ core_get_realpath ()
     unset __realpath
 }
 
-core_check_if_dir_exists () {
+core_dir_exists () {
     console_debug "Checking if directory exists '${1}'"
     __DIRECTORY=$(core_get_realpath "${1}")
     if [ $? -eq ${CR_TRUE} ]

@@ -122,7 +122,7 @@ mmb_check_working_env () {
 
 mmb_check_package_dir() {
     __from="${1}"
-    if core_check_if_dir_exists "${__from}"; then
+    if core_dir_exists "${__from}"; then
         console_debug "Dir '${__from}' exists"
         if [ -z "$(find "${__from}" -type f)" ];then
             console_debug "Dir '${__from}' is empty"
@@ -141,7 +141,7 @@ mmb_check_package_dir() {
 mmb_working_dir () {
     console_debug "Prepare tmp dir"
 
-    if core_check_if_dir_exists "${MMB_WORK_DIR}"; then
+    if core_dir_exists "${MMB_WORK_DIR}"; then
         console_error "Dir '${MMB_WORK_DIR}' exists. Maybe it wasn't cleaned up earlier."
         console_unable
     else
@@ -153,7 +153,7 @@ mmb_working_dir () {
 mmb_cleanup () {
     console_debug "Cleaning up"
 
-    if core_check_if_dir_exists "${MMB_WORK_DIR}"; then
+    if core_dir_exists "${MMB_WORK_DIR}"; then
         console_debug "Deleting dir: ${MMB_WORK_DIR}"
         console_debug "$(rm -rv "${MMB_WORK_DIR}")"
     else
@@ -198,7 +198,7 @@ mmb_download_template () {
 
 mmb_check_default_template () {
     __force_download="${1:-${CR_FALSE}}"
-    if ! core_check_if_dir_exists "${MMB_DEFAULT_TEMPLATE_DIR}";then
+    if ! core_dir_exists "${MMB_DEFAULT_TEMPLATE_DIR}";then
         console_error "Default template not found"
         console_debug "No dir: ${MMB_DEFAULT_TEMPLATE_DIR}"
         console_debug "$(mkdir -pv "${MMB_DEFAULT_TEMPLATE_DIR}")"
@@ -240,7 +240,7 @@ mmb_set_default_options () {
 }
 
 mmb_process_options () {
-    if ! core_check_if_dir_exists "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}";then
+    if ! core_dir_exists "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}";then
         console_error "Template '${TMPL_USE_TEMPLATE_NAME}' not found"
         if [ "${_TEMPLATE_OPTION_USED}" = "${CR_FALSE}" ]; then
             console_dark "Settings file"
@@ -361,6 +361,10 @@ mmb_read_options () {
                 core_check_option_value "${VALUE}" "${PARAM}"
                 _TEMPLATE_OPTION_USED="${CR_TRUE}"
                 TMPL_USE_TEMPLATE_NAME="${VALUE}"
+                ;;
+            --show-message-samples)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                console_show_messages_samples
                 ;;
             --debug)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"

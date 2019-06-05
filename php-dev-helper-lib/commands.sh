@@ -126,7 +126,6 @@ _php_metrics_exec () {
 }
 
 _phpunit_exec () {
-    console_debug "Running PHPUnit"
     if [ "${PTS_PHPUNIT}" -eq "${CR_TRUE}" ]; then
         __php_version
         console_section "PHPUnit..."
@@ -161,4 +160,46 @@ _phpunit_exec () {
 __php_version () {
     console_section "PHP Version"
     docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app php -v
+}
+
+_php_dependency_graph () {
+    if [ "${PTS_DEP_GRAPH}" -eq "${CR_TRUE}" ]; then
+        console_section "Dependency graph..."
+        __project_name="$(core_get_project_name "${_COMPOSER_JSON_FILE}")"
+        __VENDOR_NAME=$(echo "$__project_name" | awk -F/ '{print $1}')
+        __PACKAGE_NAME=$(echo "$__project_name" | awk -F/ '{print $2}')
+
+        console_dark "__VENDOR_NAME: ${__VENDOR_NAME}"
+        console_dark "__PACKAGE_NAME: ${__PACKAGE_NAME}"
+
+        if ! core_dir_exists "${PTS_DEP_GRAPHS_DIR}"; then
+            console_debug "$(mkdir -pv "${PTS_DEP_GRAPHS_DIR}")"
+        fi
+        console_info "Creating graph from 'composer.lock' file"
+        __result="$(docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app dependency-graph from-lock)"
+        if [ $? -eq "${CR_TRUE}" ];then
+            console_debug "Command execution result was: ${__result}"
+            console_debug "$(mv -v dependencies.svg "${PTS_DEP_GRAPHS_DIR}"/)"
+        else 
+            console_error "${__result}"
+        fi
+        console_info "Creating current package graph: '${__project_name}' "
+        __result="$(docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app dependency-graph of "${__project_name}")"
+        if [ $? -eq "${CR_TRUE}" ];then
+            console_debug "Command execution result was: ${__result}"
+            console_debug "$(mv -v "${__VENDOR_NAME}"_"${__PACKAGE_NAME}"_dependencies.svg "${PTS_DEP_GRAPHS_DIR}"/)"
+        else 
+            console_error "${__result}"
+        fi
+        console_info "Creating vendor graph: '${__VENDOR_NAME}' "
+        __result="$(docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app dependency-graph vendor "${__VENDOR_NAME}")"
+        if [ $? -eq "${CR_TRUE}" ];then
+            console_debug "Command execution result was: ${__result}"
+            console_debug "$(mv -v "${__VENDOR_NAME}".svg "${PTS_DEP_GRAPHS_DIR}"/)"
+        else 
+            console_error "${__result}"
+        fi
+
+        unset __result __project_name __VENDOR_NAME __PACKAGE_NAME
+    fi
 }

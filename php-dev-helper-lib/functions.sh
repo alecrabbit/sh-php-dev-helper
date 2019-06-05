@@ -150,7 +150,7 @@ _pts_check_container () {
 
 _pts_check_vendor_dir () {
     if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
-        if core_check_if_dir_exists "${WORK_DIR}/vendor"; then
+        if core_dir_exists "${WORK_DIR}/vendor"; then
             console_debug "Dir 'vendor' found"
         else 
             console_error "No 'vendor' dir"
@@ -219,7 +219,7 @@ EOF
 __do_not_update_dev () {
     __dir=${1:-.}
     __repository=${2}
-        if core_check_if_dir_exists "${__dir}/.git"
+        if core_dir_exists "${__dir}/.git"
     then
         __remote="$(cd "${__dir}" && git remote -v)"
         console_debug "Remote:\n${__remote}"
@@ -321,7 +321,6 @@ _pts_show_project_type_and_name () {
     if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
         console_print ""
         __project_type="$(core_get_project_type "${_COMPOSER_JSON_FILE}")"
-        # __project_type="$(core_capitalize_every_word "${__project_type}")"
         __project_name="$(core_get_project_name "${_COMPOSER_JSON_FILE}")"
 
         __project_type="$(colored_blue "(${__project_type})")"

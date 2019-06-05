@@ -26,7 +26,7 @@ console_error () {
     console_print "${EMOJI_ERROR:-}${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_fatal () {
-    core_set_terminal_title "${__TITLE}"
+    core_set_terminal_title "${__TITLE:-${WORK_DIR}}"
     console_print "${EMOJI_FATAL:-}${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${CR_TRUE}" "${CR_TRUE}"
     exit "${CR_ERROR}"
 }
@@ -127,7 +127,7 @@ console_show_messages_samples () {
     console_header "Header sample" 
     console_section "Section sample" 
 
-    console_warning "console_notice" 
-    console_error "console_notice" 
-    console_fatal "console_notice" 
+    console_warning "Warning sample" 
+    console_error "Error sample" 
+    console_fatal "Fatal message sample" 
 }

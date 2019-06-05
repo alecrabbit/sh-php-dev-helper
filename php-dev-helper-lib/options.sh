@@ -40,6 +40,7 @@ __pts_set_default_options () {
     PTS_WITH_COMPOSER=${CR_TRUE}
     PTS_PHPUNIT_COVERAGE=${CR_FALSE}
     __ALL_OPTION=${CR_FALSE}
+    PTS_DEP_GRAPH=${CR_FALSE}
 }
 
 __pts_process_options () {
@@ -71,6 +72,7 @@ __pts_export_options () {
     export PTS_PHP_SECURITY
     export PTS_WITH_COMPOSER
     export PTS_PHPUNIT_COVERAGE
+    export PTS_DEP_GRAPH
 }
 
 _pts_show_selected_options () {
@@ -90,6 +92,7 @@ _pts_show_selected_options () {
     console_show_option "${PTS_PHP_SECURITY}" "Security checks"
     console_show_option "${PTS_CS}" "Code sniffer"
     console_show_option "${PTS_CS_BF}" "Code sniffer Beautifier"
+    console_show_option "${PTS_DEP_GRAPH}" "Dependencies graph"
     console_dark ""
 }
 
@@ -190,6 +193,12 @@ _pts_read_options () {
             -b | --beauty | --beautify)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 PTS_CS_BF=${CR_TRUE}
+                PTS_PHPUNIT=${CR_FALSE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
+                ;;
+            -g | --graphs)
+                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                PTS_DEP_GRAPH=${CR_TRUE}
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
