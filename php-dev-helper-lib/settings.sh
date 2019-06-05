@@ -182,6 +182,7 @@ if [ "${CR_EMOJIS}" -eq "${CR_ENABLED}" ];then
     export EMOJI_RABBIT="🐇 "
     export EMOJI_ROCKET="🚀 "
     export EMOJI_FIN_FLAG="🏁 "
+    export EMOJI_CANCELED="❌ "
     export EMOJI_CHECK="✔️ "
     export EMOJI_NEW="🆕 " 
 else
@@ -191,6 +192,7 @@ else
     export EMOJI_RABBIT=""
     export EMOJI_ROCKET=""
     export EMOJI_FIN_FLAG=""
+    export EMOJI_CANCELED=""
     export EMOJI_CHECK=""
     export EMOJI_NEW="" 
 fi

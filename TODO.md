@@ -8,22 +8,25 @@
 
 ## Moomba
 
-- [ ] Prompt user before writing to disk
-- [ ] Implement dir control: allow creating packages only in specified directories
+- [ ] Dir control: allow creating packages only in specified directories
 
 ---
 
+- [x] Prompt user before creating package
+
 ## Common
 
-- [ ] Use `FLAG_CANCELED`, `FLAG_DONE`
+- [ ] Write tests? 🤦‍
+
+---
+
+- [x] Use `FLAG_CANCELED`, `FLAG_DONE`
 
 ```text
 ❌ Canceled!
-
+    or
 🏁 Done!
 2019-06-04 17:18:42
 Executed in 23s
 Bye!
 ```
-
-- [ ] Write tests? 🤦‍

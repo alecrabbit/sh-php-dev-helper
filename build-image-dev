@@ -40,7 +40,7 @@ else
 fi
 ### LOAD MMB SPECIFIC MODULES
 # shellcheck disable=SC1090
-. "${LIB_DIR}/mmb.sh"
+. "${LIB_DIR}/bdi.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/tmp.sh"
 
@@ -53,33 +53,21 @@ export SCRIPT_BUILD
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 
 ### Read options
-mmb_load_settings
-mmb_read_options "$@"
+bdi_load_settings
+bdi_read_options "$@"
 
 func_print_header "PHP Package creator"
 
 ### Run checks
-mmb_show_settings
-mmb_check_working_env
+bdi_show_settings
+bdi_check_working_env
 
-### Creating new package
+### Building image
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     console_warning "Under development - use with caution!"
-    mmb_working_dir
-    mmb_check_default_template
-    core_set_terminal_title "${__TITLE} - Creating..."
+    core_set_terminal_title "${__TITLE} - Building..."
     console_debug "Executing..."
-    console_dark "Creating new package"
-    mmb_show_package_values
-    if core_ask_question "Create package '${TMPL_PACKAGE_DIR}'?"; then
-        mmb_check_package_dir "${TMPL_PACKAGE_DIR}"
-        mmb_create_package "${TMPL_USE_TEMPLATE_NAME}" "${TMPL_PACKAGE_DIR}"
-        mmb_package_created "${TMPL_PACKAGE_DIR}"
-        export FLAG_DONE="${CR_TRUE}"
-    else
-        export FLAG_CANCELED="${CR_TRUE}"
-    fi
-    mmb_cleanup
+    console_dark "Building image"
 else
     console_debug "No execution selected"
 fi

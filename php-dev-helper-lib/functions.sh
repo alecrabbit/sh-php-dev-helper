@@ -297,13 +297,18 @@ func_print_header () {
 }
 
 func_print_footer () {
-    if [ "${CR_DEBUG}" -eq 0 ]; then
+    if [ "${CR_DEBUG}" -eq "${CR_DISABLED}" ]; then
         __time="$(colored_dark "$(date '+%Y-%m-%d %H:%M:%S')")"
     else
         __time=""
     fi
     console_print ""
-    console_print "${EMOJI_FIN_FLAG}$(colored_yellow "Done!")\n${__time}"
+    if [ "${FLAG_DONE:-${CR_FALSE}}" -eq "${CR_TRUE}" ]; then
+        console_print "${EMOJI_FIN_FLAG}$(colored_yellow "Done!")\n${__time}"
+    fi
+    if [ "${FLAG_CANCELED:-${CR_FALSE}}" -eq "${CR_TRUE}" ]; then
+        console_print "${EMOJI_CANCELED}$(colored_yellow "Canceled!")\n${__time}"
+    fi
     console_dark "Executed in $(($(date +%s)-${1}))s"
     console_dark "Bye!"
 
