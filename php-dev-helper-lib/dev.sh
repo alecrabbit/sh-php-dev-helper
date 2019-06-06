@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
+
+console_debug ""
+console_debug "*** DEV MODULE BEGIN ***"
+
 SCRIPT_DIR="$(core_get_realpath "${SCRIPT_DIR}")"
 LIB_DIR="$(core_get_realpath "${LIB_DIR}")"
 WORK_DIR="$(core_get_realpath "${WORK_DIR}")"
@@ -19,3 +23,6 @@ then
 else
     console_debug "Hash not saved"
 fi
+
+console_debug "*** DEV MODULE END ***"
+console_debug ""

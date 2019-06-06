@@ -11,17 +11,19 @@ MODULES_DIR="${LIB_DIR}/sh-modules"
 WORK_DIR="${PWD}"
 
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/core.sh"
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/github.sh"
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/docker.sh"
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/git.sh"
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/version.sh"
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/updater.sh"
+. "${MODULES_DIR}/include.sh"
+# # shellcheck disable=SC1090
+# . "${MODULES_DIR}/core.sh"
+# # shellcheck disable=SC1090
+# . "${MODULES_DIR}/github.sh"
+# # shellcheck disable=SC1090
+# . "${MODULES_DIR}/docker.sh"
+# # shellcheck disable=SC1090
+# . "${MODULES_DIR}/git.sh"
+# # shellcheck disable=SC1090
+# . "${MODULES_DIR}/version.sh"
+# # shellcheck disable=SC1090
+# . "${MODULES_DIR}/updater.sh"
 # shellcheck disable=SC1090
 . "${LIB_DIR}/options.sh"
 # shellcheck disable=SC1090

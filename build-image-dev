@@ -1,48 +1,18 @@
 #!/usr/bin/env sh
+### Common section Begin
 set -u  # Treat unset variables as an error.
 start_time=$(date +%s)
-
-SCRIPT_NAME="$(basename "$0")"
-export SCRIPT_NAME
 
 SCRIPT_DIR="$(dirname "$0")"
 LIB_DIR="${SCRIPT_DIR}/php-dev-helper-lib"
 MODULES_DIR="${LIB_DIR}/sh-modules"
 WORK_DIR="${PWD}"
+
 ### LOAD MODULES
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/core.sh"
+. "${MODULES_DIR}/include_core.sh"  # Core modules loader
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/github.sh"
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/docker.sh"
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/git.sh"
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/version.sh"
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/updater.sh"
-### LOAD COMMON
-# shellcheck disable=SC1090
-. "${LIB_DIR}/options.sh"
-# shellcheck disable=SC1090
-. "${LIB_DIR}/functions.sh"
-# shellcheck disable=SC1090
-. "${LIB_DIR}/commands.sh"
-# shellcheck disable=SC1090
-. "${LIB_DIR}/settings.sh"
-# Load PTS_AUX_DEV_MODULE module if present
-if [ -e "${LIB_DIR}/${PTS_AUX_DEV_MODULE}" ]; then
-    # shellcheck disable=SC1090
-    . "${LIB_DIR}/${PTS_AUX_DEV_MODULE}" && console_debug "Module '${PTS_AUX_DEV_MODULE}' processed"
-else
-    console_debug "Aux dev module '${PTS_AUX_DEV_MODULE}' not found"
-fi
-### LOAD MMB SPECIFIC MODULES
-# shellcheck disable=SC1090
-. "${LIB_DIR}/bdi.sh"
-# shellcheck disable=SC1090
-. "${LIB_DIR}/tmp.sh"
+. "${LIB_DIR}/include_common.sh"    # Common modules loader
 
 SCRIPT_VERSION="$(version_load_version "${VERSION_FILE}")"
 SCRIPT_BUILD="$(version_load_build "${BUILD_FILE}")"
@@ -51,6 +21,11 @@ export SCRIPT_VERSION
 export SCRIPT_BUILD
 
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
+
+### Common section End
+### Script Code
+# shellcheck disable=SC1090
+. "${LIB_DIR}/include_bdi.sh"       # Moomba modules loader
 
 ### Read options
 bdi_load_settings
