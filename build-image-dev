@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # shellcheck disable=SC1091
-. pdh_lib_loader
+. php-dev-helper_loader
 
 ### Image builder modules loader
 # shellcheck disable=SC1090
