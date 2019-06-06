@@ -242,14 +242,14 @@ mmb_process_options () {
     if ! core_dir_exists "${MMB_TEMPLATES_DIR}/${TMPL_WORKING_TEMPLATE_NAME}";then
         console_error "Template '${TMPL_WORKING_TEMPLATE_NAME}' not found"
         if [ "${_TEMPLATE_OPTION_USED}" = "${CR_FALSE}" ]; then
-            if [ -e "${MMB_SETTINGS_FILE}:" ]; then
+            if [ -e "${MMB_SETTINGS_FILE}" ]; then
                 console_dark "Settings file"
                 console_dark "${MMB_SETTINGS_FILE}:"
                 console_comment "$(grep 2>&1 TMPL_DEFAULT_TEMPLATE < "${MMB_SETTINGS_FILE}")"
             fi
         fi
         if [ "${MMB_DEFAULT_TEMPLATE_NAME}" = "${TMPL_WORKING_TEMPLATE_NAME}" ]; then
-            console_comment "Run with --update-default"
+            console_comment "Run with --update-default option"
         fi
         console_unable
     fi
@@ -257,7 +257,7 @@ mmb_process_options () {
         console_error "Template dir '${TMPL_WORKING_TEMPLATE_NAME}' is empty"
         console_dark "Path: ${MMB_TEMPLATES_DIR}/${TMPL_WORKING_TEMPLATE_NAME}"
         if [ "${MMB_DEFAULT_TEMPLATE_NAME}" = "${TMPL_WORKING_TEMPLATE_NAME}" ]; then
-            console_comment "Run ${SCRIPT_NAME} with --update-default option"
+            console_comment "Run with --update-default option"
         fi
         console_unable
     fi
