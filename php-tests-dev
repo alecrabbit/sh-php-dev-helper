@@ -5,7 +5,7 @@
 
 ### Php-tests modules loader
 # shellcheck disable=SC1090
-. "${LIB_DIR}/include_pts.sh"       
+. "${INCLUDERS_DIR}/include_pts.sh"       
 
 func_print_header "PHP Tests and Analysis tool"
 

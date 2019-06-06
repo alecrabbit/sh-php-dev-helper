@@ -5,28 +5,33 @@
 ############################
 
 __lib="php-dev-helper-lib"
-__core_modules="sh-modules"
+__core_modules="core"
 __common_modules="common"
 __apps_modules="apps"
+__includers="includers"
 
-set -u  # Treat unset variables as an error.
+# Treat unset variables as an error.
+set -u
 
+# Set core variables
 SCRIPT_DIR="$(dirname "$0")"
 LIB_DIR="${SCRIPT_DIR}/${__lib}"
 COMMON_MODULES_DIR="${LIB_DIR}/${__common_modules}"
 CORE_MODULES_DIR="${LIB_DIR}/${__core_modules}"
 APPS_MODULES_DIR="${LIB_DIR}/${__apps_modules}"
+INCLUDERS_DIR="${LIB_DIR}/${__includers}"
 WORK_DIR="${PWD}"
 
-### LOAD MODULES
+# Source modules
 # shellcheck disable=SC1090
-. "${LIB_DIR}/include_core.sh"  # Core modules loader
+. "${INCLUDERS_DIR}/include_core.sh"      # Core modules loader
 # shellcheck disable=SC1090
-. "${LIB_DIR}/include_common.sh"    # Common modules loader
+. "${INCLUDERS_DIR}/include_common.sh"    # Common modules loader
 
 SCRIPT_VERSION="$(version_load_version "${VERSION_FILE}")"
 SCRIPT_BUILD="$(version_load_build "${BUILD_FILE}")"
 
+# TODO rename var to TERM_TITLE
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 
 export SCRIPT_VERSION
@@ -34,9 +39,10 @@ export SCRIPT_BUILD
 export COMMON_MODULES_DIR
 export CORE_MODULES_DIR
 export APPS_MODULES_DIR
+export INCLUDERS_DIR
 export __TITLE
 
-unset __lib __core_modules __common_modules __apps_modules
+unset __lib __core_modules __common_modules __apps_modules __includers
 
 ############################
 ###  Common section End  ###

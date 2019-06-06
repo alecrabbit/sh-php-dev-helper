@@ -4,7 +4,7 @@
 
 ### Image builder modules loader
 # shellcheck disable=SC1090
-. "${LIB_DIR}/include_bdi.sh"       
+. "${INCLUDERS_DIR}/include_bdi.sh"       
 
 func_print_header "Docker image build tool"
 

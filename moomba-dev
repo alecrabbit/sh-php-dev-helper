@@ -5,7 +5,7 @@
 
 ### Moomba modules loader
 # shellcheck disable=SC1090
-. "${LIB_DIR}/include_mmb.sh"      
+. "${INCLUDERS_DIR}/include_mmb.sh"      
 
 mmb_load_settings
 mmb_read_options "$@"
