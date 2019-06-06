@@ -1,11 +1,17 @@
 #!/usr/bin/env sh
-### Common section Begin
+
+############################
+### Common section Begin ###
+############################
+
+__lib="php-dev-helper-lib"
+__modules="sh-modules"
+
 set -u  # Treat unset variables as an error.
-start_time=$(date +%s)
 
 SCRIPT_DIR="$(dirname "$0")"
-LIB_DIR="${SCRIPT_DIR}/php-dev-helper-lib"
-MODULES_DIR="${LIB_DIR}/sh-modules"
+LIB_DIR="${SCRIPT_DIR}/${__lib}"
+MODULES_DIR="${LIB_DIR}/${__modules}"
 WORK_DIR="${PWD}"
 
 ### LOAD MODULES
@@ -22,14 +28,13 @@ export SCRIPT_BUILD
 
 __TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 
-### Common section End
-### Script Code
-# shellcheck disable=SC1090
-. "${LIB_DIR}/include_bdi.sh"       # Moomba modules loader
+############################
+###  Common section End  ###
+############################
 
-### Read options
-bdi_load_settings
-bdi_read_options "$@"
+### Image builder modules loader
+# shellcheck disable=SC1090
+. "${LIB_DIR}/include_bdi.sh"       
 
 func_print_header "Docker image build tool"
 
@@ -48,4 +53,4 @@ else
     console_debug "No execution selected"
 fi
 
-func_print_footer "${start_time}"
+func_print_footer

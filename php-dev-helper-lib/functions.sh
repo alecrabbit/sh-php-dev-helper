@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
+
+SCRIPT_START_TIME=$(date +%s)
+export SCRIPT_START_TIME
+
 _pts_check_working_env () {
     func_check_user
 
@@ -316,7 +320,9 @@ func_print_footer () {
     if [ "${FLAG_CANCELED:-${CR_FALSE}}" -eq "${CR_TRUE}" ]; then
         console_print "${EMOJI_CANCELED}$(colored_yellow "Canceled!")\n${__time}"
     fi
-    console_dark "Executed in $(($(date +%s)-${1}))s"
+    if [ ! "${SCRIPT_START_TIME:-${CR_FALSE}}" = "${CR_FALSE}" ]; then
+        console_dark "Executed in $(($(date +%s)-SCRIPT_START_TIME))s"
+    fi
     console_dark "Bye!"
 
     core_set_terminal_title "${__TITLE}"
