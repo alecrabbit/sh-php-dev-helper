@@ -26,7 +26,7 @@ if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     mmb_show_package_values
     if core_ask_question "Create package '${TMPL_PACKAGE_DIR}'?"; then
         mmb_check_package_dir "${TMPL_PACKAGE_DIR}"
-        mmb_create_package "${TMPL_USE_TEMPLATE_NAME}" "${TMPL_PACKAGE_DIR}"
+        mmb_create_package "${TMPL_WORKING_TEMPLATE_NAME}" "${TMPL_PACKAGE_DIR}"
         mmb_package_created "${TMPL_PACKAGE_DIR}"
         export FLAG_DONE="${CR_TRUE}"
     else

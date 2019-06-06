@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
+export MMB_DEFAULT_TEMPLATE_NAME="default"
 export MMB_SETTINGS_FILE="${SETTINGS_DIR}/.templates_settings"
 export MMB_TEMPLATES_DIR="${LIB_DIR}/templates"
-export MMB_DEFAULT_TEMPLATE_DIR="${MMB_TEMPLATES_DIR}/default"
+export MMB_DEFAULT_TEMPLATE_DIR="${MMB_TEMPLATES_DIR}/${MMB_DEFAULT_TEMPLATE_NAME}"
 export MMB_LICENSE_DIR="${MMB_TEMPLATES_DIR}/.licenses"
 export MMB_WORK_DIR="${WORK_DIR}/mmb-tmp"
 
@@ -87,7 +88,7 @@ mmb_show_settings () {
     console_debug "TMPL_PACKAGE_NAMESPACE: ${TMPL_PACKAGE_NAMESPACE}"
     console_debug "TMPL_PACKAGE_DIR: ${TMPL_PACKAGE_DIR}"
     console_debug "TMPL_USE_OWNER_NAMESPACE: $(core_bool_to_string "${TMPL_USE_OWNER_NAMESPACE}")"
-    console_debug "TMPL_USE_TEMPLATE_NAME: ${TMPL_USE_TEMPLATE_NAME}"
+    console_debug "TMPL_WORKING_TEMPLATE_NAME: ${TMPL_WORKING_TEMPLATE_NAME}"
     console_debug "TMPL_PACKAGE_LICENSE: ${TMPL_PACKAGE_LICENSE}"
     console_debug "TMPL_TEMPLATE_VERSION: ${TMPL_TEMPLATE_VERSION}"
 }
@@ -98,7 +99,7 @@ mmb_show_package_values () {
     then
         __separator="\\"
     fi
-    console_print "Using template: $(colored_blue "${TMPL_USE_TEMPLATE_NAME}")"
+    console_print "Using template: $(colored_blue "${TMPL_WORKING_TEMPLATE_NAME}")"
     console_print "Name: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAME}")"
     console_print "Package: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER}/${TMPL_PACKAGE_NAME}")"
     console_print "Namespace: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}${TMPL_PACKAGE_NAMESPACE}")"
@@ -234,23 +235,31 @@ mmb_set_default_options () {
     _TEMPLATE_OPTION_USED="${CR_FALSE}"
 
     TMPL_USE_OWNER_NAMESPACE="${CR_TRUE}"
-    TMPL_USE_TEMPLATE_NAME="${TMPL_DEFAULT_TEMPLATE}"
+    TMPL_WORKING_TEMPLATE_NAME="${TMPL_DEFAULT_TEMPLATE}"
 }
 
 mmb_process_options () {
-    if ! core_dir_exists "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}";then
-        console_error "Template '${TMPL_USE_TEMPLATE_NAME}' not found"
+    if ! core_dir_exists "${MMB_TEMPLATES_DIR}/${TMPL_WORKING_TEMPLATE_NAME}";then
+        console_error "Template '${TMPL_WORKING_TEMPLATE_NAME}' not found"
         if [ "${_TEMPLATE_OPTION_USED}" = "${CR_FALSE}" ]; then
-            console_dark "Settings file"
-            console_dark "${MMB_SETTINGS_FILE}:"
-            console_comment "$(grep TMPL_DEFAULT_TEMPLATE < "${MMB_SETTINGS_FILE}")"
+            if [ -e "${MMB_SETTINGS_FILE}:" ]; then
+                console_dark "Settings file"
+                console_dark "${MMB_SETTINGS_FILE}:"
+                console_comment "$(grep 2>&1 TMPL_DEFAULT_TEMPLATE < "${MMB_SETTINGS_FILE}")"
+            fi
+        fi
+        if [ "${MMB_DEFAULT_TEMPLATE_NAME}" = "${TMPL_WORKING_TEMPLATE_NAME}" ]; then
+            console_comment "Run with --update-default"
         fi
         console_unable
     fi
-    if [ -z "$(find "${MMB_TEMPLATES_DIR}/${TMPL_USE_TEMPLATE_NAME}" -type f)" ];then
-        console_dark "${MMB_TEMPLATES_DIR}:"
-        console_dark "$(ls "${MMB_TEMPLATES_DIR}")"
-        console_unable "Template dir '${TMPL_USE_TEMPLATE_NAME}' is empty"
+    if [ -z "$(find "${MMB_TEMPLATES_DIR}/${TMPL_WORKING_TEMPLATE_NAME}" -type f)" ];then
+        console_error "Template dir '${TMPL_WORKING_TEMPLATE_NAME}' is empty"
+        console_dark "Path: ${MMB_TEMPLATES_DIR}/${TMPL_WORKING_TEMPLATE_NAME}"
+        if [ "${MMB_DEFAULT_TEMPLATE_NAME}" = "${TMPL_WORKING_TEMPLATE_NAME}" ]; then
+            console_comment "Run ${SCRIPT_NAME} with --update-default option"
+        fi
+        console_unable
     fi
 
     if [ ! "${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI}" = "" ]; then
@@ -266,7 +275,7 @@ mmb_process_options () {
 
 mmb_export_options () {
     export TMPL_USE_OWNER_NAMESPACE
-    export TMPL_USE_TEMPLATE_NAME
+    export TMPL_WORKING_TEMPLATE_NAME
 }
 
 mmb_prepare_package_namespace () {
@@ -306,10 +315,7 @@ mmb_read_options () {
                 ;;
             --update-default)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                mmb_working_dir
-                mmb_check_default_template "${CR_TRUE}"
-                mmb_cleanup
-                console_info "Default template updated"
+                mmb_update_default_template
                 exit "${CR_TRUE}"
                 ;;
             -V | --version)
@@ -354,10 +360,10 @@ mmb_read_options () {
                 ;;
             -t)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                console_info "Template to use as default: '${TMPL_USE_TEMPLATE_NAME}'"
+                console_info "Template to use as default: '${TMPL_WORKING_TEMPLATE_NAME}'"
                 core_check_option_value "${VALUE}" "${PARAM}"
                 _TEMPLATE_OPTION_USED="${CR_TRUE}"
-                TMPL_USE_TEMPLATE_NAME="${VALUE}"
+                TMPL_WORKING_TEMPLATE_NAME="${VALUE}"
                 ;;
             --show-message-samples)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
@@ -394,6 +400,13 @@ mmb_create_package () {
     console_debug "$(mv -v "${__to}/BasicTest.php" "${__to}/tests/BasicTest.php")"
     mmb_license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}" > "${__to}/LICENSE"
     unset __to
+}
+
+mmb_update_default_template () {
+    mmb_working_dir
+    mmb_check_default_template "${CR_TRUE}"
+    mmb_cleanup
+    console_info "Default template updated"
 }
 
 mmb_package_created () {
