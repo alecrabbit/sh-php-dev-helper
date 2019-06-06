@@ -8,7 +8,7 @@ true; CR_TRUE=${CR_TRUE:-$?}
 false; CR_FALSE=${CR_FALSE:-$?}
 
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/colored.sh"
+. "${CORE_MODULES_DIR}/colored.sh"
 
 _SERVICE=${SCRIPT_NAME:-}
 if [ "${_SERVICE}" != "" ]

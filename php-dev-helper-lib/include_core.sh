@@ -4,14 +4,14 @@ export SCRIPT_NAME
 
 
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/core.sh"
+. "${CORE_MODULES_DIR}/core.sh"
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/github.sh"
+. "${CORE_MODULES_DIR}/github.sh"
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/docker.sh"
+. "${CORE_MODULES_DIR}/docker.sh"
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/git.sh"
+. "${CORE_MODULES_DIR}/git.sh"
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/version.sh"
+. "${CORE_MODULES_DIR}/version.sh"
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/updater.sh"
+. "${CORE_MODULES_DIR}/updater.sh"

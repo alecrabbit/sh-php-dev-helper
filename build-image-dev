@@ -1,36 +1,6 @@
 #!/usr/bin/env sh
-
-############################
-### Common section Begin ###
-############################
-
-__lib="php-dev-helper-lib"
-__modules="sh-modules"
-
-set -u  # Treat unset variables as an error.
-
-SCRIPT_DIR="$(dirname "$0")"
-LIB_DIR="${SCRIPT_DIR}/${__lib}"
-MODULES_DIR="${LIB_DIR}/${__modules}"
-WORK_DIR="${PWD}"
-
-### LOAD MODULES
-# shellcheck disable=SC1090
-. "${MODULES_DIR}/include_core.sh"  # Core modules loader
-# shellcheck disable=SC1090
-. "${LIB_DIR}/include_common.sh"    # Common modules loader
-
-SCRIPT_VERSION="$(version_load_version "${VERSION_FILE}")"
-SCRIPT_BUILD="$(version_load_build "${BUILD_FILE}")"
-
-export SCRIPT_VERSION
-export SCRIPT_BUILD
-
-__TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
-
-############################
-###  Common section End  ###
-############################
+# shellcheck disable=SC1091
+. pdh_lib_loader
 
 ### Image builder modules loader
 # shellcheck disable=SC1090

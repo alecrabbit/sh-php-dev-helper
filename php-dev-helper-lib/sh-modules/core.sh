@@ -14,7 +14,7 @@ CR_DISABLED=0
 CR_DEBUG=${DEBUG:-${CR_DISABLED}}  
 
 # shellcheck disable=SC1090
-. "${MODULES_DIR}/console.sh"
+. "${CORE_MODULES_DIR}/console.sh"
 
 export CR_TRUE
 export CR_FALSE
@@ -256,7 +256,7 @@ core_get_project_type () {
 }
 
 core_capitalize_every_word () {
-    echo "$@" | sed -f "${MODULES_DIR}/capitalize.sed"
+    echo "$@" | sed -f "${CORE_MODULES_DIR}/capitalize.sed"
 }
 
 core_lowercase () {
