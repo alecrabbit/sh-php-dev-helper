@@ -4,7 +4,7 @@
 ### Common section Begin ###
 ############################
 
-__lib="php-dev-helper-lib"
+__lib="php-dev-helper"
 __core_modules="core"
 __common_modules="common"
 __apps_modules="apps"
