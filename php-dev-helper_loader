@@ -1,9 +1,6 @@
 #!/usr/bin/env sh
 
-############################
-### Common section Begin ###
-############################
-
+# Directories
 __lib="php-dev-helper"
 __core_modules="core"
 __common_modules="common"
@@ -43,7 +40,3 @@ export INCLUDERS_DIR
 export __TITLE
 
 unset __lib __core_modules __common_modules __apps_modules __includers
-
-############################
-###  Common section End  ###
-############################

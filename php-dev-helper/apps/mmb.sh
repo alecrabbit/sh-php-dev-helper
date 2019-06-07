@@ -5,14 +5,16 @@ export MMB_TEMPLATES_DIR="${LIB_DIR}/templates"
 export MMB_DEFAULT_TEMPLATE_DIR="${MMB_TEMPLATES_DIR}/${MMB_DEFAULT_TEMPLATE_NAME}"
 export MMB_LICENSE_DIR="${MMB_TEMPLATES_DIR}/.licenses"
 export MMB_WORK_DIR="${WORK_DIR}/mmb-tmp"
+export MMB_DEFAULT_PACKAGE_OWNER="bunny"
+export MMB_DEFAULT_PACKAGE_OWNER_NAME="Bugs Bunny"
 
 
 mmb_load_settings () {
     TMPL_PACKAGE_DIR_PREFIX="php-"
     TMPL_PACKAGE_DIR_SUFFIX=""
 
-    TMPL_PACKAGE_OWNER="bunny"
-    TMPL_PACKAGE_OWNER_NAME="Bugs Bunny"
+    TMPL_PACKAGE_OWNER="${MMB_DEFAULT_PACKAGE_OWNER}"
+    TMPL_PACKAGE_OWNER_NAME="${MMB_DEFAULT_PACKAGE_OWNER_NAME}"
     TMPL_PACKAGE_OWNER_NAMESPACE="BugsBunny"
     TMPL_PACKAGE_NAME="looney-tunes"
 
@@ -98,6 +100,10 @@ mmb_show_package_values () {
     if [ ! "${TMPL_PACKAGE_OWNER_NAMESPACE}" = "" ]
     then
         __separator="\\"
+    fi
+    if [ "${TMPL_PACKAGE_OWNER}" = "${MMB_DEFAULT_PACKAGE_OWNER}" ] || \
+    [ "${TMPL_PACKAGE_OWNER_NAME}" = "${MMB_DEFAULT_PACKAGE_OWNER_NAME}" ];then
+        console_notice "It seems like you forgot to create '${MMB_SETTINGS_FILE}'"
     fi
     console_print "Using template: $(colored_blue "${TMPL_WORKING_TEMPLATE_NAME}")"
     console_print "Name: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAME}")"
