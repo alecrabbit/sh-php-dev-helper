@@ -110,7 +110,7 @@ mmb_show_package_values () {
     fi
     console_print "Using template: $(colored_blue "${TMPL_WORKING_TEMPLATE_NAME}")"
     console_print "Name: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAME}")"
-    console_print "Package: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER}/${TMPL_PACKAGE_NAME}")"
+    console_print "Package: $(colored_bold_purple "${TMPL_PACKAGE_OWNER}/${TMPL_PACKAGE_NAME}")"
     console_print "Namespace: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}${TMPL_PACKAGE_NAMESPACE}")"
     console_print "Description: $(colored_bold_cyan "${TMPL_PACKAGE_DESCRIPTION}")"
     console_print "Directory: $(colored_bold_cyan "${TMPL_PACKAGE_DIR}")"

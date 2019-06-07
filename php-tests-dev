@@ -10,14 +10,14 @@
 func_print_header "PHP Tests and Analysis tool"
 
 ### Run checks
-_pts_check_working_env
-_pts_show_project_type_and_name
+pts_check_working_env
+pts_show_project_type_and_name
 
 console_debug "Output use color: $(core_int_to_string "${CR_COLOR}")"
 
 _pts_show_selected_options
-_pts_check_container
-_pts_check_vendor_dir
+pts_check_container
+pts_check_vendor_dir
 
 ### Testing
 if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
@@ -46,7 +46,7 @@ if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
                 console_debug "Report file found: '${PTS_TEST_REPORT_INDEX}'"
             else
                 console_comment "Generating report file: '${PTS_TEST_REPORT_INDEX}'"
-                _pts_generate_report_file
+                pts_generate_report_file
             fi
         fi
     else
