@@ -105,7 +105,7 @@ mmb_show_package_values () {
     [ "${TMPL_PACKAGE_OWNER_NAME}" = "${MMB_DEFAULT_PACKAGE_OWNER_NAME}" ];then
         console_print ""
         console_notice "It seems like you forgot to create settings file"
-        console_comment"'${MMB_SETTINGS_FILE}'"
+        console_comment "'${MMB_SETTINGS_FILE}'"
         console_print ""
     fi
     console_print "Using template: $(colored_blue "${TMPL_WORKING_TEMPLATE_NAME}")"
