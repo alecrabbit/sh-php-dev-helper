@@ -207,7 +207,7 @@ pts_usage () {
     echo "$(colored_dark "Note: options order is important")"
 }
 
-__pts_set_default_options () {
+pts_set_default_options () {
     COMMON_EXECUTE=${CR_TRUE}
     PTS_REQUIRE_DEBUG_IMAGE=${CR_FALSE}
     PTS_RESTART=${CR_FALSE}
@@ -226,7 +226,7 @@ __pts_set_default_options () {
     PTS_DEPS_GRAPH=${CR_FALSE}
 }
 
-__pts_process_options () {
+pts_process_options () {
     if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ]; then
         PTS_PHPUNIT=${CR_TRUE}
     fi
@@ -280,7 +280,7 @@ _pts_show_selected_options () {
 }
 
 _pts_read_options () {
-    __pts_set_default_options
+    pts_set_default_options
     console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
         PARAM=$(echo "$1" | awk -F= '{print $1}')
@@ -417,7 +417,7 @@ _pts_read_options () {
         esac
         shift
     done
-    __pts_process_options
+    pts_process_options
     __pts_export_options
     unset PARAM VALUE
 }
