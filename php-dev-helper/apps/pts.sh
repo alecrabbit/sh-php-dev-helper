@@ -181,7 +181,7 @@ __dir_control () {
     unset __result __project_allowed __project_disallowed
 }
 
-__pts_usage () {
+pts_usage () {
     echo "Usage:"
     echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
     echo "Options:"
@@ -190,7 +190,7 @@ __pts_usage () {
     echo "    $(colored_yellow "-b ")                   - enable php code sniffer beautifier"
     echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage (includes -u)"
     echo "    $(colored_yellow "--cs")                  - enable php code sniffer"
-    echo "    $(colored_yellow "-g | --graphs")         - create dependencies graphs"
+    echo "    $(colored_yellow "-g, --graphs")         - create dependencies graphs"
     echo "    $(colored_yellow "--metrics")             - enable phpmetrics"
     echo "    $(colored_yellow "--multi")               - enable multi-tester"
     echo "    $(colored_yellow "--phpstan")             - enable phpstan"
@@ -288,7 +288,7 @@ _pts_read_options () {
         case ${PARAM} in
             -h | --help)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
-                __pts_usage
+                pts_usage
                 exit
                 ;;
             --update)
@@ -411,7 +411,7 @@ _pts_read_options () {
             *)
                 console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
                 console_error "Unknown option '${PARAM}'"
-                __pts_usage
+                pts_usage
                 exit 1
                 ;;
         esac
