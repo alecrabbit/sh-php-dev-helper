@@ -283,134 +283,134 @@ pts_read_options () {
     pts_set_default_options
     console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
-        PARAM=$(echo "$1" | awk -F= '{print $1}')
-        VALUE=$(echo "$1" | awk -F= '{print $2}')
-        case ${PARAM} in
+        __OPTION=$(echo "$1" | awk -F= '{print $1}')
+        __VALUE=$(echo "$1" | awk -F= '{print $2}')
+        case ${__OPTION} in
             -h | --help)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 pts_usage
                 exit
                 ;;
             --update)
-                debug_option "${PARAM}" "${VALUE}"
-                _pts_updater_run "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
+                _pts_updater_run "${__VALUE}"
                 exit
                 ;;
             -V | --version)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 version_print
                 exit "${CR_TRUE}"
                 ;;
             -v | --var-dump)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_VAR_DUMP_CHECK=${CR_TRUE}
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             # Undocumented 
             --save-build-hash)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 version_save_build_hash "${SCRIPT_DIR}" "${LIB_DIR}"
                 exit "${CR_TRUE}"
                 ;;
             # Undocumented
             --no-exec)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 COMMON_EXECUTE=${CR_FALSE}
                 ;;
             -a | --all)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 __ALL_OPTION=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -s | --analyze)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_PHPSTAN=${CR_TRUE}
                 PTS_PSALM=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -u | --unit)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_PHPUNIT=${CR_TRUE}
                 ;;
             --security)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_PHP_SECURITY=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -c | --coverage)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_PHPUNIT_COVERAGE=${CR_TRUE}
                 PTS_PHPUNIT=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --metrics)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_METRICS=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --phpstan)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_PHPSTAN=${CR_TRUE}
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --psalm)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_PSALM=${CR_TRUE}
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --cs)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_CS=${CR_TRUE}
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --multi)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_MULTI=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -b | --beauty | --beautify)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_CS_BF=${CR_TRUE}
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -g | --graphs)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_DEPS_GRAPH=${CR_TRUE}
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --no-restart)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 PTS_RESTART=${CR_FALSE}
                 ;;
             --debug)
                 CR_DEBUG=1
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 ;;
             --without-composer)
                 PTS_WITH_COMPOSER=${CR_FALSE}
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 ;;
             --no-ansi | --no-color | --monochrome )
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 console_dark "Temp solution:"
                 console_comment "Use env variable COLOR:"
                 console_print "    COLOR=never ${SCRIPT_NAME}"
                 exit
                 ;;
             --show-message-samples)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 console_show_messages_samples
                 ;;
             *)
-                debug_option "${PARAM}" "${VALUE}"
-                console_error "Unknown option '${PARAM}'"
+                debug_option "${__OPTION}" "${__VALUE}"
+                console_error "Unknown option '${__OPTION}'"
                 pts_usage
                 exit 1
                 ;;
@@ -419,5 +419,5 @@ pts_read_options () {
     done
     pts_process_options
     pts_export_options
-    unset PARAM VALUE
+    unset __OPTION __VALUE
 }

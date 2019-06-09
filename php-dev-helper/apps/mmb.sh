@@ -305,87 +305,87 @@ mmb_read_options () {
     mmb_set_default_options
     console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
-        PARAM=$(echo "$1" | awk -F= '{print $1}')
-        VALUE=$(echo "$1" | awk -F= '{print $2}')
-        case ${PARAM} in
+        __OPTION=$(echo "$1" | awk -F= '{print $1}')
+        __VALUE=$(echo "$1" | awk -F= '{print $2}')
+        case ${__OPTION} in
             -h | --help)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 mmb_usage
                 exit "${CR_TRUE}"
                 ;;
             -y | --no-interaction)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 export CR_OPTION_no_interaction="${CR_TRUE}"
                 ;;
             --update)
-                debug_option "${PARAM}" "${VALUE}"
-                _pts_updater_run "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
+                _pts_updater_run "${__VALUE}"
                 exit "${CR_TRUE}"
                 ;;
             --update-default)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 mmb_update_default_template
                 exit "${CR_TRUE}"
                 ;;
             -V | --version)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 version_print
                 exit "${CR_TRUE}"
                 ;;
             # Undocumented
             --save-build-hash)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 version_save_build_hash "${SCRIPT_DIR}" "${LIB_DIR}"
                 exit "${CR_TRUE}"
                 ;;
             # Undocumented
             --no-exec)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 export COMMON_EXECUTE=${CR_FALSE}
                 ;;
             -p)
-                debug_option "${PARAM}" "${VALUE}"
-                core_check_option_value "${VALUE}" "${PARAM}"
-                TMPL_PACKAGE_NAME="${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
+                core_check_option_value "${__VALUE}" "${__OPTION}"
+                TMPL_PACKAGE_NAME="${__VALUE}"
                 ;;
             -o)
-                debug_option "${PARAM}" "${VALUE}"
-                core_check_option_value "${VALUE}" "${PARAM}"
-                TMPL_PACKAGE_OWNER="${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
+                core_check_option_value "${__VALUE}" "${__OPTION}"
+                TMPL_PACKAGE_OWNER="${__VALUE}"
                 ;;
             -n)
-                debug_option "${PARAM}" "${VALUE}"
-                core_check_option_value "${VALUE}" "${PARAM}"
-                TMPL_PACKAGE_OWNER_NAME="${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
+                core_check_option_value "${__VALUE}" "${__OPTION}"
+                TMPL_PACKAGE_OWNER_NAME="${__VALUE}"
                 ;;
             -s)
-                debug_option "${PARAM}" "${VALUE}"
-                core_check_option_value "${VALUE}" "${PARAM}"
-                TMPL_PACKAGE_OWNER_NAMESPACE="${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
+                core_check_option_value "${__VALUE}" "${__OPTION}"
+                TMPL_PACKAGE_OWNER_NAMESPACE="${__VALUE}"
                 ;;
             -x)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 TMPL_USE_OWNER_NAMESPACE="${CR_FALSE}"
                 ;;
             -t)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 console_info "Template to use as default: '${TMPL_WORKING_TEMPLATE_NAME}'"
-                core_check_option_value "${VALUE}" "${PARAM}"
+                core_check_option_value "${__VALUE}" "${__OPTION}"
                 _TEMPLATE_OPTION_USED="${CR_TRUE}"
-                TMPL_WORKING_TEMPLATE_NAME="${VALUE}"
+                TMPL_WORKING_TEMPLATE_NAME="${__VALUE}"
                 ;;
             --show-message-samples)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 console_show_messages_samples
                 ;;
             --debug)
-                debug_option "${PARAM}" "${VALUE}"
+                debug_option "${__OPTION}" "${__VALUE}"
                 export CR_DEBUG=1
                 console_debug "Script '${SCRIPT_NAME}' launched in debug mode."
                 ;;
             *)
-                debug_option "${PARAM}" "${VALUE}"
-                console_error "Unknown option '${PARAM}'"
+                debug_option "${__OPTION}" "${__VALUE}"
+                console_error "Unknown option '${__OPTION}'"
                 mmb_usage
                 exit 1
                 ;;
@@ -394,7 +394,7 @@ mmb_read_options () {
     done
     mmb_process_options
     mmb_export_options
-    unset PARAM VALUE
+    unset __OPTION __VALUE
 }
 
 mmb_create_package () {
