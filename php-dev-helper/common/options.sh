@@ -13,9 +13,22 @@ common_export_options () {
     export COMMON_EXECUTE
 }
 
+common_help_message () {
+    echo "Usage:"
+    echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
+    echo "Options:"
+    "${1}"
+    echo "    $(colored_yellow "-h, --help")            - show help message and exit"
+    echo "    $(colored_yellow "--update")              - update script"
+    echo "    $(colored_yellow "-V, --version")         - show version"
+    echo
+    # shellcheck disable=SC2005
+    echo "$(colored_dark "Note: options order is important")"
+} 
+
 common_read_option () {
     common_set_default_options
-    console_debug "Reading options"
+    console_debug "common: Reading options"
     while [ "${1:-}" != "" ]; do
         __OPTION=$(echo "$1" | awk -F= '{print $1}')
         __VALUE=$(echo "$1" | awk -F= '{print $2}')
@@ -56,9 +69,15 @@ common_read_option () {
                 debug_option "${__OPTION}" "${__VALUE}"
                 console_show_messages_samples
                 ;;
+            -h | --help)
+                debug_option "${__OPTION}" "${__VALUE}"
+                common_help_message "${2}"
+                exit
+                ;;
             *)
                 debug_option "${__OPTION}" "${__VALUE}"
                 console_error "Unknown option '${__OPTION}'"
+                common_help_message "${2}"
                 exit 1
                 ;;
         esac

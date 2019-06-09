@@ -4,7 +4,8 @@ bdi_load_settings () {
 }
 
 bdi_set_default_options () {
-    :
+    BDI_DOCKER_PUSH="${CR_FALSE}"
+    BDI_FORCE_BUILD="${CR_FALSE}"
 }
 
 bdi_process_options () {
@@ -12,27 +13,31 @@ bdi_process_options () {
 }
 
 bdi_usage () {
-    console_debug "Dummy: help message"
+    echo "    $(colored_yellow "--push")                - push image"
 }
 
 bdi_export_options () {
-    :
+    export BDI_DOCKER_PUSH
+    export BDI_FORCE_BUILD
 }
 
 bdi_read_options  () {
     bdi_set_default_options
-    console_debug "Reading options"
+    console_debug "bdi: Reading options"
     while [ "${1:-}" != "" ]; do
         __OPTION=$(echo "$1" | awk -F= '{print $1}')
         __VALUE=$(echo "$1" | awk -F= '{print $2}')
         case ${__OPTION} in
-            -h | --help)
+            --push)
                 debug_option "${__OPTION}" "${__VALUE}"
-                bdi_usage
-                exit
+                BDI_DOCKER_PUSH="${CR_TRUE}"
+                ;;
+            --force)
+                debug_option "${__OPTION}" "${__VALUE}"
+                BDI_FORCE_BUILD="${CR_TRUE}"
                 ;;
             *)
-                common_read_option "${__OPTION}$([ "${__VALUE}" != "" ] && echo "=${__VALUE}")"
+                common_read_option "${__OPTION}$([ "${__VALUE}" != "" ] && echo "=${__VALUE}")" "bdi_usage"
                 ;;
         esac
         shift
