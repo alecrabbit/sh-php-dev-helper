@@ -158,6 +158,6 @@ func_print_footer () {
     fi
     console_dark "Bye!"
 
-    core_set_terminal_title "${__TITLE}"
+    core_set_terminal_title "${TERM_TITLE}"
     unset __time
 }

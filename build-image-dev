@@ -15,7 +15,7 @@ bdi_check_working_env
 ### Building image
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     console_warning "Under development - use with caution!"
-    core_set_terminal_title "${__TITLE} - Building..."
+    core_set_terminal_title "${TERM_TITLE} - Building..."
     console_debug "Executing..."
     console_dark "Building image"
     console_error "It does NOTHING"

@@ -21,7 +21,7 @@ pts_check_vendor_dir
 
 ### Testing
 if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
-    core_set_terminal_title "${__TITLE} - Testing..."
+    core_set_terminal_title "${TERM_TITLE} - Testing..."
     console_debug "Executing..."
     if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_TRUE}" ]; then
         console_comment "${EMOJI_ROCKET}Processing...."

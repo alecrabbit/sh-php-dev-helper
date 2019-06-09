@@ -204,8 +204,8 @@ core_ask_question () {
     printf "${1} [${__allowed_answers}] "
     __old_stty_cfg=$(stty -g)
     stty raw -echo
-
-    if [ "${CR_OPTION_no_interaction:-${CR_FALSE}}" -eq "${CR_TRUE}" ]
+    # TODO refactor here
+    if [ "${OPTION_NO_INTERACTION:-${CR_FALSE}}" -eq "${CR_TRUE}" ]
     then
         stty "${__old_stty_cfg}"
         unset __old_stty_cfg
