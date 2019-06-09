@@ -219,25 +219,17 @@ mmb_check_default_template () {
 }
 
 mmb_usage () {
-    echo "Usage:"
-    echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
-    echo "Options:"
-    echo "    $(colored_yellow "-h, --help")            - show help message and exit"
     echo "    $(colored_yellow "-p")                    - set package name"
     echo "    $(colored_yellow "-o")                    - set owner"
     echo "    $(colored_yellow "-s")                    - set owner namespace"
     echo "    $(colored_yellow "-n")                    - set package namespace"
     echo "    $(colored_yellow "-x")                    - do not use package namespace"
-    echo "    $(colored_yellow "--update")              - update script"
     echo "    $(colored_yellow "--update-default")      - update default template"
     echo "    $(colored_yellow "-t")                    - use template"
-    echo "    $(colored_yellow "-V, --version")         - show version"
     echo "    $(colored_yellow "-y, --no-interaction")      - do not ask any interactive question"
     echo
     echo "$(colored_green "Example"):"
     echo "    ${SCRIPT_NAME} -p=new-package -o=mike"
-    echo
-    echo "$(colored_dark "Note: options order is important") "
 }
 
 mmb_set_default_options () {
@@ -308,40 +300,14 @@ mmb_read_options () {
         __OPTION=$(echo "$1" | awk -F= '{print $1}')
         __VALUE=$(echo "$1" | awk -F= '{print $2}')
         case ${__OPTION} in
-            -h | --help)
-                debug_option "${__OPTION}" "${__VALUE}"
-                mmb_usage
-                exit "${CR_TRUE}"
-                ;;
             -y | --no-interaction)
                 debug_option "${__OPTION}" "${__VALUE}"
                 export CR_OPTION_no_interaction="${CR_TRUE}"
-                ;;
-            --update)
-                debug_option "${__OPTION}" "${__VALUE}"
-                _pts_updater_run "${__VALUE}"
-                exit "${CR_TRUE}"
                 ;;
             --update-default)
                 debug_option "${__OPTION}" "${__VALUE}"
                 mmb_update_default_template
                 exit "${CR_TRUE}"
-                ;;
-            -V | --version)
-                debug_option "${__OPTION}" "${__VALUE}"
-                version_print
-                exit "${CR_TRUE}"
-                ;;
-            # Undocumented
-            --save-build-hash)
-                debug_option "${__OPTION}" "${__VALUE}"
-                version_save_build_hash "${SCRIPT_DIR}" "${LIB_DIR}"
-                exit "${CR_TRUE}"
-                ;;
-            # Undocumented
-            --no-exec)
-                debug_option "${__OPTION}" "${__VALUE}"
-                export COMMON_EXECUTE=${CR_FALSE}
                 ;;
             -p)
                 debug_option "${__OPTION}" "${__VALUE}"
@@ -374,20 +340,8 @@ mmb_read_options () {
                 _TEMPLATE_OPTION_USED="${CR_TRUE}"
                 TMPL_WORKING_TEMPLATE_NAME="${__VALUE}"
                 ;;
-            --show-message-samples)
-                debug_option "${__OPTION}" "${__VALUE}"
-                console_show_messages_samples
-                ;;
-            --debug)
-                debug_option "${__OPTION}" "${__VALUE}"
-                export CR_DEBUG=1
-                console_debug "Script '${SCRIPT_NAME}' launched in debug mode."
-                ;;
             *)
-                debug_option "${__OPTION}" "${__VALUE}"
-                console_error "Unknown option '${__OPTION}'"
-                mmb_usage
-                exit 1
+                common_read_option "mmb_usage" "${__OPTION}$([ "${__VALUE}" != "" ] && echo "=${__VALUE}")"
                 ;;
         esac
         shift

@@ -182,10 +182,6 @@ __dir_control () {
 }
 
 pts_usage () {
-    echo "Usage:"
-    echo "    $(colored_bold "${SCRIPT_NAME}") [options]"
-    echo "Options:"
-    echo "    $(colored_yellow "-h, --help")            - show help message and exit"
     echo "    $(colored_yellow "-a, --all")             - run all (not includes --metrics and --multi)"
     echo "    $(colored_yellow "-b ")                   - enable php code sniffer beautifier"
     echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage (includes -u)"
@@ -198,13 +194,8 @@ pts_usage () {
     echo "    $(colored_yellow "-s, --analyze")         - enable static analysis tools (--phpstan and --psalm)"
     echo "    $(colored_yellow "--security")            - enable security checks"
     echo "    $(colored_yellow "-u, --unit")            - enable phpunit"
-    echo "    $(colored_yellow "--update")              - update script"
-    echo "    $(colored_yellow "-V, --version")         - show version"
     echo "    $(colored_yellow "-v")                    - enable check for forgotten var dumps"
     echo "    $(colored_yellow "--without-composer")    - do not check for 'composer.json' file and 'vendor' dir"
-    echo
-    # shellcheck disable=SC2005
-    echo "$(colored_dark "Note: options order is important")"
 }
 
 pts_set_default_options () {
@@ -286,11 +277,6 @@ pts_read_options () {
         __OPTION=$(echo "$1" | awk -F= '{print $1}')
         __VALUE=$(echo "$1" | awk -F= '{print $2}')
         case ${__OPTION} in
-            -h | --help)
-                debug_option "${__OPTION}" "${__VALUE}"
-                pts_usage
-                exit
-                ;;
             -v | --var-dump)
                 debug_option "${__OPTION}" "${__VALUE}"
                 PTS_VAR_DUMP_CHECK=${CR_TRUE}
@@ -368,16 +354,12 @@ pts_read_options () {
                 debug_option "${__OPTION}" "${__VALUE}"
                 PTS_RESTART=${CR_FALSE}
                 ;;
-            --debug)
-                CR_DEBUG=1
-                debug_option "${__OPTION}" "${__VALUE}"
-                ;;
             --without-composer)
                 PTS_WITH_COMPOSER=${CR_FALSE}
                 debug_option "${__OPTION}" "${__VALUE}"
                 ;;
             *)
-                common_read_option "${__OPTION}$([ "${__VALUE}" != "" ] && echo "=${__VALUE}")"
+                common_read_option "pts_usage" "${__OPTION}$([ "${__VALUE}" != "" ] && echo "=${__VALUE}")"
                 ;;
         esac
         shift

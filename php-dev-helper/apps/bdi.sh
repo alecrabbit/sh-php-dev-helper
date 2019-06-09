@@ -37,7 +37,7 @@ bdi_read_options  () {
                 BDI_FORCE_BUILD="${CR_TRUE}"
                 ;;
             *)
-                common_read_option "${__OPTION}$([ "${__VALUE}" != "" ] && echo "=${__VALUE}")" "bdi_usage"
+                common_read_option "bdi_usage" "${__OPTION}$([ "${__VALUE}" != "" ] && echo "=${__VALUE}")"
                 ;;
         esac
         shift
