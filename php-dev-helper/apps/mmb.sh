@@ -109,8 +109,9 @@ mmb_show_package_values () {
         console_print ""
     fi
     console_print "Using template: $(colored_blue "${TMPL_WORKING_TEMPLATE_NAME}")"
-    console_print "Name: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAME}")"
+    console_print ""
     console_print "Package: $(colored_bold_purple "${TMPL_PACKAGE_OWNER}/${TMPL_PACKAGE_NAME}")"
+    console_print "Name: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAME}")"
     console_print "Namespace: $(colored_bold_cyan "${TMPL_PACKAGE_OWNER_NAMESPACE}${__separator}${TMPL_PACKAGE_NAMESPACE}")"
     console_print "Description: $(colored_bold_cyan "${TMPL_PACKAGE_DESCRIPTION}")"
     console_print "Directory: $(colored_bold_cyan "${TMPL_PACKAGE_DIR}")"
@@ -268,6 +269,7 @@ mmb_process_options () {
     fi
 
     TMPL_PACKAGE_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAME}")
+    # TMPL_PACKAGE_OWNER_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_OWNER_NAME}")
     mmb_prepare_package_dir
     if [ "${TMPL_USE_OWNER_NAMESPACE}" -eq "${CR_FALSE}" ]; then
         TMPL_PACKAGE_OWNER_NAMESPACE=""
@@ -282,7 +284,7 @@ mmb_export_options () {
 mmb_prepare_package_namespace () {
     __namespace=$(core_lowercase "${1}")
     __namespace=$(core_remove_prefix "${TMPL_PACKAGE_DIR_PREFIX}" "${__namespace}")
-    __namespace=$(core_remove_symbols "-_" "$(core_capitalize_every_word "${__namespace}")")
+    __namespace=$(core_remove_symbols "-_ " "$(core_capitalize_every_word "${__namespace}")")
     console_debug "Package namespace '${__namespace}'"
     echo "${__namespace}"
     unset __namespace
@@ -300,10 +302,6 @@ mmb_read_options () {
         __OPTION=$(echo "$1" | awk -F= '{print $1}')
         __VALUE=$(echo "$1" | awk -F= '{print $2}')
         case ${__OPTION} in
-            -y | --no-interaction)
-                debug_option "${__OPTION}" "${__VALUE}"
-                export CR_OPTION_no_interaction="${CR_TRUE}"
-                ;;
             --update-default)
                 debug_option "${__OPTION}" "${__VALUE}"
                 mmb_update_default_template

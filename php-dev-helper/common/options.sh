@@ -3,14 +3,17 @@
 common_set_default_options () {
     CR_DEBUG="${CR_DEBUG:-${CR_DISABLED}}"
     COMMON_EXECUTE=${CR_TRUE}
+    CR_OPTION_no_interaction="${CR_FALSE}"
 }
 
 common_process_options () {
     :
 }
+
 common_export_options () {
     export CR_DEBUG
     export COMMON_EXECUTE
+    export CR_OPTION_no_interaction
 }
 
 common_help_message () {
@@ -37,6 +40,10 @@ common_read_option () {
         __OPTION=$(echo "$1" | awk -F= '{print $1}')
         __VALUE=$(echo "$1" | awk -F= '{print $2}')
         case ${__OPTION} in
+            -y | --no-interaction)
+                debug_option "${__OPTION}" "${__VALUE}"
+                CR_OPTION_no_interaction="${CR_TRUE}"
+                ;;
             --update)
                 debug_option "${__OPTION}" "${__VALUE}"
                 _pts_updater_run "${__VALUE}"

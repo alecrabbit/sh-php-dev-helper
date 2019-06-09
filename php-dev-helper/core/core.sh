@@ -194,10 +194,11 @@ core_check_int_bool_env_value () {
 }
 
 core_ask_question () {
+    console_dark "This can not be canceled - you should select one of options"
     __allowed_answers="${3:-yn}"
     __accept_any="${2:-${CR_FALSE}}"
     if [ "${__accept_any}" -eq "${CR_TRUE}" ]; then
-        __allowed_answers="y/n"
+        __allowed_answers="yn"
     fi
     # shellcheck disable=SC2059
     printf "${1} [${__allowed_answers}] "
@@ -206,7 +207,11 @@ core_ask_question () {
 
     if [ "${CR_OPTION_no_interaction:-${CR_FALSE}}" -eq "${CR_TRUE}" ]
     then
-        __answer="y"
+        stty "${__old_stty_cfg}"
+        unset __old_stty_cfg
+        # shellcheck disable=SC2005
+        echo "$(echo "${__allowed_answers}" | head -c 1)"
+        return ${CR_TRUE}
     else
         if [ "${__accept_any}" -eq "${CR_TRUE}" ]; then
             __answer=$(head -c 1)  # anything accepted

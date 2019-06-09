@@ -21,9 +21,8 @@ if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     mmb_working_dir
     mmb_check_default_template
     core_set_terminal_title "${__TITLE} - Creating..."
-    console_debug "Executing..."
-    console_dark "Creating new package"
     mmb_show_package_values
+    console_dark "Creating new package"
     if core_ask_question "Create package '${TMPL_PACKAGE_DIR}'?"; then
         mmb_check_package_dir "${TMPL_PACKAGE_DIR}"
         mmb_create_package "${TMPL_WORKING_TEMPLATE_NAME}" "${TMPL_PACKAGE_DIR}"
