@@ -15,7 +15,7 @@ pts_show_project_type_and_name
 
 console_debug "Output use color: $(core_int_to_string "${CR_COLOR}")"
 
-_pts_show_selected_options
+pts_show_selected_options
 pts_check_container
 pts_check_vendor_dir
 

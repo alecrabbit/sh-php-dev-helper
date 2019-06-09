@@ -240,7 +240,7 @@ pts_process_options () {
     fi
 }
 
-__pts_export_options () {
+pts_export_options () {
     export COMMON_EXECUTE
     export PTS_REQUIRE_DEBUG_IMAGE
     export PTS_RESTART
@@ -258,7 +258,7 @@ __pts_export_options () {
     export PTS_DEPS_GRAPH
 }
 
-_pts_show_selected_options () {
+pts_show_selected_options () {
     console_dark "\n     Selected options:"
     if [ "${CR_DEBUG}" -eq 1 ]
     then
@@ -279,7 +279,7 @@ _pts_show_selected_options () {
     console_dark ""
 }
 
-_pts_read_options () {
+pts_read_options () {
     pts_set_default_options
     console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
@@ -418,6 +418,6 @@ _pts_read_options () {
         shift
     done
     pts_process_options
-    __pts_export_options
+    pts_export_options
     unset PARAM VALUE
 }

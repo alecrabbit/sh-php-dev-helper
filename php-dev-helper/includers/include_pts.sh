@@ -4,4 +4,4 @@
 . "${APPS_MODULES_DIR}/pts.sh"               # Image builder module
 
 ### Read options
-_pts_read_options "$@"
+pts_read_options "$@"
