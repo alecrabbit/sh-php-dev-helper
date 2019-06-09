@@ -309,82 +309,82 @@ mmb_read_options () {
         VALUE=$(echo "$1" | awk -F= '{print $2}')
         case ${PARAM} in
             -h | --help)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 mmb_usage
                 exit "${CR_TRUE}"
                 ;;
             -y | --no-interaction)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 export CR_OPTION_no_interaction="${CR_TRUE}"
                 ;;
             --update)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 _pts_updater_run "${VALUE}"
                 exit "${CR_TRUE}"
                 ;;
             --update-default)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 mmb_update_default_template
                 exit "${CR_TRUE}"
                 ;;
             -V | --version)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 version_print
                 exit "${CR_TRUE}"
                 ;;
             # Undocumented
             --save-build-hash)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 version_save_build_hash "${SCRIPT_DIR}" "${LIB_DIR}"
                 exit "${CR_TRUE}"
                 ;;
             # Undocumented
             --no-exec)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 export COMMON_EXECUTE=${CR_FALSE}
                 ;;
             -p)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 core_check_option_value "${VALUE}" "${PARAM}"
                 TMPL_PACKAGE_NAME="${VALUE}"
                 ;;
             -o)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 core_check_option_value "${VALUE}" "${PARAM}"
                 TMPL_PACKAGE_OWNER="${VALUE}"
                 ;;
             -n)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 core_check_option_value "${VALUE}" "${PARAM}"
                 TMPL_PACKAGE_OWNER_NAME="${VALUE}"
                 ;;
             -s)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 core_check_option_value "${VALUE}" "${PARAM}"
                 TMPL_PACKAGE_OWNER_NAMESPACE="${VALUE}"
                 ;;
             -x)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 TMPL_USE_OWNER_NAMESPACE="${CR_FALSE}"
                 ;;
             -t)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 console_info "Template to use as default: '${TMPL_WORKING_TEMPLATE_NAME}'"
                 core_check_option_value "${VALUE}" "${PARAM}"
                 _TEMPLATE_OPTION_USED="${CR_TRUE}"
                 TMPL_WORKING_TEMPLATE_NAME="${VALUE}"
                 ;;
             --show-message-samples)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 console_show_messages_samples
                 ;;
             --debug)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 export CR_DEBUG=1
                 console_debug "Script '${SCRIPT_NAME}' launched in debug mode."
                 ;;
             *)
-                console_debug "Option '${PARAM}' $([ "${VALUE}" != "" ] && echo "Value '${VALUE}'")"
+                debug_option "${PARAM}" "${VALUE}"
                 console_error "Unknown option '${PARAM}'"
                 mmb_usage
                 exit 1
