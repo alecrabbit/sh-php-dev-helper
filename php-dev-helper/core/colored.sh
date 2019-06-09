@@ -109,7 +109,7 @@ colored_bold_purple () {
     echo "${__col_ansi_bold_purple}$*${__col_ansi_none}"
 }
 
-_colored_configureColor() {
+colored_configureColor() {
     __col_color=${CR_FALSE}  # By default, no color.
     __col_reset_colors
     case ${1} in
@@ -144,6 +144,5 @@ _colored_configureColor() {
 }
 
 __col_reset_colors
-# _colored_configureColor "${COLOR:-auto}" # Options are 'never', 'always', or 'auto'
 
 export CR_COLOR

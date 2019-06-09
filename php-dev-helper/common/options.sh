@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 common_set_default_options () {
-    CR_DEBUG=${CR_DISABLED}
+    CR_DEBUG="${CR_DEBUG:-${CR_DISABLED}}"
     COMMON_EXECUTE=${CR_TRUE}
 }
 
@@ -13,13 +13,18 @@ common_export_options () {
     export COMMON_EXECUTE
 }
 
-common_read_options () {
+common_read_option () {
     common_set_default_options
     console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
         __OPTION=$(echo "$1" | awk -F= '{print $1}')
         __VALUE=$(echo "$1" | awk -F= '{print $2}')
         case ${__OPTION} in
+            --update)
+                debug_option "${__OPTION}" "${__VALUE}"
+                _pts_updater_run "${__VALUE}"
+                exit
+                ;;
             -V | --version)
                 debug_option "${__OPTION}" "${__VALUE}"
                 version_print

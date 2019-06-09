@@ -43,8 +43,8 @@ export DEFAULT_SCRIPT_NAME="php-dev-helper"
 export PDH_PACKAGE="sh-php-dev-helper"
 export PDH_REPOSITORY="alecrabbit/${PDH_PACKAGE}"
 
-_SETTINGS_ENABLED='enabled'
-_SETTINGS_DISABLED='disabled'
+_SETTING_ENABLED='enabled'
+_SETTING_DISABLED='disabled'
 
 __show_error () {
     console_error "Unrecognized value '${1}=${2}', using default '${1}=${3}'"
@@ -56,14 +56,14 @@ _settings_check_variables () {
     CR_COLOR=${COLOR:-${CR_ENABLED}}
     case ${CR_COLOR} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
-        ${_SETTINGS_ENABLED})
+        ${_SETTING_ENABLED})
             CR_COLOR=${CR_ENABLED}
             ;;
-        ${_SETTINGS_DISABLED})
+        ${_SETTING_DISABLED})
             CR_COLOR=${CR_DISABLED}
             ;;
         *)
-            __show_error "CR_COLOR" "${CR_COLOR}" ${_SETTINGS_DISABLED}
+            __show_error "CR_COLOR" "${CR_COLOR}" ${_SETTING_DISABLED}
             CR_COLOR=${CR_DISABLED}
             ;;
     esac
@@ -72,14 +72,14 @@ _settings_check_variables () {
     DIR_CONTROL=${DIR_CONTROL:-${CR_DISABLED}}
     case ${DIR_CONTROL} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
-        ${_SETTINGS_ENABLED})
+        ${_SETTING_ENABLED})
             DIR_CONTROL=${CR_ENABLED}
             ;;
-        ${_SETTINGS_DISABLED})
+        ${_SETTING_DISABLED})
             DIR_CONTROL=${CR_DISABLED}
             ;;
         *)
-            __show_error "DIR_CONTROL" "${DIR_CONTROL}" ${_SETTINGS_DISABLED}
+            __show_error "DIR_CONTROL" "${DIR_CONTROL}" ${_SETTING_DISABLED}
             DIR_CONTROL=${CR_DISABLED}
             ;;
     esac
@@ -88,14 +88,14 @@ _settings_check_variables () {
     USE_DIR_PREFIX=${USE_DIR_PREFIX:-${CR_DISABLED}}
     case ${USE_DIR_PREFIX:-${CR_DISABLED}} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
-        ${_SETTINGS_ENABLED})
+        ${_SETTING_ENABLED})
             USE_DIR_PREFIX=${CR_ENABLED}
             ;;
-        ${_SETTINGS_DISABLED})
+        ${_SETTING_DISABLED})
             USE_DIR_PREFIX=${CR_DISABLED}
             ;;
         *)
-            __show_error "USE_DIR_PREFIX" "${USE_DIR_PREFIX}" ${_SETTINGS_DISABLED}
+            __show_error "USE_DIR_PREFIX" "${USE_DIR_PREFIX}" ${_SETTING_DISABLED}
             USE_DIR_PREFIX=${CR_DISABLED}
             ;;
     esac
@@ -104,14 +104,14 @@ _settings_check_variables () {
     CR_EMOJIS=${EMOJIS:-${CR_ENABLED}}
     case ${EMOJIS:-${CR_DISABLED}} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
-        ${_SETTINGS_ENABLED})
+        ${_SETTING_ENABLED})
             CR_EMOJIS=${CR_ENABLED}
             ;;
-        ${_SETTINGS_DISABLED})
+        ${_SETTING_DISABLED})
             CR_EMOJIS=${CR_DISABLED}
             ;;
         *)
-            __show_error "EMOJIS" "${EMOJIS}" ${_SETTINGS_ENABLED}
+            __show_error "EMOJIS" "${EMOJIS}" ${_SETTING_ENABLED}
             CR_EMOJIS=${CR_ENABLED}
             ;;
     esac
@@ -120,14 +120,14 @@ _settings_check_variables () {
     CR_DEBUG=${CR_DEBUG:-${DEBUG:-${CR_DISABLED}}}
     case ${CR_DEBUG:-${CR_DISABLED}} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
-        ${_SETTINGS_ENABLED})
+        ${_SETTING_ENABLED})
             CR_DEBUG=${CR_ENABLED}
             ;;
-        ${_SETTINGS_DISABLED})
+        ${_SETTING_DISABLED})
             CR_DEBUG=${CR_DISABLED}
             ;;
         *)
-            __show_error "DEBUG" "${DEBUG}" ${_SETTINGS_DISABLED}
+            __show_error "DEBUG" "${DEBUG}" ${_SETTING_DISABLED}
             CR_DEBUG=${CR_DISABLED}
             ;;
     esac
@@ -136,14 +136,14 @@ _settings_check_variables () {
     CR_TITLE=${TITLE:-${CR_ENABLED}}
     case ${TITLE:-${CR_DISABLED}} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
-        ${_SETTINGS_ENABLED})
+        ${_SETTING_ENABLED})
             CR_TITLE=${CR_ENABLED}
             ;;
-        ${_SETTINGS_DISABLED})
+        ${_SETTING_DISABLED})
             CR_TITLE=${CR_DISABLED}
             ;;
         *)
-            __show_error "TITLE" "${TITLE}" ${_SETTINGS_ENABLED}
+            __show_error "TITLE" "${TITLE}" ${_SETTING_ENABLED}
             CR_TITLE=${CR_ENABLED}
             ;;
     esac
@@ -152,14 +152,14 @@ _settings_check_variables () {
     CR_ALLOW_ROOT=${ALLOW_ROOT:-${CR_DISABLED}}
     case ${ALLOW_ROOT:-${CR_DISABLED}} in
         ${CR_ENABLED} | ${CR_DISABLED}) ;; # do nothing
-        ${_SETTINGS_ENABLED})
+        ${_SETTING_ENABLED})
             CR_ALLOW_ROOT=${CR_ENABLED}
             ;;
-        ${_SETTINGS_DISABLED})
+        ${_SETTING_DISABLED})
             CR_ALLOW_ROOT=${CR_DISABLED}
             ;;
         *)
-            __show_error "ALLOW_ROOT" "${ALLOW_ROOT}" ${_SETTINGS_DISABLED}
+            __show_error "ALLOW_ROOT" "${ALLOW_ROOT}" ${_SETTING_DISABLED}
             CR_ALLOW_ROOT=${CR_DISABLED}
             ;;
     esac
@@ -202,8 +202,8 @@ fi
 ### Color
 # Options are 'never', 'always', or 'auto'
 if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ];then
-    _colored_configureColor "auto"
+    colored_configureColor "auto"
     console_debug "Using color: auto"
 else
-    _colored_configureColor "never" 
+    colored_configureColor "never" 
 fi
