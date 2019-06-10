@@ -182,9 +182,22 @@ __dir_control () {
     fi
     unset __result __project_allowed __project_disallowed
 }
+# ✔️   PHPUnit
+#  ✔️   PHPUnit code coverage
+#      Var dump checks
+#      Multi-tester
+#      PHPMetrics
+#  ✔️   PHPStan
+#  ✔️   Psalm
+#      Security checks
+#  ✔️   Code sniffer
+#  ✔️   Code sniffer Beautifier
+#      Dependencies graph
+#      Update changelog file
+
 
 pts_usage () {
-    echo "    $(colored_yellow "-a, --all")             - run all (not includes --metrics and --multi)"
+    echo "    $(colored_yellow "-a, --all")             - run all (substitutes -c, -s, --cs, -b)"
     echo "    $(colored_yellow "-b ")                   - enable php code sniffer beautifier"
     echo "    $(colored_yellow "--cl")                  - update CHANGELOG.md"
     echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage (includes -u)"
@@ -196,6 +209,7 @@ pts_usage () {
     echo "    $(colored_yellow "--psalm")               - enable psalm"
     echo "    $(colored_yellow "-s, --analyze")         - enable static analysis tools (--phpstan and --psalm)"
     echo "    $(colored_yellow "--security")            - enable security checks"
+    echo "    $(colored_yellow "-t, --total")           - all options enabled"
     echo "    $(colored_yellow "-u, --unit")            - enable phpunit"
     echo "    $(colored_yellow "-v")                    - enable check for forgotten var dumps"
     echo "    $(colored_yellow "--without-composer")    - do not check for 'composer.json' file and 'vendor' dir"
@@ -218,12 +232,22 @@ pts_set_default_options () {
     PTS_PHPUNIT_COVERAGE=${CR_FALSE}
     PTS_UPDATE_CHANGELOG=${CR_FALSE}
     __ALL_OPTION=${CR_FALSE}
+    __TOTAL_OPTION=${CR_FALSE}
     PTS_DEPS_GRAPH=${CR_FALSE}
 }
 
 pts_process_options () {
     if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ]; then
         PTS_PHPUNIT=${CR_TRUE}
+    fi
+    if [ "${__TOTAL_OPTION}" -eq "${CR_TRUE}" ]; then
+        PTS_VAR_DUMP_CHECK=${CR_TRUE}
+        PTS_METRICS=${CR_TRUE}
+        PTS_MULTI=${CR_TRUE}
+        PTS_PHP_SECURITY=${CR_TRUE}
+        PTS_UPDATE_CHANGELOG=${CR_TRUE}
+        PTS_DEPS_GRAPH=${CR_TRUE}
+        __ALL_OPTION=${CR_TRUE}
     fi
     if [ "${__ALL_OPTION}" -eq "${CR_TRUE}" ]; then
         OPTION_NOTIFY=${CR_TRUE}
@@ -293,7 +317,12 @@ pts_read_options () {
                 ;;
             -a | --all)
                 debug_option "${__OPTION}" "${__VALUE}"
-                __ALL_OPTION=${CR_TRUE}
+                __ALL_OPTION=${CR_TRUE} # __TOTAL_OPTION
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
+                ;;
+            -t | --total)
+                debug_option "${__OPTION}" "${__VALUE}"
+                __TOTAL_OPTION=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             -s | --analyze)
