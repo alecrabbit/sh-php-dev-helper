@@ -196,3 +196,4 @@ Note: options order is important
 OS                                  |
 ----------------------------------- |
 Ubuntu Linux (18.04 LTS)            |
+Ubuntu Linux (19.04)                |
