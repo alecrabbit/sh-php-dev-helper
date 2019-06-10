@@ -380,3 +380,21 @@ pts_read_options () {
     pts_export_options
     unset __OPTION __VALUE
 }
+
+pts_check_chglog_config () {
+    __remote="$(git_get_remote_url)"
+    if [ $? -ne "${CR_TRUE}" ]; then
+        unset __remote
+        return "${CR_FALSE}"
+    fi
+    console_debug "Remote: ${__remote}"
+    if [ -e ".chglog/config.yml" ]; then
+        if [ "$(grep "${STB_REMOTE_REPO_URL}" ".chglog/config.yml")" != "" ]; then
+            console_debug "Change line ${STB_REMOTE_REPO_URL} to ${__remote}"
+        fi
+    else
+        console_comment "To create config dir '.chglog' run 'git-chglog --init'"
+    fi
+    unset __remote
+    return "${CR_TRUE}"
+}

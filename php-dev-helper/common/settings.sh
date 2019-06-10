@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+export STB_REMOTE_REPO_URL="<PACKAGE_REMOTE_REPOSITORY>"
+
 export PTS_UPDATER_TMP_DIR=".pts_updater_tmp"
 export PTS_DEBUG_IMAGE="debug"
 export PTS_SOURCE_DIR="src"

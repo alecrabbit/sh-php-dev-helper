@@ -25,7 +25,7 @@ git_has_repository () {
     __repo_dir="${1:-.}"
     if ! core_dir_exists "${__repo_dir}/.git"
     then
-        console_debug "BUILD Hash: No repository found"
+        console_debug "No repository found"
         console_error "Directory '$(core_get_realpath "${__repo_dir}")' does not have a repository"
         return "${CR_FALSE}"
     fi
@@ -41,8 +41,11 @@ git_get_remote_url () {
         __url="$(cd "${__dir}" && git remote get-url "${__remote}")"
         console_debug "Operation result: ${__url}"
         echo "${__url}"
+        unset __url __remote __dir
+        return "${CR_TRUE}"
     fi
     unset __url __remote __dir
+    return "${CR_FALSE}"
 }
 
 # __do_not_update_dev () {
