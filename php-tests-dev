@@ -35,6 +35,8 @@ if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
         _php_cs_exec
         _php_cs_bf_exec
         _php_dependency_graph
+        pts_update_changelog
+        console_warning "Repository url '$(git_get_remote_url)'"
 
         if [ "${PTS_METRICS}" -eq "${CR_TRUE}" ] \
         || [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ] \

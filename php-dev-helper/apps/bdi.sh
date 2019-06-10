@@ -22,6 +22,7 @@ bdi_export_options () {
 }
 
 bdi_read_options  () {
+    common_set_default_options
     bdi_set_default_options
     console_debug "bdi: Reading options"
     while [ "${1:-}" != "" ]; do
@@ -42,6 +43,8 @@ bdi_read_options  () {
         esac
         shift
     done
+    common_process_options
+    common_export_options
     bdi_process_options
     bdi_export_options
     unset __OPTION __VALUE

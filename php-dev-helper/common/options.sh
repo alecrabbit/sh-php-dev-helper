@@ -32,7 +32,6 @@ common_help_message () {
 } 
 
 common_read_option () {
-    common_set_default_options
     console_debug "common: Reading options"
     __help_function="${1}"
     shift
@@ -94,8 +93,6 @@ common_read_option () {
         esac
         shift
     done
-    common_process_options
-    common_export_options
     unset __OPTION __VALUE __help_function
 }
 

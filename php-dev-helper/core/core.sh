@@ -91,6 +91,7 @@ check_command () {
     if [ -x "$(command -v "${1}")" ]; then
         return "${CR_TRUE}"
     fi
+    console_debug "Command '${1}' not found"
     return "${CR_FALSE}"
 }
 
@@ -201,7 +202,7 @@ core_ask_question () {
         __allowed_answers="yn"
     fi
     # shellcheck disable=SC2059
-    printf "${1} [${__allowed_answers}] "
+    printf "$(colored_bold_green "?") $(colored_bold "${1} [${__allowed_answers}]") "
     __old_stty_cfg=$(stty -g)
     stty raw -echo
     # TODO refactor here
@@ -210,7 +211,7 @@ core_ask_question () {
         stty "${__old_stty_cfg}"
         unset __old_stty_cfg
         # shellcheck disable=SC2005
-        echo "$(echo "${__allowed_answers}" | head -c 1)"
+        echo "$(colored_cyan "$(echo "${__allowed_answers}" | head -c 1)")"
         return ${CR_TRUE}
     else
         if [ "${__accept_any}" -eq "${CR_TRUE}" ]; then
@@ -221,7 +222,8 @@ core_ask_question () {
     fi
     stty "${__old_stty_cfg}"
     unset __old_stty_cfg
-    echo "${__answer}"
+    # shellcheck disable=SC2005
+    echo "$(colored_cyan "${__answer}")"
     console_debug "Got answer '${__answer}'"
     # first symbol of __allowed_answers considered as yes
     if echo "${__answer}" | grep -iq "^$(echo "${__allowed_answers}" | head -c 1)" ;then 

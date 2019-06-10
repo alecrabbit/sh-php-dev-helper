@@ -83,6 +83,32 @@ _psalm_exec () {
     fi
 }
 
+pts_update_changelog() {
+    if [ "${PTS_UPDATE_CHANGELOG}" -eq "${CR_TRUE}" ]; then
+        console_section "Update changelog..."
+        if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ]; then
+            __colors=""
+        else    
+            __colors="--no-colors"
+        fi
+        __git_chglog_command="git-chglog"
+        if check_command "${__git_chglog_command}"; then
+            console_debug "'${__git_chglog_command}' command exists"
+            __result="$(${__git_chglog_command} -o "${_CHANGELOG_MD_FILE}" 2>&1)"
+            if [ $? -eq "${CR_TRUE}" ]; then
+                console_debug "\n${__result}"
+                console_comment "'${_CHANGELOG_MD_FILE}' generated"
+            else
+                console_error "${__result}"
+                console_comment "To create config dir '.chglog' run '${__git_chglog_command} --init'"
+            fi
+        else
+            console_error "'${__git_chglog_command}' is not installed"
+        fi
+        unset __colors __git_chglog_command __result
+    fi
+}
+
 _php_cs_exec () {
     if [ "${PTS_CS}" -eq "${CR_TRUE}" ]; then
         console_section "PHP Code Sniffer..."

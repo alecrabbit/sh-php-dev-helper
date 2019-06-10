@@ -183,6 +183,7 @@ __dir_control () {
 pts_usage () {
     echo "    $(colored_yellow "-a, --all")             - run all (not includes --metrics and --multi)"
     echo "    $(colored_yellow "-b ")                   - enable php code sniffer beautifier"
+    echo "    $(colored_yellow "--cl")                  - update CHANGELOG.md"
     echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage (includes -u)"
     echo "    $(colored_yellow "--cs")                  - enable php code sniffer"
     echo "    $(colored_yellow "-g, --graphs")         - create dependencies graphs"
@@ -198,7 +199,7 @@ pts_usage () {
 }
 
 pts_set_default_options () {
-    COMMON_EXECUTE=${CR_TRUE}
+    OPTION_NOTIFY=${CR_FALSE}
     PTS_REQUIRE_DEBUG_IMAGE=${CR_FALSE}
     PTS_RESTART=${CR_FALSE}
     PTS_VAR_DUMP_CHECK=${CR_FALSE}
@@ -212,6 +213,7 @@ pts_set_default_options () {
     PTS_PHP_SECURITY=${CR_FALSE}
     PTS_WITH_COMPOSER=${CR_TRUE}
     PTS_PHPUNIT_COVERAGE=${CR_FALSE}
+    PTS_UPDATE_CHANGELOG=${CR_FALSE}
     __ALL_OPTION=${CR_FALSE}
     PTS_DEPS_GRAPH=${CR_FALSE}
 }
@@ -221,6 +223,7 @@ pts_process_options () {
         PTS_PHPUNIT=${CR_TRUE}
     fi
     if [ "${__ALL_OPTION}" -eq "${CR_TRUE}" ]; then
+        OPTION_NOTIFY=${CR_TRUE}
         PTS_CS=${CR_TRUE}
         PTS_CS_BF=${CR_TRUE}
         PTS_PHPSTAN=${CR_TRUE}
@@ -231,7 +234,6 @@ pts_process_options () {
 }
 
 pts_export_options () {
-    export COMMON_EXECUTE
     export PTS_REQUIRE_DEBUG_IMAGE
     export PTS_RESTART
     export PTS_VAR_DUMP_CHECK
@@ -246,6 +248,8 @@ pts_export_options () {
     export PTS_WITH_COMPOSER
     export PTS_PHPUNIT_COVERAGE
     export PTS_DEPS_GRAPH
+    export PTS_UPDATE_CHANGELOG
+    export OPTION_NOTIFY
 }
 
 pts_show_selected_options () {
@@ -266,10 +270,12 @@ pts_show_selected_options () {
     console_show_option "${PTS_CS}" "Code sniffer"
     console_show_option "${PTS_CS_BF}" "Code sniffer Beautifier"
     console_show_option "${PTS_DEPS_GRAPH}" "Dependencies graph"
+    console_show_option "${PTS_UPDATE_CHANGELOG}" "Update changelog file"
     console_dark ""
 }
 
 pts_read_options () {
+    common_set_default_options
     pts_set_default_options
     console_debug "pts: Reading options"
     while [ "${1:-}" != "" ]; do
@@ -308,6 +314,11 @@ pts_read_options () {
                 PTS_PHPUNIT_COVERAGE=${CR_TRUE}
                 PTS_PHPUNIT=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
+                ;;
+            --cl)
+                debug_option "${__OPTION}" "${__VALUE}"
+                PTS_PHPUNIT=${CR_FALSE}
+                PTS_UPDATE_CHANGELOG=${CR_TRUE}
                 ;;
             --metrics)
                 debug_option "${__OPTION}" "${__VALUE}"
@@ -363,6 +374,8 @@ pts_read_options () {
         esac
         shift
     done
+    common_process_options
+    common_export_options
     pts_process_options
     pts_export_options
     unset __OPTION __VALUE

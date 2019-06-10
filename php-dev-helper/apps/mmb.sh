@@ -296,6 +296,7 @@ mmb_prepare_package_dir () {
 }
 
 mmb_read_options () {
+    common_set_default_options
     mmb_set_default_options
     console_debug "Reading options"
     while [ "${1:-}" != "" ]; do
@@ -344,6 +345,8 @@ mmb_read_options () {
         esac
         shift
     done
+    common_process_options
+    common_export_options
     mmb_process_options
     mmb_export_options
     unset __OPTION __VALUE

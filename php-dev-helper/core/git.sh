@@ -14,10 +14,48 @@ git_get_head_hash () {
         return "${CR_FALSE}"
     fi
     __HASH="$(cd "${__dir}" && git log --pretty=format:'%h' -n 1 2>&1)"
-    # shellcheck disable=SC2181
-    if [ $? -ne 0 ]
+    if [ $? -ne "${CR_TRUE}" ]
     then
         __HASH=""
     fi
     echo "${__HASH}"
 }
+
+git_has_repository () {
+    __repo_dir="${1:-.}"
+    if ! core_dir_exists "${__repo_dir}/.git"
+    then
+        console_debug "BUILD Hash: No repository found"
+        console_error "Directory '$(core_get_realpath "${__repo_dir}")' does not have a repository"
+        return "${CR_FALSE}"
+    fi
+    unset __repo_dir
+    return "${CR_TRUE}"
+}
+
+git_get_remote_url () {
+    __dir="${1:-.}"
+    if git_has_repository "${__dir}"; then
+        __remote="$(cd "${__dir}" && git remote)"
+        console_debug "Operation result: ${__remote}"
+        __url="$(cd "${__dir}" && git remote get-url "${__remote}")"
+        console_debug "Operation result: ${__url}"
+        echo "${__url}"
+    fi
+    unset __url __remote __dir
+}
+
+# __do_not_update_dev () {
+#     __dir=${1:-.}
+#     __repository=${2}
+#     if core_dir_exists "${__dir}/.git"
+#     then
+#         __remote="$(cd "${__dir}" && git remote -v)"
+#         console_debug "Remote:\n${__remote}"
+#         __result="$(echo "${__remote}" | grep -e "${__repository}")"
+#         if [ "${__result}" != "" ]; then
+#             console_fatal "It seems you are trying to update lib sources"
+#         fi
+#         unset __remote __result
+#     fi
+# }

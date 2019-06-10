@@ -15,3 +15,5 @@ export SCRIPT_NAME
 . "${CORE_MODULES_DIR}/version.sh"
 # shellcheck disable=SC1090
 . "${CORE_MODULES_DIR}/updater.sh"
+# shellcheck disable=SC1090
+. "${CORE_MODULES_DIR}/notifier.sh"

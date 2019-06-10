@@ -18,6 +18,7 @@ export PTS_DISALLOWED_DIRS_FILE="${SETTINGS_DIR}/.sh-pdh-disallowed-dirs"
 export WORKING_PREFIX="php"
 
 export _COMPOSER_JSON_FILE="composer.json"
+export _CHANGELOG_MD_FILE="CHANGELOG.md"
 export _DOCKER_COMPOSE_FILE="docker-compose.yml"
 export _DOCKER_COMPOSE_FILE_DEBUG="docker-compose-debug.yml"
 

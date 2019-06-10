@@ -5,3 +5,4 @@
 .sh-pdh-disallowed-dirs
 .sh-pdh-settings
 *.defaults
+git-chglog

@@ -62,7 +62,7 @@ func_execute_dc_command () {
 __do_not_update_dev () {
     __dir=${1:-.}
     __repository=${2}
-        if core_dir_exists "${__dir}/.git"
+    if core_dir_exists "${__dir}/.git"
     then
         __remote="$(cd "${__dir}" && git remote -v)"
         console_debug "Remote:\n${__remote}"
@@ -159,5 +159,6 @@ func_print_footer () {
     console_dark "Bye!"
 
     core_set_terminal_title "${TERM_TITLE}"
+    notifier_notify "${EMOJI_RABBIT}${SCRIPT_NAME}: Operation completed" ""
     unset __time
 }
