@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="0.5.3"></a>
+## [0.5.3] - 2019-06-10
+### Changed
+- sections execution order
+
+
 <a name="0.5.2"></a>
 ## [0.5.2] - 2019-06-10
 ### Added
@@ -224,7 +230,8 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.2...HEAD
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.3...HEAD
+[0.5.3]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.2...0.5.3
 [0.5.2]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.1...0.5.2
 [0.5.1]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.4.0...0.5.0
