@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+export CHGLOG_CONFIG_FILE=".chglog/config.yml"
+
+
 pts_show_project_type_and_name () {
     if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
         console_print ""
@@ -381,6 +384,22 @@ pts_read_options () {
     unset __OPTION __VALUE
 }
 
+pts_initialize_chglog_config () {
+    console_debug "Changing line '${STB_REMOTE_REPO_URL}' to ${__remote}"
+    __result="$(sed "s@${STB_REMOTE_REPO_URL}@${1}@g;" "${CHGLOG_CONFIG_FILE}")"
+    echo "${__result}" > "${CHGLOG_CONFIG_FILE}"
+    __result="$(sed 's/\\/\\\\/g;' "${CHGLOG_CONFIG_FILE}" > "${CHGLOG_CONFIG_FILE}.tmp" 2>&1)"
+    if [ $? -ne "${CR_TRUE}" ]; then
+        unset __result
+        return "${CR_FALSE}"
+    fi
+    console_debug "$(mv -v "${CHGLOG_CONFIG_FILE}.tmp" "${CHGLOG_CONFIG_FILE}")"
+
+    unset __result
+    console_info "'${CHGLOG_CONFIG_FILE}' initialized"
+    return "${CR_TRUE}"
+}
+
 pts_check_chglog_config () {
     __remote="$(git_get_remote_url)"
     if [ $? -ne "${CR_TRUE}" ]; then
@@ -388,12 +407,20 @@ pts_check_chglog_config () {
         return "${CR_FALSE}"
     fi
     console_debug "Remote: ${__remote}"
-    if [ -e ".chglog/config.yml" ]; then
-        if [ "$(grep "${STB_REMOTE_REPO_URL}" ".chglog/config.yml")" != "" ]; then
+    if [ -e "${CHGLOG_CONFIG_FILE}" ]; then
+        if [ "$(grep "${STB_REMOTE_REPO_URL}" "${CHGLOG_CONFIG_FILE}")" != "" ]; then
+            console_error "${CHGLOG_CONFIG_FILE} is not initialized"
             console_debug "Change line ${STB_REMOTE_REPO_URL} to ${__remote}"
+            if ! pts_initialize_chglog_config "${__remote}"; then
+                unset __remote
+                return "${CR_FALSE}"
+            fi
         fi
     else
+        console_error "git-chglog config not found"
         console_comment "To create config dir '.chglog' run 'git-chglog --init'"
+        unset __remote
+        return "${CR_FALSE}"
     fi
     unset __remote
     return "${CR_TRUE}"
