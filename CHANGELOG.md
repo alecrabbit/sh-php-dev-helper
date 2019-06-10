@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="0.5.0"></a>
+## [0.5.0] - 2019-06-10
+### Feature
+- Changelog generator
+
+
 <a name="0.4.0"></a>
 ## [0.4.0] - 2019-06-06
 ### Feature
@@ -206,7 +212,8 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.4.0...HEAD
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.3.5...0.4.0
 [0.3.5]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.3.4...0.3.5
 [0.3.4]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.3.3...0.3.4
