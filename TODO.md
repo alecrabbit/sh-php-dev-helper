@@ -2,6 +2,8 @@
 
 ## PHP-Tests
 
+- [ ] Add link to readme 'git-chglog' etc.
+- [ ] Change 'git-chglog' checks order
 - [ ] Add magic number detector [povils/phpmnd](https://github.com/povils/phpmnd)
 
 ---
