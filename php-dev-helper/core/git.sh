@@ -40,6 +40,7 @@ git_get_remote_url () {
         console_debug "Operation result: ${__remote}"
         __url="$(cd "${__dir}" && git remote get-url "${__remote}")"
         console_debug "Operation result: ${__url}"
+        __url="$(core_str_replace "${__url}" "\.git" "")"
         echo "${__url}"
         unset __url __remote __dir
         return "${CR_TRUE}"
@@ -47,18 +48,3 @@ git_get_remote_url () {
     unset __url __remote __dir
     return "${CR_FALSE}"
 }
-
-# __do_not_update_dev () {
-#     __dir=${1:-.}
-#     __repository=${2}
-#     if core_dir_exists "${__dir}/.git"
-#     then
-#         __remote="$(cd "${__dir}" && git remote -v)"
-#         console_debug "Remote:\n${__remote}"
-#         __result="$(echo "${__remote}" | grep -e "${__repository}")"
-#         if [ "${__result}" != "" ]; then
-#             console_fatal "It seems you are trying to update lib sources"
-#         fi
-#         unset __remote __result
-#     fi
-# }

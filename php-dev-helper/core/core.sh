@@ -288,6 +288,10 @@ core_remove_prefix () {
     echo "${2#${1}}"
 }
 
+core_str_replace () {
+    echo "${1}" | sed -e "s@${2}@${3}@g"
+}
+
 core_remove_suffix () {
     echo "${2%${1}}"
 }
