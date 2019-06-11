@@ -2,6 +2,7 @@
 /.demo             export-ignore
 /.github           export-ignore
 /.chglog           export-ignore
+/tests             export-ignore
 .gitignore         export-ignore
 .gitattributes     export-ignore
 .travis.yml        export-ignore
