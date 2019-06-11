@@ -61,6 +61,7 @@ core_int_to_string () {
    esac
 }
 
+# TODO 'user_is_root' add to tests?
 user_is_root () {
     if [ "$(whoami)" = "root" ]; then
         if [ "${CR_ALLOW_ROOT}" -eq 0 ]; then
@@ -70,11 +71,11 @@ user_is_root () {
     return "${CR_FALSE}"
 }
 
+# TODO 'core_set_terminal_title' add to tests?
 core_set_terminal_title () {
-    if [ "${CR_TITLE}" -eq 1 ]; then
+    if [ "${CR_TITLE}" -eq "${CR_ENABLED}" ]; then
         console_debug "Setting title '${1}'"
-        # shellcheck disable=SC2059
-        printf "\033]0;${1}\007"
+        printf "\033]0;%s\007" "${1}"
     fi
 }
 

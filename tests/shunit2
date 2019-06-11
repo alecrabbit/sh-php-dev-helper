@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/usr/bin/env sh
 # vim:et:ft=sh:sts=2:sw=2
 #
 # Copyright 2008-2019 Kate Ward. All Rights Reserved.
@@ -1306,7 +1306,7 @@ if command [ "$#" -ge 2 ]; then
   # Argument $1 is either the filename of tests or '--'; either way, skip it.
   shift
   # Remaining arguments ($2 .. $#) are assumed to be test function names.
-  # Interate through all remaining args in "$@" in a POSIX (likely portable) way.
+  # Iterate through all remaining args in "$@" in a POSIX (likely portable) way.
   # Helpful tip: https://unix.stackexchange.com/questions/314032/how-to-use-arguments-like-1-2-in-a-for-loop
   for _shunit_arg_ do
     suite_addTest "${_shunit_arg_}"

@@ -1,10 +1,9 @@
 #!/usr/bin/env sh
 
-# shellcheck disable=SC1091
-. php-dev-helper_loader
+# Disable source following.
+#   shellcheck disable=SC1090,SC1091
 
-### Php-tests modules loader
-# shellcheck disable=SC1090
+. php-dev-helper_loader
 . "${INCLUDERS_DIR}/include_pts.sh"       
 
 func_print_header "PHP Tests and Analysis tool"
