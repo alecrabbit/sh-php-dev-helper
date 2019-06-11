@@ -3,6 +3,9 @@
 # Disable source following.
 #   shellcheck disable=SC1090,SC1091
 
+command [ -n "${MODULE_LOADED:-}" ] && exit 0
+MODULE_LOADED="LOADED"
+
 # Directories
 __lib="php-dev-helper"
 __core_modules="core"
@@ -14,7 +17,7 @@ __includers="includers"
 set -u
 
 # Set core variables
-SCRIPT_DIR="$(dirname "$0")"
+SCRIPT_DIR=${SCRIPT_DIR:-"$(dirname "$0")"}
 LIB_DIR="${SCRIPT_DIR}/${__lib}"
 COMMON_MODULES_DIR="${LIB_DIR}/${__common_modules}"
 CORE_MODULES_DIR="${LIB_DIR}/${__core_modules}"

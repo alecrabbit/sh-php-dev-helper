@@ -24,10 +24,11 @@ _runner_testName() {
 tests=`_runner_tests`
 runner_passing_=${RUNNER_TRUE}
 for t in ${tests}; do
-    echo "--- Executing the '`_runner_testName "${t}"`' test file. ---"
+    echo "File: '${t}' test: '`_runner_testName "${t}"`'"
     ( exec "./${t}" 2>&1; )
     test "${runner_passing_}" -eq ${RUNNER_TRUE} -a $? -eq ${RUNNER_TRUE}
     runner_passing_=$?
+    echo
 done
 
 if [ ${runner_passing_} -eq ${RUNNER_TRUE} ]; then
