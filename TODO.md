@@ -2,11 +2,11 @@
 
 ## PHP-Tests
 
-- [ ] Add link to readme 'git-chglog' etc.
 - [ ] Add magic number detector [povils/phpmnd](https://github.com/povils/phpmnd)
 
 ---
 
+- [x] Add link to readme 'git-chglog' etc.
 - [x] Change 'git-chglog' checks order
 
 ## Moomba
@@ -19,6 +19,7 @@
 
 ## Common
 
+- [ ] Installer script
 - [ ] Write tests? 🤦‍
 
 ---

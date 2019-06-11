@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Fixed
+- git-chglog checks order
+
+### Update
+- README.md
+
 
 <a name="0.5.3"></a>
 ## [0.5.3] - 2019-06-10
