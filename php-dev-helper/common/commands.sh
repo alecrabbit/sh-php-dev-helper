@@ -85,6 +85,13 @@ _psalm_exec () {
 
 pts_update_changelog() {
     if [ "${PTS_UPDATE_CHANGELOG}" -eq "${CR_TRUE}" ]; then
+        __git_chglog_command="git-chglog"
+        if ! check_command "${__git_chglog_command}"; then
+            console_error "'${__git_chglog_command}' is not installed"
+            console_info "See https://github.com/git-chglog/git-chglog"
+            return "${CR_FALSE}"
+        fi
+        console_debug "'${__git_chglog_command}' command exists"
         console_section "Update changelog..."
         if [ "${CR_COLOR}" -eq "${CR_ENABLED}" ]; then
             __colors=""
@@ -94,18 +101,11 @@ pts_update_changelog() {
         if ! pts_check_chglog_config; then
             return "${CR_FALSE}"
         fi
-        __git_chglog_command="git-chglog"
-        if check_command "${__git_chglog_command}"; then
-            console_debug "'${__git_chglog_command}' command exists"
-            __result="$(${__git_chglog_command} -o "${_CHANGELOG_MD_FILE}" 2>&1)"
-            if [ $? -eq "${CR_TRUE}" ]; then
-                console_print "${__result}"
-            else
-                console_error "${__result}"
-            fi
+        __result="$(${__git_chglog_command} -o "${_CHANGELOG_MD_FILE}" 2>&1)"
+        if [ $? -eq "${CR_TRUE}" ]; then
+            console_print "${__result}"
         else
-            console_error "'${__git_chglog_command}' is not installed"
-            console_info "see https://github.com/git-chglog/git-chglog"
+            console_error "${__result}"
         fi
         unset __colors __git_chglog_command __result
     fi
