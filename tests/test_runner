@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+# $() are not fully portable (POSIX != portable).
+#   shellcheck disable=SC2006
+
+echo "Test suite"
+
+RUNNER_TEST_SUFFIX='_test.sh'
+true; RUNNER_TRUE=$?
+# false; RUNNER_FALSE=$?
+
+_runner_tests() { echo ./*${RUNNER_TEST_SUFFIX} |sed 's#./##g'; }
+_runner_testName() {
+  # shellcheck disable=SC1117
+  _runner_testName_=`expr "${1:-}" : "\(.*\)${RUNNER_TEST_SUFFIX}"`
+  if [ -n "${_runner_testName_}" ]; then
+    echo "${_runner_testName_}"
+  else
+    echo 'unknown'
+  fi
+  unset _runner_testName_
+}
+
+tests=$(_runner_tests)
+runner_passing_=${RUNNER_TRUE}
+for t in ${tests}; do
+    echo "--- Executing the '`_runner_testName "${t}"`' test file. ---"
+    ( exec "./${t}" 2>&1; )
+    test "${runner_passing_}" -eq ${RUNNER_TRUE} -a $? -eq ${RUNNER_TRUE}
+    runner_passing_=$?
+done

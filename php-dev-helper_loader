@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# Disable source following.
+#   shellcheck disable=SC1090,SC1091
+
 # Directories
 __lib="php-dev-helper"
 __core_modules="core"
@@ -20,9 +23,7 @@ INCLUDERS_DIR="${LIB_DIR}/${__includers}"
 WORK_DIR="${PWD}"
 
 # Source modules
-# shellcheck disable=SC1090
 . "${INCLUDERS_DIR}/include_core.sh"      # Core modules loader
-# shellcheck disable=SC1090
 . "${INCLUDERS_DIR}/include_common.sh"    # Common modules loader
 
 SCRIPT_VERSION="$(version_load_version "${VERSION_FILE}")"
