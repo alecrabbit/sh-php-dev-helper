@@ -2,8 +2,9 @@
 
 ## What is it
 
-- `php-tests` tool to automate local testing
-- `moomba` php package creator script ([settings](.docs/moomba-settings.md))
+- `php-tests` - tool to automate local testing
+- `moomba`  - composer library creator script using template [alecrabbit/php-package-template](https://github.com/alecrabbit/php-package-template)
+- `build-image` - convenient local docker image build tool (WIP)
 
 See [demos](.demo/demos.md)
 
@@ -48,7 +49,7 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 ```
 
-Create your own `.templates_settings`, use `.templates_settings.dist` as example
+Create your own `.templates_settings`, use `.templates_settings.dist` as example ([settings](.docs/moomba-settings.md))
 
 ### File structure
 
@@ -179,15 +180,17 @@ Note: options order is important
 
 ```
 
-### Links
+### Links to used tools
 
-- [phpstan/phpstan](https://github.com/phpstan/phpstan)
-- [vimeo/psalm](https://github.com/vimeo/psalm)
-- [squizlabs/PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
-- [phpmetrics/PhpMetrics](https://github.com/phpmetrics/PhpMetrics)
-- [kylekatarnls/multi-tester](https://github.com/kylekatarnls/multi-tester)
-- [sensiolabs/security-checker](https://github.com/sensiolabs/security-checker)
-- [JakubOnderka/PHP-Var-Dump-Check](https://github.com/JakubOnderka/PHP-Var-Dump-Check)
+- *PHPStan* - static analysis tool [phpstan/phpstan](https://github.com/phpstan/phpstan)
+- *Psalm* - static analysis tool [vimeo/psalm](https://github.com/vimeo/psalm)
+- *PHP_CodeSniffer* is an essential development tool that ensures your code remains clean and consistent [squizlabs/PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+- *PhpMetrics* provides metrics about PHP project and classes [phpmetrics/PhpMetrics](https://github.com/phpmetrics/PhpMetrics)
+- *Multi-tester* - test your dependent packages [kylekatarnls/multi-tester](https://github.com/kylekatarnls/multi-tester)
+- The SensioLabs *Security Checker* is a command line tool that checks if your application uses dependencies with known security vulnerabilities [sensiolabs/security-checker](https://github.com/sensiolabs/security-checker)
+- *PHP VarDump Check* - to find forgotten variable dump [JakubOnderka/PHP-Var-Dump-Check](https://github.com/JakubOnderka/PHP-Var-Dump-Check)
+- *git-chglog* - CHANGELOG generator [git-chglog/git-chglog](https://github.com/git-chglog/git-chglog)
+- *DependencyGraph* - tool to help visualize the various dependencies between packages [innmind/dependency-graph](https://github.com/Innmind/DependencyGraph)
 
 ### Tested Operating Systems
 
