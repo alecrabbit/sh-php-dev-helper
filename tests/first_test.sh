@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-testEquality() {
+test_Equality() {
   assertEquals 1 1
 }
 

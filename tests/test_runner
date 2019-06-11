@@ -21,7 +21,7 @@ _runner_testName() {
   unset _runner_testName_
 }
 
-tests=$(_runner_tests)
+tests=`_runner_tests`
 runner_passing_=${RUNNER_TRUE}
 for t in ${tests}; do
     echo "--- Executing the '`_runner_testName "${t}"`' test file. ---"
@@ -29,3 +29,9 @@ for t in ${tests}; do
     test "${runner_passing_}" -eq ${RUNNER_TRUE} -a $? -eq ${RUNNER_TRUE}
     runner_passing_=$?
 done
+
+if [ ${runner_passing_} -eq ${RUNNER_TRUE} ]; then
+    echo "Tests passed"
+else
+    echo "!!! TESTS FAILED !!!!"
+fi
