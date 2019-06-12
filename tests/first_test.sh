@@ -4,9 +4,10 @@
 #   shellcheck disable=SC1090,SC1091
 #   shellcheck disable=SC2006
 
+. ./tests_helpers.sh
+
 oneTimeSetUp () {
-    echo "Setting Up"
-    . ./tests_helpers.sh
+    console_debug "Setting up"
     console_dark "Setup Done"
 }
 
@@ -56,6 +57,4 @@ test_core_get_realpath () {
     # assertEquals "/tmp" "${__path}"
 } 
 
-# Load shUnit2
-# shellcheck disable=SC1091
-. ./shunit2
+runTest
