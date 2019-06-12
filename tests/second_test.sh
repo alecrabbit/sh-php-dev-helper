@@ -4,7 +4,11 @@
 #   shellcheck disable=SC1090,SC1091
 #   shellcheck disable=SC2006
 
-. ./tests_helpers.sh
+oneTimeSetUp () {
+    echo "Setting Up"
+    . ./tests_helpers.sh
+    console_dark "Setup Done"
+}
 
 testEquality() {
   assertEquals 1 1

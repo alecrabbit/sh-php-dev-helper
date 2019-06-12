@@ -1095,10 +1095,12 @@ _shunit_generateReport() {
 
   echo
   _shunit_msg_="Ran ${__shunit_ansi_cyan}${__shunit_testsTotal}${__shunit_ansi_none}"
+  _shunit_asserts_msg_="Asserts: ${__shunit_ansi_cyan}${__shunit_assertsTotal}${__shunit_ansi_none}"
+
   if command [ "${__shunit_testsTotal}" -eq 1 ]; then
-    ${__SHUNIT_CMD_ECHO_ESC} "${_shunit_msg_} test."
+    ${__SHUNIT_CMD_ECHO_ESC} "${_shunit_msg_} test. ${_shunit_asserts_msg_}."
   else
-    ${__SHUNIT_CMD_ECHO_ESC} "${_shunit_msg_} tests."
+    ${__SHUNIT_CMD_ECHO_ESC} "${_shunit_msg_} tests. ${_shunit_asserts_msg_}."
   fi
 
   if command [ ${_shunit_ok_} -eq ${SHUNIT_TRUE} ]; then
