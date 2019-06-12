@@ -4,7 +4,11 @@
 #   shellcheck disable=SC1090,SC1091
 #   shellcheck disable=SC2006
 
-. ./tests_helpers.sh
+oneTimeSetUp () {
+    echo "Setting Up"
+    . ./tests_helpers.sh
+    console_dark "Setup Done"
+}
 
 test_core_bool_to_string() {
     assertEquals "True" "`core_bool_to_string "${CR_TRUE}"`"
@@ -40,8 +44,17 @@ test_check_command () {
     assertTrue $?
     check_command "nonexistent"
     assertFalse $?
-} 
+}
 
+test_core_get_realpath () {
+    assertEquals "/tmp" "$(core_get_realpath "/tmp")"
+    __file="$(core_get_realpath "terminal_title_file")"
+    if [ ! -e "${__file}" ];then
+        fail "Wrong path"
+    fi
+    unset __file
+    # assertEquals "/tmp" "${__path}"
+} 
 
 # Load shUnit2
 # shellcheck disable=SC1091
