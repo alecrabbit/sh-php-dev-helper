@@ -1,8 +1,14 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Added
+- tests framework
+
 ### Fixed
 - git-chglog checks order
+
+### Modified
+- shunit2
 
 ### Update
 - README.md
