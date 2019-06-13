@@ -400,6 +400,11 @@ pts_read_options () {
                 PTS_WITH_COMPOSER=${CR_FALSE}
                 debug_option "${__OPTION}" "${__VALUE}"
                 ;;
+            # Undocumented
+            --source-dir)
+                debug_option "${__OPTION}" "${__VALUE}"
+                export PTS_SOURCE_DIR="${__VALUE}"
+                ;;
             *)
                 common_read_option "pts_usage" "${__OPTION}$([ "${__VALUE}" != "" ] && echo "=${__VALUE}")"
                 ;;
