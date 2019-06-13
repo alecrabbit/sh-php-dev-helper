@@ -2,6 +2,7 @@
 ## [Unreleased]
 
 ### Added
+- `--source-dir` option
 - tests framework
 
 ### Fixed
@@ -14,6 +15,7 @@
 - README.md
 
 ### Updated
+- readme file
 - Changelog
 
 
