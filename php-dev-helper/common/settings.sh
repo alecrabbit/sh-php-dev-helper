@@ -27,6 +27,7 @@ export _DOCKER_COMPOSE_FILE_DEBUG="docker-compose-debug.yml"
 export PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
 
 export PHPSTAN_LEVEL=7
+export PHPSTAN_PATHS_FILE="phpstan.paths"
 export PSALM_LEVEL=3
 export PSALM_CONFIG="psalm.xml"
 

@@ -54,7 +54,11 @@ _phpstan_exec () {
 
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan -V "${__colors}"
         then
-            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan analyze "${PTS_SOURCE_DIR}" --level="${PHPSTAN_LEVEL}" "${__colors}"
+            if [ -e "${PHPSTAN_PATHS_FILE}" ];then
+                docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan analyze --paths-file="${PHPSTAN_PATHS_FILE}" --level="${PHPSTAN_LEVEL}" "${__colors}"
+            else
+                docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpstan analyze "${PTS_SOURCE_DIR}" --level="${PHPSTAN_LEVEL}" "${__colors}"
+            fi
         fi
         unset __colors
     fi
