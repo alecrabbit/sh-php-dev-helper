@@ -19,6 +19,13 @@ install_usage () {
 install_export_options () {
     :
 }
+install_get_destination () {
+    SUITE_DIR="${HOME}/.local/bin"
+    SUITE_DIR="$(core_get_user_input "Enter destination dir" "${SUITE_DIR}")"
+    SUITE_DIR="$(core_str_replace "${SUITE_DIR}" "~" "${HOME}")"
+    SUITE_DIR="$(core_get_realpath "${SUITE_DIR}")"
+    console_info "Installing to '${SUITE_DIR}'" 
+}
 
 install_cleanup () {
     console_print ""

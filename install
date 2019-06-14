@@ -16,10 +16,7 @@ install_read_options "$@"
 ### Installing suite
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     console_warning "Under development - work in progress!"
-    
-    SUITE_DIR="${HOME}/.local/bin"
-    SUITE_DIR="$(core_get_realpath "${SUITE_DIR}")"
-
+    install_get_destination 
     if core_ask_question "Install PHP Dev Helper to '${SUITE_DIR}'?"; then
         install_cleanup
         export FLAG_DONE="${CR_TRUE}"

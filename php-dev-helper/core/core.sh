@@ -285,6 +285,17 @@ core_remove_symbols () {
     unset __symbols
 }
 
+core_get_user_input () {
+    __proposed_value=${2:-}
+    if [ "${__proposed_value}" != "" ]; then
+        __proposed_value=" (${__proposed_value})"
+    fi
+    printf "%s%s: " "${1}" "${__proposed_value}" >&2
+    read -r __variable
+    echo "${__variable}"
+    unset __proposed_value __variable
+}
+
 core_remove_prefix () {
     echo "${2#${1}}"
 }
