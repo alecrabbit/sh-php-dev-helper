@@ -9,12 +9,12 @@
 . "${INCLUDERS_DIR}/include_mmb.sh"      
 
 mmb_load_settings
+mmb_check_working_env
 mmb_read_options "$@"
 
 func_print_header "PHP Package creator"
 
 mmb_show_settings
-mmb_check_working_env
 
 ### Creating new package
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
