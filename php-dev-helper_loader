@@ -7,7 +7,7 @@ command [ -n "${MODULE_LOADED:-}" ] && exit 0
 MODULE_LOADED="LOADED"
 
 # Directories
-__lib="php-dev-helper"
+__LIB_DIR_NAME="php-dev-helper"
 __core_modules="core"
 __common_modules="common"
 __apps_modules="apps"
@@ -18,7 +18,7 @@ set -u
 
 # Set core variables
 SCRIPT_DIR=${SCRIPT_DIR:-"$(dirname "$0")"}
-LIB_DIR="${SCRIPT_DIR}/${__lib}"
+LIB_DIR="${SCRIPT_DIR}/${__LIB_DIR_NAME}"
 COMMON_MODULES_DIR="${LIB_DIR}/${__common_modules}"
 CORE_MODULES_DIR="${LIB_DIR}/${__core_modules}"
 APPS_MODULES_DIR="${LIB_DIR}/${__apps_modules}"
@@ -47,4 +47,4 @@ export TERM_TITLE
 
 console_debug "Loader - Done"
 
-unset __lib __core_modules __common_modules __apps_modules __includers
+unset __core_modules __common_modules __apps_modules __includers

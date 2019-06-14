@@ -22,7 +22,9 @@ common_help_message () {
     echo "Options:"
     echo "    $(colored_yellow "--debug")               - run in debug mode"
     echo "    $(colored_yellow "-h, --help")            - show help message and exit"
-    echo "    $(colored_yellow "--update")              - update scripts"
+    if [ "${SCRIPT_NAME}" != "${INSTALL_SCRIPT_NAME}" ];then
+        echo "    $(colored_yellow "--update")              - update scripts"
+    fi
     echo "    $(colored_yellow "-V, --version")         - show version"
     echo
     "${1}"
@@ -44,6 +46,9 @@ common_read_option () {
                 OPTION_NO_INTERACTION="${CR_TRUE}"
                 ;;
             --update)
+                if [ "${SCRIPT_NAME}" = "${INSTALL_SCRIPT_NAME}" ];then
+                    console_fatal "Option is not applicable"
+                fi
                 debug_option "${__OPTION}" "${__VALUE}"
                 _pts_updater_run "${__VALUE}"
                 exit

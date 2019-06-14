@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+export INSTALL_SCRIPT_NAME="install"
 export STB_REMOTE_REPO_URL="<PACKAGE_REMOTE_REPOSITORY>"
 
 export PTS_UPDATER_TMP_DIR=".pts_updater_tmp"

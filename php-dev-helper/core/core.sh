@@ -287,11 +287,16 @@ core_remove_symbols () {
 
 core_get_user_input () {
     __proposed_value=${2:-}
-    if [ "${__proposed_value}" != "" ]; then
-        __proposed_value=" (${__proposed_value})"
+    __proposed_value_to_show="${__proposed_value}"
+
+    if [ "${__proposed_value_to_show}" != "" ]; then
+        __proposed_value_to_show=" (${__proposed_value})"
     fi
-    printf "%s%s: " "${1}" "${__proposed_value}" >&2
+    printf "%s%s: " "${1}" "${__proposed_value_to_show}" >&2
     read -r __variable
+    if [ "${__variable}" = "" ]; then
+        __variable="${__proposed_value}"
+    fi
     echo "${__variable}"
     unset __proposed_value __variable
 }

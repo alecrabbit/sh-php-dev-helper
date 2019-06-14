@@ -19,21 +19,34 @@ install_usage () {
 install_export_options () {
     :
 }
+
 install_get_destination () {
-    SUITE_DIR="${HOME}/.local/bin"
+    SUITE_DIR="${HOME}/tmp/bin"
     SUITE_DIR="$(core_get_user_input "Enter destination dir" "${SUITE_DIR}")"
     SUITE_DIR="$(core_str_replace "${SUITE_DIR}" "~" "${HOME}")"
     SUITE_DIR="$(core_get_realpath "${SUITE_DIR}")"
-    console_info "Installing to '${SUITE_DIR}'" 
+    console_info "Installing to '${SUITE_DIR}'"
+    if ! core_dir_exists "${SUITE_DIR}"; then
+        console_debug "$(mkdir -pv "${SUITE_DIR}" 2>&1)"
+    fi
+}
+
+install_copy_files_to_destination () {
+    console_comment "Copying files..."
+    console_debug "$(cp -rv . "${SUITE_DIR}/.")"
 }
 
 install_cleanup () {
     console_print ""
-    console_comment "Cleaning Up"
+    console_comment "Cleaning up..."
     console_debug "Deleting files"
-    console_debug "$(core_get_realpath "apps/install.sh")"
-    console_debug "$(core_get_realpath "includers/include_install.sh")"
-    console_debug "$(core_get_realpath "install")"
+    if core_dir_exists "${SUITE_DIR}/.git"; then
+        console_debug "$(rm -rfv "${SUITE_DIR}/.git" 2>&1)"
+    fi
+
+    console_debug "Deleting: $(rm -rfv "${SUITE_DIR}/${__LIB_DIR_NAME}/apps/install.sh")"
+    console_debug "Deleting: $(rm -rfv "${SUITE_DIR}/${__LIB_DIR_NAME}/includers/include_install.sh")"
+    console_debug "Deleting: $(rm -rfv "${SUITE_DIR}/${__LIB_DIR_NAME}/install")"
 }
 install_read_options  () {
     common_set_default_options
