@@ -1,10 +1,11 @@
 #!/usr/bin/env sh
 
-# shellcheck disable=SC1091
+# Disable source following.
+#   shellcheck disable=SC1090,SC1091
+
 . php-dev-helper_loader
 
 ### Moomba modules loader
-# shellcheck disable=SC1090
 . "${INCLUDERS_DIR}/include_mmb.sh"      
 
 mmb_load_settings

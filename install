@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+
+# Disable source following.
+#   shellcheck disable=SC1090,SC1091
+
+. php-dev-helper_loader
+
+### Install modules loader
+. "${INCLUDERS_DIR}/include_install.sh"      
+
+func_print_header "PHP Dev Helper Installer" 
+
+install_load_settings
+install_read_options "$@"
+
+### Installing suite
+if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
+    console_warning "Under development - work in progress!"
+    
+    SUITE_DIR="${HOME}/.local/bin"
+    SUITE_DIR="$(core_get_realpath "${SUITE_DIR}")"
+
+    if core_ask_question "Install PHP Dev Helper to '${SUITE_DIR}'?"; then
+        install_cleanup
+        export FLAG_DONE="${CR_TRUE}"
+    else
+        export FLAG_CANCELED="${CR_TRUE}"
+    fi
+else
+    console_debug "No execution selected"
+fi
+
+func_print_footer
