@@ -18,12 +18,12 @@ mmb_show_settings
 
 ### Creating new package
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
+    if [ "${WORK_DIR}" = "${SCRIPT_DIR}" ];then
+        console_unable "You are trying to create new package in ${SCRIPT_NAME}'s own directory"
+    fi
     console_warning "Under development - use with caution!"
     mmb_working_dir
     mmb_check_default_template
-    if [ "${WORK_DIR}" = "${SCRIPT_DIR}" ];then
-        console_unable "You are trying to create new package in ${SCRIPT_NAME}'s working directory"
-    fi
     core_set_terminal_title "${TERM_TITLE} - Creating..."
     mmb_show_package_values
     console_dark "Creating new package"
