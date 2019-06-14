@@ -11,12 +11,10 @@
 ### Modified
 - shunit2
 
-### Update
-- README.md
-
 ### Updated
 - readme file
 - Changelog
+- README.md
 
 
 <a name="0.5.3"></a>
