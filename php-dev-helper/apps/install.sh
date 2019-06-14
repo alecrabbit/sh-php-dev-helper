@@ -53,7 +53,7 @@ install_cleanup () {
 
     console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/${__LIB_DIR_NAME}/apps/install.sh")")"
     console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/${__LIB_DIR_NAME}/includers/include_install.sh")")"
-    console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/${__LIB_DIR_NAME}/common/dev.sh" 2>&1)")"
+    console_debug "Deleting: $(rm -rv 2>&1 "$(core_get_realpath "${SUITE_DIR}/${__LIB_DIR_NAME}/common/dev.sh")")"
     console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/install")")"
 }
 
