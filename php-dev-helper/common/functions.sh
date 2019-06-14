@@ -148,7 +148,7 @@ func_print_footer () {
     fi
     console_print ""
     if [ "${FLAG_DONE:-${CR_FALSE}}" -eq "${CR_TRUE}" ]; then
-        console_print "${EMOJI_FIN_FLAG}$(colored_yellow "Done!")\n${__time}"
+        console_print "${EMOJI_CHECKED_FLAG}$(colored_yellow "Done!")\n${__time}"
     fi
     if [ "${FLAG_CANCELED:-${CR_FALSE}}" -eq "${CR_TRUE}" ]; then
         console_print "${EMOJI_CANCELED}$(colored_yellow "Canceled!")\n${__time}"
