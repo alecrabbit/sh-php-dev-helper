@@ -34,6 +34,13 @@ install_get_destination () {
 install_copy_files_to_destination () {
     console_comment "Copying files..."
     console_debug "$(cp -rv . "${SUITE_DIR}/.")"
+    install_rename_scripts
+}
+
+install_rename_scripts () {
+    console_debug "$(mv -v "${SUITE_DIR}/php-tests-dev" "${SUITE_DIR}/php-tests")"
+    console_debug "$(mv -v "${SUITE_DIR}/moomba-dev" "${SUITE_DIR}/moomba")"
+    console_debug "$(mv -v "${SUITE_DIR}/build-image-dev" "${SUITE_DIR}/build-image")"
 }
 
 install_cleanup () {
@@ -41,13 +48,15 @@ install_cleanup () {
     console_comment "Cleaning up..."
     console_debug "Deleting files"
     if core_dir_exists "${SUITE_DIR}/.git"; then
-        console_debug "$(rm -rfv "${SUITE_DIR}/.git" 2>&1)"
+        console_debug "$(rm -rf "${SUITE_DIR}/.git" 2>&1)"
     fi
 
-    console_debug "Deleting: $(rm -rfv "${SUITE_DIR}/${__LIB_DIR_NAME}/apps/install.sh")"
-    console_debug "Deleting: $(rm -rfv "${SUITE_DIR}/${__LIB_DIR_NAME}/includers/include_install.sh")"
-    console_debug "Deleting: $(rm -rfv "${SUITE_DIR}/${__LIB_DIR_NAME}/install")"
+    console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/${__LIB_DIR_NAME}/apps/install.sh")")"
+    console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/${__LIB_DIR_NAME}/includers/include_install.sh")")"
+    console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/${__LIB_DIR_NAME}/common/dev.sh")")"
+    console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/install")")"
 }
+
 install_read_options  () {
     common_set_default_options
     install_set_default_options
