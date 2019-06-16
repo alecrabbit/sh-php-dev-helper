@@ -24,22 +24,12 @@ Get your copy of specific version
 > Note: Check [releases](https://github.com/alecrabbit/sh-php-dev-helper/releases) tab for the latest version number
 
  ```bash
- version="0.5.3"
+ version="0.6.0"
  wget -qO- "https://github.com/alecrabbit/sh-php-dev-helper/archive/${version}.tar.gz" \
- | tar -xzv && cd sh-php-dev-helper-${version}
+ | tar -xzv && cd sh-php-dev-helper-${version} && ./install
  ```
 
-Copy extracted files to your `~/.local/bin` dir.
-
-```bash
-cp -r . ~/.local/bin/.
-```
-
-Rename main scripts
-
-```bash
-mv moomba-dev moomba && mv php-tests-dev php-tests && mv build-image-dev build-image
-```
+Follow the instructions of install script.
 
 Make sure your `.profile` file contains these lines:
 
