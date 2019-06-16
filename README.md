@@ -191,3 +191,7 @@ OS                                  |
 ----------------------------------- |
 Ubuntu Linux (18.04 LTS)            |
 Ubuntu Linux (19.04)                |
+
+### Requirements to docker images
+
+You cna use your own php docker images in `docker-compose.yml` and `docker-compose-debug.yml`. See [requirements](.docs/docker-images-requirments.md)
