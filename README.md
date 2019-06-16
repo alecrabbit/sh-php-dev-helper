@@ -15,7 +15,8 @@ See [demos](.demo/demos.md)
 > Note : `moomba` script does not require `docker` or `docker-compose`
 
 - docker
-- docker-compose (17.04.0+)
+- docker-compose 
+(Docker Engine 17.04.0+)
 
 ### Local installation
 
