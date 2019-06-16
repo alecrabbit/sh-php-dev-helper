@@ -52,7 +52,7 @@ install_cleanup () {
     if core_dir_exists "${SCRIPT_DIR}/.git"; then
         console_debug "Installation is the source or was cloned"
     else
-        console_debug "$(rm -r "${SCRIPT_DIR}" 2>&1)"
+        console_debug "Deleting '${SCRIPT_DIR}': $(rm -r "${SCRIPT_DIR}" 2>&1)"
     fi
 
     console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/${__LIB_DIR_NAME}/apps/install.sh")")"
