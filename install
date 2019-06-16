@@ -19,6 +19,7 @@ if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     install_get_destination 
     if core_ask_question "Install PHP Dev Helper to '${SUITE_DIR}'?"; then
         install_copy_files_to_destination
+        install_rename_scripts
         install_cleanup
         export FLAG_DONE="${CR_TRUE}"
     else

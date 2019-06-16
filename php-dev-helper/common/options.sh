@@ -102,5 +102,5 @@ common_read_option () {
 }
 
 debug_option () {
-    console_debug "Selected option '${1}'$([ "${2}" != "" ] && echo " with value '${2}'")"
+    console_debug "Used option '${1}'$([ "${2}" != "" ] && echo " with value '${2}'")"
 }

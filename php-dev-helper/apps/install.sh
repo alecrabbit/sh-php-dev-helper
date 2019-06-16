@@ -34,7 +34,6 @@ install_get_destination () {
 install_copy_files_to_destination () {
     console_comment "Copying files..."
     console_debug "$(cp -rv . "${SUITE_DIR}/.")"
-    install_rename_scripts
 }
 
 install_rename_scripts () {
