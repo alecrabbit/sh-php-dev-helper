@@ -48,6 +48,9 @@ install_cleanup () {
     console_debug "Deleting files"
     if core_dir_exists "${SUITE_DIR}/.git"; then
         console_debug "$(rm -rf "${SUITE_DIR}/.git" 2>&1)"
+    fi
+    if core_dir_exists "${SCRIPT_DIR}/.git"; then
+        console_debug "Installation is the source or was cloned"
     else
         console_debug "$(rm -r "${SCRIPT_DIR}" 2>&1)"
     fi
