@@ -46,18 +46,22 @@ Create your own `.templates_settings`, use `.templates_settings.dist` as example
 
 ```text
 .
+├── build-image
 ├── moomba
-├── php-dev-helper-lib
+├── php-dev-helper
+│   ├── apps
+│   │   ├── bdi.sh
+│   │   ├── mmb.sh
+│   │   └── pts.sh
 │   ├── BUILD
-│   ├── commands.sh
-│   ├── functions.sh
-│   ├── mmb.sh
-│   ├── options.sh
-│   ├── .settings
-│   │   ├── .sh-pdh-settings.dist
-│   │   └── .templates_settings.dist
-│   ├── settings.sh
-│   ├── sh-modules
+│   ├── common
+│   │   ├── changelog.sh
+│   │   ├── commands.sh
+│   │   ├── functions.sh
+│   │   ├── options.sh
+│   │   ├── settings.sh
+│   │   └── tmp.sh
+│   ├── core
 │   │   ├── capitalize.sed
 │   │   ├── colored.sh
 │   │   ├── console.sh
@@ -65,18 +69,17 @@ Create your own `.templates_settings`, use `.templates_settings.dist` as example
 │   │   ├── docker.sh
 │   │   ├── github.sh
 │   │   ├── git.sh
+│   │   ├── notifier.sh
 │   │   ├── updater.sh
 │   │   └── version.sh
-│   ├── templates
-│   │   └── .licenses
-│   │       ├── Apache-2.0
-│   │       ├── BSD-2-Clause
-│   │       ├── BSD-3-Clause
-│   │       ├── GPL-3.0
-│   │       └── MIT
-│   ├── tmp.sh
-│   ├── updater.sh
-│   └── VERSION
+│   ├── includers
+│   │   ├── include_bdi.sh
+│   │   ├── include_common.sh
+│   │   ├── include_core.sh
+│   │   ├── include_mmb.sh
+│   │   └── include_pts.sh
+│   └── templates
+├── php-dev-helper_loader
 └── php-tests
 ```
 
@@ -91,24 +94,27 @@ $ php-tests -h
 Usage:
     php-tests [options]
 Options:
+    --debug               - run in debug mode
     -h, --help            - show help message and exit
-    -a, --all             - run all (not includes --metrics and --multi)
+    --update              - update scripts
+    -V, --version         - show version
+
+    -a, --all             - run all (substitutes -c, -s, --cs, -b)
     -b                    - enable php code sniffer beautifier
+    --cl                  - update CHANGELOG.md
     -c, --coverage        - enable phpunit code coverage (includes -u)
     --cs                  - enable php code sniffer
+    -g, --graphs         - create dependencies graphs
     --metrics             - enable phpmetrics
     --multi               - enable multi-tester
     --phpstan             - enable phpstan
     --psalm               - enable psalm
     -s, --analyze         - enable static analysis tools (--phpstan and --psalm)
     --security            - enable security checks
+    -t, --total           - all options enabled
     -u, --unit            - enable phpunit
-    --update              - update script
-    -V, --version         - show version
     -v                    - enable check for forgotten var dumps
     --without-composer    - do not check for 'composer.json' file and 'vendor' dir
-
-Note: options order is important
 ```
 
 #### moomba
@@ -194,4 +200,4 @@ Ubuntu Linux (19.04)                |
 
 ### Requirements to docker images
 
-You cna use your own php docker images in `docker-compose.yml` and `docker-compose-debug.yml`. See [requirements](.docs/docker-images-requirments.md)
+You can use your own docker images in `docker-compose.yml` and `docker-compose-debug.yml`. See [requirements](.docs/docker-images-requirments.md)
