@@ -48,6 +48,8 @@ install_cleanup () {
     console_debug "Deleting files"
     if core_dir_exists "${SUITE_DIR}/.git"; then
         console_debug "$(rm -rf "${SUITE_DIR}/.git" 2>&1)"
+    else
+        console_debug "$(rm -r "${SCRIPT_DIR}" 2>&1)"
     fi
 
     console_debug "Deleting: $(rm -rv "$(core_get_realpath "${SUITE_DIR}/${__LIB_DIR_NAME}/apps/install.sh")")"
