@@ -3,7 +3,7 @@
 # Disable source following.
 #   shellcheck disable=SC1090,SC1091
 
-. php-dev-helper_loader
+. ./php-dev-helper_loader
 
 ### Install modules loader
 . "${INCLUDERS_DIR}/include_install.sh"      
