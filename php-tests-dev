@@ -14,6 +14,10 @@ pts_show_project_type_and_name
 
 console_debug "Output use color: $(core_int_to_string "${CR_COLOR}")"
 
+if [ "${WORK_DIR}" = "${SCRIPT_DIR}" ];then
+    console_unable "You are trying to run tests in ${SCRIPT_NAME}'s own directory"
+fi
+
 pts_show_selected_options
 pts_check_container
 pts_check_vendor_dir
