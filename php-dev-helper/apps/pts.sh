@@ -234,6 +234,7 @@ pts_set_default_options () {
     __ALL_OPTION=${CR_FALSE}
     __TOTAL_OPTION=${CR_FALSE}
     PTS_DEPS_GRAPH=${CR_FALSE}
+    PTS_CHANGELOG_TAGS=""
 }
 
 pts_process_options () {
@@ -277,6 +278,7 @@ pts_export_options () {
     export PTS_DEPS_GRAPH
     export PTS_UPDATE_CHANGELOG
     export OPTION_NOTIFY
+    export PTS_CHANGELOG_TAGS
 }
 
 pts_show_selected_options () {
@@ -349,6 +351,7 @@ pts_read_options () {
                 ;;
             --cl)
                 debug_option "${__OPTION}" "${__VALUE}"
+                PTS_CHANGELOG_TAGS="${__VALUE}"
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_UPDATE_CHANGELOG=${CR_TRUE}
                 ;;
@@ -565,7 +568,7 @@ pts_update_changelog() {
         if ! pts_check_chglog_config; then
             return "${CR_FALSE}"
         fi
-        __result="$(${__git_chglog_command} -o "${_CHANGELOG_MD_FILE}" 2>&1)"
+        __result="$(${__git_chglog_command} -o "${_CHANGELOG_MD_FILE}" "${PTS_CHANGELOG_TAGS}" 2>&1)"
         if [ $? -eq "${CR_TRUE}" ]; then
             console_print "${__result}"
         else
