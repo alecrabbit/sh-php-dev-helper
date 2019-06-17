@@ -20,6 +20,8 @@
 
 ## Common
 
+- [ ] Add installed tools check during install
+- [ ] Add option to disable notifications
 - [ ] Write tests? 🤦‍
   - [x] started 🎈
 
