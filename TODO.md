@@ -9,7 +9,7 @@
 
 ## Moomba
 
-- [ ] Feature: Add option to compare project files in the current dir with template `<name>` files, e.g. ``
+- [ ] Feature: Add option to compare project files in the current dir with template `<name>` files, e.g. `--compare-with[=default]`
 - [ ] Feature: During package creation make `.env` file with `USER_ID` and `CROUP_ID` vars for docker-compose files
 - [ ] Feature: Dir control: allow creating packages only in specified directories
 
