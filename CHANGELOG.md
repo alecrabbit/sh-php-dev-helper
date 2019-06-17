@@ -1,20 +1,46 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.6.1"></a>
+## [0.6.1] - 2019-06-17
+### Feature
+- can process --cl option tags
+
+### Updated
+- TODO.md
+
+
+<a name="0.6.0"></a>
+## [0.6.0] - 2019-06-17
 ### Added
 - `--source-dir` option
 - tests framework
+- tests framework
+
+### Feature
+- phpstan can process other dir
 
 ### Fixed
 - git-chglog checks order
 
 ### Modified
 - shunit2
+- shunit2
+
+### Moved
+- pts commands
+
+### Update
+- README.md
 
 ### Updated
+- CHANGELOG.md
 - readme file
 - Changelog
 - README.md
+- readme file
+- Changelog
 
 
 <a name="0.5.3"></a>
@@ -245,7 +271,9 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.3...HEAD
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.1...HEAD
+[0.6.1]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.0...0.6.1
+[0.6.0]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.3...0.6.0
 [0.5.3]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.2...0.5.3
 [0.5.2]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.1...0.5.2
 [0.5.1]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.0...0.5.1
