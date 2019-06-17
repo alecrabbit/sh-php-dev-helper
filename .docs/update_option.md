@@ -2,18 +2,19 @@
 
 ```text
 $ php-tests --update
-Current version: 0.2.4
-New version found: 0.2.5
+Current version: 0.6.0
+New version found: 0.6.1
 Updating...
 Installing package
-Update complete: 0.2.4@b191f57 -> 🆕 0.2.5@c656fcf
+0.6.0@c1729a8 -> 🆕 0.6.1@872b081
+Update complete
 ```
 
 You can add version to update to (e.g. to rollback after update)
 
 ```text
-$ php-tests --update=0.1.54
-You are already using this version: 0.1.54
+$ php-tests --update=0.6.0
+You are already using this version: 0.6.0
 ```
 
 > Note: Check [releases](https://github.com/alecrabbit/sh-php-dev-helper/releases) tab for the latest version number
