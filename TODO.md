@@ -11,6 +11,7 @@
 
 ## Moomba
 
+- [ ] During package creation make `.env` file with `USER_ID` and `CROUP_ID` vars for docker-compose files
 - [ ] Dir control: allow creating packages only in specified directories
 
 ---
@@ -19,11 +20,12 @@
 
 ## Common
 
-- [ ] Installer script
 - [ ] Write tests? 🤦‍
+  - [x] started 🎈
 
 ---
 
+- [x] Installer script
 - [x] Use `FLAG_CANCELED`, `FLAG_DONE`
 
 ```text
