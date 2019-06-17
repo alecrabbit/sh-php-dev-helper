@@ -2,6 +2,7 @@
 
 ## PHP-Tests
 
+- [ ] Add value processing to `--cl` option, e.g. `--cl=0.2.0..0.2.4` will mean `git-chglog -o CHANGELOG.md 0.2.0..0.2.4`
 - [ ] Add magic number detector [povils/phpmnd](https://github.com/povils/phpmnd)
 
 ---
