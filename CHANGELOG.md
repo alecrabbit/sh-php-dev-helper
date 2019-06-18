@@ -4,6 +4,12 @@
 ### Feature
 - generate .gitattributes file
 
+### Fixed
+- typo in a filename
+
+### Updated
+- documentation
+
 
 <a name="0.6.1"></a>
 ## [0.6.1] - 2019-06-17
