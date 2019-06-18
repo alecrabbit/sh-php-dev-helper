@@ -45,7 +45,7 @@ EOF
 }
 
 pts_check_vendor_dir () {
-    if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
+    if [ "${PTS_CONTAINER_STARTED:-${CR_FALSE}}" -eq "${CR_TRUE}" ] && [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
         if core_dir_exists "${WORK_DIR}/vendor"; then
             console_debug "Dir 'vendor' found"
         else 
@@ -242,6 +242,9 @@ pts_set_default_options () {
 }
 
 pts_process_options () {
+    if [ "${PTS_PHPUNIT}" -eq "${CR_TRUE}" ]; then
+        PTS_REQUIRE_CONTAINER=${CR_TRUE}
+    fi
     if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ]; then
         PTS_PHPUNIT=${CR_TRUE}
     fi
@@ -297,10 +300,11 @@ pts_show_selected_options () {
     then
         console_show_option "${COMMON_EXECUTE}" "Execute"
         console_show_option "${PTS_RESTART}" "Container restart"
+        console_show_option "${PTS_REQUIRE_CONTAINER}" "Container required"
     fi
     console_show_option "${PTS_PHPUNIT}" "PHPUnit"
     console_show_option "${PTS_PHPUNIT_COVERAGE}" "PHPUnit code coverage"
-    console_show_option "${PTS_VAR_DUMP_CHECK}" "Var dump checks"
+    console_show_option "${PTS_VAR_DUMP_CHECK}" "Check for var dumps"
     console_show_option "${PTS_MULTI}" "Multi-tester"
     console_show_option "${PTS_METRICS}" "PHPMetrics"
     console_show_option "${PTS_PHPSTAN}" "PHPStan"

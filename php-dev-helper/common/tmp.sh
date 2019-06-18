@@ -29,17 +29,36 @@ gitattributes_export_ignore () {
 }
 
 gitattributes_generate () {
+    console_debug "Generating .gitattributes"
+    __gtr_keep="src
+LICENSE
+composer.json"
+    __gtr_tpl=""
     if core_dir_contains "${1}" ".gitattributes.keep" "${CR_TRUE}"
     then
-        console_debug "Generating .gitattributes"
-        __gtr_tpl=""
-        if core_dir_contains "${1}" ".gitattributes.template"
-        then
-            __gtr_tpl="$(cat "${1}/.gitattributes.template")"
-        fi
-        echo "${__gtr_tpl}$(gitattributes_export_ignore "${1}" "$(cat "${1}/.gitattributes.keep")")" > "${1}"/.gitattributes
-        unset __gtr_tpl
+        __gtr_keep="$(cat "${1}/.gitattributes.keep")"
     else
-        console_error "Couldn't generate"
+        console_comment "Using defaults:"
+        console_dark "${__gtr_keep}"
     fi
+    if core_dir_contains "${1}" ".gitattributes.template"
+    then
+        __gtr_tpl="$(cat "${1}/.gitattributes.template")"
+    fi
+
+    echo "${__gtr_tpl}$(gitattributes_export_ignore "${1}" "${__gtr_keep}")" > "${1}"/.gitattributes
+    unset __gtr_tpl __gtr_keep
+
+    # if core_dir_contains "${1}" ".gitattributes.keep" "${CR_TRUE}"
+    # then
+    #     __gtr_tpl=""
+    #     if core_dir_contains "${1}" ".gitattributes.template"
+    #     then
+    #         __gtr_tpl="$(cat "${1}/.gitattributes.template")"
+    #     fi
+    #     echo "${__gtr_tpl}$(gitattributes_export_ignore "${1}" "$(cat "${1}/.gitattributes.keep")")" > "${1}"/.gitattributes
+    #     unset __gtr_tpl
+    # else
+    #     console_error "Couldn't generate"
+    # fi
 }
