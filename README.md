@@ -15,7 +15,7 @@ See [demos](.demo/demos.md)
 > Note : `moomba` script does not require `docker` or `docker-compose`
 
 - docker
-- docker-compose 
+- docker-compose
 (Docker Engine 17.04.0+)
 
 ### Local installation
@@ -105,7 +105,8 @@ Options:
     --cl                  - update CHANGELOG.md
     -c, --coverage        - enable phpunit code coverage (includes -u)
     --cs                  - enable php code sniffer
-    -g, --graphs         - create dependencies graphs
+    --ga                  - generate .gitattributes file
+    -g, --graphs          - create dependencies graphs
     --metrics             - enable phpmetrics
     --multi               - enable multi-tester
     --phpstan             - enable phpstan
@@ -116,6 +117,8 @@ Options:
     -u, --unit            - enable phpunit
     -v                    - enable check for forgotten var dumps
     --without-composer    - do not check for 'composer.json' file and 'vendor' dir
+
+Note: options order is important
 ```
 
 #### moomba
@@ -150,13 +153,22 @@ Note: options order is important
 ```text
 .
 ├── CHANGELOG.md
+├── .chglog
+│   ├── CHANGELOG.tpl.md
+│   └── config.yml
+├── CODE_OF_CONDUCT.md
 ├── composer.json
 ├── docker-compose-debug.yml
 ├── docker-compose.yml
 ├── .dockerignore
 ├── .gitattributes
+├── .gitattributes.keep
+├── .gitattributes.template
 ├── .github
-│   └── ISSUE_TEMPLATE.md
+│   └── ISSUE_TEMPLATE
+│       ├── bug_report.md
+│       ├── feature_request.md
+│       └── misc_issue.md
 ├── .gitignore
 ├── LICENSE
 ├── phpcs.xml
@@ -164,18 +176,17 @@ Note: options order is important
 ├── README.md
 ├── .scrutinizer.yml
 ├── src
-│   └── LooneyTunes
-│       └── BasicClass.php
+│   └── LooneyTunes
+│       └── BasicClass.php
 ├── TERMINAL_TITLE
 ├── tests
-│   ├── BasicTest.php
-│   ├── bootstrap.php
-│   └── debug.php
+│   ├── BasicTest.php
+│   ├── bootstrap.php
+│   └── debug.php
 ├── TODO.md
 ├── .travis
-│   └── travis-init.sh
+│   └── travis-init.sh
 └── .travis.yml
-
 ```
 
 ### Links to used tools
@@ -201,4 +212,4 @@ Ubuntu Linux (19.04)                |
 
 ### Requirements to docker images
 
-You can use your own docker images in `docker-compose.yml` and `docker-compose-debug.yml`. See [requirements](.docs/docker-images-requirments.md)
+You can use your own docker images in `docker-compose.yml` and `docker-compose-debug.yml`. See [requirements](.docs/docker-images-requirements.md)

@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Feature
+- generate .gitattributes file
+
 
 <a name="0.6.1"></a>
 ## [0.6.1] - 2019-06-17
