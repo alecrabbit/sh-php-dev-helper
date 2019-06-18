@@ -155,7 +155,7 @@ core_dir_exists () {
     return ${CR_FALSE}
 }
 
-core_is_dir_contains () {
+core_dir_contains () {
     __SHOW="${3:-${CR_FALSE}}"
     __FILES="${2}"
     __DIR="${1}"

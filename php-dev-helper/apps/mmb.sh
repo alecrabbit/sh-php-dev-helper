@@ -123,7 +123,7 @@ mmb_show_package_values () {
 
 mmb_check_working_env () {
     func_check_user
-    if core_is_dir_contains "${WORK_DIR}" "${_COMPOSER_JSON_FILE}"
+    if core_dir_contains "${WORK_DIR}" "${_COMPOSER_JSON_FILE}"
     then
         console_notice "Found file: '${_COMPOSER_JSON_FILE}'"
         console_notice "Are you in the right directory?"
