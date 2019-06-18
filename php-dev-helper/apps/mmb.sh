@@ -270,7 +270,7 @@ mmb_process_options () {
     fi
 
     TMPL_PACKAGE_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAME}")
-    # TMPL_PACKAGE_OWNER_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_OWNER_NAME}")
+    console_debug "Prepared package namespace: ${TMPL_PACKAGE_NAMESPACE}"
     mmb_prepare_package_dir
     if [ "${TMPL_USE_OWNER_NAMESPACE}" -eq "${CR_FALSE}" ]; then
         TMPL_PACKAGE_OWNER_NAMESPACE=""
@@ -348,7 +348,7 @@ mmb_read_options () {
     done
     common_process_options
     common_export_options
-    # mmb_process_options
+    mmb_process_options
     mmb_export_options
     unset __OPTION __VALUE
 }
