@@ -45,7 +45,7 @@ EOF
 }
 
 pts_check_vendor_dir () {
-    if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
+    if [ "${PTS_CONTAINER_STARTED:-${CR_FALSE}}" -eq "${CR_TRUE}" ] && [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
         if core_dir_exists "${WORK_DIR}/vendor"; then
             console_debug "Dir 'vendor' found"
         else 
@@ -69,7 +69,7 @@ pts_check_working_env () {
     else
         __composer_file=""
     fi
-    if ! core_is_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}${__composer_file}" "${CR_TRUE}"
+    if ! core_dir_contains "${WORK_DIR}" "${_DOCKER_COMPOSE_FILE} ${_DOCKER_COMPOSE_FILE_DEBUG}${__composer_file}" "${CR_TRUE}"
     then
         console_notice "\nAre you in the right directory?"
         console_unable "Required file(s) not found in current directory"
@@ -83,34 +83,35 @@ pts_check_working_env () {
 
 pts_check_container () {        
     console_debug "Checking container"
-    __check_container "${WORK_DIR}"
-    if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_FALSE}" ]; then
-        console_comment "Container is not running"
-        console_info "Trying to start container"
+    if [ "${PTS_REQUIRE_CONTAINER}" -eq "${CR_TRUE}" ]; then
+        __check_container "${WORK_DIR}"
+        if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_FALSE}" ]; then
+            console_comment "Container is not running"
+            console_info "Trying to start container"
+            if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${CR_TRUE}" ]; then
+                PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
+            else
+                PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE}"
+            fi
+            func_start_container "${PTS_DOCKER_COMPOSE_FILE}"
+            __check_container "${WORK_DIR}"
+        fi
+
         if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${CR_TRUE}" ]; then
+            console_debug "Debug image required, need to restart container?"
             PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
+            if [ "${PTS_DEBUG_IMAGE_USED}" -eq "${CR_TRUE}" ]; then
+                console_debug "No restart needed: debug image used"
+            else
+                console_info "Debug image required - restarting..."
+                console_debug "Restarting to debug image"
+                func_restart_container "${PTS_DOCKER_COMPOSE_FILE}"
+                __check_container "${WORK_DIR}"
+            fi
         else
             PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE}"
         fi
-        func_start_container "${PTS_DOCKER_COMPOSE_FILE}"
-        __check_container "${WORK_DIR}"
     fi
-
-    if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${CR_TRUE}" ]; then
-        console_debug "Debug image required, need to restart container?"
-        PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
-        if [ "${PTS_DEBUG_IMAGE_USED}" -eq "${CR_TRUE}" ]; then
-            console_debug "No restart needed: debug image used"
-        else
-            console_info "Debug image required - restarting..."
-            console_debug "Restarting to debug image"
-            func_restart_container "${PTS_DOCKER_COMPOSE_FILE}"
-            __check_container "${WORK_DIR}"
-        fi
-    else
-        PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE}"
-    fi
-
     export PTS_DOCKER_COMPOSE_FILE
 }
 
@@ -216,6 +217,9 @@ pts_usage () {
 }
 
 pts_set_default_options () {
+    PTS_REQUIRE_CONTAINER=${CR_FALSE}
+    PTS_REQUIRE_ENVIRONMENT=${CR_FALSE}
+    PTS_GITATTRIBUTES_GENERATE=${CR_FALSE}
     OPTION_NOTIFY=${CR_FALSE}
     PTS_REQUIRE_DEBUG_IMAGE=${CR_FALSE}
     PTS_RESTART=${CR_FALSE}
@@ -238,6 +242,9 @@ pts_set_default_options () {
 }
 
 pts_process_options () {
+    if [ "${PTS_PHPUNIT}" -eq "${CR_TRUE}" ]; then
+        PTS_REQUIRE_CONTAINER=${CR_TRUE}
+    fi
     if [ "${PTS_PHPUNIT_COVERAGE}" -eq "${CR_TRUE}" ]; then
         PTS_PHPUNIT=${CR_TRUE}
     fi
@@ -249,6 +256,9 @@ pts_process_options () {
         PTS_UPDATE_CHANGELOG=${CR_TRUE}
         PTS_DEPS_GRAPH=${CR_TRUE}
         __ALL_OPTION=${CR_TRUE}
+    fi
+    if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${CR_TRUE}" ]; then
+        PTS_REQUIRE_CONTAINER=${CR_TRUE}
     fi
     if [ "${__ALL_OPTION}" -eq "${CR_TRUE}" ]; then
         OPTION_NOTIFY=${CR_TRUE}
@@ -262,6 +272,7 @@ pts_process_options () {
 }
 
 pts_export_options () {
+    export PTS_GITATTRIBUTES_GENERATE
     export PTS_REQUIRE_DEBUG_IMAGE
     export PTS_RESTART
     export PTS_VAR_DUMP_CHECK
@@ -279,6 +290,8 @@ pts_export_options () {
     export PTS_UPDATE_CHANGELOG
     export OPTION_NOTIFY
     export PTS_CHANGELOG_TAGS
+    export PTS_REQUIRE_CONTAINER
+    export PTS_REQUIRE_ENVIRONMENT
 }
 
 pts_show_selected_options () {
@@ -287,10 +300,11 @@ pts_show_selected_options () {
     then
         console_show_option "${COMMON_EXECUTE}" "Execute"
         console_show_option "${PTS_RESTART}" "Container restart"
+        console_show_option "${PTS_REQUIRE_CONTAINER}" "Container required"
     fi
     console_show_option "${PTS_PHPUNIT}" "PHPUnit"
     console_show_option "${PTS_PHPUNIT_COVERAGE}" "PHPUnit code coverage"
-    console_show_option "${PTS_VAR_DUMP_CHECK}" "Var dump checks"
+    console_show_option "${PTS_VAR_DUMP_CHECK}" "Check for var dumps"
     console_show_option "${PTS_MULTI}" "Multi-tester"
     console_show_option "${PTS_METRICS}" "PHPMetrics"
     console_show_option "${PTS_PHPSTAN}" "PHPStan"
@@ -300,6 +314,7 @@ pts_show_selected_options () {
     console_show_option "${PTS_CS_BF}" "Code sniffer Beautifier"
     console_show_option "${PTS_DEPS_GRAPH}" "Dependencies graph"
     console_show_option "${PTS_UPDATE_CHANGELOG}" "Update changelog file"
+    console_show_option "${PTS_GITATTRIBUTES_GENERATE}" "Generate .gitattributes file"
     console_dark ""
 }
 
@@ -337,6 +352,7 @@ pts_read_options () {
             -u | --unit)
                 debug_option "${__OPTION}" "${__VALUE}"
                 PTS_PHPUNIT=${CR_TRUE}
+                PTS_REQUIRE_CONTAINER=${CR_TRUE}
                 ;;
             --security)
                 debug_option "${__OPTION}" "${__VALUE}"
@@ -382,6 +398,13 @@ pts_read_options () {
                 debug_option "${__OPTION}" "${__VALUE}"
                 PTS_MULTI=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
+                ;;
+            --ga)
+                debug_option "${__OPTION}" "${__VALUE}"
+                PTS_GITATTRIBUTES_GENERATE=${CR_TRUE}
+                PTS_PHPUNIT=${CR_FALSE}
+                PTS_REQUIRE_CONTAINER=${CR_FALSE}
+                # PTS_REQUIRE_ENVIRONMENT=${CR_FALSE}
                 ;;
             -b | --beauty | --beautify)
                 debug_option "${__OPTION}" "${__VALUE}"
@@ -491,6 +514,7 @@ _var_dump_check_exec () {
         unset __run_options
     fi
 }
+
 _php_security_exec () {
     if [ "${PTS_PHP_SECURITY}" -eq "${CR_TRUE}" ]; then
         console_section "Sensiolabs security-checker..."
@@ -506,6 +530,7 @@ _php_security_exec () {
         fi
     fi
 }
+
 _phpstan_exec () {
     if [ "${PTS_PHPSTAN}" -eq "${CR_TRUE}" ]; then
         console_section "PHPStan..."
@@ -655,6 +680,13 @@ _phpunit_exec () {
 __php_version () {
     console_section "PHP Version"
     docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app php -v
+}
+
+pts_generate_gitattributes () {
+    if [ "${PTS_GITATTRIBUTES_GENERATE}" -eq "${CR_TRUE}" ]; then
+        console_section "Generate .gitattributes file"
+        gitattributes_generate "${WORK_DIR}"
+    fi
 }
 
 _php_dependency_graph () {

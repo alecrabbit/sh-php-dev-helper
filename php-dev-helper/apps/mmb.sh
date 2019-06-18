@@ -123,7 +123,7 @@ mmb_show_package_values () {
 
 mmb_check_working_env () {
     func_check_user
-    if core_is_dir_contains "${WORK_DIR}" "${_COMPOSER_JSON_FILE}"
+    if core_dir_contains "${WORK_DIR}" "${_COMPOSER_JSON_FILE}"
     then
         console_notice "Found file: '${_COMPOSER_JSON_FILE}'"
         console_notice "Are you in the right directory?"
@@ -201,7 +201,8 @@ mmb_download_template () {
     console_info "Installing..."
     console_debug "Copying files ${__tmpl_version}"
     console_debug "\n$(cp -rv "${MMB_WORK_DIR}/php-package-template-${__tmpl_version}/.template/." "${MMB_DEFAULT_TEMPLATE_DIR}/.")"
-    console_debug "\n$(mv -v "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes.dist" "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes")"
+    console_debug "\n$(cp -v "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes.template" "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes")"
+    # gitattributes_generate "${WORK_DIR}"
     unset __tmpl_version
 }
 
@@ -269,7 +270,7 @@ mmb_process_options () {
     fi
 
     TMPL_PACKAGE_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAME}")
-    # TMPL_PACKAGE_OWNER_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_OWNER_NAME}")
+    console_debug "Prepared package namespace: ${TMPL_PACKAGE_NAMESPACE}"
     mmb_prepare_package_dir
     if [ "${TMPL_USE_OWNER_NAMESPACE}" -eq "${CR_FALSE}" ]; then
         TMPL_PACKAGE_OWNER_NAMESPACE=""
@@ -347,7 +348,7 @@ mmb_read_options () {
     done
     common_process_options
     common_export_options
-    # mmb_process_options
+    mmb_process_options
     mmb_export_options
     unset __OPTION __VALUE
 }
@@ -375,6 +376,7 @@ mmb_update_default_template () {
 
 mmb_package_created () {
     __dir="${WORK_DIR}/${1}"
+
     if ! check_command "docker-compose"
     then 
         console_error "docker-compose is NOT installed!"
@@ -386,5 +388,8 @@ mmb_package_created () {
         console_info "File structure:"
         console_print "$(tree -a "${__dir}")"
     fi
+
+    # gitattributes_generate "${__dir}" # Not working properly here
+
     unset __dir
 }
