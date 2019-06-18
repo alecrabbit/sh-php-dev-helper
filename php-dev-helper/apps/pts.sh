@@ -681,19 +681,20 @@ __php_version () {
 pts_generate_gitattributes () {
     if [ "${PTS_GITATTRIBUTES_GENERATE}" -eq "${CR_TRUE}" ]; then
         console_section "Generate .gitattributes file"
-        if core_dir_contains "${WORK_DIR}" ".gitattributes.keep" "${CR_TRUE}"
-        then
-            if core_dir_contains "${WORK_DIR}" ".gitattributes.template"
-            then
-                __gtr_tpl="$(cat "${WORK_DIR}/.gitattributes.template")"
-            else
-                __gtr_tpl=""
-            fi
-            echo "${__gtr_tpl}$(gitattributes_export_ignore "${WORK_DIR}" "$(cat "${WORK_DIR}/.gitattributes.keep")")" > "${WORK_DIR}"/.gitattributes
-            unset __gtr_tpl
-        else
-            console_error "File not found"
-        fi
+        # if core_dir_contains "${WORK_DIR}" ".gitattributes.keep" "${CR_TRUE}"
+        # then
+        #     if core_dir_contains "${WORK_DIR}" ".gitattributes.template"
+        #     then
+        #         __gtr_tpl="$(cat "${WORK_DIR}/.gitattributes.template")"
+        #     else
+        #         __gtr_tpl=""
+        #     fi
+        #     echo "${__gtr_tpl}$(gitattributes_export_ignore "${WORK_DIR}" "$(cat "${WORK_DIR}/.gitattributes.keep")")" > "${WORK_DIR}"/.gitattributes
+        #     unset __gtr_tpl
+        # else
+        #     console_error "Couldn't generate"
+        # fi
+        gitattributes_generate "${WORK_DIR}"
     fi
 }
 

@@ -25,3 +25,19 @@ gitattributes_export_ignore () {
     done
     unset __entry __GITATTRIBUTES_KEEP
 }
+
+gitattributes_generate () {
+    if core_dir_contains "${1}" ".gitattributes.keep" "${CR_TRUE}"
+    then
+        if core_dir_contains "${1}" ".gitattributes.template"
+        then
+            __gtr_tpl="$(cat "${1}/.gitattributes.template")"
+        else
+            __gtr_tpl=""
+        fi
+        echo "${__gtr_tpl}$(gitattributes_export_ignore "${1}" "$(cat "${1}/.gitattributes.keep")")" > "${1}"/.gitattributes
+        unset __gtr_tpl
+    else
+        console_error "Couldn't generate"
+    fi
+}
