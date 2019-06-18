@@ -17,9 +17,11 @@ gitattributes_export_ignore () {
         fi
         if ! gitattributes_keep "${__entry}"; then
             if [ -d "${__entry}" ]; then
+                console_debug "${__entry} is a directory"
                 __entry="/${__entry}";
             fi
             __entry="${__entry} export-ignore"
+            console_debug "${__entry}"
             echo "${__entry}"
         fi
     done
@@ -29,11 +31,11 @@ gitattributes_export_ignore () {
 gitattributes_generate () {
     if core_dir_contains "${1}" ".gitattributes.keep" "${CR_TRUE}"
     then
+        console_debug "Generating .gitattributes"
+        __gtr_tpl=""
         if core_dir_contains "${1}" ".gitattributes.template"
         then
             __gtr_tpl="$(cat "${1}/.gitattributes.template")"
-        else
-            __gtr_tpl=""
         fi
         echo "${__gtr_tpl}$(gitattributes_export_ignore "${1}" "$(cat "${1}/.gitattributes.keep")")" > "${1}"/.gitattributes
         unset __gtr_tpl

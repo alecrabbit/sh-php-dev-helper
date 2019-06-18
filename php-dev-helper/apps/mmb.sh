@@ -202,6 +202,7 @@ mmb_download_template () {
     console_debug "Copying files ${__tmpl_version}"
     console_debug "\n$(cp -rv "${MMB_WORK_DIR}/php-package-template-${__tmpl_version}/.template/." "${MMB_DEFAULT_TEMPLATE_DIR}/.")"
     console_debug "\n$(cp -v "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes.template" "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes")"
+    # gitattributes_generate "${WORK_DIR}"
     unset __tmpl_version
 }
 
@@ -375,6 +376,7 @@ mmb_update_default_template () {
 
 mmb_package_created () {
     __dir="${WORK_DIR}/${1}"
+
     if ! check_command "docker-compose"
     then 
         console_error "docker-compose is NOT installed!"
@@ -386,5 +388,8 @@ mmb_package_created () {
         console_info "File structure:"
         console_print "$(tree -a "${__dir}")"
     fi
+
+    # gitattributes_generate "${__dir}" # Not working properly here
+
     unset __dir
 }
