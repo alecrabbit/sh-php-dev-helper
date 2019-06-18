@@ -203,7 +203,8 @@ pts_usage () {
     echo "    $(colored_yellow "--cl")                  - update CHANGELOG.md"
     echo "    $(colored_yellow "-c, --coverage")        - enable phpunit code coverage (includes -u)"
     echo "    $(colored_yellow "--cs")                  - enable php code sniffer"
-    echo "    $(colored_yellow "-g, --graphs")         - create dependencies graphs"
+    echo "    $(colored_yellow "--ga")                  - generate .gitattributes file"
+    echo "    $(colored_yellow "-g, --graphs")          - create dependencies graphs"
     echo "    $(colored_yellow "--metrics")             - enable phpmetrics"
     echo "    $(colored_yellow "--multi")               - enable multi-tester"
     echo "    $(colored_yellow "--phpstan")             - enable phpstan"
@@ -255,6 +256,7 @@ pts_process_options () {
         PTS_PHP_SECURITY=${CR_TRUE}
         PTS_UPDATE_CHANGELOG=${CR_TRUE}
         PTS_DEPS_GRAPH=${CR_TRUE}
+        PTS_GITATTRIBUTES_GENERATE=${CR_TRUE}
         __ALL_OPTION=${CR_TRUE}
     fi
     if [ "${PTS_REQUIRE_DEBUG_IMAGE}" -eq "${CR_TRUE}" ]; then
@@ -685,7 +687,10 @@ __php_version () {
 pts_generate_gitattributes () {
     if [ "${PTS_GITATTRIBUTES_GENERATE}" -eq "${CR_TRUE}" ]; then
         console_section "Generate .gitattributes file"
-        gitattributes_generate "${WORK_DIR}"
+        if gitattributes_generate "${WORK_DIR}"
+        then
+            console_comment ".gitattributes file generated"
+        fi
     fi
 }
 

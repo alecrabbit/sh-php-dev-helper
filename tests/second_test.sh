@@ -23,8 +23,7 @@ RESULT="
 First line   
 Second Line
 #AUTO_GEN_BEGIN
-#AUTO_GEN_END
-"
+#AUTO_GEN_END"
   # console_dark "${SOURCE}"
   assertEquals "${RESULT}" "$(tmp_git_attr_generator "${SOURCE}" "memory")" 
 }
