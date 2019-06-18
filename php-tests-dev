@@ -6,6 +6,9 @@
 . php-dev-helper_loader
 . "${INCLUDERS_DIR}/include_pts.sh"       
 
+### Read options
+pts_read_options "$@"
+
 func_print_header "PHP Tests and Analysis tool"
 
 ### Run checks
@@ -25,7 +28,7 @@ pts_check_vendor_dir
 if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
     core_set_terminal_title "${TERM_TITLE} - Testing..."
     console_debug "Executing..."
-    if [ "${PTS_CONTAINER_STARTED}" -eq "${CR_TRUE}" ]; then
+    if [ "${PTS_CONTAINER_STARTED:-${CR_FALSE}}" -eq "${CR_TRUE}" ]; then
         console_comment "${EMOJI_ROCKET}Processing...."
         _phpunit_exec
         _var_dump_check_exec
@@ -36,7 +39,6 @@ if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
         _php_cs_exec
         _php_cs_bf_exec
         _php_dependency_graph
-        pts_update_changelog
         _multi_tester_exec
 
         if [ "${PTS_METRICS}" -eq "${CR_TRUE}" ] \
@@ -53,8 +55,11 @@ if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
             fi
         fi
     else
-        console_error "Container is not started"
+        console_notice "Container is not started"
     fi
+    pts_generate_gitattributes
+    pts_update_changelog
+
 fi
 
 func_print_footer

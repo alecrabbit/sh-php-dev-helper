@@ -201,7 +201,7 @@ mmb_download_template () {
     console_info "Installing..."
     console_debug "Copying files ${__tmpl_version}"
     console_debug "\n$(cp -rv "${MMB_WORK_DIR}/php-package-template-${__tmpl_version}/.template/." "${MMB_DEFAULT_TEMPLATE_DIR}/.")"
-    console_debug "\n$(mv -v "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes.dist" "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes")"
+    console_debug "\n$(cp -v "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes.template" "${MMB_DEFAULT_TEMPLATE_DIR}/.gitattributes")"
     unset __tmpl_version
 }
 

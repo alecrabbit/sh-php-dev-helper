@@ -11,8 +11,22 @@ oneTimeSetUp () {
     console_dark "Setup Done"
 }
 
-testEquality() {
-  assertEquals 1 1
+test_tmp_git_attr_generator() {
+SOURCE="
+# Some other lines.
+First line   
+Second Line
+#AUTO_GEN_BEGIN
+#AUTO_GEN_END"
+RESULT="
+# Some other lines.
+First line   
+Second Line
+#AUTO_GEN_BEGIN
+#AUTO_GEN_END
+"
+  # console_dark "${SOURCE}"
+  assertEquals "${RESULT}" "$(tmp_git_attr_generator "${SOURCE}" "memory")" 
 }
 
 runTest
