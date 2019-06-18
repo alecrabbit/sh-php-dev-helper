@@ -164,12 +164,19 @@ Note: options order is important
 
 ### Tested Operating Systems
 
+> Note: Windows is not supported.
 > Note: it should work practically on any linux installation.
 
-OS                                  |
+Supported OS                        |
 ----------------------------------- |
 Ubuntu Linux (18.04 LTS)            |
 Ubuntu Linux (19.04)                |
+
+> Note: you can encounter some issues on:
+>
+> OS                                  |
+> ----------------------------------- |
+> [Alpine](.docs/alpine-issues.md) linux                        |
 
 ### Requirements to docker images
 
