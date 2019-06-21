@@ -194,6 +194,17 @@ mmb_license_create () {
     unset __type __owner __year __file
 }
 
+mmb_env_file_content () {
+    __user="$(whoami)"
+    __u_id="$(id -u "${__user}")"
+    __g_id="$(id -u "${__user}")"
+    console_debug "USER_ID: ${__u_id}"
+    console_debug "GROUP_ID: ${__g_id}"
+    echo "USER_ID=${__u_id}"
+    echo "GROUP_ID=${__g_id}"
+    unset __user __u_id __g_id
+}
+
 mmb_download_template () {
     __tmpl_version="${TMPL_TEMPLATE_VERSION}" # alecrabbit/php-package-template version
     console_info "Downloading..."
@@ -364,6 +375,7 @@ mmb_create_package () {
     console_debug "$(mv -v "${__to}/BasicClass.php" "${__to}/src/${TMPL_PACKAGE_NAMESPACE}/BasicClass.php")"
     console_debug "$(mv -v "${__to}/BasicTest.php" "${__to}/tests/BasicTest.php")"
     mmb_license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}" > "${__to}/LICENSE"
+    mmb_env_file_content > "${__to}/.env"
     unset __to
 }
 

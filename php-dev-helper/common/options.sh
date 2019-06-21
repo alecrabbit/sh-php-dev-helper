@@ -4,6 +4,7 @@ common_set_default_options () {
     CR_DEBUG="${CR_DEBUG:-${CR_DISABLED}}"
     COMMON_EXECUTE=${CR_TRUE}
     OPTION_NO_INTERACTION="${CR_FALSE}"
+    OPTION_NOTIFY=${CR_FALSE}
 }
 
 common_process_options () {
@@ -14,6 +15,7 @@ common_export_options () {
     export CR_DEBUG
     export COMMON_EXECUTE
     export OPTION_NO_INTERACTION
+    export OPTION_NOTIFY
 }
 
 common_help_message () {
@@ -72,7 +74,11 @@ common_read_option () {
             --debug)
                 CR_DEBUG=${CR_ENABLED}
                 debug_option "${__OPTION}" "${__VALUE}"
-                ;;
+                ;;        
+            --notify)
+                debug_option "${__OPTION}" "${__VALUE}"
+                OPTION_NOTIFY=${CR_TRUE}
+                ;;        
             --no-ansi | --no-color | --monochrome )
                 debug_option "${__OPTION}" "${__VALUE}"
                 console_dark "Temp solution:"

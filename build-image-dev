@@ -8,10 +8,6 @@
 
 func_print_header "Docker image build tool"
 
-### Run checks
-bdi_show_settings
-bdi_check_working_env
-
 ### Building image
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     console_warning "Under development - use with caution!"

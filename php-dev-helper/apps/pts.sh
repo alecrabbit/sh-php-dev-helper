@@ -221,7 +221,6 @@ pts_set_default_options () {
     PTS_REQUIRE_CONTAINER=${CR_FALSE}
     PTS_REQUIRE_ENVIRONMENT=${CR_FALSE}
     PTS_GITATTRIBUTES_GENERATE=${CR_FALSE}
-    OPTION_NOTIFY=${CR_FALSE}
     PTS_REQUIRE_DEBUG_IMAGE=${CR_FALSE}
     PTS_RESTART=${CR_FALSE}
     PTS_VAR_DUMP_CHECK=${CR_FALSE}
@@ -263,7 +262,6 @@ pts_process_options () {
         PTS_REQUIRE_CONTAINER=${CR_TRUE}
     fi
     if [ "${__ALL_OPTION}" -eq "${CR_TRUE}" ]; then
-        OPTION_NOTIFY=${CR_TRUE}
         PTS_CS=${CR_TRUE}
         PTS_CS_BF=${CR_TRUE}
         PTS_PHPSTAN=${CR_TRUE}
@@ -290,7 +288,6 @@ pts_export_options () {
     export PTS_PHPUNIT_COVERAGE
     export PTS_DEPS_GRAPH
     export PTS_UPDATE_CHANGELOG
-    export OPTION_NOTIFY
     export PTS_CHANGELOG_TAGS
     export PTS_REQUIRE_CONTAINER
     export PTS_REQUIRE_ENVIRONMENT

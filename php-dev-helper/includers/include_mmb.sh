@@ -5,3 +5,10 @@
 
 . "${APPS_MODULES_DIR}/mmb.sh"               # Moomba module
 
+mmb_load_settings
+
+mmb_read_options "$@"
+
+mmb_check_working_env
+
+mmb_show_settings

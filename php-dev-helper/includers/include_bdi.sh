@@ -6,4 +6,9 @@
 . "${APPS_MODULES_DIR}/bdi.sh"               # Image builder module
 
 bdi_load_settings
+
 bdi_read_options "$@"
+
+bdi_check_working_env
+
+bdi_show_settings

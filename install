@@ -8,9 +8,6 @@
 ### Install modules loader
 . "${INCLUDERS_DIR}/include_install.sh"      
 
-install_load_settings
-install_read_options "$@"
-
 func_print_header "PHP Dev Helper Installer" 
 
 ### Installing suite

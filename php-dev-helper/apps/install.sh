@@ -20,6 +20,14 @@ install_export_options () {
     :
 }
 
+install_check_working_env () {
+    :
+}
+
+install_show_settings () {
+    :
+}
+
 install_get_destination () {
     SUITE_DIR="${HOME}/.local/bin"
     SUITE_DIR="$(core_get_user_input "Enter destination dir" "${SUITE_DIR}")"
