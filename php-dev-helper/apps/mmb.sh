@@ -171,7 +171,7 @@ mmb_cleanup () {
     fi
 }
 
-mmb_license_create () {
+mmb_license_file_content () {
     __type="${1}"
     __owner="${2}"
     __year="${3:-$(date +%Y)}"
@@ -374,7 +374,7 @@ mmb_create_package () {
     console_debug "$(mkdir -pv "${__to}/src/${TMPL_PACKAGE_NAMESPACE}")"
     console_debug "$(mv -v "${__to}/BasicClass.php" "${__to}/src/${TMPL_PACKAGE_NAMESPACE}/BasicClass.php")"
     console_debug "$(mv -v "${__to}/BasicTest.php" "${__to}/tests/BasicTest.php")"
-    mmb_license_create "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}" > "${__to}/LICENSE"
+    mmb_license_file_content "${TMPL_PACKAGE_LICENSE}" "${TMPL_PACKAGE_OWNER_NAME}" > "${__to}/LICENSE"
     mmb_env_file_content > "${__to}/.env"
     unset __to
 }
