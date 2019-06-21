@@ -6,26 +6,17 @@
 . php-dev-helper_loader
 . "${INCLUDERS_DIR}/include_pts.sh"       
 
-### Read options
-pts_read_options "$@"
-
 func_print_header "PHP Tests and Analysis tool"
 
-### Run checks
-if [ "${WORK_DIR}" = "${SCRIPT_DIR}" ];then
-    console_unable "You are trying to run tests in ${SCRIPT_NAME}'s own directory"
-fi
-pts_check_working_env
 pts_show_project_type_and_name
 
-console_debug "Output use color: $(core_int_to_string "${CR_COLOR}")"
-
 pts_show_selected_options
-pts_check_container
-pts_check_vendor_dir
 
 ### Testing
 if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
+    pts_check_container
+    pts_check_vendor_dir
+
     core_set_terminal_title "${TERM_TITLE} - Testing..."
     console_debug "Executing..."
     if [ "${PTS_CONTAINER_STARTED:-${CR_FALSE}}" -eq "${CR_TRUE}" ]; then

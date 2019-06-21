@@ -56,6 +56,14 @@ pts_check_vendor_dir () {
     fi
 }
 
+pts_load_settings () {
+    :
+}
+
+pts_show_settings () {
+    :
+}
+
 pts_check_working_env () {
     func_check_user
 
