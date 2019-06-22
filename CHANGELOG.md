@@ -1,20 +1,18 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.6.3-beta"></a>
+## [0.6.3-beta] - 2019-06-22
 ### Added
 - known issues
 
 ### Changed
 - run in own directory check
+- project's file structure tree moved to separate file
 
 ### Feature
 - create `.env` file during package create
-
-
-<a name="0.6.2.1"></a>
-## [0.6.2.1] - 2019-06-18
-### Changed
-- project's file structure tree moved to separate file
 
 
 <a name="0.6.2"></a>
@@ -298,8 +296,8 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.2.1...HEAD
-[0.6.2.1]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.2...0.6.2.1
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.3-beta...HEAD
+[0.6.3-beta]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.2...0.6.3-beta
 [0.6.2]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.1...0.6.2
 [0.6.1]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.3...0.6.0

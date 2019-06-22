@@ -3,6 +3,7 @@
 ## PHP-Tests
 
 - [ ] Add magic number detector [povils/phpmnd](https://github.com/povils/phpmnd)
+- [ ] Feature: run without docker(with local php installation)
 
 ---
 
