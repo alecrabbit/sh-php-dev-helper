@@ -1,6 +1,15 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Added
+- known issues
+
+### Changed
+- run in own directory check
+
+
+<a name="0.6.2.1"></a>
+## [0.6.2.1] - 2019-06-18
 ### Changed
 - project's file structure tree moved to separate file
 
@@ -286,7 +295,8 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.2...HEAD
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.2.1...HEAD
+[0.6.2.1]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.2...0.6.2.1
 [0.6.2]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.1...0.6.2
 [0.6.1]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.5.3...0.6.0
