@@ -7,6 +7,9 @@
 ### Changed
 - run in own directory check
 
+### Feature
+- create `.env` file during package create
+
 
 <a name="0.6.2.1"></a>
 ## [0.6.2.1] - 2019-06-18
