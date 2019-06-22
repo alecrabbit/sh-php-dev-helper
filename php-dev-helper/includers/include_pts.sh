@@ -6,10 +6,6 @@
 . "${APPS_MODULES_DIR}/pts.sh"               # Image builder module
 
 ### Run checks
-if [ "${WORK_DIR}" = "${SCRIPT_DIR}" ];then
-    console_unable "You are trying to run tests in ${SCRIPT_NAME}'s own directory"
-fi
-
 pts_load_settings
 
 pts_read_options "$@"
