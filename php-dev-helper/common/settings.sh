@@ -15,6 +15,7 @@ export PTS_AUX_DEV_MODULE="dev.sh"
 
 export SETTINGS_DIR="${LIB_DIR}/.settings"
 __SETTINGS_FILE="${SETTINGS_DIR}/.sh-pdh-settings"
+export PTS_SETTINGS_FILE="${SETTINGS_DIR}/.pts_settings"
 export PTS_ALLOWED_DIRS_FILE="${SETTINGS_DIR}/.sh-pdh-allowed-dirs"
 export PTS_DISALLOWED_DIRS_FILE="${SETTINGS_DIR}/.sh-pdh-disallowed-dirs"
 

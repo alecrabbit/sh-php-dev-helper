@@ -23,11 +23,11 @@ console_warning () {
     console_print "${EMOJI_WARNING:-}${_SERVICE}$(colored_bold_yellow "WARNING") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_error () {
-    console_print "${EMOJI_ERROR:-}${_SERVICE}$(colored_bold_red "ERROR") $*\n" "${CR_TRUE}" "${CR_TRUE}"
+    console_print "${EMOJI_ERROR:-}${_SERVICE}$(colored_red "ERROR") $*\n" "${CR_TRUE}" "${CR_TRUE}"
 }
 console_fatal () {
     core_set_terminal_title "${TERM_TITLE:-${WORK_DIR}}"
-    console_print "${EMOJI_FATAL:-}${_SERVICE}$(colored_bold_red "FATAL") $*\n" "${CR_TRUE}" "${CR_TRUE}"
+    console_print "${EMOJI_FATAL:-}${_SERVICE}$(colored_bold_bg_red " FATAL ") $*\n" "${CR_TRUE}" "${CR_TRUE}"
     exit "${CR_ERROR}"
 }
 console_unable () {

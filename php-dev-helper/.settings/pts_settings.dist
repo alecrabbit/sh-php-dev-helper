@@ -1,1 +1,1 @@
-# PTS_RUN_PRIORITY=local # default 'docker'
+# PTS_RUN_PRIORITY="local" # default "docker"

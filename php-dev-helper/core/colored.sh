@@ -26,6 +26,7 @@ __COL_ANSI_BLUE="\033[0;34m"
 __COL_ANSI_BOLD_BLUE="\033[1;34m"
 __COL_ANSI_PURPLE="\033[0;35m"
 __COL_ANSI_BOLD_PURPLE="\033[1;35m"
+__COL_ANSI_BOLD_BG_RED="\033[1;41m"
 
 ### Define
 __col_reset_colors () {
@@ -44,6 +45,7 @@ __col_reset_colors () {
     __col_ansi_bold_cyan=""
     __col_ansi_bold_blue=""
     __col_ansi_bold_purple=""
+    __col_ansi_bold_bg_red=""
 }
 __col_set_colors () {
     __col_ansi_none=${__COL_ANSI_NONE}
@@ -61,6 +63,7 @@ __col_set_colors () {
     __col_ansi_bold_cyan=${__COL_ANSI_BOLD_CYAN}
     __col_ansi_bold_blue=${__COL_ANSI_BOLD_BLUE}
     __col_ansi_bold_purple=${__COL_ANSI_BOLD_PURPLE}
+    __col_ansi_bold_bg_red=${__COL_ANSI_BOLD_BG_RED}
 }
 
 colored_default () {
@@ -107,6 +110,9 @@ colored_bold_blue () {
 }
 colored_bold_purple () {
     echo "${__col_ansi_bold_purple}$*${__col_ansi_none}"
+}
+colored_bold_bg_red () {
+    echo "${__col_ansi_bold_bg_red}$*${__col_ansi_none}"
 }
 
 colored_configureColor() {

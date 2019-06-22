@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 
-export CHGLOG_CONFIG_FILE=".chglog/config.yml"
+# Disable source following.
+#   shellcheck disable=SC1090,SC1091
 
+export CHGLOG_CONFIG_FILE=".chglog/config.yml"
 
 pts_show_project_type_and_name () {
     if [ "${PTS_WITH_COMPOSER}" -eq "${CR_TRUE}" ]; then
@@ -57,11 +59,16 @@ pts_check_vendor_dir () {
 }
 
 pts_load_settings () {
-    :
+    PTS_RUN_PRIORITY="docker"
+    ### LOAD SETTINGS FROM FILE
+    if [ -e "${PTS_SETTINGS_FILE}" ]
+    then
+        . "${PTS_SETTINGS_FILE}"
+    fi
 }
 
 pts_show_settings () {
-    :
+    console_debug "PTS_RUN_PRIORITY: ${PTS_RUN_PRIORITY}"
 }
 
 pts_check_working_env () {
@@ -418,6 +425,10 @@ pts_read_options () {
                 PTS_CS_BF=${CR_TRUE}
                 PTS_PHPUNIT=${CR_FALSE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
+                ;;
+            --local)
+                debug_option "${__OPTION}" "${__VALUE}"
+                PTS_RUN_PRIORITY="local"
                 ;;
             -g | --graphs)
                 debug_option "${__OPTION}" "${__VALUE}"
