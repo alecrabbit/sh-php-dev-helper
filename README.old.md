@@ -6,8 +6,6 @@
 - `moomba`  - composer library creator script using template [alecrabbit/php-package-template](https://github.com/alecrabbit/php-package-template)
 - `build-image` - convenient local docker image build tool (WIP)
 
-See [demos](.demo/demos.md)
-
 ## Usage
 
 ### Options
