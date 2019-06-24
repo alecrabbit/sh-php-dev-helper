@@ -26,7 +26,7 @@ __COL_ANSI_BLUE="\033[0;34m"
 __COL_ANSI_BOLD_BLUE="\033[1;34m"
 __COL_ANSI_PURPLE="\033[0;35m"
 __COL_ANSI_BOLD_PURPLE="\033[1;35m"
-__COL_ANSI_BOLD_BG_RED="\033[1;41m"
+__COL_ANSI_BOLD_BG_RED="\033[97;1;41m"
 
 ### Define
 __col_reset_colors () {
