@@ -1,4 +1,4 @@
-# PHP Tests
+# Demos
 
 ## `php-tests` demo
 
