@@ -35,8 +35,10 @@ WORK_DIR="$(core_get_realpath "${WORK_DIR}")"
 VERSION_FILE="$(core_get_realpath "${VERSION_FILE}")"
 BUILD_FILE="$(core_get_realpath "${BUILD_FILE}")"
 
-if [ "${WORK_DIR}" = "${SCRIPT_DIR}" ];then
-    console_unable "You are in ${SCRIPT_NAME}'s own directory"
+if [ ! "${SCRIPT_NAME}" = "install" ];then
+    if [ "${WORK_DIR}" = "${SCRIPT_DIR}" ];then
+        console_unable "You are in ${SCRIPT_NAME}'s own directory"
+    fi
 fi
 
 console_debug "Script name: ${SCRIPT_NAME}"
