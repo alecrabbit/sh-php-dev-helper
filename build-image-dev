@@ -12,9 +12,11 @@ func_print_header "Docker image build tool"
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     console_warning "Under development - use with caution!"
     core_set_terminal_title "${TERM_TITLE} - Building..."
+    bdi_show_image_name
     console_debug "Executing..."
     console_dark "Building image"
-    console_error "It does NOTHING"
+    bdi_build_image
+    bdi_push_image
 else
     console_debug "No execution selected"
 fi

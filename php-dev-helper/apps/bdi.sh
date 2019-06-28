@@ -60,3 +60,38 @@ bdi_show_settings () {
 bdi_check_working_env  () {
     console_debug "Dummy: check working env"
 }
+
+bdi_show_image_name () {
+    BDI_DOCKER_IMAGE_NAME="dralec/${PWD##*/}"
+    console_debug "Work dir: ${WORK_DIR}"
+    console_print "Image name: ${BDI_DOCKER_IMAGE_NAME}"
+}
+
+bdi_build_image () {
+    if [ "${BDI_FORCE_BUILD}" = "${CR_TRUE}" ]
+    then
+        docker build --no-cache -t "${BDI_DOCKER_IMAGE_NAME}" .
+    else
+        docker build -t "${BDI_DOCKER_IMAGE_NAME}" .
+    fi
+    BDI_BUILD_RESULT=$?
+}
+
+bdi_push_image () {
+    if [ "${BDI_BUILD_RESULT}" = "${CR_TRUE}" ]
+    then
+        console_info "Built '${BDI_DOCKER_IMAGE_NAME}' successfully."
+        notifier_notify "🐳 Docker" "Built '${BDI_DOCKER_IMAGE_NAME}' successfully."
+        if [ "${BDI_DOCKER_PUSH}" = "${CR_TRUE}" ]
+        then
+            if docker push "${BDI_DOCKER_IMAGE_NAME}"; then
+                console_info "Pushed '${BDI_DOCKER_IMAGE_NAME}' successfully."
+                notifier_notify "🐳 Docker" "Pushed '${BDI_DOCKER_IMAGE_NAME}' successfully."
+            else
+                console_error "Failed to push image"
+            fi
+        fi
+    else
+        console_error "Failed to build image"
+    fi
+}
