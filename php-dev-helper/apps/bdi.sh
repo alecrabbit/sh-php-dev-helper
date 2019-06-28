@@ -14,6 +14,7 @@ bdi_process_options () {
 
 bdi_usage () {
     echo "    $(colored_yellow "--push")                - push image"
+    echo "    $(colored_yellow "--force")               - force build"
 }
 
 bdi_export_options () {
@@ -52,6 +53,8 @@ bdi_read_options  () {
 
 bdi_show_settings () {
     console_debug "Dummy: showing settings"
+    console_debug "BDI_DOCKER_PUSH: $(core_bool_to_string "${BDI_DOCKER_PUSH}")"
+    console_debug "BDI_FORCE_BUILD: $(core_bool_to_string "${BDI_FORCE_BUILD}")"
 }
 
 bdi_check_working_env  () {
