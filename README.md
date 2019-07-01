@@ -56,3 +56,19 @@ And edit that [file](.docs/moomba-settings.md) as you wish
 > Note: if there is no `.templates_settings` file internal defaults are used.
 
 ### Project's [file structure](.docs/project-file-structure.md)
+
+### Tested Operating Systems
+
+> Note: Windows is not supported.
+> Note: it should work practically on any linux installation.
+
+Supported OS                        |
+----------------------------------- |
+Ubuntu Linux (18.04 LTS)            |
+Ubuntu Linux (19.04)                |
+
+> Note: you can encounter some issues on:
+>
+> OS                                  |
+> ----------------------------------- |
+> [Alpine](.docs/alpine-issues.md) linux                        |

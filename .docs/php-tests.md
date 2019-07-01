@@ -1,6 +1,6 @@
 # Usage
 
-## php-tests
+## php-tests options
 
 ```text
 $ php-tests -h
@@ -32,3 +32,19 @@ Options:
 ```
 
 > Note: options order is important
+
+## Links to used tools
+
+- *PHPStan* - static analysis tool [phpstan/phpstan](https://github.com/phpstan/phpstan)
+- *Psalm* - static analysis tool [vimeo/psalm](https://github.com/vimeo/psalm)
+- *PHP_CodeSniffer* is an essential development tool that ensures your code remains clean and consistent [squizlabs/PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+- *PhpMetrics* provides metrics about PHP project and classes [phpmetrics/PhpMetrics](https://github.com/phpmetrics/PhpMetrics)
+- *Multi-tester* - test your dependent packages [kylekatarnls/multi-tester](https://github.com/kylekatarnls/multi-tester)
+- The SensioLabs *Security Checker* is a command line tool that checks if your application uses dependencies with known security vulnerabilities [sensiolabs/security-checker](https://github.com/sensiolabs/security-checker)
+- *PHP VarDump Check* - to find forgotten variable dump [JakubOnderka/PHP-Var-Dump-Check](https://github.com/JakubOnderka/PHP-Var-Dump-Check)
+- *git-chglog* - CHANGELOG generator [git-chglog/git-chglog](https://github.com/git-chglog/git-chglog) (Should be installed on your system)
+- *DependencyGraph* - tool to help visualize the various dependencies between packages [innmind/dependency-graph](https://github.com/Innmind/DependencyGraph)
+
+## Requirements to docker images
+
+You can use your own docker images in `docker-compose.yml` and `docker-compose-debug.yml`. See [requirements](docker-images-requirements.md)
