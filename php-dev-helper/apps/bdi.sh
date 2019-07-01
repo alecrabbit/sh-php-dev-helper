@@ -13,8 +13,8 @@ bdi_process_options () {
 }
 
 bdi_usage () {
-    echo "    $(colored_yellow "--push")                - push image"
     echo "    $(colored_yellow "--force")               - force build"
+    echo "    $(colored_yellow "--push")                - push image"
 }
 
 bdi_export_options () {
