@@ -10,6 +10,10 @@ See [demos](.demo/demos.md)
 
 > Note: WIP, see [README.old.md](README.old.md)
 
+## Update
+
+> [How to update](.docs/update_option.md)
+
 ## Installation
 
 ### Requirements
@@ -59,7 +63,7 @@ And edit that [file](.docs/moomba-settings.md) as you wish
 
 ### Tested Operating Systems
 
-> Note: Windows is not supported. 
+> Note: Windows is not supported.
 
 Supported OS                        |
 ----------------------------------- |
