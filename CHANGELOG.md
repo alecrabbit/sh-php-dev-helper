@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Improved
+- documentation
+
 
 <a name="0.6.5"></a>
 ## [0.6.5] - 2019-06-28
