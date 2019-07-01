@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Changed
+- options order in usage message
+
 ### Improved
 - documentation
 

@@ -31,7 +31,8 @@ Options:
     --without-composer    - do not check for 'composer.json' file and 'vendor' dir
 ```
 
-> Note: options order is important
+> Note: options order is important \
+> [Notes](.docs/update_option.md) on using `--update` option
 
 ## Links to used tools
 
