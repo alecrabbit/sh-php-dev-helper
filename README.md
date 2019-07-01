@@ -59,7 +59,7 @@ And edit that [file](.docs/moomba-settings.md) as you wish
 
 ### Tested Operating Systems
 
-> Note: Windows is not supported.
+> Note: Windows is not supported. \
 > Note: it should work practically on any linux installation.
 
 Supported OS                        |
