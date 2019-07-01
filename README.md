@@ -67,8 +67,4 @@ Supported OS                        |
 Ubuntu Linux (18.04 LTS)            |
 Ubuntu Linux (19.04)                |
 
-> Note: you can encounter some issues on:
->
-> OS                                  |
-> ----------------------------------- |
-> [Alpine](.docs/alpine-issues.md) linux                        |
+> Note: [Known issues](.docs/known-issues.md)
