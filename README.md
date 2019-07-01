@@ -59,12 +59,11 @@ And edit that [file](.docs/moomba-settings.md) as you wish
 
 ### Tested Operating Systems
 
-> Note: Windows is not supported. \
-> Note: it should work practically on any linux installation.
+> Note: Windows is not supported. 
 
 Supported OS                        |
 ----------------------------------- |
 Ubuntu Linux (18.04 LTS)            |
 Ubuntu Linux (19.04)                |
 
-> Note: [Known issues](.docs/known-issues.md)
+> Note: it should work practically on any linux installation. Known [issues.](.docs/known-issues.md)
