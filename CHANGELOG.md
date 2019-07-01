@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.6.6"></a>
+## [0.6.6] - 2019-07-01
 ### Changed
 - options order in usage message
 
@@ -314,7 +317,8 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.5...HEAD
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.6...HEAD
+[0.6.6]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.5...0.6.6
 [0.6.5]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.4-alpha...0.6.5
 [0.6.4-alpha]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.3-beta...0.6.4-alpha
 [0.6.3-beta]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.2...0.6.3-beta
