@@ -34,7 +34,20 @@
 │   │   ├── include_core.sh
 │   │   ├── include_mmb.sh
 │   │   └── include_pts.sh
-│   └── templates
+│   ├── .settings
+│   │   ├── .pts_settings.dist
+│   │   ├── .sh-pdh-settings.dist
+│   │   └── .templates_settings.dist
+│   ├── templates
+│   │   ├── default
+│   │   │   └── <...>       # template files
+│   │   └── .licenses
+│   │       ├── Apache-2.0
+│   │       ├── BSD-2-Clause
+│   │       ├── BSD-3-Clause
+│   │       ├── GPL-3.0
+│   │       └── MIT
+│   └── VERSION
 ├── php-dev-helper_loader
 └── php-tests
 ```
