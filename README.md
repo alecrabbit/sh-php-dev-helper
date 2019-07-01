@@ -47,7 +47,8 @@ fi
 Create your own `.templates_settings`, use `.templates_settings.dist` as example
 
 ```bash
-cp $HOME/.local/bin/php-dev-helper/.settings/.templates_settings.dist $HOME/.local/bin/php-dev-helper/.settings/.templates_settings
+cp $HOME/.local/bin/php-dev-helper/.settings/.templates_settings.dist \
+$HOME/.local/bin/php-dev-helper/.settings/.templates_settings
 ```
 
 And edit that [file](.docs/moomba-settings.md) as you wish
