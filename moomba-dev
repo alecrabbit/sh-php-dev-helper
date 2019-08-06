@@ -14,8 +14,6 @@ mmb_read_options "$@"
 
 func_print_header "PHP Package creator"
 
-mmb_show_settings
-
 ### Creating new package
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     console_warning "Under development - use with caution!"

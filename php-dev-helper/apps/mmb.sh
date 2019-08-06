@@ -206,6 +206,7 @@ mmb_env_file_content () {
 }
 
 mmb_download_template () {
+    console_debug "Defined version ${TMPL_TEMPLATE_VERSION}"
     __tmpl_version="${TMPL_TEMPLATE_VERSION}" # alecrabbit/php-package-template version
     console_info "Downloading..."
     github_download "${MMB_WORK_DIR}" "alecrabbit" "php-package-template" "${__tmpl_version}"
