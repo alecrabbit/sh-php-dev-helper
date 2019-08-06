@@ -234,9 +234,9 @@ mmb_check_default_template () {
 mmb_usage () {
     echo "    $(colored_yellow "-p")                    - set package name"
     echo "    $(colored_yellow "-o")                    - set owner"
-    echo "    $(colored_yellow "-s")                    - set owner namespace"
-    echo "    $(colored_yellow "-n")                    - set package namespace"
-    echo "    $(colored_yellow "-x")                    - do not use package namespace"
+    echo "    $(colored_yellow "-s")                    - set package owner namespace"
+    echo "    $(colored_yellow "-n")                    - set package owner name"
+    echo "    $(colored_yellow "-x")                    - do not use package owner namespace"
     echo "    $(colored_yellow "--update-default")      - update default template"
     echo "    $(colored_yellow "-t")                    - use template"
     echo "    $(colored_yellow "-y, --no-interaction")      - do not ask any interactive question"
@@ -280,7 +280,12 @@ mmb_process_options () {
         TMPL_PACKAGE_TERMINAL_TITLE_EMOJI="${TMPL_PACKAGE_TERMINAL_TITLE_EMOJI} "
     fi
 
-    TMPL_PACKAGE_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAME}")
+    if [ "${TMPL_USE_NAMESPACE_OVERRIDE:-${CR_FALSE}}" = "${CR_TRUE}" ]; then
+        TMPL_PACKAGE_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAMESPACE}")
+    else
+        TMPL_PACKAGE_NAMESPACE=$(mmb_prepare_package_namespace "${TMPL_PACKAGE_NAME}")
+    fi
+
     console_debug "Prepared package namespace: ${TMPL_PACKAGE_NAMESPACE}"
     mmb_prepare_package_dir
     if [ "${TMPL_USE_OWNER_NAMESPACE}" -eq "${CR_FALSE}" ]; then
@@ -334,6 +339,12 @@ mmb_read_options () {
                 debug_option "${__OPTION}" "${__VALUE}"
                 core_check_option_value "${__VALUE}" "${__OPTION}"
                 TMPL_PACKAGE_OWNER_NAME="${__VALUE}"
+                ;;
+            --namespace)
+                debug_option "${__OPTION}" "${__VALUE}"
+                core_check_option_value "${__VALUE}" "${__OPTION}"
+                TMPL_PACKAGE_NAMESPACE="${__VALUE}"
+                TMPL_USE_NAMESPACE_OVERRIDE="${CR_TRUE}"
                 ;;
             -s)
                 debug_option "${__OPTION}" "${__VALUE}"
