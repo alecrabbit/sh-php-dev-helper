@@ -23,8 +23,8 @@ pts_generate_report_file () {
     __project_name="$(core_get_project_name "${_COMPOSER_JSON_FILE}")"
     __VENDOR_NAME=$(echo "$__project_name" | awk -F/ '{print $1}')
     __PACKAGE_NAME=$(echo "$__project_name" | awk -F/ '{print $2}')
-
-    cat <<EOF > "${PTS_TEST_REPORT_INDEX}"
+    console_debug "${WORK_DIR}/${PTS_TEST_REPORT_INDEX}"
+    cat <<EOF > "${WORK_DIR}/${PTS_TEST_REPORT_INDEX}"
 <!DOCTYPE html>
 <html>
 <head>
