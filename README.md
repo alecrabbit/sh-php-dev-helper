@@ -2,13 +2,15 @@
 
 ## What is it
 
+> Note: WIP
+
+This is a set of shell scripts:
+
 - [`php-tests`](.docs/php-tests.md) - tool to automate local testing
 - [`moomba`](.docs/moomba.md)  - composer library creator script using template [alecrabbit/php-package-template](https://github.com/alecrabbit/php-package-template)
 - [`build-image`](.docs/build-image.md) - convenient local docker image build tool (WIP)
 
 See [demos](.demo/demos.md)
-
-> Note: WIP, see [README.old.md](README.old.md)
 
 ## Update
 
@@ -18,11 +20,12 @@ See [demos](.demo/demos.md)
 
 ### Requirements
 
-> Note : `moomba` script does not require `docker` or `docker-compose`
+> Note : `moomba` script does not require `docker-compose` nor `docker`
+
+> Docker Engine 17.04.0+
 
 - docker
 - docker-compose
-(Docker Engine 17.04.0+)
 
 ### Install
 
@@ -31,7 +34,7 @@ Get your copy of specific version
 > Note: Check [releases](https://github.com/alecrabbit/sh-php-dev-helper/releases) tab for the latest version number
 
  ```bash
- version="0.6.5"
+ version="0.6.9"
 wget -qO- "https://github.com/alecrabbit/sh-php-dev-helper/archive/${version}.tar.gz" \
 | tar -xz && cd sh-php-dev-helper-${version} && echo ${version} > php-dev-helper/VERSION \
 && ./install && cd ..
@@ -63,7 +66,7 @@ And edit that [file](.docs/moomba-settings.md) as you wish
 
 ### Tested Operating Systems
 
-> Note: Windows is not supported.
+> Note: Windows is NOT supported.
 
 Supported OS                        |
 ----------------------------------- |

@@ -20,9 +20,11 @@
 
 ## Common
 
+- [ ] Feature: Enhanced notification message `Operation completed`
 - [ ] Feature: Add installed tools check during install
-- [ ] Feature: Add option to disable notifications
 - [ ] Write tests? 🤦‍
   - [x] started 🎈
 
 ---
+
+- [x] Feature: Add option `--notify` to enable notification message
