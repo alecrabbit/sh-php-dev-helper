@@ -32,7 +32,7 @@ Options:
 ```
 
 > Note: options order is important \
-> [Notes](.docs/update_option.md) on using `--update` option
+> [Notes](update_option.md) on using `--update` option
 
 ## Links to used tools
 
