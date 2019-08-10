@@ -11,6 +11,7 @@
 
 ## Moomba
 
+- [ ] Feature: initialize git repository, make first commit if user.email and user.name are set
 - [ ] Feature: Add option to compare project files in the current dir with template `<name>` files, e.g. `--compare-with[=default]`
 - [ ] Feature: Dir control: allow creating packages only in specified directories
 
@@ -20,11 +21,11 @@
 
 ## Common
 
-- [ ] Feature: Enhanced notification message `Operation completed`
 - [ ] Feature: Add installed tools check during install
 - [ ] Write tests? 🤦‍
   - [x] started 🎈
 
 ---
 
+- [x] Feature: Enhanced notification message `Operation completed`
 - [x] Feature: Add option `--notify` to enable notification message

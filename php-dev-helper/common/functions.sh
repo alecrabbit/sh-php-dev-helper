@@ -159,7 +159,8 @@ func_print_footer () {
     console_dark "Bye!"
 
     core_set_terminal_title "${TERM_TITLE}"
-    notifier_notify "${EMOJI_RABBIT}${SCRIPT_NAME}: Operation completed" ""
+    # notifier_notify "${EMOJI_RABBIT}${SCRIPT_NAME}: '$(basename "${WORK_DIR}")' Operation completed" "${WORK_DIR}"
+    notifier_notify "${EMOJI_RABBIT}${SCRIPT_NAME}: Operation completed" "${WORK_DIR}"
     unset __time
 }
 
