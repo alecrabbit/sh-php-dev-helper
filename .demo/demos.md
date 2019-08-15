@@ -1,5 +1,7 @@
 # Demos
 
+> Note: Most recent demos are in asciinema casts. `.gif` and `.webm` files are outdated.
+
 ## `php-tests` demo
 
 > Asciinema [cast](https://asciinema.org/a/262562)
@@ -10,7 +12,7 @@
 
 ## `moomba` demo
 
-> Asciinema [cast](https://asciinema.org/a/262567)
+> Asciinema [cast](https://asciinema.org/a/262569)
 
 ![moomba](moomba.gif)
 

@@ -4,6 +4,8 @@
 
 > Note: WIP
 
+Workflow [example](https://asciinema.org/a/262591)
+
 This is a set of shell scripts:
 
 - [`php-tests`](.docs/php-tests.md) - tool to automate local testing
