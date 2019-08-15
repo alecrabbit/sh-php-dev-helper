@@ -1,5 +1,7 @@
 # Using --update option
 
+> Asciinema [cast](https://asciinema.org/a/262567)
+
 ```text
 $ php-tests --update
 Current version: 0.6.0
