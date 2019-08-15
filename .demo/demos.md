@@ -2,12 +2,14 @@
 
 ## `php-tests` demo
 
+> Asciinema [cast](https://asciinema.org/a/9naAmkbD6oPik5QYLMEQ7jW9N)
+
 ![php-tests](php-tests-dev.gif)
 
-> Note: [php-tests.webm](https://raw.githubusercontent.com/alecrabbit/sh-php-dev-helper/master/.demo/php-tests.webm) file for your convenience
+> [webm](https://raw.githubusercontent.com/alecrabbit/sh-php-dev-helper/master/.demo/php-tests.webm)
 
 ## `moomba` demo
 
 ![moomba](moomba.gif)
 
-> Note: [moomba.webm](https://raw.githubusercontent.com/alecrabbit/sh-php-dev-helper/master/.demo/moomba.webm) file for your convenience
+> [webm](https://raw.githubusercontent.com/alecrabbit/sh-php-dev-helper/master/.demo/moomba.webm)
