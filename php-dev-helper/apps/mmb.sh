@@ -233,14 +233,15 @@ mmb_check_default_template () {
 }
 
 mmb_usage () {
-    echo "    $(colored_yellow "-p")                    - set package name"
-    echo "    $(colored_yellow "-o")                    - set owner"
-    echo "    $(colored_yellow "-s")                    - set package owner namespace"
-    echo "    $(colored_yellow "-n")                    - set package owner name"
-    echo "    $(colored_yellow "-x")                    - do not use package owner namespace"
-    echo "    $(colored_yellow "--update-default")      - update default template"
-    echo "    $(colored_yellow "-t")                    - use template"
-    echo "    $(colored_yellow "-y, --no-interaction")      - do not ask any interactive question"
+    echo "    $(colored_yellow "-p")                         - set package name"
+    echo "    $(colored_yellow "-o")                         - set owner"
+    echo "    $(colored_yellow "-s")                         - set package owner namespace"
+    echo "    $(colored_yellow "-n")                         - set package owner name"
+    echo "    $(colored_yellow "--namespace")                - override auto-picked package namespace"
+    echo "    $(colored_yellow "-x")                         - do not use package owner namespace"
+    echo "    $(colored_yellow "--update-default")           - update default template"
+    echo "    $(colored_yellow "-t")                         - use template"
+    echo "    $(colored_yellow "-y, --no-interaction")       - do not ask any interactive question"
     echo
     echo "$(colored_green "Example"):"
     echo "    ${SCRIPT_NAME} -p=new-package -o=mike"
