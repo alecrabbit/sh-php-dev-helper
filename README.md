@@ -1,10 +1,10 @@
 # 🐇 PHP Dev Helper
 
+## Workflow [example](https://asciinema.org/a/262591)
+
 ## What is it
 
 > Note: WIP
-
-Workflow [example](https://asciinema.org/a/262591)
 
 This is a set of shell scripts:
 
