@@ -4,6 +4,9 @@
 ### Added
 - link to update cast
 
+### Feature
+- initialize git repository, make first commit `init` if `user.email` and `user.name` are set
+
 
 <a name="0.6.11"></a>
 ## [0.6.11] - 2019-08-15
