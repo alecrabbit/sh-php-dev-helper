@@ -418,7 +418,7 @@ mmb_package_created () {
         console_print "$(tree -a "${__dir}")"
     fi
 
-    if [ "${TMPL_CREATE_GIT_REPO:-${CR_FALSE}}" = "${CR_TRUE}" ]; then
+    if [ "${TMPL_CREATE_GIT_REPO:-${CR_TRUE}}" = "${CR_TRUE}" ]; then
         if check_command "git"; then
             console_debug "git installed"
             console_comment "Creating repository"
