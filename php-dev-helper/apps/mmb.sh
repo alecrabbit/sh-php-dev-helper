@@ -419,6 +419,7 @@ mmb_package_created () {
         console_comment "Creating repository"
         console_print "$(cd "${__dir}" && git init && git add .)"
         if git_credentials_are_set; then
+            console_comment "Making first commit"
             console_dark "$(cd "${__dir}" && git commit -m init)"
         fi
     fi
