@@ -348,6 +348,10 @@ mmb_read_options () {
                 TMPL_PACKAGE_NAMESPACE="${__VALUE}"
                 TMPL_USE_NAMESPACE_OVERRIDE="${CR_TRUE}"
                 ;;
+            --no-git)
+                debug_option "${__OPTION}" "${__VALUE}"
+                TMPL_CREATE_GIT_REPO="${CR_FALSE}"
+                ;;
             -s)
                 debug_option "${__OPTION}" "${__VALUE}"
                 core_check_option_value "${__VALUE}" "${__OPTION}"
@@ -414,13 +418,15 @@ mmb_package_created () {
         console_print "$(tree -a "${__dir}")"
     fi
 
-    if check_command "git"; then
-        console_debug "git installed"
-        console_comment "Creating repository"
-        console_print "$(cd "${__dir}" && git init && git add .)"
-        if git_credentials_are_set; then
-            console_comment "Making first commit"
-            console_dark "$(cd "${__dir}" && git commit -m init)"
+    if [ "${TMPL_CREATE_GIT_REPO:-${CR_FALSE}}" = "${CR_TRUE}" ]; then
+        if check_command "git"; then
+            console_debug "git installed"
+            console_comment "Creating repository"
+            console_print "$(cd "${__dir}" && git init && git add .)"
+            if git_credentials_are_set; then
+                console_comment "Making first commit"
+                console_dark "$(cd "${__dir}" && git commit -m init)"
+            fi
         fi
     fi
 

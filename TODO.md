@@ -11,12 +11,13 @@
 
 ## Moomba
 
-- [ ] Feature: add `-l | --license` option
+- [ ] Feature: `-l | --license` option to pick license
 - [ ] Feature: Add option to compare project files in the current dir with template `<name>` files, e.g. `--compare-with[=default]`
 - [ ] Feature: Dir control: allow creating packages only in specified directories
 
 ---
 
+- [x] Feature: `--no-git` option to disable creating git repo
 - [x] Feature: initialize git repository, make first commit `init` if `user.email` and `user.name` are set
 - [x] Feature: During package creation make `.env` file with `USER_ID` and `CROUP_ID` vars for docker-compose files
 
