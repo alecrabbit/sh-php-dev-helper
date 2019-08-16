@@ -48,3 +48,19 @@ git_get_remote_url () {
     unset __url __remote __dir
     return "${CR_FALSE}"
 }
+
+git_credentials_are_set () {
+    __user_name="$(git config --global user.name)"
+    if [ -z "${__user_name}" ]; then
+        return "${CR_FALSE}"
+    else
+        __user_email="$(git config --global user.email)"
+        if [ -z "${__user_email}" ]; then
+            return "${CR_FALSE}"
+        fi
+    fi
+    console_debug "git credentials name: ${__user_name} email: ${__user_email}"
+    unset __user_name __user_email
+    return "${CR_TRUE}"
+
+}

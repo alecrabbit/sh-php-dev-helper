@@ -414,7 +414,14 @@ mmb_package_created () {
         console_print "$(tree -a "${__dir}")"
     fi
 
-    # gitattributes_generate "${__dir}" # Not working properly here
+    if check_command "git"; then
+        console_debug "git installed"
+        console_comment "Creating repository"
+        console_print "$(cd "${__dir}" && git init && git add .)"
+        if git_credentials_are_set; then
+            console_dark "$(cd "${__dir}" && git commit -m init)"
+        fi
+    fi
 
     unset __dir
 }
