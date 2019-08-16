@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.6.12"></a>
+## [0.6.12] - 2019-08-16
 ### Added
 - link to update cast
 
@@ -354,7 +357,8 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.11...HEAD
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.12...HEAD
+[0.6.12]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.11...0.6.12
 [0.6.11]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.10...0.6.11
 [0.6.10]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.9...0.6.10
 [0.6.9]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.8...0.6.9
