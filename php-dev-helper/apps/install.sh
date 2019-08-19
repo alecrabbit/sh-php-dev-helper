@@ -20,10 +20,6 @@ install_export_options () {
     :
 }
 
-install_check_working_env () {
-    :
-}
-
 install_show_settings () {
     :
 }
@@ -96,4 +92,18 @@ install_show_settings () {
 
 install_check_working_env  () {
     console_debug "Dummy: check working env"
+}
+
+install_check_installed_tools  () {
+    console_debug "Checking installed tools"
+    __TOOLS="docker docker-compose git git-chglog notify-send realpath tree"
+    for __tool in ${__TOOLS}; do
+        if check_command "${__tool}"
+        then
+            console_info "${__tool} - installed"
+        else
+            console_comment "${__tool} - is NOT installed"
+        fi
+    done
+    unset __TOOLS __tool
 }

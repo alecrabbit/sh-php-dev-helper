@@ -13,6 +13,7 @@ func_print_header "PHP Dev Helper Installer"
 ### Installing suite
 if [ "${COMMON_EXECUTE:-${CR_TRUE}}" -eq "${CR_TRUE}" ]; then
     console_warning "Under development - work in progress!"
+    install_check_installed_tools
     install_get_destination 
     if core_ask_question "Install PHP Dev Helper to '${SUITE_DIR}'?"; then
         install_copy_files_to_destination
