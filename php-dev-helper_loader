@@ -53,7 +53,6 @@ SCRIPT_BUILD="$(version_load_build "${BUILD_FILE}")"
 
 console_debug "Modules loaded"
 
-# TODO rename var to TERM_TITLE
 TERM_TITLE="$(core_get_title_from_file "${WORK_DIR}/TERMINAL_TITLE" "${WORK_DIR}")"
 
 export SCRIPT_VERSION

@@ -1270,7 +1270,6 @@ fi
 __shunit_tmpDir=`_shunit_mktempDir`
 
 # Provide a public temporary directory for unit test scripts.
-# TODO(kward): document this.
 SHUNIT_TMPDIR="${__shunit_tmpDir}/tmp"
 command mkdir "${SHUNIT_TMPDIR}"
 

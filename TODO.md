@@ -23,7 +23,6 @@
 
 ## Common
 
-- [ ] Feature: Add installed tools check during install
 - [ ] Write tests? 🤦‍
   - [x] started 🎈
 
@@ -31,3 +30,4 @@
 
 - [x] Feature: Enhanced notification message `Operation completed`
 - [x] Feature: Add option `--notify` to enable notification message
+- [x] Feature: Add installed tools check during install

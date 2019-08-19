@@ -1,6 +1,30 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Feature
+- Installed tools are checked before install
+
+### Improved
+- Styling for installed tools list
+
+
+<a name="0.6.15"></a>
+## [0.6.15] - 2019-08-16
+### Fixed
+- repository wasn't created regardless `--no-git` option
+
+
+<a name="0.6.14"></a>
+## [0.6.14] - 2019-08-16
+### Feature
+- `--no-git` option to disable creating git repo (`moomba`)
+
+
+<a name="0.6.13"></a>
+## [0.6.13] - 2019-08-16
+### Added
+-  message before making commit (`moomba`)
+
 
 <a name="0.6.12"></a>
 ## [0.6.12] - 2019-08-16
@@ -357,7 +381,10 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.12...HEAD
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.15...HEAD
+[0.6.15]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.14...0.6.15
+[0.6.14]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.13...0.6.14
+[0.6.13]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.12...0.6.13
 [0.6.12]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.11...0.6.12
 [0.6.11]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.10...0.6.11
 [0.6.10]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.9...0.6.10
