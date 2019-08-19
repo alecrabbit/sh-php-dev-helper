@@ -97,13 +97,18 @@ install_check_working_env  () {
 install_check_installed_tools  () {
     console_debug "Checking installed tools"
     __TOOLS="docker docker-compose git git-chglog notify-send realpath tree"
+    console_dark "\n     Installed:"
+
     for __tool in ${__TOOLS}; do
         if check_command "${__tool}"
         then
-            console_info "${__tool} - installed"
+            console_show_option "${CR_TRUE}" "${__tool}"
+            # console_info "${__tool} - installed"
         else
-            console_comment "${__tool} - is NOT installed"
+            console_show_option "${CR_FALSE}" "${__tool}"
+            # console_comment "${__tool} - is NOT installed"
         fi
     done
+    console_print ""
     unset __TOOLS __tool
 }
