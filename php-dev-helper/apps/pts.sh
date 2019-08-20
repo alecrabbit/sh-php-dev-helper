@@ -116,10 +116,10 @@ pts_check_container () {
             console_debug "Debug image required, need to restart container?"
             PTS_DOCKER_COMPOSE_FILE="${_DOCKER_COMPOSE_FILE_DEBUG}"
             if [ "${PTS_DEBUG_IMAGE_USED}" -eq "${CR_TRUE}" ]; then
-                console_debug "No restart needed: debug image used"
+                console_debug "No container restart needed: debug image used"
             else
-                console_info "Debug image required - restarting..."
-                console_debug "Restarting to debug image"
+                console_info "Debug image required - restarting container..."
+                console_debug "Restarting container to debug image"
                 func_restart_container "${PTS_DOCKER_COMPOSE_FILE}"
                 __check_container "${WORK_DIR}"
             fi
