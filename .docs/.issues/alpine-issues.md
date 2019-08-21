@@ -2,4 +2,4 @@
 
 ## Known Issues
 
-- `sort` option `-V` is not supported (BusyBox), impacts `--update` option
+- `sort` option `-V` is not supported (BusyBox), impacts `--upgrade` option

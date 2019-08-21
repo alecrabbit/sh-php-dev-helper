@@ -9,7 +9,7 @@ Usage:
 Options:
     --debug               - run in debug mode
     -h, --help            - show help message and exit
-    --update              - update scripts
+    --upgrade             - update scripts
     -V, --version         - show version
 
     -p                    - set package name
@@ -26,4 +26,4 @@ Example:
 ```
 
 > Note: options order is important \
-> [Notes](.docs/update_option.md) on using `--update` option
+> [Notes](.docs/update_option.md) on using `--upgrade` option

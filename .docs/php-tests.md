@@ -9,7 +9,7 @@ Usage:
 Options:
     --debug               - run in debug mode
     -h, --help            - show help message and exit
-    --update              - update scripts
+    --upgrade             - update scripts
     -V, --version         - show version
 
     -a, --all             - run all (substitutes -c, -s, --cs, -b)
@@ -32,7 +32,7 @@ Options:
 ```
 
 > Note: options order is important \
-> [Notes](update_option.md) on using `--update` option
+> [Notes](update_option.md) on using `--upgrade` option
 
 ## Links to used tools
 

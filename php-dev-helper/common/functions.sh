@@ -74,7 +74,7 @@ __do_not_update_dev () {
     fi
 }
 
-_pts_updater_run () {
+_pts_upgrade_run () {
     __REQUIRED_VERSION="${1:-}"
     __do_not_update_dev "${SCRIPT_DIR}" "${PDH_REPOSITORY}"
 
