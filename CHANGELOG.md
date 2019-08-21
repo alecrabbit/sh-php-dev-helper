@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Changed
+- `--update` option  replaced by `--upgrade` option
+
+
+<a name="0.6.17"></a>
+## [0.6.17] - 2019-08-20
 
 <a name="0.6.16"></a>
 ## [0.6.16] - 2019-08-19
@@ -384,7 +390,8 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.16...HEAD
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.17...HEAD
+[0.6.17]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.16...0.6.17
 [0.6.16]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.15...0.6.16
 [0.6.15]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.14...0.6.15
 [0.6.14]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.13...0.6.14
