@@ -46,7 +46,7 @@ if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
             fi
         fi
     else
-        console_notice "Container is not started"
+        console_notice "Container is not required or not started"
     fi
     pts_generate_gitattributes
     pts_update_changelog
