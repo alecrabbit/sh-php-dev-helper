@@ -36,7 +36,7 @@ Get your copy of specific version
 > Note: Check [releases](https://github.com/alecrabbit/sh-php-dev-helper/releases) tab for the latest version number
 
  ```bash
- version="0.6.9"
+ version="0.7.0"
 wget -qO- "https://github.com/alecrabbit/sh-php-dev-helper/archive/${version}.tar.gz" \
 | tar -xz && cd sh-php-dev-helper-${version} && echo ${version} > php-dev-helper/VERSION \
 && ./install && cd ..
