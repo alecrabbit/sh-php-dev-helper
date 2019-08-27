@@ -39,6 +39,7 @@ pts_generate_report_file () {
 <a href='${PTS_TMP_DIR_PARTIAL}/${PTS_COVERAGE_DIR}/html/index.html'>Coverage report</a><br>
 <a href='${PTS_TMP_DIR_PARTIAL}/${PTS_PHPMETRICS_DIR}/index.html'>Phpmetrics report</a><br>
 <a href='${PTS_TMP_DIR_PARTIAL}/${PTS_GRAPHS_DIR}'>Graphs dir</a><br>
+PHP Mess Detector <a href='../${PTS_BUILD_DIR}/phpmd.html'>report</a><br>
 
 </body>
 </html> 
@@ -677,7 +678,7 @@ _php_md_exec () {
         console_section "PHP Mess Detector..."
         if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmd --version
         then
-            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmd "${PTS_SOURCE_DIR}" html phpmd.xml --reportfile="${PTS_BUILD_DIR}/phpmd.html"
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmd "${PTS_SOURCE_DIR}" html phpmd.xml --reportfile "${PTS_BUILD_DIR}/phpmd.html"
         fi
     fi
 }

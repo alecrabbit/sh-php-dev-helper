@@ -2,6 +2,7 @@
 
 ## PHP-Tests
 
+- [ ] Move `tests/tmp` dir to `build` dir
 - [ ] Add phpqa tools:
   - [x] [phpmd](https://github.com/phpmd/phpmd)
   - [ ] [phploc](https://github.com/sebastianbergmann/phploc)

@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Added
+- `--md` option to enable `phpmd`
+
 
 <a name="0.7.1"></a>
 ## [0.7.1] - 2019-08-21
