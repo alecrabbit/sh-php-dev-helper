@@ -672,6 +672,16 @@ _php_metrics_exec () {
     fi
 }
 
+_php_md_exec () {
+    if [ "${PTS_PHPMD}" -eq "${CR_TRUE}" ]; then
+        console_section "PHP Mess Detector..."
+        if docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmd --version
+        then
+            docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app phpmd "${PTS_SOURCE_DIR}" html phpmd.xml --reportfile="${PTS_BUILD_DIR}/phpmd.html"
+        fi
+    fi
+}
+
 _phpunit_exec () {
     if [ "${PTS_PHPUNIT}" -eq "${CR_TRUE}" ]; then
         __php_version

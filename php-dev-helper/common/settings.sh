@@ -6,6 +6,7 @@ export PTS_UPDATER_TMP_DIR=".pts_updater_tmp"
 export PTS_DEBUG_IMAGE="debug"
 export PTS_SOURCE_DIR="src"
 export PTS_TESTS_DIR="tests"
+export PTS_BUILD_DIR="build"
 
 export PTS_PHPMETRICS_DIR="phpmetrics"
 export PTS_COVERAGE_DIR="coverage"

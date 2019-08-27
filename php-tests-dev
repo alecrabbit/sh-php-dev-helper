@@ -24,6 +24,7 @@ if [ "${COMMON_EXECUTE}" -eq "${CR_TRUE}" ]; then
         _phpunit_exec
         _var_dump_check_exec
         _php_metrics_exec
+        _php_md_exec
         _phpstan_exec
         _psalm_exec
         _php_security_exec
