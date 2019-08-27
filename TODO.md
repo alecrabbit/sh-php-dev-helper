@@ -2,6 +2,11 @@
 
 ## PHP-Tests
 
+- [ ] Add phpqa tools 
+  - [ ] [phpmd](https://github.com/phpmd/phpmd)
+  - [ ] [phploc](https://github.com/sebastianbergmann/phploc)
+  - [ ] [pdepend](https://github.com/pdepend/pdepend)
+  - [ ] [phpcpd](https://github.com/sebastianbergmann/phpcpd)
 - [ ] Add magic number detector [povils/phpmnd](https://github.com/povils/phpmnd)
 - [ ] Feature: run without docker(with local php installation)
 
