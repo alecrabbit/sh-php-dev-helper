@@ -220,6 +220,7 @@ pts_usage () {
     echo "    $(colored_yellow "--cs")                  - enable php code sniffer"
     echo "    $(colored_yellow "--ga")                  - generate .gitattributes file"
     echo "    $(colored_yellow "-g, --graphs")          - create dependencies graphs"
+    echo "    $(colored_yellow "--md")                  - enable phpmd"
     echo "    $(colored_yellow "--metrics")             - enable phpmetrics"
     echo "    $(colored_yellow "--multi")               - enable multi-tester"
     echo "    $(colored_yellow "--phpstan")             - enable phpstan"
@@ -240,6 +241,7 @@ pts_set_default_options () {
     PTS_RESTART=${CR_FALSE}
     PTS_VAR_DUMP_CHECK=${CR_FALSE}
     PTS_METRICS=${CR_FALSE}
+    PTS_PHPMD=${CR_FALSE}
     PTS_MULTI=${CR_FALSE}
     PTS_CS=${CR_FALSE}
     PTS_CS_BF=${CR_FALSE}
@@ -291,6 +293,7 @@ pts_export_options () {
     export PTS_REQUIRE_DEBUG_IMAGE
     export PTS_RESTART
     export PTS_VAR_DUMP_CHECK
+    export PTS_PHPMD
     export PTS_METRICS
     export PTS_MULTI
     export PTS_CS
@@ -321,6 +324,7 @@ pts_show_selected_options () {
     console_show_option "${PTS_VAR_DUMP_CHECK}" "Check for var dumps"
     console_show_option "${PTS_MULTI}" "Multi-tester"
     console_show_option "${PTS_METRICS}" "PHPMetrics"
+    console_show_option "${PTS_PHPMD}" "PHP mess detector"
     console_show_option "${PTS_PHPSTAN}" "PHPStan"
     console_show_option "${PTS_PSALM}" "Psalm"
     console_show_option "${PTS_PHP_SECURITY}" "Security checks"
@@ -388,6 +392,11 @@ pts_read_options () {
             --metrics)
                 debug_option "${__OPTION}" "${__VALUE}"
                 PTS_METRICS=${CR_TRUE}
+                PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
+                ;;
+            --md)
+                debug_option "${__OPTION}" "${__VALUE}"
+                PTS_PHPMD=${CR_TRUE}
                 PTS_REQUIRE_DEBUG_IMAGE=${CR_TRUE}
                 ;;
             --phpstan)
