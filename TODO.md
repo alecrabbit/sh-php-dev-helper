@@ -2,7 +2,7 @@
 
 ## PHP-Tests
 
-- [ ] Add phpqa tools 
+- [ ] Add phpqa tools:
   - [ ] [phpmd](https://github.com/phpmd/phpmd)
   - [ ] [phploc](https://github.com/sebastianbergmann/phploc)
   - [ ] [pdepend](https://github.com/pdepend/pdepend)
