@@ -533,7 +533,7 @@ _var_dump_check_exec () {
             __colors=" --no-colors"
         fi
         __run_options="var-dump-check ${PTS_SOURCE_DIR}${__colors}"
-        console_info "Proving checks in: ${PTS_SOURCE_DIR}"
+        console_info "Providing checks in: ${PTS_SOURCE_DIR}"
         # shellcheck disable=SC2086
         if ! docker-compose -f "${PTS_DOCKER_COMPOSE_FILE}" exec app ${__run_options}
         then
