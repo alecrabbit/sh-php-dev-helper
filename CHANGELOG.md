@@ -1,8 +1,15 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.7.2"></a>
+## [0.7.2] - 2019-08-28
 ### Added
 - `--md` option to enable `phpmd`
+
+### Fix
+- typo
+- `phpmd` report file
 
 
 <a name="0.7.1"></a>
@@ -402,7 +409,8 @@
 <a name="0.0.5"></a>
 ## 0.0.5 - 2019-05-15
 
-[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.7.1...HEAD
+[Unreleased]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.7.2...HEAD
+[0.7.2]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.7.1...0.7.2
 [0.7.1]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.17...0.7.0
 [0.6.17]: https://github.com/alecrabbit/sh-php-dev-helper/compare/0.6.16...0.6.17
