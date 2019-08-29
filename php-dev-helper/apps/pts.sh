@@ -36,9 +36,9 @@ pts_generate_report_file () {
 <h1><a href='#'>${__VENDOR_NAME}/${__PACKAGE_NAME}</a> report</h1>
 
 <p>Some links could be empty</p>
-<a href='${PTS_TMP_DIR_PARTIAL}/${PTS_COVERAGE_DIR}/html/index.html'>Coverage report</a><br>
-<a href='${PTS_TMP_DIR_PARTIAL}/${PTS_PHPMETRICS_DIR}/index.html'>Phpmetrics report</a><br>
-<a href='${PTS_TMP_DIR_PARTIAL}/${PTS_GRAPHS_DIR}'>Graphs dir</a><br>
+<a href='${PTS_COVERAGE_DIR}/html/index.html'>Coverage report</a><br>
+<a href='${PTS_PHPMETRICS_DIR}/index.html'>Phpmetrics report</a><br>
+<a href='${PTS_GRAPHS_DIR}'>Graphs dir</a><br>
 PHP Mess Detector <a href='../${PTS_BUILD_DIR}/phpmd.html'>report</a><br>
 
 </body>
@@ -269,6 +269,7 @@ pts_process_options () {
     if [ "${__TOTAL_OPTION}" -eq "${CR_TRUE}" ]; then
         PTS_VAR_DUMP_CHECK=${CR_TRUE}
         PTS_METRICS=${CR_TRUE}
+        PTS_PHPMD=${CR_TRUE}
         PTS_MULTI=${CR_TRUE}
         PTS_PHP_SECURITY=${CR_TRUE}
         PTS_UPDATE_CHANGELOG=${CR_TRUE}
