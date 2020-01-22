@@ -37,6 +37,8 @@ Get your copy of specific version
 
  ```bash
  version="0.7.0"
+ ```
+ ```bash
 wget -qO- "https://github.com/alecrabbit/sh-php-dev-helper/archive/${version}.tar.gz" \
 | tar -xz && cd sh-php-dev-helper-${version} && echo ${version} > php-dev-helper/VERSION \
 && ./install && cd ..
