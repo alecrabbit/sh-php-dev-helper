@@ -1,6 +1,6 @@
-/.vscode/
-/.eval/
-
+.vscode/
+.eval/
+.idea/
 .sh-pdh-allowed-dirs
 .sh-pdh-disallowed-dirs
 .sh-pdh-settings
