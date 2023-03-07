@@ -55,7 +55,7 @@ version_string () {
 version_update_needed () {
     test "$(echo "${SCRIPT_VERSION} ${1}" | tr " " "\n" | sort -V | head -n 1)" != "${1}";
 }
- 
+
 version_save_build_hash () {
     __script_dir="${1:-.}"
     __lib_dir="${2:-.}"
@@ -79,4 +79,3 @@ version_print () {
     console_print "$(colored_default "${SCRIPT_NAME:-${DEFAULT_SCRIPT_NAME:-unknown}}") version ${__current_version}"
     unset __current_version
 }
-
